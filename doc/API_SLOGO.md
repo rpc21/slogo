@@ -1,5 +1,7 @@
 # SLogo API
 
+Megan Phibbons, Anna Darwish, Louis Jensen, Ryan Culhane
+
 ## Architecture Design
 #### When does parsing need to take place and what does it need to start properly?
 * Parsing is triggered by a "run" button or something similar
