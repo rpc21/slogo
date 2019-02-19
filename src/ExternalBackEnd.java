@@ -6,23 +6,14 @@ import java.util.*;
 public interface ExternalBackEnd {
 
     /**
-     *
+     * returns needed information regarding results of Command
      */
-    public void getCommandResult();
+    public Collection<Object> getCommandResult();
 
     /**
-     *
+     * returns updated state of Turtle, including new position, orientation, and whether or not the pen is up or down
      */
-    public void getTurtleLocation();
+    public UnmodifiableDisplay getUnmodifiableDisplay();
 
-    /**
-     *
-     */
-    public void getTurtleOrientation();
-
-    /**
-     *
-     */
-    public void isPenDown();
 
 }

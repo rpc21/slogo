@@ -7,13 +7,9 @@ import java.util.*;
 public interface ExternalFrontEnd {
 
     /**
-     *
+     * Invoked when the user types in a command that results in the screen needing to be cleared
      */
-    public void reset();
+    public void clearScreen();
 
-    /**
-     *
-     */
-    public void sendUserInput();
 
 }
