@@ -1,5 +1,5 @@
 # Design Plan
-####Authors: Ryan Culhane, Anna Darwish, Lewis Jensen Megan Phibbons
+###Authors: Ryan Culhane, Anna Darwish, Lewis Jensen, Megan Phibbons  
 ##Introduction
 * We are trying to create an application where novice programmers can gain experience with programming in an intuitive manner.  The application should also give more experienced programmers the flexibility to create more sophisticated programs.  The program should be interactive and responsive enough to allow users to see the output of their commands immediately (REPL) and allow them to reuse and build off previous commands.
 * We want our code to be more flexible in adding new commands to the list of possible commands. In terms of UI, it should be easy to do things like change languages, add a new language, or change existing language. 
@@ -8,8 +8,8 @@
 
 
 ## Design Overview
-**The picture below describes our general structure of our project.**
-![](Class_Structure.jpg)
+**The picture below describes our general structure of our project.**  
+![](Class_Structure.jpg)  
 **APIs:**
 * Front-end external:
     * Give the typed in commands
