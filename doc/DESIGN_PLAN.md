@@ -1,6 +1,6 @@
 # Design Plan
-###Authors: Ryan Culhane, Anna Darwish, Lewis Jensen, Megan Phibbons  
-##Introduction
+### Authors: Ryan Culhane, Anna Darwish, Lewis Jensen, Megan Phibbons  
+## Introduction
 * We are trying to create an application where novice programmers can gain experience with programming in an intuitive manner.  The application should also give more experienced programmers the flexibility to create more sophisticated programs.  The program should be interactive and responsive enough to allow users to see the output of their commands immediately (REPL) and allow them to reuse and build off previous commands.
 * We want our code to be more flexible in adding new commands to the list of possible commands. In terms of UI, it should be easy to do things like change languages, add a new language, or change existing language. 
 * Closed: The way that the UI interacts with the commands. For example, adding in new commands should not change the way that the UI passes commands to the parser. Method functionality should all be in back-end, but UI code should not need to be changed. 
@@ -42,13 +42,13 @@
     * Turtle - keeps track of turtle’s location and possibly drawings
         * Locations kept as doubles
         
-##User Interface:
+## User Interface:
 * The picture below describes our user interface
 ![](UI_demo.png)
 * The preferences toolbar will contain dropdown buttons so the user can make changes to the interface
 * The history, methods, and variables will be different tabs on one area of the screen.
 
-##API Details
+## API Details
 * This can be viewed in the src folder, where we designed 4 interfaces corresponding to the APIs for front-end/back-end internal/external. The comments go in-depth about when each of these are used, how they are used, and what requirements they fill. 
 * Front-end internal
     * changeBackgroundColor()
@@ -120,7 +120,7 @@
         * This is called by the front end after the commands finish executing
         * This could be extended by allowing command results to be a variety of different types (Strings, ints, doubles, etc)
 
-##API Example Code
+## API Example Code
 * Example Code:
     * myParser.parse(String command);
         * validateCommand(String command)
