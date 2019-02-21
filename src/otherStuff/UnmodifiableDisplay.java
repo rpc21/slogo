@@ -1,3 +1,5 @@
+package otherStuff;
+
 public abstract class UnmodifiableDisplay{
 
     /**
