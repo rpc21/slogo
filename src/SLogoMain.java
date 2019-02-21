@@ -13,9 +13,11 @@ import javafx.stage.FileChooser.ExtensionFilter;
  * Main class to run the application
  */
 public class SLogoMain extends Application {
-           
+
     @Override
     public void start (Stage primaryStage) throws Exception {
+        primaryStage.setTitle("Hello World");
+        primaryStage.show();
 
     }
 
