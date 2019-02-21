@@ -15,6 +15,7 @@ import javafx.geometry.Insets;
 import javafx.scene.text.Text;
 import javafx.scene.text.Font;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 
 import java.util.concurrent.CancellationException;
 
@@ -51,15 +52,21 @@ public class Display {
         grid.add(choosePenColor(), 2, 0);
         grid.add(chooseCanvasColor(), 3, 0);
         grid.add(chooseTurtleIcon(), 4, 0);
-
-        TextField textField = new TextField ();
-        grid.add(textField, 0, 7);
-
-        grid.add(runButton(), 5, 1);
-        grid.add(clearButton(), 5, 2);
+        grid.add(makeTextBox(), 0, 7, 5, 3);
+        grid.add(runButton(), 5, 7);
+        grid.add(clearButton(), 5, 8);
+        grid.add(helpButton(), 5, 9);
         grid.add(makeTurtleCanvas(), 0, 1, 5, 5);
 
         return grid;
+    }
+
+    private TextArea makeTextBox(){
+        TextArea textArea = new TextArea();
+        textArea.setPrefRowCount(4);
+        textArea.setPrefColumnCount(10);
+        textArea.setWrapText(true);
+        return textArea;
     }
 
     private Canvas makeTurtleCanvas(){
@@ -75,6 +82,14 @@ public class Display {
         Button button = new Button("Run");
         button.setOnAction(event -> {
             System.out.println("Run");
+        });
+        return button;
+    }
+
+    private Button helpButton(){
+        Button button = new Button("Help");
+        button.setOnAction(event -> {
+            System.out.println("Help");
         });
         return button;
     }
