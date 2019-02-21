@@ -2,9 +2,7 @@ package GUI;
 
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -14,8 +12,6 @@ import javafx.scene.layout.Pane;
 import javafx.geometry.Insets;
 import javafx.scene.text.Text;
 import javafx.scene.text.Font;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextArea;
 
 import java.util.concurrent.CancellationException;
 
@@ -57,8 +53,28 @@ public class Display {
         grid.add(clearButton(), 5, 8);
         grid.add(helpButton(), 5, 9);
         grid.add(makeTurtleCanvas(), 0, 1, 5, 5);
-
+        grid.add(makeTabs(), 6, 0);
         return grid;
+    }
+
+    private TabPane makeTabs(){
+        TabPane tabs = new TabPane();
+        Tab tab1 = new Tab("Tab1");
+        Label label1 = new Label("This is tab one");
+        tab1.setContent(label1);
+        tabs.getTabs().add(tab1);
+
+        Tab tab2 = new Tab("Tab2");
+        Label label2 = new Label("This is tab two");
+        tab2.setContent(label2);
+        tabs.getTabs().add(tab2);
+
+        Tab tab3 = new Tab("Tab3");
+        Label label3 = new Label("This is tab three");
+        tab3.setContent(label3);
+        tabs.getTabs().add(tab3);
+
+        return tabs;
     }
 
     private TextArea makeTextBox(){
