@@ -17,9 +17,14 @@ import javafx.stage.FileChooser.ExtensionFilter;
  */
 public class SLogoMain extends Application {
 
+    Display displayMaker = new Display();
+
     @Override
     public void start (Stage primaryStage) throws Exception {
         GUIManager guiManager = new GUIManager(primaryStage);
+//        displayMaker.start(primaryStage);
+//        primaryStage.show();
+
     }
 
 
