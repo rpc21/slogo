@@ -1,5 +1,6 @@
 package GUI;
 
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
@@ -26,13 +27,18 @@ public class SLogoTab extends Tab implements GUIComponent{
         myVBoxOfStrings = new VBox();
         myScrollPane = new ScrollPane();
         myScrollPane.setContent(myVBoxOfStrings);
+        myScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     }
 
     public void addContents(String newContents){
-        addContents(new Text(newContents));
+        Label contents = new Label(newContents);
+        contents.setWrapText(true);
+        myVBoxOfStrings.getChildren().add(0, contents);
+//        addContents(new Label(newContents));
     }
 
-    public void addContents(Text newContents){
+    public void addContents(Label newContents){
+        newContents.setWrapText(true);
         myVBoxOfStrings.getChildren().add(0, newContents);
     }
 }

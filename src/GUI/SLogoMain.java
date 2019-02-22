@@ -21,9 +21,11 @@ public class SLogoMain extends Application {
 
     @Override
     public void start (Stage primaryStage) throws Exception {
-        GUIManager guiManager = new GUIManager(primaryStage);
+//        GUIManager guiManager = new GUIManager(primaryStage);
 //        displayMaker.start(primaryStage);
 //        primaryStage.show();
+        GUIDisplay display = new GUIDisplay(primaryStage);
+        display.display();
 
     }
 
