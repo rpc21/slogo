@@ -44,7 +44,7 @@ public class GUIDisplay {
 
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
-        myResources = ResourceBundle.getBundle("/resources.languages/"+myLanguage);
+        myResources = ResourceBundle.getBundle("/resources.languages/" + myLanguage);
         myStage = stage;
         myRoot = createGridPane();
         myScene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.LIGHTGRAY);
