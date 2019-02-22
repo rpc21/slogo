@@ -37,6 +37,10 @@ public class GUIDisplay {
     private ResourceBundle myResources;
     private String myLanguage;
     private Toolbar myToolbar;
+    private TabExplorer myTabExplorer;
+    private SLogoTab myVariables;
+    private SLogoTab myCommands;
+    private SLogoTab myMethods;
 
     public static final int SCENE_WIDTH = 1200;
     public static final int SCENE_HEIGHT = 650;
@@ -68,18 +72,18 @@ public class GUIDisplay {
     }
 
     private void createTabExplorer(GridPane grid) {
-        TabExplorer tabExplorer = new TabExplorer();
-        SLogoTab variablesTab = new SLogoTab("Variables");
-        SLogoTab userDefinedMethods = new SLogoTab("Methods");
-        SLogoTab commandHistory = new SLogoTab("Command History");
-        variablesTab.addContents("First Contents added to variables");
-        variablesTab.addContents("Second Contents added to variables");
-        commandHistory.addContents("here are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.");
+        myTabExplorer = new TabExplorer();
+        myVariables = new SLogoTab("Variables");
+        myMethods = new SLogoTab("Methods");
+        myCommands = new SLogoTab("Command History");
+        myVariables.addContents("First Contents added to variables");
+        myVariables.addContents("Second Contents added to variables");
+        myCommands.addContents("here are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.");
         for (int i = 0; i < 100; i++) {
-            userDefinedMethods.addContents("Is this scrollable? "+i);
+            myMethods.addContents("Is this scrollable? "+i);
         }
-        tabExplorer.getTabs().addAll(variablesTab, userDefinedMethods, commandHistory);
-        grid.add(tabExplorer, 6, 1, 3, 5);
+        myTabExplorer.getTabs().addAll(myVariables, myMethods, myCommands);
+        grid.add(myTabExplorer, 6, 1, 3, 5);
     }
 
     private void createCanvas(GridPane grid) {
@@ -175,8 +179,13 @@ public class GUIDisplay {
         button.setOnAction(event -> {
             System.out.println("Run");
             commandToExecute = myTextBox.getText();
+            addToCommandHistory(commandToExecute);
         });
         return button;
+    }
+
+    private void addToCommandHistory(String command){
+        myCommands.addContents(command);
     }
 
     private Button helpButton(){

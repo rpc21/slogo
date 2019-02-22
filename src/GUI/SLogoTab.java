@@ -5,6 +5,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.control.*;
 
 public class SLogoTab extends Tab implements GUIComponent{
 
@@ -33,6 +34,9 @@ public class SLogoTab extends Tab implements GUIComponent{
     public void addContents(String newContents){
         Label contents = new Label(newContents);
         contents.setWrapText(true);
+        contents.setOnMouseClicked(event -> {
+            System.out.println(contents.getText());
+        });
         myVBoxOfStrings.getChildren().add(0, contents);
 //        addContents(new Label(newContents));
     }
