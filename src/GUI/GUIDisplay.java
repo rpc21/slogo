@@ -42,8 +42,13 @@ public class GUIDisplay {
     private SLogoTab myCommands;
     private SLogoTab myMethods;
     private StackPane myStackPane;
-
-    public static final int SCENE_WIDTH = 1200;
+    RetrieveCommand myRetrieveCommand = new RetrieveCommand() {
+        @Override
+        public void retrieveCommand(String a) {
+            myTextBox.setText(a);
+        }
+    };
+        public static final int SCENE_WIDTH = 1200;
     public static final int SCENE_HEIGHT = 650;
 
     public GUIDisplay(Stage stage){
@@ -85,8 +90,6 @@ public class GUIDisplay {
         }
         myTabExplorer.getTabs().addAll(myVariables, myMethods, myCommands);
         grid.add(myTabExplorer, 6, 1, 3, 5);
-        myTabExplorer.getTabs().addAll(myVariables, myMethods, myCommands);
-        grid.add(myTabExplorer, 6, 1, 3, 3);
     }
 
     private void createCanvas(GridPane grid) {
