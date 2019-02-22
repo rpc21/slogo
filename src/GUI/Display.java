@@ -4,6 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.canvas.Canvas;
@@ -12,14 +13,26 @@ import javafx.scene.layout.Pane;
 import javafx.geometry.Insets;
 import javafx.scene.text.Text;
 import javafx.scene.text.Font;
-
-import java.util.concurrent.CancellationException;
+import javafx.scene.control.TabPane.TabClosingPolicy;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class Display {
 
     private Scene myScene;
     private String myTitle = "SLogo";
     private GridPane myRoot;
+    private TextArea myTextBox = makeTextBox();
+    private String commandToExecute;
+    private MenuButton myLanguageChooser = chooseLanguage();
+    private MenuButton myPenColorChooser = choosePenColor();
+    private MenuButton myBackGroundColorChooser = chooseCanvasColor();
+    private MenuButton myTurtleIconChooser = chooseTurtleIcon();
+    private Button myRunButton = runButton();
+    private Button myClearButton = clearButton();
+    private Button myHelpButton = helpButton();
+    private TabPane myTabs = makeTabs();
+    private Canvas myTurtleCanvas = makeTurtleCanvas();
 
     public void start (Stage stage) {
         myScene = setupVisualization(stage);
@@ -44,36 +57,37 @@ public class Display {
         Text title = new Text("SLogo");
         title.setFont(Font.font("Arial", 50));
         grid.add(title, 0, 0);
-        grid.add(chooseLanguage(), 1, 0);
-        grid.add(choosePenColor(), 2, 0);
-        grid.add(chooseCanvasColor(), 3, 0);
-        grid.add(chooseTurtleIcon(), 4, 0);
-        grid.add(makeTextBox(), 0, 7, 5, 3);
-        grid.add(runButton(), 5, 7);
-        grid.add(clearButton(), 5, 8);
-        grid.add(helpButton(), 5, 9);
-        grid.add(makeTurtleCanvas(), 0, 1, 5, 5);
-        grid.add(makeTabs(), 6, 0);
+        grid.add(myLanguageChooser, 1, 0);
+        grid.add(myPenColorChooser, 2, 0);
+        grid.add(myBackGroundColorChooser, 3, 0);
+        grid.add(myTurtleIconChooser, 4, 0);
+        grid.add(myTextBox, 0, 7, 5, 3);
+        grid.add(myRunButton, 5, 7);
+        grid.add(myClearButton, 5, 8);
+        grid.add(myHelpButton, 5, 9);
+        grid.add(myTurtleCanvas, 0, 1, 5, 5);
+        grid.add(myTabs, 6, 1, 3, 5);
         return grid;
     }
 
     private TabPane makeTabs(){
         TabPane tabs = new TabPane();
-        Tab tab1 = new Tab("Tab1");
-        Label label1 = new Label("This is tab one");
+        Tab tab1 = new Tab("Variable Explorer");
+        Label label1 = new Label("Put variables here");
         tab1.setContent(label1);
         tabs.getTabs().add(tab1);
 
-        Tab tab2 = new Tab("Tab2");
-        Label label2 = new Label("This is tab two");
+        Tab tab2 = new Tab("Command History");
+        Label label2 = new Label("Put command history here");
         tab2.setContent(label2);
         tabs.getTabs().add(tab2);
 
-        Tab tab3 = new Tab("Tab3");
-        Label label3 = new Label("This is tab three");
+        Tab tab3 = new Tab("Methods");
+        Label label3 = new Label("Put user defined and built in methods here");
         tab3.setContent(label3);
         tabs.getTabs().add(tab3);
 
+        tabs.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
         return tabs;
     }
 
@@ -98,6 +112,7 @@ public class Display {
         Button button = new Button("Run");
         button.setOnAction(event -> {
             System.out.println("Run");
+            commandToExecute = myTextBox.getText();
         });
         return button;
     }
@@ -106,14 +121,25 @@ public class Display {
         Button button = new Button("Help");
         button.setOnAction(event -> {
             System.out.println("Help");
+            Alert help = showHelpMenu();
+            help.show();
         });
         return button;
+    }
+
+    private Alert showHelpMenu(){
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Help");
+        alert.setHeaderText("Help Menu");
+        alert.setContentText("all the help info");
+        return alert;
     }
 
     private Button clearButton(){
         Button button = new Button("Clear");
         button.setOnAction(event -> {
             System.out.println("Clear");
+            myTextBox.setText("");
         });
         return button;
     }
@@ -121,7 +147,7 @@ public class Display {
     private MenuButton chooseLanguage(){
         MenuButton menuButton = new MenuButton("Select Language");
         MenuItem english = new MenuItem("English");
-   //     english.setOnAction(event -> {
+    //     english.setOnAction(event -> {
           //  edgeType = "regular";
    //     });
         MenuItem spanish = new MenuItem("Spanish");
@@ -157,17 +183,26 @@ public class Display {
     private MenuButton chooseCanvasColor(){
         MenuButton menuButton = new MenuButton("Select Canvas Color");
         MenuItem white = new MenuItem("White");
-        //     english.setOnAction(event -> {
+             white.setOnAction(event -> {
         //  edgeType = "regular";
-        //     });
+                 myTurtleCanvas.getGraphicsContext2D().setFill(Color.WHITE);
+                 myTurtleCanvas.getGraphicsContext2D().rect(0, 0, myTurtleCanvas.getWidth(), myTurtleCanvas.getHeight());
+                 myTurtleCanvas.getGraphicsContext2D().fill();
+             });
         MenuItem grey = new MenuItem("Grey");
-        //     spanish.setOnAction(event -> {
+             grey.setOnAction(event -> {
         //  edgeType = "toroid";
-        //    });
+                 myTurtleCanvas.getGraphicsContext2D().setFill(Color.GREY);
+                 myTurtleCanvas.getGraphicsContext2D().rect(0, 0, myTurtleCanvas.getWidth(), myTurtleCanvas.getHeight());
+                 myTurtleCanvas.getGraphicsContext2D().fill();
+            });
         MenuItem blue = new MenuItem("Blue");
-        //     chinese.setOnAction(event -> {
+             blue.setOnAction(event -> {
         //  edgeType = "toroid";
-        //      });
+                 myTurtleCanvas.getGraphicsContext2D().setFill(Color.BLUE);
+                 myTurtleCanvas.getGraphicsContext2D().rect(0, 0, myTurtleCanvas.getWidth(), myTurtleCanvas.getHeight());
+                 myTurtleCanvas.getGraphicsContext2D().fill();
+              });
         menuButton.getItems().addAll(white, grey, blue);
         return menuButton;
     }
