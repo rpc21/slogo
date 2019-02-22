@@ -41,6 +41,7 @@ public class GUIDisplay {
     private SLogoTab myVariables;
     private SLogoTab myCommands;
     private SLogoTab myMethods;
+    private StackPane myStackPane;
 
     public static final int SCENE_WIDTH = 1200;
     public static final int SCENE_HEIGHT = 650;
@@ -84,18 +85,20 @@ public class GUIDisplay {
         }
         myTabExplorer.getTabs().addAll(myVariables, myMethods, myCommands);
         grid.add(myTabExplorer, 6, 1, 3, 5);
+        myTabExplorer.getTabs().addAll(myVariables, myMethods, myCommands);
+        grid.add(myTabExplorer, 6, 1, 3, 3);
     }
 
     private void createCanvas(GridPane grid) {
-        StackPane stackPane = new StackPane();
-
+        myStackPane = new StackPane();
         myTurtleCanvas = new Canvas(700, 450);
         GraphicsContext gc = myTurtleCanvas.getGraphicsContext2D();
         gc.setFill(Color.WHITE);
         gc.rect(0, 0, myTurtleCanvas.getWidth(), myTurtleCanvas.getHeight());
         gc.fill();
-        stackPane.getChildren().add(myTurtleCanvas);
-        grid.add(stackPane, 0, 1, 5, 5);
+        myStackPane.getChildren().add(myTurtleCanvas);
+        myStackPane.getChildren().add(new TurtleView());
+        grid.add(myStackPane, 0, 1, 5, 5);
     }
 
     private void makeTextBox(GridPane grid){
