@@ -79,12 +79,12 @@ public class GUIDisplay {
             userDefinedMethods.addContents("Is this scrollable? "+i);
         }
         tabExplorer.getTabs().addAll(variablesTab, userDefinedMethods, commandHistory);
-        grid.add(tabExplorer, 6, 1, 3, 5);
+        grid.add(tabExplorer, 6, 1, 3, 3);
     }
 
     private void createCanvas(GridPane grid) {
         StackPane stackPane = new StackPane();
-        myTurtleCanvas = new Canvas(800, 450);
+        myTurtleCanvas = new Canvas(700, 450);
         GraphicsContext gc = myTurtleCanvas.getGraphicsContext2D();
         gc.setFill(Color.WHITE);
         gc.rect(0, 0, myTurtleCanvas.getWidth(), myTurtleCanvas.getHeight());
