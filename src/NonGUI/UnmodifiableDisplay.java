@@ -1,3 +1,5 @@
+package NonGUI;
+
 public abstract class UnmodifiableDisplay{
 
     /**

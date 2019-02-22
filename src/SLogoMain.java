@@ -1,3 +1,4 @@
+import GUI.GUIManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -16,9 +17,7 @@ public class SLogoMain extends Application {
 
     @Override
     public void start (Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Hello World");
-        primaryStage.show();
-
+        GUIManager guiManager = new GUIManager(primaryStage);
     }
 
 
