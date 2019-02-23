@@ -38,6 +38,7 @@ public class GUIDisplay {
     private String myLanguage;
     private Toolbar myToolbar;
     private StackPane myStackPane;
+    private TurtleView turtle;
 
     public static final int SCENE_WIDTH = 1200;
     public static final int SCENE_HEIGHT = 650;
@@ -91,7 +92,8 @@ public class GUIDisplay {
         gc.rect(0, 0, myTurtleCanvas.getWidth(), myTurtleCanvas.getHeight());
         gc.fill();
         myStackPane.getChildren().add(myTurtleCanvas);
-        myStackPane.getChildren().add(new TurtleView());
+        turtle = new TurtleView(myTurtleCanvas);
+        myStackPane.getChildren().add(turtle);
         grid.add(myStackPane, 0, 1, 5, 5);
     }
 
@@ -205,5 +207,17 @@ public class GUIDisplay {
             myTextBox.setText("");
         });
         return button;
+    }
+
+    public void makeMoves(){
+        turtle.makeMove(new Move(Color.BLACK, true, PenStyle.DASHED, 2.0, new double[] {50, 0}));
+        turtle.makeMove(new Move(Color.BLACK, true, PenStyle.DASHED, 2.0, new double[] {0, 100}));
+//        turtle.makeMove(new Move(Color.BLACK, true, PenStyle.DASHED, 2.0, new double[] {-50, 0}));
+//        turtle.makeMove(new Move(Color.BLACK, true, PenStyle.DASHED, 2.0, new double[] {0, -100}));
+        turtle.makeMove(new Move(Color.BLACK, true, PenStyle.DASHED, 10.0, new double[] {20, 100}));
+        turtle.makeMove(new Move(Color.BLUE, true, PenStyle.DASHED, 1.0, new double[] {-50, -10}));
+        turtle.makeMove(new Move(Color.BLACK, true, PenStyle.DASHED, 5.0, new double[] {10, -100}));
+        turtle.makeMove(new Move(Color.PINK, true, PenStyle.DASHED, 3.0, new double[] {0, -12}));
+        turtle.drawPath();
     }
 }

@@ -12,6 +12,7 @@ public class SLogoMain extends Application {
     public void start (Stage primaryStage) throws Exception {
         GUIDisplay display = new GUIDisplay(primaryStage);
         display.display();
+        display.makeMoves();
 
     }
 

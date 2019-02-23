@@ -13,6 +13,7 @@ public class TurtleView extends DisplayView {
 
     private Canvas myCanvas;
     private Pen myPen;
+    private GraphicsContext myContext;
 
     public TurtleView(){
         super(new Image(TURTLE_IMAGE));
@@ -24,17 +25,36 @@ public class TurtleView extends DisplayView {
     public TurtleView(Canvas turtleCanvas) {
         this();
         myCanvas = turtleCanvas;
+        setX(turtleCanvas.getLayoutX());
+        myContext = myCanvas.getGraphicsContext2D();
+        myContext.beginPath();
+        myContext.moveTo(this.getTranslateX() + myCanvas.getWidth()/2, this.getTranslateY() + myCanvas.getHeight()/2);
     }
 
     public void makeMove(Move turtleMove){
         updatePen(turtleMove);
-        GraphicsContext context = myCanvas.getGraphicsContext2D();
-        context.setLineWidth(myPen.getMyWidth());
-        context.setStroke(myPen.getMyColor());
-        context.beginPath();
-        context.moveTo(turtleMove.getDisplacement()[0], turtleMove.getDisplacement()[1]);
-        context.closePath();
-        context.stroke();
+        drawPath(turtleMove);
+    }
+
+    private void updateTurtlePosition(Move turtleMove) {
+        setTranslateX(getTranslateX() + turtleMove.getDisplacement()[0]);
+        setTranslateY(getTranslateY() + turtleMove.getDisplacement()[1]);
+    }
+
+    private void drawPath(Move turtleMove) {
+//        GraphicsContext context = myCanvas.getGraphicsContext2D();
+        myContext.setLineWidth(myPen.getMyWidth());
+        myContext.setStroke(myPen.getMyColor());
+        myContext.beginPath();
+        myContext.moveTo(this.getTranslateX() + myCanvas.getWidth()/2, this.getTranslateY() + myCanvas.getHeight()/2);
+        updateTurtlePosition(turtleMove);
+        myContext.lineTo(this.getTranslateX() + myCanvas.getWidth()/2, this.getTranslateY() + myCanvas.getHeight()/2);
+        myContext.stroke();
+        myContext.closePath();
+    }
+
+    public void drawPath(){
+        myContext.stroke();
     }
 
     private void updatePen(Move turtleMove) {
