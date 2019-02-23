@@ -33,6 +33,7 @@ public class GUIDisplay {
     private Button myClearButton;
     private Button myHelpButton;
     private TabPane myTabs;
+    private Canvas myBackgroundCanvas;
     private Canvas myTurtleCanvas;
     private ResourceBundle myResources;
     private String myLanguage;
@@ -86,13 +87,15 @@ public class GUIDisplay {
 
     private void createCanvas(GridPane grid) {
         myStackPane = new StackPane();
-        myTurtleCanvas = new Canvas(700, 450);
-        GraphicsContext gc = myTurtleCanvas.getGraphicsContext2D();
+        myBackgroundCanvas = new Canvas(700, 450);
+        GraphicsContext gc = myBackgroundCanvas.getGraphicsContext2D();
         gc.setFill(Color.WHITE);
-        gc.rect(0, 0, myTurtleCanvas.getWidth(), myTurtleCanvas.getHeight());
+        gc.rect(0, 0, myBackgroundCanvas.getWidth(), myBackgroundCanvas.getHeight());
         gc.fill();
-        myStackPane.getChildren().add(myTurtleCanvas);
+        myStackPane.getChildren().add(myBackgroundCanvas);
+        myTurtleCanvas = new Canvas(700, 450);
         turtle = new TurtleView(myTurtleCanvas);
+        myStackPane.getChildren().add(myTurtleCanvas);
         myStackPane.getChildren().add(turtle);
         grid.add(myStackPane, 0, 1, 5, 5);
     }
@@ -109,7 +112,6 @@ public class GUIDisplay {
         Toolbar toolbar = new Toolbar();
         List<Control> toolbarMenus = new ArrayList<>();
         initializeToolbarMenus(toolbarMenus);
-        System.out.println(toolbar);
         toolbar.getChildren().addAll(toolbarMenus);
         grid.add(toolbar, 1, 0, 4, 1);
     }
@@ -119,19 +121,28 @@ public class GUIDisplay {
         toolbarMenus.add(myLanguageChooser);
         myBackGroundColorChooser = createBackgroundChooser();
         toolbarMenus.add(myBackGroundColorChooser);
-        myPenColorChooser = new PenColorChooser();
+        myPenColorChooser = createPenColorChooser();
         toolbarMenus.add(myPenColorChooser);
         myTurtleIconChooser = createImageChooser();
         toolbarMenus.add(myTurtleIconChooser);
     }
 
+    private PenColorChooser createPenColorChooser(){
+        PenColorChooser penColorChooser = new PenColorChooser();
+        penColorChooser.setOnAction(event -> {
+            myTurtleCanvas.getGraphicsContext2D().setStroke(penColorChooser.getValue());
+        });
+        return penColorChooser;
+    }
+
+
     private BackgroundColorChooser createBackgroundChooser() {
 
         BackgroundColorChooser backgroundColorChooser = new BackgroundColorChooser();
         backgroundColorChooser.setOnAction(event -> {
-            myTurtleCanvas.getGraphicsContext2D().setFill(backgroundColorChooser.getValue());
-            myTurtleCanvas.getGraphicsContext2D().rect(0, 0, myTurtleCanvas.getWidth(), myTurtleCanvas.getHeight());
-            myTurtleCanvas.getGraphicsContext2D().fill();
+            myBackgroundCanvas.getGraphicsContext2D().setFill(backgroundColorChooser.getValue());
+            myBackgroundCanvas.getGraphicsContext2D().rect(0, 0, myBackgroundCanvas.getWidth(), myBackgroundCanvas.getHeight());
+            myBackgroundCanvas.getGraphicsContext2D().fill();
         });
         return backgroundColorChooser;
     }
@@ -210,14 +221,16 @@ public class GUIDisplay {
     }
 
     public void makeMoves(){
-        turtle.makeMove(new Move(Color.BLACK, true, PenStyle.DASHED, 2.0, new double[] {50, 0}));
-        turtle.makeMove(new Move(Color.BLACK, true, PenStyle.DASHED, 2.0, new double[] {0, 100}));
+        List<Move> moves = new ArrayList<>();
+        moves.add(new Move(Color.BLACK, true, PenStyle.DASHED, 2.0, new double[] {50, 0}));
+        moves.add(new Move(Color.BLACK, true, PenStyle.DASHED, 2.0, new double[] {0, 100}));
 //        turtle.makeMove(new Move(Color.BLACK, true, PenStyle.DASHED, 2.0, new double[] {-50, 0}));
 //        turtle.makeMove(new Move(Color.BLACK, true, PenStyle.DASHED, 2.0, new double[] {0, -100}));
-        turtle.makeMove(new Move(Color.BLACK, true, PenStyle.DASHED, 10.0, new double[] {20, 100}));
-        turtle.makeMove(new Move(Color.BLUE, true, PenStyle.DASHED, 1.0, new double[] {-50, -10}));
-        turtle.makeMove(new Move(Color.BLACK, true, PenStyle.DASHED, 5.0, new double[] {10, -100}));
-        turtle.makeMove(new Move(Color.PINK, true, PenStyle.DASHED, 3.0, new double[] {0, -12}));
+        moves.add(new Move(Color.BLACK, true, PenStyle.DASHED, 10.0, new double[] {20, 100}));
+        moves.add(new Move(Color.BLUE, true, PenStyle.DASHED, 1.0, new double[] {-50, -10}));
+        moves.add(new Move(Color.BLACK, true, PenStyle.DASHED, 5.0, new double[] {10, -100}));
+        moves.add(new Move(Color.PINK, true, PenStyle.DASHED, 3.0, new double[] {0, -12}));
+        turtle.addAllMoves(moves);
         turtle.drawPath();
     }
 }

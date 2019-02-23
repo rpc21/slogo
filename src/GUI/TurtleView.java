@@ -5,6 +5,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TurtleView extends DisplayView {
 
     public static final String TURTLE_IMAGE = "turtle1.jpg";
@@ -14,21 +17,20 @@ public class TurtleView extends DisplayView {
     private Canvas myCanvas;
     private Pen myPen;
     private GraphicsContext myContext;
+    private List<Move> myMoveHistory;
 
     public TurtleView(){
         super(new Image(TURTLE_IMAGE));
         setFitHeight(TURTLE_HEIGHT);
         setFitWidth(TURTLE_WIDTH);
         myPen = new Pen(true, Color.BLACK, PenStyle.DASHED, 2.0);
+        myMoveHistory = new ArrayList<>();
     }
 
     public TurtleView(Canvas turtleCanvas) {
         this();
         myCanvas = turtleCanvas;
-        setX(turtleCanvas.getLayoutX());
         myContext = myCanvas.getGraphicsContext2D();
-        myContext.beginPath();
-        myContext.moveTo(this.getTranslateX() + myCanvas.getWidth()/2, this.getTranslateY() + myCanvas.getHeight()/2);
     }
 
     public void makeMove(Move turtleMove){
@@ -54,7 +56,9 @@ public class TurtleView extends DisplayView {
     }
 
     public void drawPath(){
-        myContext.stroke();
+        for (Move move : myMoveHistory){
+            makeMove(move);
+        }
     }
 
     private void updatePen(Move turtleMove) {
@@ -64,4 +68,15 @@ public class TurtleView extends DisplayView {
         myPen.setMyWidth(turtleMove.getPenWidth());
     }
 
+    public void addMove(Move turtleMove){
+        myMoveHistory.add(turtleMove);
+    }
+
+    public void addAllMoves(List<Move> turtleMoves){
+        myMoveHistory.addAll(turtleMoves);
+    }
+
+    public void clearMoves(){
+        myMoveHistory.clear();
+    }
 }
