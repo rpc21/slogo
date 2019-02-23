@@ -28,7 +28,7 @@ public class GUIDisplay {
     private LanguageChooser myLanguageChooser;
     private PenColorChooser myPenColorChooser;
     private BackgroundColorChooser myBackGroundColorChooser;
-    private ImageChooser myTurtleIconChooser;
+    private ImageChooser<String> myTurtleIconChooser;
     private Button myRunButton;
     private Button myClearButton;
     private Button myHelpButton;
@@ -39,7 +39,7 @@ public class GUIDisplay {
     private String myLanguage;
     private Toolbar myToolbar;
     private StackPane myStackPane;
-    private TurtleView turtle;
+    private DisplayView currentDisplayView;
 
     public static final int SCENE_WIDTH = 1200;
     public static final int SCENE_HEIGHT = 650;
@@ -62,10 +62,10 @@ public class GUIDisplay {
         GridPane grid = new GridPane();
         setGridProperties(grid);
         setTitle(grid);
+        createCanvas(grid);
         setToolbar(grid);
         makeTextBox(grid);
         initializeButtons(grid);
-        createCanvas(grid);
         createTabExplorer(grid);
         return grid;
     }
@@ -94,9 +94,9 @@ public class GUIDisplay {
         gc.fill();
         myStackPane.getChildren().add(myBackgroundCanvas);
         myTurtleCanvas = new Canvas(700, 450);
-        turtle = new TurtleView(myTurtleCanvas);
+        currentDisplayView = new BasicTurtleView(myTurtleCanvas);
         myStackPane.getChildren().add(myTurtleCanvas);
-        myStackPane.getChildren().add(turtle);
+        myStackPane.getChildren().add(currentDisplayView);
         grid.add(myStackPane, 0, 1, 5, 5);
     }
 
@@ -148,9 +148,15 @@ public class GUIDisplay {
     }
 
     private ImageChooser createImageChooser() {
-        ImageChooser imageChooser = new ImageChooser();
-        imageChooser.getItems().addAll("Basic Turtle Image", "Advanced Turtle Image");
+        ImageChooser<String> imageChooser = new ImageChooser<>();
+        imageChooser.getItems().addAll(currentDisplayView.getPossibleImages());
         imageChooser.getSelectionModel().selectFirst();
+        imageChooser.setOnAction(event-> {
+            myStackPane.getChildren().remove(currentDisplayView);
+            currentDisplayView = new DisplayViewFactory().generateDislplayView(imageChooser.getValue(),
+                    currentDisplayView);
+            myStackPane.getChildren().add(currentDisplayView);
+        });
         return imageChooser;
     }
 
@@ -224,13 +230,13 @@ public class GUIDisplay {
         List<Move> moves = new ArrayList<>();
         moves.add(new Move(Color.BLACK, true, PenStyle.DASHED, 2.0, new double[] {50, 0}));
         moves.add(new Move(Color.BLACK, true, PenStyle.DASHED, 2.0, new double[] {0, 100}));
-//        turtle.makeMove(new Move(Color.BLACK, true, PenStyle.DASHED, 2.0, new double[] {-50, 0}));
-//        turtle.makeMove(new Move(Color.BLACK, true, PenStyle.DASHED, 2.0, new double[] {0, -100}));
+//        currentDisplayView.makeMove(new Move(Color.BLACK, true, PenStyle.DASHED, 2.0, new double[] {-50, 0}));
+//        currentDisplayView.makeMove(new Move(Color.BLACK, true, PenStyle.DASHED, 2.0, new double[] {0, -100}));
         moves.add(new Move(Color.BLACK, true, PenStyle.DASHED, 10.0, new double[] {20, 100}));
         moves.add(new Move(Color.BLUE, true, PenStyle.DASHED, 1.0, new double[] {-50, -10}));
         moves.add(new Move(Color.BLACK, true, PenStyle.DASHED, 5.0, new double[] {10, -100}));
         moves.add(new Move(Color.PINK, true, PenStyle.DASHED, 3.0, new double[] {0, -12}));
-        turtle.addAllMoves(moves);
-        turtle.drawPath();
+        currentDisplayView.addAllMoves(moves);
+        currentDisplayView.drawPath();
     }
 }
