@@ -20,16 +20,16 @@ public class Parser {
         List<CommandNode> topLevelCommands = new ArrayList<>();
         parameterProperties = ResourceBundle.getBundle(PARAMETER_PROPERTIES_LOCATION);
         commandProperties = ResourceBundle.getBundle(COMMAND_PROPERTIES_LOCATION);
-
-
-        CommandNode root = myCommandFactory.makeCommand(input.split(" ")[0]);
-        CommandNode subRoot = myCommandFactory.makeCommand(input.split(" ")[1]);
-        root.addChild(subRoot);
-        subRoot.addChild(myCommandFactory.makeCommand(input.split(" ")[2]));
-        subRoot.addChild(myCommandFactory.makeCommand(input.split(" ")[3]));
-        root.addChild(myCommandFactory.makeCommand(input.split(" ")[4]));
-        topLevelCommands.add(root);
+        for(String topLevelCommand : separateTopLevelCommands(input)) {
+            topLevelCommands.add(makeTopLevelCommand(topLevelCommand));
+        }
         return topLevelCommands;
+    }
+
+    private CommandNode makeTopLevelCommand(String command) {
+        String commandName = command.split("\\s+")[0];
+        int numberOfParameters = Integer.parseInt(parameterProperties.getString(commandName));
+        return makeNode(commandName, numberOfParameters);
     }
 
     // purpose: take in all of the commands and divide them up by their top level commands
@@ -38,34 +38,38 @@ public class Parser {
         return null;
     }
 
-    // purpose: make the hierarchy of an individual top level command
-    private CommandNode makeTopLevelCommandNode(String command) {
-        // todo: based on a string input command, here is where the actual hierarchy of making the top level commands and their children nodes go
-        String[] commandInputs = command.split(" ");
-        if(commandInputs.length < 1) {
-            // todo: is this an actual problem? and if so, what should it throw?
+    private CommandNode makeNode(String command, int expectedNumberOfParameters) {
+        if(command == "") {
+            return null; // end of recursion
         }
-        String commandName = commandInputs[0]; // todo: check for comment/variable
-        String formalName = "";
-        for(String key : commandProperties.keySet()) {
-            if(commandProperties.getString(key).contains(commandName)) { // todo: use the regex here
-                formalName = key;
+        String[] commandSplit = command.split("\\s+");
+        if(commandSplit.length < expectedNumberOfParameters + 1) {
+            // todo: throw an exception
+        }
+        CommandNode currentNode = myCommandFactory.makeCommand(commandSplit[0]);
+        command = command.substring(commandSplit[0].length());
+        for(int i = 1; i < expectedNumberOfParameters; i++) {
+            if(isDouble(commandSplit[i])) {
+                currentNode.addChild(myCommandFactory.makeCommand(commandSplit[i]));
+            } else {
+                currentNode.addChild(makeNode(command, Integer.parseInt(parameterProperties.getString(commandSplit[i]))));
             }
+            command = command.substring(commandSplit[i].length()); // todo: does this work? do indices line up?
         }
-        if(formalName.equals("")) {
-            //todo: throw invalid command exception
+        if(command.length() != 0) {
+            // todo: throw an exception for too many args
         }
-        int expectedParameters = Integer.parseInt(parameterProperties.getString(formalName));
-        List<CommandNode> childrenNodes = new ArrayList<>();
-        for(int i = 0; i < expectedParameters; i++) {
-            if(i > commandInputs.length) {
-                // throw exception
-            }
-            childrenNodes.add(myCommandFactory.makeCommand(command)); //todo: make this actually work
-        }
-        CommandNode currentCommandHead = null; // todo ????????
-        return currentCommandHead;
+        return currentNode;
     }
 
+    // purpose: check if something successfully can be parsed as a double
+    private boolean isDouble(String input) {
+        try {
+            Double.parseDouble(input);
+            return true;
+        } catch(NumberFormatException e) {
+            return false;
+        }
+    }
 
 }
