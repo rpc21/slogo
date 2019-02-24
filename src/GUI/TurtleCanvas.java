@@ -13,34 +13,9 @@ public class TurtleCanvas extends Canvas implements GUIComponent {
         super(v1, v2);
     }
 
-    @Override
-    public double minHeight(double width)
-    {
-        return 64;
-    }
-
-    @Override
-    public double maxHeight(double width)
-    {
-        return 1000;
-    }
-
-    @Override
-    public double prefHeight(double width)
-    {
-        return minHeight(width);
-    }
-
-    @Override
-    public double minWidth(double height)
-    {
-        return 0;
-    }
-
-    @Override
-    public double maxWidth(double height)
-    {
-        return 10000;
+    public void setPreferredSize(double v1, double v2){
+        minWidth(v1);
+        minHeight(v2);
     }
 
     @Override
@@ -53,6 +28,7 @@ public class TurtleCanvas extends Canvas implements GUIComponent {
     public void resize(double width, double height) {
         super.setWidth(width);
         super.setHeight(height);
+//        setPreferredSize(width, height);
     }
 
     public Consumer<Color> getBackgroundColorAccess(){

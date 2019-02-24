@@ -70,15 +70,20 @@ public class GUIDisplay {
     private void handleResizability() {
         myScene.widthProperty().addListener(observable -> {
             resizeCanvases();
+            resizeTabExplorer();
         });
         myScene.heightProperty().addListener(observable -> {
             resizeCanvases();
+            resizeTabExplorer();
         });
     }
 
+    private void resizeTabExplorer() {
+        myTabExplorer.resize(myScene.getWidth() * 5/12, myScene.getHeight()*4.5/6.5);
+    }
+
     private void resizeCanvases() {
-        myBackgroundCanvas.resize(myScene.getWidth() * 7/12, myScene.getHeight()*4.5/6.5);
-        myTurtleCanvas.resize(myScene.getWidth() * 7/12, myScene.getHeight()*4.5/6.5);
+        myStackedCanvasPane.resizeCanvases(myScene.getWidth() * 7/12, myScene.getHeight()*4.5/6.5);
     }
 
     public void display(){
@@ -91,10 +96,11 @@ public class GUIDisplay {
         setTitle(grid);
         createCanvas(grid);
         setToolbar(grid);
-        createLanguageChooser();
+//        createLanguageChooser();
         makeTextBox(grid);
         initializeButtons(grid);
         createTabExplorer(grid);
+        grid.setPrefSize(SCENE_WIDTH, SCENE_HEIGHT);
         return grid;
     }
 
@@ -113,12 +119,15 @@ public class GUIDisplay {
         myCommands.getContent().setOnMouseClicked(event -> {
             myTextBox.setText(dataTracker.getMyTextToUpdate());
         });
+        for(int i = 0; i< 100; i++){
+            myVariables.addContents("Blank line");
+        }
         myVariables.addContents("Sample variable one");
         myVariables.addContents("practice variable two");
         myCommands.addContents("sample commmand");
         myMethods.addContents("sample method");
         myTabExplorer.getTabs().addAll(myVariables, myMethods, myCommands);
-        grid.add(myTabExplorer, 6, 1, 3, 5);
+        grid.add(myTabExplorer, 8, 1, 5, 5);
     }
 
     private void createCanvas(GridPane grid) {
@@ -212,36 +221,36 @@ public class GUIDisplay {
 //        grid.add(toolbar, 1, 0, 4, 1);
 //    }
 
-    private void initializeToolbarMenus(List<Control> toolbarMenus) {
-        myLanguageChooser = createLanguageChooser();
-        toolbarMenus.add(myLanguageChooser);
-        myTurtleIconChooser = createImageChooser();
-        toolbarMenus.add(myTurtleIconChooser);
-        myBackGroundColorChooser = createBackgroundChooser();
-        toolbarMenus.add(myBackGroundColorChooser);
-        myPenColorChooser = new PenColorChooser();
-        toolbarMenus.add(myPenColorChooser);
-    }
+//    private void initializeToolbarMenus(List<Control> toolbarMenus) {
+//        myLanguageChooser = createLanguageChooser();
+//        toolbarMenus.add(myLanguageChooser);
+//        myTurtleIconChooser = createImageChooser();
+//        toolbarMenus.add(myTurtleIconChooser);
+//        myBackGroundColorChooser = createBackgroundChooser();
+//        toolbarMenus.add(myBackGroundColorChooser);
+//        myPenColorChooser = new PenColorChooser();
+//        toolbarMenus.add(myPenColorChooser);
+//    }
 
-    private BackgroundColorChooser createBackgroundChooser() {
-
-        BackgroundColorChooser backgroundColorChooser = new BackgroundColorChooser();
-
-        backgroundColorChooser.setOnAction(event -> {
-            myTurtleCanvas.getGraphicsContext2D().setFill(backgroundColorChooser.getValue());
-            myTurtleCanvas.getGraphicsContext2D().rect(0, 0, myTurtleCanvas.getWidth(), myTurtleCanvas.getHeight());
-            myTurtleCanvas.getGraphicsContext2D().fill();
-        });
-        return backgroundColorChooser;
-    }
-
-    private ImageChooser createImageChooser() {
-        ImageChooser imageChooser = new ImageChooser();
-        imageChooser.getItems().addAll("Basic Turtle Image", "Advanced Turtle Image");
-     //   imageChooser.getSelectionModel().selectFirst();
-        imageChooser.setPromptText(myResources.getString("TurtleIcon"));
-        return imageChooser;
-    }
+//    private BackgroundColorChooser createBackgroundChooser() {
+//
+//        BackgroundColorChooser backgroundColorChooser = new BackgroundColorChooser();
+//
+//        backgroundColorChooser.setOnAction(event -> {
+//            myTurtleCanvas.getGraphicsContext2D().setFill(backgroundColorChooser.getValue());
+//            myTurtleCanvas.getGraphicsContext2D().rect(0, 0, myTurtleCanvas.getWidth(), myTurtleCanvas.getHeight());
+//            myTurtleCanvas.getGraphicsContext2D().fill();
+//        });
+//        return backgroundColorChooser;
+//    }
+//
+//    private ImageChooser createImageChooser() {
+//        ImageChooser imageChooser = new ImageChooser();
+//        imageChooser.getItems().addAll("Basic Turtle Image", "Advanced Turtle Image");
+//     //   imageChooser.getSelectionModel().selectFirst();
+//        imageChooser.setPromptText(myResources.getString("TurtleIcon"));
+//        return imageChooser;
+//    }
 
 
     private LanguageChooser createLanguageChooser() {

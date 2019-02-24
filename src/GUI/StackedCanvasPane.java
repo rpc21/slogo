@@ -15,13 +15,17 @@ public class StackedCanvasPane extends StackPane {
     private TurtleCanvas myBackgroundCanvas;
     private TurtleCanvas myDrawingCanvas;
     private DisplayView myCurrentDisplayView;
+    private boolean penDown;
 
     public StackedCanvasPane(){
         super();
         myBackgroundCanvas = createBackgroundCanvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
         myDrawingCanvas = new TurtleCanvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
         myCurrentDisplayView = new BasicTurtleView(myDrawingCanvas);
+        penDown = true;
         getChildren().addAll(myBackgroundCanvas, myDrawingCanvas, myCurrentDisplayView);
+        this.setLayoutX(DEFAULT_CANVAS_WIDTH);
+        this.setLayoutY(DEFAULT_CANVAS_HEIGHT);
     }
 
     private TurtleCanvas createBackgroundCanvas(double width, double height) {
@@ -61,5 +65,23 @@ public class StackedCanvasPane extends StackPane {
 
     public void batchUpdateCanvas(){
         myCurrentDisplayView.drawPath();
+    }
+
+    public void resizeCanvases(double v, double v1) {
+        myBackgroundCanvas.resize(v, v1);
+        myDrawingCanvas.resize(v, v1);
+    }
+
+    public void turtleMove(double pixels){
+        myCurrentDisplayView.addMove(new Move(Color.BLACK,penDown,PenStyle.DASHED, 2.0, new double[] {pixels, 0}));
+        myCurrentDisplayView.drawPath();
+    }
+
+    public void setPenUp(){
+        penDown = false;
+    }
+
+    public void setPenDown(){
+        penDown = true;
     }
 }
