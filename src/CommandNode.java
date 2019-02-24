@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class CommandNode {
+    public static final int ONE = 1;
+    public static final int ZERO = 0;
     List<CommandNode> myChildren = new ArrayList<>();
     /**
      * evaluates this node's value based upon its particular implementation
