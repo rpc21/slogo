@@ -1,6 +1,9 @@
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Parser {
     private CommandFactory myCommandFactory;
@@ -11,7 +14,6 @@ public class Parser {
 
     public List<CommandNode> parse(String input) { // todo: throw invalidcommandexception and invalidnumberinputs exception
         List<CommandNode> topLevelCommands = new ArrayList<>();
-
         CommandNode root = myCommandFactory.makeCommand(input.split(" ")[0]);
         CommandNode subRoot = myCommandFactory.makeCommand(input.split(" ")[1]);
         root.addChild(subRoot);
@@ -31,6 +33,11 @@ public class Parser {
     // purpose: make the hierarchy of an individual top level command
     private CommandNode makeTopLevelCommandNode(String command) {
         // todo: based on a string input command, here is where the actual hierarchy of making the top level commands and their children nodes go
+        String[] commandInputs = command.split(" ");
+        if(commandInputs.length < 1) {
+            // todo: is this an actual problem? and if so, what should it throw?
+        }
+        String commandName = commandInputs[0];
         return null;
     }
 
