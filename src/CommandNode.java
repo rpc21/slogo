@@ -1,8 +1,8 @@
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 public abstract class CommandNode {
-    Collection<CommandNode> myChildren = new ArrayList<CommandNode>();
+    List<CommandNode> myChildren = new ArrayList<>();
     /**
      * evaluates this node's value based upon its particular implementation
      */
@@ -16,7 +16,7 @@ public abstract class CommandNode {
     /**
      * returns list of this Node's children - these will be used as arguments to evaluate a CommandNode
      */
-    protected Collection<CommandNode> getChildren(){
+    protected List<CommandNode> getChildren(){
         return myChildren;
     }
     /**

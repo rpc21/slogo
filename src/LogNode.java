@@ -5,15 +5,13 @@ public class LogNode extends CommandNode {
     }
     @Override
     public double evaluate() {
-        for (CommandNode c: super.getChildren()) {
+
             try {
-                return Math.log(c.evaluate());
+                return Math.log(super.getChildren().get(0).evaluate());
             }
             catch (IllegalArgumentException e){
                 return NO_INPUT;
             }
-        }
-        return NO_INPUT;
     }
     /**
      * Adds an addend to this SumNode's list of Children as Parser reads them in

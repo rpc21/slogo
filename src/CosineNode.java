@@ -1,13 +1,10 @@
 public class CosineNode extends CommandNode {
-    private static final int NO_INPUT = 0;
     public CosineNode(String commandName) {
         super(commandName);
     }
     @Override
     public double evaluate() {
-        for (CommandNode c: super.getChildren())
-            return Math.cos(c.evaluate());
-        return NO_INPUT;
+        return Math.sin(super.getChildren().get(0).evaluate());
     }
     /**
      * Adds an addend to this SumNode's list of Children as Parser reads them in

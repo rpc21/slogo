@@ -1,13 +1,11 @@
 public class RandomNode extends CommandNode {
-    private static final int NO_INPUT = 0;
     public RandomNode(String commandName) {
         super(commandName);
     }
     @Override
     public double evaluate() {
-        for (CommandNode c: super.getChildren())
-            return Math.floor(Math.random()*c.evaluate()) + 1;
-        return NO_INPUT;
+        double childValue = super.getChildren().get(0).evaluate();
+        return Math.floor(Math.random()*childValue) + 1;
     }
     /**
      * Adds an addend to this SumNode's list of Children as Parser reads them in

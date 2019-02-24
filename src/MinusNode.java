@@ -5,9 +5,7 @@ public class MinusNode extends CommandNode {
     }
     @Override
     public double evaluate() {
-        for (CommandNode c : super.getChildren())
-            return -1.0 * c.evaluate();
-        return NO_INPUT;
+        return -1.0 * super.getChildren().get(0).evaluate();
     }
     /**
      * Adds an addend to this SumNode's list of Children as Parser reads them in

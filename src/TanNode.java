@@ -5,15 +5,12 @@ public class TanNode extends CommandNode {
     }
     @Override
     public double evaluate() {
-        for (CommandNode c: super.getChildren()) {
             try {
-                return Math.tan(c.evaluate());
+                return Math.tan(super.getChildren().get(0).evaluate());
             }
-            catch(IllegalArgumentException e){
+            catch(IllegalArgumentException e) {
                 return NO_INPUT;
             }
-        }
-        return NO_INPUT;
     }
     /**
      * Adds an addend to this SumNode's list of Children as Parser reads them in
