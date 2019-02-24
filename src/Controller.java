@@ -9,7 +9,7 @@ public class Controller {
     public double execute(String command){
         CommandNode myNode;
         try{
-            myNode = myParser.parse(command);
+            myNode = myParser.parse(command).get(0); // note of change! This is changed now because their could be many commands in a list that come from a parser.
         }
         catch(ArithmeticException e){
             return INVALID_COMMAND;
