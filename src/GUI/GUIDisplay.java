@@ -118,12 +118,12 @@ public class GUIDisplay {
         myCommands.addContents("sample commmand");
         myMethods.addContents("sample method");
         myTabExplorer.getTabs().addAll(myVariables, myMethods, myCommands);
-        grid.add(myTabExplorer, 6, 1, 3, 5);
+        grid.add(myTabExplorer, 6, 1, 1, 1);
     }
 
     private void createCanvas(GridPane grid) {
         myStackedCanvasPane = new StackedCanvasPane();
-        grid.add(myStackedCanvasPane, 0, 1, 7, 5);
+        grid.add(myStackedCanvasPane, 0, 1, 5, 1);
     }
 
 //    private TurtleCanvas createBackgroundCanvas(double width, double height) {
@@ -140,13 +140,13 @@ public class GUIDisplay {
         myTextBox.setPrefRowCount(4);
         myTextBox.setPrefColumnCount(10);
         myTextBox.setWrapText(true);
-        grid.add(myTextBox, 0, 7, 8, 3);
+        grid.add(myTextBox, 0, 2, 4, 3);
     }
 
     private void setToolbar(GridPane grid) {
         myToolbar = new Toolbar(myStackedCanvasPane.getBackgroundColorAccess(),
                 myStackedCanvasPane.getPenPropertiesAccess(), myStackedCanvasPane.getIconAccess());
-        grid.add(myToolbar, 1, 0, 6, 1);
+        grid.add(myToolbar, 1, 0, 1, 1);
     }
 
 //    private void initializeToolbarMenus(List<Control> toolbarMenus) {
@@ -335,11 +335,11 @@ public class GUIDisplay {
 
     private void initializeButtons(GridPane grid){
         myRunButton = runButton();
-        grid.add(myRunButton, 8, 7);
+        grid.add(myRunButton, 4, 2);
         myClearButton = clearButton();
-        grid.add(myClearButton, 8, 8);
+        grid.add(myClearButton, 4, 3);
         myHelpButton = helpButton();
-        grid.add(myHelpButton, 8, 9);
+        grid.add(myHelpButton, 4, 4);
     }
 
     private Button runButton(){
