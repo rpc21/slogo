@@ -2,11 +2,8 @@ package GUI;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -50,13 +47,17 @@ public class GUIDisplay {
         myStage = stage;
         myRoot = createGridPane();
         myScene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.LIGHTGRAY);
+        handleResizability();
+        myStage.setScene(myScene);
+    }
+
+    private void handleResizability() {
         myScene.widthProperty().addListener(observable -> {
             resizeCanvases();
         });
         myScene.heightProperty().addListener(observable -> {
             resizeCanvases();
         });
-        myStage.setScene(myScene);
     }
 
     private void resizeCanvases() {
@@ -242,8 +243,6 @@ public class GUIDisplay {
         List<Move> moves = new ArrayList<>();
         moves.add(new Move(Color.BLACK, true, PenStyle.DASHED, 2.0, new double[] {50, 0}));
         moves.add(new Move(Color.BLACK, true, PenStyle.DASHED, 2.0, new double[] {0, 100}));
-//        currentDisplayView.makeMove(new Move(Color.BLACK, true, PenStyle.DASHED, 2.0, new double[] {-50, 0}));
-//        currentDisplayView.makeMove(new Move(Color.BLACK, true, PenStyle.DASHED, 2.0, new double[] {0, -100}));
         moves.add(new Move(Color.BLACK, true, PenStyle.DASHED, 10.0, new double[] {20, 100}));
         moves.add(new Move(Color.BLUE, true, PenStyle.DASHED, 1.0, new double[] {-50, -10}));
         moves.add(new Move(Color.BLACK, true, PenStyle.DASHED, 5.0, new double[] {10, -100}));
