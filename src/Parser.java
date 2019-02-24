@@ -8,7 +8,6 @@ public class Parser {
     private ResourceBundle commandProperties;
     private static final String PARAMETER_PROPERTIES_LOCATION = "resources/languages/English.properties";
     private static final String COMMAND_PROPERTIES_LOCATION = "resources/parser/Parameters.properties";
-
     private String myCurrentCommand;
 
     public Parser() {
@@ -26,7 +25,7 @@ public class Parser {
         return topLevelCommands;
     }
 
-    private CommandNode makeNodeTree() { // todo: make this better
+    private CommandNode makeNodeTree() { // todo: check for invalid number of inputs and invalid commands
         String[] commandSplit = myCurrentCommand.split("\\s+");
         String currentCommandString = commandSplit[0];
         int expectedNumberOfParameters = Integer.parseInt(parameterProperties.getString(currentCommandString));
