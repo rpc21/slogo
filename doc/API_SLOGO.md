@@ -38,7 +38,7 @@ Megan Phibbons, Anna Darwish, Louis Jensen, Ryan Culhane
     * currLocation
     * fileName
 * Interactions
-    * Parser gives information to the Turtle of what to do 
+    * main.Parser gives information to the Turtle of what to do 
     * Sends information to UI about location and whether or not drawing
 ####Class 2: ValidWord  
 * Methods
@@ -75,18 +75,18 @@ Megan Phibbons, Anna Darwish, Louis Jensen, Ryan Culhane
 ## Use Cases
 * The user types 'fd 50' in the command window, sees the turtle move in the display window leaving a trail, and has the command added to the environment's history.
     * Send the command to the parser
-    * Parser checks command to see if it's valid
+    * main.Parser checks command to see if it's valid
     * Turtle class executes command and sends info back to UI
     * UI gets info from the turtle and updates display
     * UI adds command to Command History tab
 * The user types '50 fd' in the command window and sees an error message that the command was not formatted correctly.
     * The UI reads in the command
-    * The UI sends the command to the Parser
-    * The Parser sees that the command is invalid, throws an exception
+    * The UI sends the command to the main.Parser
+    * The main.Parser sees that the command is invalid, throws an exception
     * The UI sees that there's an exception and displays an invalid command error to the user
 * The user types 'pu fd 50 pd fd 50' in the command window and sees the turtle move twice (once without a trail and once with a trail).
     * The UI reads in the commands
-    * The  UI sends the commands to the Parser
+    * The  UI sends the commands to the main.Parser
     * The parser tells the turtle the commands
     * the turtle sets its according pen state
     * The turtle moves
