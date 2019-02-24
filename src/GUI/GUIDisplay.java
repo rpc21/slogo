@@ -33,8 +33,8 @@ public class GUIDisplay {
     private Button myClearButton;
     private Button myHelpButton;
     private TabPane myTabs;
-    private Canvas myBackgroundCanvas;
-    private Canvas myTurtleCanvas;
+    private TurtleCanvas myBackgroundCanvas;
+    private TurtleCanvas myTurtleCanvas;
     private ResourceBundle myResources;
     private String myLanguage;
     private Toolbar myToolbar;
@@ -50,7 +50,18 @@ public class GUIDisplay {
         myStage = stage;
         myRoot = createGridPane();
         myScene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.LIGHTGRAY);
+        myScene.widthProperty().addListener(observable -> {
+            resizeCanvases();
+        });
+        myScene.heightProperty().addListener(observable -> {
+            resizeCanvases();
+        });
         myStage.setScene(myScene);
+    }
+
+    private void resizeCanvases() {
+        myBackgroundCanvas.resize(myScene.getWidth() * 7/12, myScene.getHeight()*4.5/6.5);
+        myTurtleCanvas.resize(myScene.getWidth() * 7/12, myScene.getHeight()*4.5/6.5);
     }
 
     public void display(){
@@ -82,22 +93,27 @@ public class GUIDisplay {
             userDefinedMethods.addContents("Is this scrollable? "+i);
         }
         tabExplorer.getTabs().addAll(variablesTab, userDefinedMethods, commandHistory);
-        grid.add(tabExplorer, 6, 1, 3, 3);
+        grid.add(tabExplorer, 8, 1, 5, 5);
     }
 
     private void createCanvas(GridPane grid) {
         myStackPane = new StackPane();
-        myBackgroundCanvas = new Canvas(700, 450);
-        GraphicsContext gc = myBackgroundCanvas.getGraphicsContext2D();
-        gc.setFill(Color.WHITE);
-        gc.rect(0, 0, myBackgroundCanvas.getWidth(), myBackgroundCanvas.getHeight());
-        gc.fill();
+        myBackgroundCanvas = createBackgroundCanvas(700, 450);
         myStackPane.getChildren().add(myBackgroundCanvas);
-        myTurtleCanvas = new Canvas(700, 450);
+        myTurtleCanvas = new TurtleCanvas(700, 450);
         currentDisplayView = new BasicTurtleView(myTurtleCanvas);
         myStackPane.getChildren().add(myTurtleCanvas);
         myStackPane.getChildren().add(currentDisplayView);
-        grid.add(myStackPane, 0, 1, 5, 5);
+        grid.add(myStackPane, 0, 1, 7, 5);
+    }
+
+    private TurtleCanvas createBackgroundCanvas(double width, double height) {
+        TurtleCanvas canvas = new TurtleCanvas(width, height);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.setFill(Color.WHITE);
+        gc.rect(0, 0, canvas.getWidth(), canvas.getHeight());
+        gc.fill();
+        return canvas;
     }
 
     private void makeTextBox(GridPane grid){
@@ -105,7 +121,7 @@ public class GUIDisplay {
         myTextBox.setPrefRowCount(4);
         myTextBox.setPrefColumnCount(10);
         myTextBox.setWrapText(true);
-        grid.add(myTextBox, 0, 7, 5, 3);
+        grid.add(myTextBox, 0, 7, 8, 3);
     }
 
     private void setToolbar(GridPane grid) {
@@ -113,7 +129,7 @@ public class GUIDisplay {
         List<Control> toolbarMenus = new ArrayList<>();
         initializeToolbarMenus(toolbarMenus);
         toolbar.getChildren().addAll(toolbarMenus);
-        grid.add(toolbar, 1, 0, 4, 1);
+        grid.add(toolbar, 1, 0, 6, 1);
     }
 
     private void initializeToolbarMenus(List<Control> toolbarMenus) {
@@ -140,14 +156,18 @@ public class GUIDisplay {
 
         BackgroundColorChooser backgroundColorChooser = new BackgroundColorChooser();
         backgroundColorChooser.setOnAction(event -> {
-            myBackgroundCanvas.getGraphicsContext2D().setFill(backgroundColorChooser.getValue());
-            myBackgroundCanvas.getGraphicsContext2D().rect(0, 0, myBackgroundCanvas.getWidth(), myBackgroundCanvas.getHeight());
-            myBackgroundCanvas.getGraphicsContext2D().fill();
+            setBackgroundColor(backgroundColorChooser);
         });
         return backgroundColorChooser;
     }
 
-    private ImageChooser createImageChooser() {
+    private void setBackgroundColor(BackgroundColorChooser backgroundColorChooser) {
+        myBackgroundCanvas.getGraphicsContext2D().setFill(backgroundColorChooser.getValue());
+        myBackgroundCanvas.getGraphicsContext2D().rect(0, 0, myBackgroundCanvas.getWidth(), myBackgroundCanvas.getHeight());
+        myBackgroundCanvas.getGraphicsContext2D().fill();
+    }
+
+    private ImageChooser<String> createImageChooser() {
         ImageChooser<String> imageChooser = new ImageChooser<>();
         imageChooser.getItems().addAll(currentDisplayView.getPossibleImages());
         imageChooser.getSelectionModel().selectFirst();
@@ -183,11 +203,11 @@ public class GUIDisplay {
 
     private void initializeButtons(GridPane grid){
         myRunButton = runButton();
-        grid.add(myRunButton, 5, 7);
+        grid.add(myRunButton, 8, 7);
         myClearButton = clearButton();
-        grid.add(myClearButton, 5, 8);
+        grid.add(myClearButton, 8, 8);
         myHelpButton = helpButton();
-        grid.add(myHelpButton, 5, 9);
+        grid.add(myHelpButton, 8, 9);
     }
 
     private Button runButton(){
