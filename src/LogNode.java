@@ -1,14 +1,19 @@
-public class SumNode extends CommandNode {
-    public SumNode(String a){
-        super(a);
+public class LogNode extends CommandNode {
+    private static final int NO_INPUT = 0;
+    public LogNode(String commandName) {
+        super(commandName);
     }
     @Override
     public double evaluate() {
-        int sum = 0;
         for (CommandNode c: super.getChildren()) {
-            sum += c.evaluate();
+            try {
+                return Math.log(c.evaluate());
+            }
+            catch (IllegalArgumentException e){
+                return NO_INPUT;
+            }
         }
-        return sum;
+        return NO_INPUT;
     }
     /**
      * Adds an addend to this SumNode's list of Children as Parser reads them in
@@ -16,7 +21,7 @@ public class SumNode extends CommandNode {
      */
     @Override
     public void addChild(CommandNode c){
-        if (super.getChildren().size() == 2)
+        if (super.getChildren().size() == 1)
             throw new IllegalArgumentException();
         super.addChild(c);
     }

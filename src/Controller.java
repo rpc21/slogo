@@ -6,7 +6,7 @@ public class Controller {
         myParser = new Parser();
     }
 
-    public int execute(String command){
+    public double execute(String command){
         CommandNode myNode;
         try{
             myNode = myParser.parse(command);

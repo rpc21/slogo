@@ -1,12 +1,12 @@
 public class ConstantNode extends CommandNode{
 
-    private int myValue;
+    private double myValue;
 
     public ConstantNode(String val){
         super(val);
-        myValue = Integer.parseInt(val);
+        myValue = Double.parseDouble(val);
     }
-    public int evaluate(){
+    public double evaluate(){
         return myValue;
     }
 

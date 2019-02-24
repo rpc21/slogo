@@ -12,7 +12,7 @@ public abstract class CommandNode {
     /**
      * evaluates this node's value based upon its particular implementation
      */
-    public abstract int evaluate();
+    public abstract double evaluate();
     /**
      * returns list of this Node's children - these will be used as arguments to evaluate a CommandNode
      */
