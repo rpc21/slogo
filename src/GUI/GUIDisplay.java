@@ -1,5 +1,7 @@
 package GUI;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -38,8 +40,21 @@ public class GUIDisplay {
     private StackedCanvasPane myStackedCanvasPane;
     private DisplayView currentDisplayView;
 
+    private TabExplorer myTabExplorer;
+    private SLogoTab myVariables;
+    private SLogoTab myCommands;
+    private SLogoTab myMethods;
+    RetrieveCommand myRetrieveCommand = new RetrieveCommand() {
+        @Override
+        public void retrieveCommand(String a) {
+            myTextBox.setText(a);
+        }
+    };
+
     public static final int SCENE_WIDTH = 1200;
     public static final int SCENE_HEIGHT = 650;
+
+    public GUIdata dataTracker = new GUIdata();
 
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
@@ -69,7 +84,6 @@ public class GUIDisplay {
         myStage.show();
     }
 
-
     private GridPane createGridPane(){
         GridPane grid = new GridPane();
         setGridProperties(grid);
@@ -83,18 +97,26 @@ public class GUIDisplay {
     }
 
     private void createTabExplorer(GridPane grid) {
-        TabExplorer tabExplorer = new TabExplorer();
-        SLogoTab variablesTab = new SLogoTab("Variables");
-        SLogoTab userDefinedMethods = new SLogoTab("Methods");
-        SLogoTab commandHistory = new SLogoTab("Command History");
-        variablesTab.addContents("First Contents added to variables");
-        variablesTab.addContents("Second Contents added to variables");
-        commandHistory.addContents("here are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.");
-        for (int i = 0; i < 100; i++) {
-            userDefinedMethods.addContents("Is this scrollable? "+i);
-        }
-        tabExplorer.getTabs().addAll(variablesTab, userDefinedMethods, commandHistory);
-        grid.add(tabExplorer, 8, 1, 5, 5);
+        myTabExplorer = new TabExplorer();
+        myTabExplorer.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+        myVariables = new SLogoTab(myResources.getString("Variables"), dataTracker);
+        myVariables.getContent().setOnMouseClicked(event -> {
+            myTextBox.setText(dataTracker.getMyTextToUpdate());
+        });
+        myMethods = new SLogoTab(myResources.getString("Methods"), dataTracker);
+        myMethods.getContent().setOnMouseClicked(event -> {
+            myTextBox.setText(dataTracker.getMyTextToUpdate());
+        });
+        myCommands = new SLogoTab(myResources.getString("CommandHistory"), dataTracker);
+        myCommands.getContent().setOnMouseClicked(event -> {
+            myTextBox.setText(dataTracker.getMyTextToUpdate());
+        });
+        myVariables.addContents("Sample variable one");
+        myVariables.addContents("practice variable two");
+        myCommands.addContents("sample commmand");
+        myMethods.addContents("sample method");
+        myTabExplorer.getTabs().addAll(myVariables, myMethods, myCommands);
+        grid.add(myTabExplorer, 6, 1, 3, 5);
     }
 
     private void createCanvas(GridPane grid) {
@@ -180,7 +202,121 @@ public class GUIDisplay {
 //        languageChooser.getSelectionModel().selectFirst();
 //        return languageChooser;
 //    }
+//        Toolbar toolbar = new Toolbar();
+//        List<Control> toolbarMenus = new ArrayList<>();
+//        initializeToolbarMenus(toolbarMenus);
+//        System.out.println(toolbar);
+//        toolbar.getChildren().addAll(toolbarMenus);
+//        grid.add(toolbar, 1, 0, 4, 1);
+//    }
 
+    private void initializeToolbarMenus(List<Control> toolbarMenus) {
+        myLanguageChooser = createLanguageChooser();
+        toolbarMenus.add(myLanguageChooser);
+        myTurtleIconChooser = createImageChooser();
+        toolbarMenus.add(myTurtleIconChooser);
+        myBackGroundColorChooser = createBackgroundChooser();
+        toolbarMenus.add(myBackGroundColorChooser);
+        myPenColorChooser = new PenColorChooser();
+        toolbarMenus.add(myPenColorChooser);
+    }
+
+    private BackgroundColorChooser createBackgroundChooser() {
+
+        BackgroundColorChooser backgroundColorChooser = new BackgroundColorChooser();
+
+        backgroundColorChooser.setOnAction(event -> {
+            myTurtleCanvas.getGraphicsContext2D().setFill(backgroundColorChooser.getValue());
+            myTurtleCanvas.getGraphicsContext2D().rect(0, 0, myTurtleCanvas.getWidth(), myTurtleCanvas.getHeight());
+            myTurtleCanvas.getGraphicsContext2D().fill();
+        });
+        return backgroundColorChooser;
+    }
+
+    private ImageChooser createImageChooser() {
+        ImageChooser imageChooser = new ImageChooser();
+        imageChooser.getItems().addAll("Basic Turtle Image", "Advanced Turtle Image");
+     //   imageChooser.getSelectionModel().selectFirst();
+        imageChooser.setPromptText(myResources.getString("TurtleIcon"));
+        return imageChooser;
+    }
+
+
+    private LanguageChooser createLanguageChooser() {
+        LanguageChooser menuButton = new LanguageChooser();
+        menuButton.setText(myResources.getString("Language"));
+        MenuItem english = new MenuItem("English");
+        english.setOnAction(event -> {
+            myLanguage = "English";
+            updateLanguage();
+            myLanguageChooser.setText(myLanguage);
+        });
+
+        MenuItem french = new MenuItem("Français");
+        french.setOnAction(event -> {
+            myLanguage = "French";
+            updateLanguage();
+            myLanguageChooser.setText("Français");
+        });
+        MenuItem chinese = new MenuItem("Zhōngwén");
+        chinese.setOnAction(event -> {
+            myLanguage = "Chinese";
+            updateLanguage();
+            myLanguageChooser.setText("Zhōngwén");
+        });
+        MenuItem german = new MenuItem("Deutsche");
+        german.setOnAction(event -> {
+            myLanguage = "German";
+            updateLanguage();
+            myLanguageChooser.setText("Deutsche");
+        });
+        MenuItem italian = new MenuItem("Italiano");
+        italian.setOnAction(event -> {
+            myLanguage = "Italian";
+            updateLanguage();
+            myLanguageChooser.setText("Italiano");
+        });
+        MenuItem portuguese = new MenuItem("Português");
+        portuguese.setOnAction(event -> {
+            myLanguage = "Portuguese";
+            updateLanguage();
+            myLanguageChooser.setText("Português");
+        });
+        MenuItem russian = new MenuItem("Russkiy");
+        russian.setOnAction(event -> {
+            myLanguage = "Russian";
+            updateLanguage();
+            myLanguageChooser.setText("Russkiy");
+        });
+        MenuItem spanish = new MenuItem("Español");
+        spanish.setOnAction(event -> {
+            myLanguage = "Spanish";
+            updateLanguage();
+            myLanguageChooser.setText("Español");
+        });
+        MenuItem urdu = new MenuItem("Urdu");
+        urdu.setOnAction(event -> {
+            myLanguage = "Urdu";
+            updateLanguage();
+            myLanguageChooser.setText("Urdu");
+        });
+        menuButton.getItems().addAll(english, french, chinese, german, italian, portuguese, russian, spanish, urdu);
+        return menuButton;
+    }
+
+    private void updateLanguage(){
+        myResources = ResourceBundle.getBundle("/resources.languages/"+myLanguage);
+        myRunButton.setText(myResources.getString("Run"));
+        myClearButton.setText(myResources.getString("Clear"));
+        myHelpButton.setText(myResources.getString("Help"));
+        myVariables.setText(myResources.getString("Variables"));
+        myCommands.setText(myResources.getString("CommandHistory"));
+        myMethods.setText(myResources.getString("Methods"));
+      //  myLanguageChooser.setText(myResources.getString("Language"));
+   //     myBackGroundColorChooser.setPromptText(myResources.getString("BackgroundColor"));
+   //     myPenColorChooser.setPromptText(myResources.getString("PenColor"));
+        myTurtleIconChooser.setPromptText(myResources.getString("TurtleIcon"));
+    }
 
     private void setTitle(GridPane grid) {
         Text title = new Text("SLogo");
@@ -204,18 +340,22 @@ public class GUIDisplay {
     }
 
     private Button runButton(){
-        Button button = new Button("Run");
+       // Button button = new Button(myResources.getString("Run"));
+        Button button = new Button(myResources.getString("Run"));
         button.setOnAction(event -> {
-            System.out.println("Run");
             commandToExecute = myTextBox.getText();
+            addToCommandHistory(commandToExecute);
         });
         return button;
     }
 
+    private void addToCommandHistory(String command){
+        myCommands.addContents(command);
+    }
+
     private Button helpButton(){
-        Button button = new Button("Help");
+        Button button = new Button(myResources.getString("Help"));
         button.setOnAction(event -> {
-            System.out.println("Help");
             Alert help = showHelpMenu();
             help.show();
         });
@@ -224,16 +364,15 @@ public class GUIDisplay {
 
     private Alert showHelpMenu(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Help");
-        alert.setHeaderText("Help Menu");
-        alert.setContentText("all the help info");
+        alert.setTitle(myResources.getString("Help"));
+        alert.setHeaderText(myResources.getString("HelpHeader"));
+        alert.setContentText(myResources.getString("HelpInfo"));
         return alert;
     }
 
     private Button clearButton(){
-        Button button = new Button("Clear");
+        Button button = new Button(myResources.getString("Clear"));
         button.setOnAction(event -> {
-            System.out.println("Clear");
             myTextBox.setText("");
         });
         return button;
