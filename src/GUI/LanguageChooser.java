@@ -5,4 +5,5 @@ import javafx.scene.control.ComboBox;
 
 public class LanguageChooser<T> extends ChoiceBox<T> implements GUIComponent {
 
+
 }

@@ -38,7 +38,7 @@ public class GUIDisplay {
     private ResourceBundle myResources;
     private String myLanguage;
     private Toolbar myToolbar;
-    private StackPane myStackPane;
+    private StackedCanvasPane myStackedCanvasPane;
     private DisplayView currentDisplayView;
 
     public static final int SCENE_WIDTH = 1200;
@@ -97,24 +97,18 @@ public class GUIDisplay {
     }
 
     private void createCanvas(GridPane grid) {
-        myStackPane = new StackPane();
-        myBackgroundCanvas = createBackgroundCanvas(700, 450);
-        myStackPane.getChildren().add(myBackgroundCanvas);
-        myTurtleCanvas = new TurtleCanvas(700, 450);
-        currentDisplayView = new BasicTurtleView(myTurtleCanvas);
-        myStackPane.getChildren().add(myTurtleCanvas);
-        myStackPane.getChildren().add(currentDisplayView);
-        grid.add(myStackPane, 0, 1, 7, 5);
+        myStackedCanvasPane = new StackedCanvasPane();
+        grid.add(myStackedCanvasPane, 0, 1, 7, 5);
     }
 
-    private TurtleCanvas createBackgroundCanvas(double width, double height) {
-        TurtleCanvas canvas = new TurtleCanvas(width, height);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setFill(Color.WHITE);
-        gc.rect(0, 0, canvas.getWidth(), canvas.getHeight());
-        gc.fill();
-        return canvas;
-    }
+//    private TurtleCanvas createBackgroundCanvas(double width, double height) {
+//        TurtleCanvas canvas = new TurtleCanvas(width, height);
+//        GraphicsContext gc = canvas.getGraphicsContext2D();
+//        gc.setFill(Color.WHITE);
+//        gc.rect(0, 0, canvas.getWidth(), canvas.getHeight());
+//        gc.fill();
+//        return canvas;
+//    }
 
     private void makeTextBox(GridPane grid){
         myTextBox = new TextArea();
@@ -125,68 +119,66 @@ public class GUIDisplay {
     }
 
     private void setToolbar(GridPane grid) {
-        Toolbar toolbar = new Toolbar();
-        List<Control> toolbarMenus = new ArrayList<>();
-        initializeToolbarMenus(toolbarMenus);
-        toolbar.getChildren().addAll(toolbarMenus);
+        Toolbar toolbar = new Toolbar(myStackedCanvasPane.getBackgroundColorAccess(),
+                myStackedCanvasPane.getPenPropertiesAccess(), myStackedCanvasPane.getIconAccess());
         grid.add(toolbar, 1, 0, 6, 1);
     }
 
-    private void initializeToolbarMenus(List<Control> toolbarMenus) {
-        myLanguageChooser = createLanguageChooser();
-        toolbarMenus.add(myLanguageChooser);
-        myBackGroundColorChooser = createBackgroundChooser();
-        toolbarMenus.add(myBackGroundColorChooser);
-        myPenColorChooser = createPenColorChooser();
-        toolbarMenus.add(myPenColorChooser);
-        myTurtleIconChooser = createImageChooser();
-        toolbarMenus.add(myTurtleIconChooser);
-    }
+//    private void initializeToolbarMenus(List<Control> toolbarMenus) {
+//        myLanguageChooser = createLanguageChooser();
+//        toolbarMenus.add(myLanguageChooser);
+//        myBackGroundColorChooser = createBackgroundChooser();
+//        toolbarMenus.add(myBackGroundColorChooser);
+//        myPenColorChooser = createPenColorChooser();
+//        toolbarMenus.add(myPenColorChooser);
+//        myTurtleIconChooser = createImageChooser();
+//        toolbarMenus.add(myTurtleIconChooser);
+//    }
 
-    private PenColorChooser createPenColorChooser(){
-        PenColorChooser penColorChooser = new PenColorChooser();
-        penColorChooser.setOnAction(event -> {
-            myTurtleCanvas.getGraphicsContext2D().setStroke(penColorChooser.getValue());
-        });
-        return penColorChooser;
-    }
-
-
-    private BackgroundColorChooser createBackgroundChooser() {
-
-        BackgroundColorChooser backgroundColorChooser = new BackgroundColorChooser();
-        backgroundColorChooser.setOnAction(event -> {
-            setBackgroundColor(backgroundColorChooser);
-        });
-        return backgroundColorChooser;
-    }
-
-    private void setBackgroundColor(BackgroundColorChooser backgroundColorChooser) {
-        myBackgroundCanvas.getGraphicsContext2D().setFill(backgroundColorChooser.getValue());
-        myBackgroundCanvas.getGraphicsContext2D().rect(0, 0, myBackgroundCanvas.getWidth(), myBackgroundCanvas.getHeight());
-        myBackgroundCanvas.getGraphicsContext2D().fill();
-    }
-
-    private ImageChooser<String> createImageChooser() {
-        ImageChooser<String> imageChooser = new ImageChooser<>();
-        imageChooser.getItems().addAll(currentDisplayView.getPossibleImages());
-        imageChooser.getSelectionModel().selectFirst();
-        imageChooser.setOnAction(event-> {
-            myStackPane.getChildren().remove(currentDisplayView);
-            currentDisplayView = new DisplayViewFactory().generateDislplayView(imageChooser.getValue(),
-                    currentDisplayView);
-            myStackPane.getChildren().add(currentDisplayView);
-        });
-        return imageChooser;
-    }
+//    private PenColorChooser createPenColorChooser(){
+//        PenColorChooser penColorChooser = new PenColorChooser();
+//        penColorChooser.setOnAction(event -> {
+//            myTurtleCanvas.getGraphicsContext2D().setStroke(penColorChooser.getValue());
+//        });
+//        return penColorChooser;
+//    }
 
 
-    private LanguageChooser<String> createLanguageChooser() {
-        LanguageChooser<String> languageChooser = new LanguageChooser<>();
-        languageChooser.getItems().addAll("English", "German", "French");
-        languageChooser.getSelectionModel().selectFirst();
-        return languageChooser;
-    }
+//    private BackgroundColorChooser createBackgroundChooser() {
+//
+//        BackgroundColorChooser backgroundColorChooser = new BackgroundColorChooser();
+//        backgroundColorChooser.setOnAction(event -> {
+//            setBackgroundColor(backgroundColorChooser);
+//        });
+//        return backgroundColorChooser;
+//    }
+
+//    private void setBackgroundColor(BackgroundColorChooser backgroundColorChooser) {
+//        myBackgroundCanvas.getGraphicsContext2D().setFill(backgroundColorChooser.getValue());
+//        myBackgroundCanvas.getGraphicsContext2D().rect(0, 0, myBackgroundCanvas.getWidth(), myBackgroundCanvas.getHeight());
+//        myBackgroundCanvas.getGraphicsContext2D().fill();
+//    }
+
+//    private ImageChooser<String> createImageChooser() {
+//        ImageChooser<String> imageChooser = new ImageChooser<>();
+//        imageChooser.getItems().addAll(currentDisplayView.getPossibleImages());
+//        imageChooser.getSelectionModel().selectFirst();
+//        imageChooser.setOnAction(event-> {
+//            myStackPane.getChildren().remove(currentDisplayView);
+//            currentDisplayView = new DisplayViewFactory().generateDislplayView(imageChooser.getValue(),
+//                    currentDisplayView);
+//            myStackPane.getChildren().add(currentDisplayView);
+//        });
+//        return imageChooser;
+//    }
+
+
+//    private LanguageChooser<String> createLanguageChooser() {
+//        LanguageChooser<String> languageChooser = new LanguageChooser<>();
+//        languageChooser.getItems().addAll("English", "German", "French");
+//        languageChooser.getSelectionModel().selectFirst();
+//        return languageChooser;
+//    }
 
 
     private void setTitle(GridPane grid) {
@@ -256,7 +248,7 @@ public class GUIDisplay {
         moves.add(new Move(Color.BLUE, true, PenStyle.DASHED, 1.0, new double[] {-50, -10}));
         moves.add(new Move(Color.BLACK, true, PenStyle.DASHED, 5.0, new double[] {10, -100}));
         moves.add(new Move(Color.PINK, true, PenStyle.DASHED, 3.0, new double[] {0, -12}));
-        currentDisplayView.addAllMoves(moves);
-        currentDisplayView.drawPath();
+        myStackedCanvasPane.addAllMoves(moves);
+        myStackedCanvasPane.batchUpdateCanvas();
     }
 }

@@ -50,15 +50,9 @@ public class TurtleCanvas extends Canvas implements GUIComponent {
     }
 
     @Override
-    public void resize(double width, double height)
-    {
+    public void resize(double width, double height) {
         super.setWidth(width);
         super.setHeight(height);
-//        GraphicsContext graphicsContext = this.getGraphicsContext2D();
-//        System.out.println(graphicsContext.getFill());
-//        graphicsContext.setFill(graphicsContext.getFill());
-//        graphicsContext.fillRect(0, 0, this.getWidth(), this.getHeight());
-//        graphicsContext.fill();
     }
 
     public Consumer<Color> getBackgroundColorAccess(){
@@ -68,5 +62,12 @@ public class TurtleCanvas extends Canvas implements GUIComponent {
             this.getGraphicsContext2D().fill();
         };
         return changeBackgroundColor;
+    }
+
+    public Consumer<Color> getPenColorAccess(){
+        Consumer<Color> changePenColor = (x) -> {
+            this.getGraphicsContext2D().setStroke(x);
+        };
+        return changePenColor;
     }
 }
