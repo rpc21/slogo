@@ -1,12 +1,16 @@
-
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Properties;
+import java.util.ResourceBundle;
 
 public class Parser {
     private CommandFactory myCommandFactory;
+    private ResourceBundle parameterProperties;
+    private ResourceBundle commandProperties;
+    private static final String PARAMETER_PROPERTIES_LOCATION = "resources/languages/English.properties";
+    private static final String COMMAND_PROPERTIES_LOCATION = "resources/parser/Parameters.properties";
 
     public Parser() {
         myCommandFactory = new CommandFactory();
@@ -14,6 +18,10 @@ public class Parser {
 
     public List<CommandNode> parse(String input) { // todo: throw invalidcommandexception and invalidnumberinputs exception
         List<CommandNode> topLevelCommands = new ArrayList<>();
+        parameterProperties = ResourceBundle.getBundle(PARAMETER_PROPERTIES_LOCATION);
+        commandProperties = ResourceBundle.getBundle(COMMAND_PROPERTIES_LOCATION);
+
+
         CommandNode root = myCommandFactory.makeCommand(input.split(" ")[0]);
         CommandNode subRoot = myCommandFactory.makeCommand(input.split(" ")[1]);
         root.addChild(subRoot);
@@ -37,8 +45,26 @@ public class Parser {
         if(commandInputs.length < 1) {
             // todo: is this an actual problem? and if so, what should it throw?
         }
-        String commandName = commandInputs[0];
-        return null;
+        String commandName = commandInputs[0]; // todo: check for comment/variable
+        String formalName = "";
+        for(String key : commandProperties.keySet()) {
+            if(commandProperties.getString(key).contains(commandName)) { // todo: use the regex here
+                formalName = key;
+            }
+        }
+        if(formalName.equals("")) {
+            //todo: throw invalid command exception
+        }
+        int expectedParameters = Integer.parseInt(parameterProperties.getString(formalName));
+        List<CommandNode> childrenNodes = new ArrayList<>();
+        for(int i = 0; i < expectedParameters; i++) {
+            if(i > commandInputs.length) {
+                // throw exception
+            }
+            childrenNodes.add(myCommandFactory.makeCommand(command)); //todo: make this actually work
+        }
+        CommandNode currentCommandHead = null; // todo ????????
+        return currentCommandHead;
     }
 
 
