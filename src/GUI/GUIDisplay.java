@@ -1,5 +1,7 @@
 package GUI;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -81,15 +83,15 @@ public class GUIDisplay {
     private void createTabExplorer(GridPane grid) {
         myTabExplorer = new TabExplorer();
         myTabExplorer.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        myVariables = new SLogoTab("Variables", dataTracker);
+        myVariables = new SLogoTab(myResources.getString("Variables"), dataTracker);
         myVariables.getContent().setOnMouseClicked(event -> {
             myTextBox.setText(dataTracker.getMyTextToUpdate());
         });
-        myMethods = new SLogoTab("Methods", dataTracker);
+        myMethods = new SLogoTab(myResources.getString("Methods"), dataTracker);
         myMethods.getContent().setOnMouseClicked(event -> {
             myTextBox.setText(dataTracker.getMyTextToUpdate());
         });
-        myCommands = new SLogoTab("Command History", dataTracker);
+        myCommands = new SLogoTab(myResources.getString("CommandHistory"), dataTracker);
         myCommands.getContent().setOnMouseClicked(event -> {
             myTextBox.setText(dataTracker.getMyTextToUpdate());
         });
@@ -133,17 +135,18 @@ public class GUIDisplay {
     private void initializeToolbarMenus(List<Control> toolbarMenus) {
         myLanguageChooser = createLanguageChooser();
         toolbarMenus.add(myLanguageChooser);
+        myTurtleIconChooser = createImageChooser();
+        toolbarMenus.add(myTurtleIconChooser);
         myBackGroundColorChooser = createBackgroundChooser();
         toolbarMenus.add(myBackGroundColorChooser);
         myPenColorChooser = new PenColorChooser();
         toolbarMenus.add(myPenColorChooser);
-        myTurtleIconChooser = createImageChooser();
-        toolbarMenus.add(myTurtleIconChooser);
     }
 
     private BackgroundColorChooser createBackgroundChooser() {
 
         BackgroundColorChooser backgroundColorChooser = new BackgroundColorChooser();
+
         backgroundColorChooser.setOnAction(event -> {
             myTurtleCanvas.getGraphicsContext2D().setFill(backgroundColorChooser.getValue());
             myTurtleCanvas.getGraphicsContext2D().rect(0, 0, myTurtleCanvas.getWidth(), myTurtleCanvas.getHeight());
@@ -155,18 +158,88 @@ public class GUIDisplay {
     private ImageChooser createImageChooser() {
         ImageChooser imageChooser = new ImageChooser();
         imageChooser.getItems().addAll("Basic Turtle Image", "Advanced Turtle Image");
-        imageChooser.getSelectionModel().selectFirst();
+     //   imageChooser.getSelectionModel().selectFirst();
+        imageChooser.setPromptText(myResources.getString("TurtleIcon"));
         return imageChooser;
     }
 
 
-    private LanguageChooser<String> createLanguageChooser() {
-        LanguageChooser<String> languageChooser = new LanguageChooser<>();
-        languageChooser.getItems().addAll("English", "German", "French");
-        languageChooser.getSelectionModel().selectFirst();
-        return languageChooser;
+    private LanguageChooser createLanguageChooser() {
+        LanguageChooser menuButton = new LanguageChooser();
+        menuButton.setText(myResources.getString("Language"));
+        MenuItem english = new MenuItem("English");
+        english.setOnAction(event -> {
+            myLanguage = "English";
+            updateLanguage();
+            myLanguageChooser.setText(myLanguage);
+        });
+
+        MenuItem french = new MenuItem("Français");
+        french.setOnAction(event -> {
+            myLanguage = "French";
+            updateLanguage();
+            myLanguageChooser.setText("Français");
+        });
+        MenuItem chinese = new MenuItem("Zhōngwén");
+        chinese.setOnAction(event -> {
+            myLanguage = "Chinese";
+            updateLanguage();
+            myLanguageChooser.setText("Zhōngwén");
+        });
+        MenuItem german = new MenuItem("Deutsche");
+        german.setOnAction(event -> {
+            myLanguage = "German";
+            updateLanguage();
+            myLanguageChooser.setText("Deutsche");
+        });
+        MenuItem italian = new MenuItem("Italiano");
+        italian.setOnAction(event -> {
+            myLanguage = "Italian";
+            updateLanguage();
+            myLanguageChooser.setText("Italiano");
+        });
+        MenuItem portuguese = new MenuItem("Português");
+        portuguese.setOnAction(event -> {
+            myLanguage = "Portuguese";
+            updateLanguage();
+            myLanguageChooser.setText("Português");
+        });
+        MenuItem russian = new MenuItem("Russkiy");
+        russian.setOnAction(event -> {
+            myLanguage = "Russian";
+            updateLanguage();
+            myLanguageChooser.setText("Russkiy");
+        });
+        MenuItem spanish = new MenuItem("Español");
+        spanish.setOnAction(event -> {
+            myLanguage = "Spanish";
+            updateLanguage();
+            myLanguageChooser.setText("Español");
+        });
+        MenuItem urdu = new MenuItem("Urdu");
+        urdu.setOnAction(event -> {
+            myLanguage = "Urdu";
+            updateLanguage();
+            myLanguageChooser.setText("Urdu");
+        });
+        menuButton.getItems().addAll(english, french, chinese, german, italian, portuguese, russian, spanish, urdu);
+        return menuButton;
     }
-    
+
+    private void updateLanguage(){
+        myResources = ResourceBundle.getBundle("/resources.languages/"+myLanguage);
+        myRunButton.setText(myResources.getString("Run"));
+        myClearButton.setText(myResources.getString("Clear"));
+        myHelpButton.setText(myResources.getString("Help"));
+        myVariables.setText(myResources.getString("Variables"));
+        myCommands.setText(myResources.getString("CommandHistory"));
+        myMethods.setText(myResources.getString("Methods"));
+      //  myLanguageChooser.setText(myResources.getString("Language"));
+   //     myBackGroundColorChooser.setPromptText(myResources.getString("BackgroundColor"));
+   //     myPenColorChooser.setPromptText(myResources.getString("PenColor"));
+        myTurtleIconChooser.setPromptText(myResources.getString("TurtleIcon"));
+    }
+
     private void setTitle(GridPane grid) {
         Text title = new Text("SLogo");
         title.setFont(Font.font("Arial", 50));
@@ -190,9 +263,8 @@ public class GUIDisplay {
 
     private Button runButton(){
        // Button button = new Button(myResources.getString("Run"));
-        Button button = new Button("Run");
+        Button button = new Button(myResources.getString("Run"));
         button.setOnAction(event -> {
-            System.out.println("Run");
             commandToExecute = myTextBox.getText();
             addToCommandHistory(commandToExecute);
         });
@@ -204,9 +276,8 @@ public class GUIDisplay {
     }
 
     private Button helpButton(){
-        Button button = new Button("Help");
+        Button button = new Button(myResources.getString("Help"));
         button.setOnAction(event -> {
-            System.out.println("Help");
             Alert help = showHelpMenu();
             help.show();
         });
@@ -215,16 +286,15 @@ public class GUIDisplay {
 
     private Alert showHelpMenu(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Help");
-        alert.setHeaderText("Help Menu");
-        alert.setContentText("all the help info");
+        alert.setTitle(myResources.getString("Help"));
+        alert.setHeaderText(myResources.getString("HelpHeader"));
+        alert.setContentText(myResources.getString("HelpInfo"));
         return alert;
     }
 
     private Button clearButton(){
-        Button button = new Button("Clear");
+        Button button = new Button(myResources.getString("Clear"));
         button.setOnAction(event -> {
-            System.out.println("Clear");
             myTextBox.setText("");
         });
         return button;
