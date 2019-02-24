@@ -51,6 +51,8 @@ public class GUIDisplay {
         public static final int SCENE_WIDTH = 1200;
     public static final int SCENE_HEIGHT = 650;
 
+    public GUIdata dataTracker = new GUIdata();
+
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
         myResources = ResourceBundle.getBundle("/resources.languages/"+myLanguage);
@@ -63,7 +65,6 @@ public class GUIDisplay {
     public void display(){
         myStage.show();
     }
-
 
     private GridPane createGridPane(){
         GridPane grid = new GridPane();
@@ -79,15 +80,23 @@ public class GUIDisplay {
 
     private void createTabExplorer(GridPane grid) {
         myTabExplorer = new TabExplorer();
-        myVariables = new SLogoTab("Variables");
-        myMethods = new SLogoTab("Methods");
-        myCommands = new SLogoTab("Command History");
-        myVariables.addContents("First Contents added to variables");
-        myVariables.addContents("Second Contents added to variables");
-        myCommands.addContents("here are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.");
-        for (int i = 0; i < 100; i++) {
-            myMethods.addContents("Is this scrollable? "+i);
-        }
+        myTabExplorer.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+        myVariables = new SLogoTab("Variables", dataTracker);
+        myVariables.getContent().setOnMouseClicked(event -> {
+            myTextBox.setText(dataTracker.getMyTextToUpdate());
+        });
+        myMethods = new SLogoTab("Methods", dataTracker);
+        myMethods.getContent().setOnMouseClicked(event -> {
+            myTextBox.setText(dataTracker.getMyTextToUpdate());
+        });
+        myCommands = new SLogoTab("Command History", dataTracker);
+        myCommands.getContent().setOnMouseClicked(event -> {
+            myTextBox.setText(dataTracker.getMyTextToUpdate());
+        });
+        myVariables.addContents("Sample variable one");
+        myVariables.addContents("practice variable two");
+        myCommands.addContents("sample commmand");
+        myMethods.addContents("sample method");
         myTabExplorer.getTabs().addAll(myVariables, myMethods, myCommands);
         grid.add(myTabExplorer, 6, 1, 3, 5);
     }
@@ -157,8 +166,7 @@ public class GUIDisplay {
         languageChooser.getSelectionModel().selectFirst();
         return languageChooser;
     }
-
-
+    
     private void setTitle(GridPane grid) {
         Text title = new Text("SLogo");
         title.setFont(Font.font("Arial", 50));
@@ -181,6 +189,7 @@ public class GUIDisplay {
     }
 
     private Button runButton(){
+       // Button button = new Button(myResources.getString("Run"));
         Button button = new Button("Run");
         button.setOnAction(event -> {
             System.out.println("Run");
