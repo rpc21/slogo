@@ -21,11 +21,11 @@ public class Toolbar extends HBox implements GUIComponent {
 
     public Toolbar(Consumer<Color> backgroundColorAccess, Consumer<Color> penColorAccess, Consumer<String> iconAccess){
         this();
-        myLanguageChooser = createLanguageChooser();
+//        myLanguageChooser = createLanguageChooser();
         myBackgroundColorChooser = new BackgroundColorChooser(backgroundColorAccess);
         myPenColorChooser = new PenColorChooser(penColorAccess);
         myImageChooser = createImageChooser(iconAccess);
-        getChildren().addAll(myLanguageChooser, myBackgroundColorChooser, myPenColorChooser, myImageChooser);
+        getChildren().addAll(myBackgroundColorChooser, myPenColorChooser, myImageChooser);
     }
 
     private ImageChooser<String> createImageChooser(Consumer<String> iconAccess) {
@@ -35,11 +35,13 @@ public class Toolbar extends HBox implements GUIComponent {
         return imageChooser;
     }
 
-    private LanguageChooser<String> createLanguageChooser() {
-        LanguageChooser<String> languageChooser = new LanguageChooser<>();
-        languageChooser.getItems().addAll("English", "German", "French");
-        languageChooser.getSelectionModel().selectFirst();
-        return languageChooser;
-    }
+//    private LanguageChooser createLanguageChooser() {
+//        LanguageChooser languageChooser = new LanguageChooser<>();
+//        languageChooser.getItems().addAll("English", "German", "French");
+////        languageChooser.getSelectionModel().selectFirst();
+//        return languageChooser;
+//    }
+
+
 }
 

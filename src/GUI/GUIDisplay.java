@@ -61,6 +61,7 @@ public class GUIDisplay {
         myResources = ResourceBundle.getBundle("/resources.languages/" + myLanguage);
         myStage = stage;
         myRoot = createGridPane();
+//        createLanguageChooser();
         myScene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.LIGHTGRAY);
         handleResizability();
         myStage.setScene(myScene);
@@ -90,6 +91,7 @@ public class GUIDisplay {
         setTitle(grid);
         createCanvas(grid);
         setToolbar(grid);
+        createLanguageChooser();
         makeTextBox(grid);
         initializeButtons(grid);
         createTabExplorer(grid);
@@ -142,9 +144,9 @@ public class GUIDisplay {
     }
 
     private void setToolbar(GridPane grid) {
-        Toolbar toolbar = new Toolbar(myStackedCanvasPane.getBackgroundColorAccess(),
+        myToolbar = new Toolbar(myStackedCanvasPane.getBackgroundColorAccess(),
                 myStackedCanvasPane.getPenPropertiesAccess(), myStackedCanvasPane.getIconAccess());
-        grid.add(toolbar, 1, 0, 6, 1);
+        grid.add(myToolbar, 1, 0, 6, 1);
     }
 
 //    private void initializeToolbarMenus(List<Control> toolbarMenus) {
@@ -301,6 +303,7 @@ public class GUIDisplay {
             myLanguageChooser.setText("Urdu");
         });
         menuButton.getItems().addAll(english, french, chinese, german, italian, portuguese, russian, spanish, urdu);
+        myToolbar.getChildren().add(menuButton);
         return menuButton;
     }
 
