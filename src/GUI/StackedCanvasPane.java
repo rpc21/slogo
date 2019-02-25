@@ -24,8 +24,9 @@ public class StackedCanvasPane extends StackPane {
         myCurrentDisplayView = new BasicTurtleView(myDrawingCanvas);
         penDown = true;
         getChildren().addAll(myBackgroundCanvas, myDrawingCanvas, myCurrentDisplayView);
-        this.setLayoutX(DEFAULT_CANVAS_WIDTH);
-        this.setLayoutY(DEFAULT_CANVAS_HEIGHT);
+        setPrefSize(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
+//        this.setLayoutX(DEFAULT_CANVAS_WIDTH);
+//        this.setLayoutY(DEFAULT_CANVAS_HEIGHT);
     }
 
     private TurtleCanvas createBackgroundCanvas(double width, double height) {
@@ -34,6 +35,8 @@ public class StackedCanvasPane extends StackPane {
         gc.setFill(Color.WHITE);
         gc.rect(0, 0, canvas.getWidth(), canvas.getHeight());
         gc.fill();
+//        canvas.widthProperty().bind(this.widthProperty());
+//        canvas.heightProperty().bind(this.heightProperty());
         return canvas;
     }
 
@@ -83,5 +86,24 @@ public class StackedCanvasPane extends StackPane {
 
     public void setPenDown(){
         penDown = true;
+    }
+
+    @Override
+    protected void layoutChildren() {
+        layoutCanvases(myBackgroundCanvas);
+        layoutCanvases(myDrawingCanvas);
+    }
+
+    private void layoutCanvases(TurtleCanvas canvas) {
+        super.layoutChildren();
+        final double x = snappedLeftInset();
+        final double y = snappedTopInset();
+        // Java 9 - snapSize is deprecated used snapSizeX() and snapSizeY() accordingly
+        final double w = snapSize(getWidth()) - x - snappedRightInset();
+        final double h = snapSize(getHeight()) - y - snappedBottomInset();
+        canvas.setLayoutX(x);
+        canvas.setLayoutY(y);
+        canvas.setWidth(w);
+        canvas.setHeight(h);
     }
 }

@@ -1,4 +1,4 @@
-package APIs;
+package apis;
 
 import otherStuff.UnmodifiableDisplay;
 

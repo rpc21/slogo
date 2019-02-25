@@ -63,17 +63,17 @@ public class GUIDisplay {
         myRoot = createGridPane();
 //        createLanguageChooser();
         myScene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.LIGHTGRAY);
-        handleResizability();
+//        handleResizability();
         myStage.setScene(myScene);
     }
 
     private void handleResizability() {
         myScene.widthProperty().addListener(observable -> {
-            resizeCanvases();
+//            resizeCanvases();
             resizeTabExplorer();
         });
         myScene.heightProperty().addListener(observable -> {
-            resizeCanvases();
+//            resizeCanvases();
             resizeTabExplorer();
         });
     }
@@ -82,9 +82,9 @@ public class GUIDisplay {
         myTabExplorer.resize(myScene.getWidth() * 5/12, myScene.getHeight()*4.5/6.5);
     }
 
-    private void resizeCanvases() {
-        myStackedCanvasPane.resizeCanvases(myScene.getWidth() * 7/12, myScene.getHeight()*4.5/6.5);
-    }
+//    private void resizeCanvases() {
+//        myStackedCanvasPane.resizeCanvases();
+//    }
 
     public void display(){
         myStage.show();

@@ -1,6 +1,4 @@
-package APIs;
-
-import java.util.*;
+package apis;
 
 /**
  *
