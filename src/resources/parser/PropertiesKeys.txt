@@ -1,4 +1,4 @@
-Forward, Backward, Left, Right, SetHeading, SetTowards, SetPosition, PenDown, PenUp, ShowTurtle, HideTurtle, Home,
+Forward, Backward, Left, Right, SetHeading, SetTowards, SetPosition, nodes.PenDown, nodes.PenUp, ShowTurtle, HideTurtle, Home,
 ClearScreen, XCoordinate, YCoordinate, Heading, IsPenDown, IsShowing, Sum, Difference, Product, Quotient, Remainder,
 Minus, Random, Sine, Cosine, Tangent, ArcTangent, NaturalLog, Power, Pi, LessThan, GreaterThan, Equal, NotEqual,
 And, Or, Not, MakeVariable, Repeat, DoTimes, For, If, IfElse, MakeUserInstruction, SetBackground, SetPenColor,
