@@ -1,10 +1,13 @@
+import java.util.List;
+
 public class RandomNode extends CommandNode {
     public RandomNode(String commandName) {
         super(commandName);
     }
     @Override
-    public double evaluate() {
-        double childValue = super.getChildren().get(0).evaluate();
+    public double evaluate(List<VisualCommand> myVisCommands
+    ) {
+        double childValue = super.getChildren().get(0).evaluate(myVisCommands);
         return Math.floor(Math.random()*childValue) + 1;
     }
     /**

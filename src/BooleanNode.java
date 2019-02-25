@@ -1,18 +1,20 @@
+import java.util.List;
+
 public abstract class BooleanNode extends CommandNode {
     private static final int INVALID_INPUT = 0;
 
     public BooleanNode(String a) {
         super(a);
     }
-    protected double getFirstExpression(){
-        return super.getChildren().get(0).evaluate();
+    protected double getFirstExpression(List<VisualCommand> myVisCommands){
+        return super.getChildren().get(0).evaluate(myVisCommands);
     }
-    protected double getSecondExpression(){
-        return super.getChildren().get(1).evaluate();
+    protected double getSecondExpression(List<VisualCommand> myVisCommands){
+        return super.getChildren().get(1).evaluate(myVisCommands);
     }
 
     @Override
-    public abstract double evaluate();
+    public abstract double evaluate(List<VisualCommand> myVisCommands);
 
     /**
      * Adds an addend to this SumNode's list of Children as Parser reads them in

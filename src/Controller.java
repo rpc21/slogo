@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Controller {
     private Parser myParser;
     private static final int INVALID_COMMAND = 0;
@@ -14,13 +17,18 @@ public class Controller {
         catch(ArithmeticException e){
             return INVALID_COMMAND;
         }
+        List<VisualCommand> myVisualCommands = new ArrayList<VisualCommand>();
         try {
-            return myNode.evaluate();
+            return myNode.evaluate(myVisualCommands);
         }
         catch(Exception e) {
             System.out.println("Invalid Calculation");
             return INVALID_COMMAND;
         }
+        //pass list of visual commands to vis
+        //would need to write
+        //for (VisualCommand c: myVisualCommands)
+        // c.execute(myCanvas);
     }
 
 }

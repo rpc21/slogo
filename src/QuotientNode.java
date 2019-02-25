@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class QuotientNode extends CommandNode {
     private static final int INVALID_INPUT = 0;
 
@@ -6,9 +8,9 @@ public class QuotientNode extends CommandNode {
     }
 
     @Override
-    public double evaluate() {
-        double firstExpression = super.getChildren().get(0).evaluate();
-        double secondExpression = super.getChildren().get(1).evaluate();
+    public double evaluate(List<VisualCommand> myVisCommands) {
+        double firstExpression = super.getChildren().get(0).evaluate(myVisCommands);
+        double secondExpression = super.getChildren().get(1).evaluate(myVisCommands);
         if (validDenominator(secondExpression))
             return firstExpression / secondExpression;
         else {

@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class OrNode extends BooleanNode{
 
     public OrNode(String a) {
@@ -5,8 +7,8 @@ public class OrNode extends BooleanNode{
     }
 
     @Override
-    public double evaluate() {
-        if (super.getFirstExpression() != ZERO ||  super.getSecondExpression() != ZERO)
+    public double evaluate(List<VisualCommand> myVisCommands) {
+        if (super.getFirstExpression(myVisCommands) != ZERO ||  super.getSecondExpression(myVisCommands) != ZERO)
             return ONE;
         return ZERO;
     }

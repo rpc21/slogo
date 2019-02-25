@@ -1,12 +1,14 @@
+import java.util.List;
+
 public class SumNode extends CommandNode {
     public SumNode(String a){
         super(a);
     }
     @Override
-    public double evaluate() {
+    public double evaluate(List<VisualCommand> myVisCommands) {
         int sum = 0;
         for (CommandNode c: super.getChildren()) {
-            sum += c.evaluate();
+            sum += c.evaluate(myVisCommands);
         }
         return sum;
     }

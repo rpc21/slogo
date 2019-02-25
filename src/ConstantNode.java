@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class ConstantNode extends CommandNode{
 
     private double myValue;
@@ -6,7 +8,7 @@ public class ConstantNode extends CommandNode{
         super(val);
         myValue = Double.parseDouble(val);
     }
-    public double evaluate(){
+    public double evaluate(List<VisualCommand> myVisCommands){
         return myValue;
     }
 

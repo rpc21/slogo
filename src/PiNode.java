@@ -1,9 +1,11 @@
+import java.util.List;
+
 public class PiNode extends CommandNode {
     public PiNode(String commandName) {
         super(commandName);
     }
     @Override
-    public double evaluate() {
+    public double evaluate(List<VisualCommand> myVisCommands) {
         return Math.PI;
     }
     /**

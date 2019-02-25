@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class NotEqualNode extends BooleanNode{
 
     public NotEqualNode(String a) {
@@ -5,8 +7,8 @@ public class NotEqualNode extends BooleanNode{
     }
 
     @Override
-    public double evaluate() {
-        if (super.getFirstExpression() != super.getSecondExpression())
+    public double evaluate(List<VisualCommand> myVisCommands) {
+        if (super.getFirstExpression(myVisCommands) != super.getSecondExpression(myVisCommands))
             return ONE;
         return ZERO;
     }

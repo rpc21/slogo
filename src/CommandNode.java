@@ -14,7 +14,7 @@ public abstract class CommandNode {
     /**
      * evaluates this node's value based upon its particular implementation
      */
-    public abstract double evaluate();
+    public abstract double evaluate(List<VisualCommand> myVisCommands);
     /**
      * returns list of this Node's children - these will be used as arguments to evaluate a CommandNode
      */

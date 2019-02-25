@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class NotNode extends BooleanNode{
 
     public NotNode(String a) {
@@ -5,8 +7,8 @@ public class NotNode extends BooleanNode{
     }
 
     @Override
-    public double evaluate() {
-        if (super.getFirstExpression() == ZERO)
+    public double evaluate(List<VisualCommand> myVisCommands) {
+        if (super.getFirstExpression(myVisCommands) == ZERO)
             return ONE;
         return ZERO;
     }

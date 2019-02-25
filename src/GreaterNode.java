@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class GreaterNode extends BooleanNode{
     private static final int INVALID_INPUT = 0;
 
@@ -6,8 +8,8 @@ public class GreaterNode extends BooleanNode{
     }
 
     @Override
-    public double evaluate() {
-        if (super.getFirstExpression() > super.getSecondExpression())
+    public double evaluate(List<VisualCommand> myVisCommands) {
+        if (super.getFirstExpression(myVisCommands) > super.getSecondExpression(myVisCommands))
             return ONE;
         return ZERO;
     }

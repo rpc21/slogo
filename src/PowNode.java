@@ -1,11 +1,13 @@
+import java.util.List;
+
 public class PowNode extends CommandNode {
     public PowNode(String commandName) {
         super(commandName);
     }
     @Override
-    public double evaluate() {
-        double base = super.getChildren().get(0).evaluate();
-        double exp = super.getChildren().get(1).evaluate();
+    public double evaluate(List<VisualCommand> myVisCommands) {
+        double base = super.getChildren().get(0).evaluate(myVisCommands);
+        double exp = super.getChildren().get(1).evaluate(myVisCommands);
         return Math.pow(base,exp);
     }
     /**

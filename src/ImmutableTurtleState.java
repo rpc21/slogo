@@ -1,13 +1,18 @@
 public class TurtleState {
-    private boolean showTurtle = true;
+    private boolean showTurtle;
     private double xCoor;
     private double yCoor;
 
+    public TurtleState(){
+        showTurtle = true;
+        xCoor = 0;
+        yCoor = 0;
+    }
 
-    public void updateXCoor(double x){
+    public void getXCoor(double x){
         xCoor =x;
     }
-    public void updateYCoor(double y){
+    public void getYCoor(double y){
         yCoor = y;
     }
     public void hideTurtle(){

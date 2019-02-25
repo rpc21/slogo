@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class AndNode extends BooleanNode{
 
     public AndNode(String a) {
@@ -5,8 +7,9 @@ public class AndNode extends BooleanNode{
     }
 
     @Override
-    public double evaluate() {
-        if (super.getFirstExpression() != ZERO &  super.getSecondExpression() != ZERO)
+    public double evaluate(List<VisualCommand> myVisCommands) {
+        if (super.getFirstExpression(myVisCommands) != ZERO &
+                super.getSecondExpression(myVisCommands) != ZERO)
             return ONE;
         return ZERO;
     }
