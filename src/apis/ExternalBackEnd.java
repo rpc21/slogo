@@ -1,5 +1,6 @@
 package APIs;
 
+import otherStuff.UnmodifiableDisplay;
 
 import java.util.*;
 
@@ -16,7 +17,7 @@ public interface ExternalBackEnd {
     /**
      * returns updated state of Turtle, including new position, orientation, and whether or not the pen is up or down
      */
-   // public UnmodifiableDisplay getUnmodifiableDisplay();
+    public UnmodifiableDisplay getUnmodifiableDisplay();
 
 
 }
