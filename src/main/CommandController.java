@@ -21,6 +21,7 @@ public class CommandController {
 
     public double execute(String command){
         CommandNode myNode;
+        myVisualCommands = new ArrayList<VisualCommand>();
         try{
             myNode = myParser.parse(command).get(0); // note of change! This is changed now because their could be many commands in a list that come from a parser.
         }
@@ -30,7 +31,6 @@ public class CommandController {
             System.out.println("hi");
             return INVALID_COMMAND;
         }
-        myVisualCommands = new ArrayList<VisualCommand>();
         try {
             return myNode.evaluate(myVisualCommands);
         }
