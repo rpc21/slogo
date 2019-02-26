@@ -11,7 +11,7 @@ public class TurtleBackward extends CommandNode {
     @Override
     public double evaluate(List<VisualCommand> myVisCommands) {
         double pixels = myChildren.get(0).evaluate(myVisCommands);
-        myVisCommands.add(new VisualTurtleForward(pixels));
+        myVisCommands.add(new VisualTurtleForward( -1.0 * pixels));
         return pixels;
     }
     @Override

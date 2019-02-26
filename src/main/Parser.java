@@ -11,8 +11,8 @@ public class Parser {
     private CommandFactory myCommandFactory;
     private ResourceBundle parameterProperties;
     private ResourceBundle commandProperties;
-    private static final String PARAMETER_PROPERTIES_LOCATION = "resources/languages/English.properties";
-    private static final String COMMAND_PROPERTIES_LOCATION = "resources/parser/Parameters.properties";
+    private static final String PARAMETER_PROPERTIES_LOCATION = "English.properties";
+    private static final String COMMAND_PROPERTIES_LOCATION = "Parameters.properties";
     private String myCurrentCommand;
 
     public Parser() {

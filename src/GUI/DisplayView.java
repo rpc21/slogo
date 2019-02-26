@@ -15,7 +15,7 @@ public abstract class DisplayView extends ImageView {
     public static final String ADVANCED_TURTLE_NAME = "Advanced Turtle Image";
     private List<String> possibleImages = List.of(BASIC_TURTLE_NAME, ADVANCED_TURTLE_NAME);
 
-    public static final String TURTLE_IMAGE = "turtle1.jpg";
+    public static final String TURTLE_IMAGE = "file:/resources_images/turtle1.jpg";
     public static final int IMAGE_HEIGHT = 25;
     public static final int IMAGE_WIDTH = 20;
 

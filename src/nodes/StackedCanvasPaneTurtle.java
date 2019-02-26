@@ -1,12 +1,12 @@
 package nodes;
 
-public class StackedCanvasPane {
+public class StackedCanvasPaneTurtle {
 
     private boolean penDown;
     private double turtlePosition;
     private double orientation;
 
-    public StackedCanvasPane(){
+    public StackedCanvasPaneTurtle(){
         super();
         turtlePosition = 0;
         penDown = true;

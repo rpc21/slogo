@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import nodes.VisualCommand;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,7 @@ public class GUIDisplay {
     private SLogoTab myVariables;
     private SLogoTab myCommands;
     private SLogoTab myMethods;
+    private GridPane myCurrentGUIGrid;
     RetrieveCommand myRetrieveCommand = new RetrieveCommand() {
         @Override
         public void retrieveCommand(String a) {
@@ -58,13 +60,17 @@ public class GUIDisplay {
 
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
-        myResources = ResourceBundle.getBundle("/resources.languages/" + myLanguage);
+        myResources = ResourceBundle.getBundle(myLanguage);
         myStage = stage;
         myRoot = createGridPane();
 //        createLanguageChooser();
         myScene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.LIGHTGRAY);
         handleResizability();
         myStage.setScene(myScene);
+    }
+    public void executeVisualCommands(List<VisualCommand> myCommands){
+        for (VisualCommand c: myCommands)
+            c.execute(myStackedCanvasPane);
     }
 
     private void handleResizability() {
@@ -101,6 +107,7 @@ public class GUIDisplay {
         initializeButtons(grid);
         createTabExplorer(grid);
         grid.setPrefSize(SCENE_WIDTH, SCENE_HEIGHT);
+        myCurrentGUIGrid = grid;
         return grid;
     }
 
@@ -343,19 +350,25 @@ public class GUIDisplay {
     }
 
     private void initializeButtons(GridPane grid){
-        myRunButton = runButton();
-        grid.add(myRunButton, 8, 7);
+//        myRunButton = runButton();
+//        grid.add(myRunButton, 8, 7);
         myClearButton = clearButton();
         grid.add(myClearButton, 8, 8);
         myHelpButton = helpButton();
         grid.add(myHelpButton, 8, 9);
     }
 
-    private Button runButton(){
+    public void setUpRunButton(GUIExecute ref){
+        myRunButton = runButton(ref);
+        myCurrentGUIGrid.add(myRunButton, 8, 7);
+    }
+
+    private Button runButton(GUIExecute ref){
        // Button button = new Button(myResources.getString("Run"));
         Button button = new Button(myResources.getString("Run"));
-        button.setOnAction(event -> {
+        button.setOnMouseClicked(event -> {
             commandToExecute = myTextBox.getText();
+            ref.executeCurrentCommand(commandToExecute);
             addToCommandHistory(commandToExecute);
         });
         return button;

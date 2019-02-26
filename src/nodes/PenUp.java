@@ -1,5 +1,6 @@
 package nodes;
 
+import GUI.StackedCanvasPane;
 import nodes.VisualCommand;
 
 public class PenUp extends VisualCommand {

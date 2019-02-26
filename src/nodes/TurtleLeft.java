@@ -11,7 +11,7 @@ public class TurtleLeft extends CommandNode {
     @Override
     public double evaluate(List<VisualCommand> myVisCommands) {
         double pixels = myChildren.get(0).evaluate(myVisCommands);
-        myVisCommands.add(new VisualTurtleLeft(pixels));
+        //myVisCommands.add(new VisualTurtleLeft(pixels));
         return pixels;
     }
     @Override

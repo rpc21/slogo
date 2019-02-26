@@ -1,12 +1,11 @@
 package nodes;
 
-public class VisualTurtleRight extends VisualCommand {
+public class VisualTurtleRight  {
     private double myPixels;
     public VisualTurtleRight(double pixels){
         myPixels = pixels;
     }
-    @Override
-    public void execute(StackedCanvasPane myCanvas) {
+    public void execute(StackedCanvasPaneTurtle myCanvas) {
         myCanvas.turnLeft(myPixels);
     }
 }

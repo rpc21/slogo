@@ -1,6 +1,7 @@
 package nodes;
 
-import nodes.VisualCommand;
+
+import GUI.StackedCanvasPane;
 
 public class PenDown extends VisualCommand {
     public void execute(StackedCanvasPane myCanvas){
