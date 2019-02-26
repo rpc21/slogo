@@ -23,6 +23,7 @@ public class Parser {
         myCurrentCommand = input;
         List<CommandNode> topLevelCommands = new ArrayList<>();
         parameterProperties = ResourceBundle.getBundle(PARAMETER_PROPERTIES_LOCATION);
+        System.out.println(parameterProperties);
         commandProperties = ResourceBundle.getBundle(COMMAND_PROPERTIES_LOCATION);
         while(myCurrentCommand.length() > 0) {
             topLevelCommands.add(makeNodeTree());
