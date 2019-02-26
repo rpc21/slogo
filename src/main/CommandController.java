@@ -4,6 +4,8 @@
 package main;
 import java.util.ArrayList;
 import java.util.List;
+
+import exceptions.InvalidCommandException;
 import nodes.CommandNode;
 import nodes.*;
 import nodes.VisualCommand;
@@ -21,12 +23,14 @@ public class CommandController {
         CommandNode myNode;
         myNode = new TurtleBackward("backward");
         myNode.addChild(new ConstantNode("" + Double.parseDouble(command.split(" ")[1])));
-//        try{
-//            myNode = myParser.parse(command).get(0); // note of change! This is changed now because their could be many commands in a list that come from a parser.
-//        }
-//        catch(ArithmeticException e){
-//            return INVALID_COMMAND;
-//        }
+        try{
+            myNode = myParser.parse(command).get(0); // note of change! This is changed now because their could be many commands in a list that come from a parser.
+        }
+        catch(ArithmeticException e){
+         return INVALID_COMMAND;
+       } catch (InvalidCommandException e) {
+            // todo : fix e.printStackTrace();
+        }
         myVisualCommands = new ArrayList<VisualCommand>();
         try {
             return myNode.evaluate(myVisualCommands);
