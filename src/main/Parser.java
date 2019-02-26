@@ -62,13 +62,14 @@ public class Parser {
         }
     }
 
-    private String getCommandKey(String input) throws InvalidCommandException {
+    private String getCommandKey(String input) {//throws InvalidCommandException {
         for(var symbol : mySymbols) {
             if(match(input, symbol.getValue())) {
                 return symbol.getKey();
             }
         }
-        throw new InvalidCommandException(); // todo: personalize this
+        return "";
+        //throw new InvalidCommandException(); // todo: personalize this
     }
 
     private boolean match (String text, Pattern regex) {
