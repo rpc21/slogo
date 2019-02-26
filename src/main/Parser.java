@@ -40,7 +40,7 @@ public class Parser {
         System.out.println(myCurrentCommand);
         String currentCommandKey = getCommandKey(currentValue);
         int expectedNumberOfParameters = Integer.parseInt(parameterProperties.getString(currentCommandKey));
-        myCurrentCommand = myCurrentCommand.substring(currentCommandKey.length() + 1);
+        myCurrentCommand = myCurrentCommand.substring(currentValue.length() + 1);
         System.out.println(currentCommandKey);
         CommandNode currentNode = myCommandFactory.makeCommand(currentCommandKey);
         for(int i = 1; i <= expectedNumberOfParameters; i++) {
