@@ -11,7 +11,7 @@ public class CommandFactory {
         }
         Class myCommandClass;
         try {
-            myCommandClass = Class.forName(c);
+            myCommandClass = Class.forName("nodes." + c);
         }
         catch (ClassNotFoundException e) {
             System.out.println("Invalid Command");
