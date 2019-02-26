@@ -1,40 +1,41 @@
 package main;
 
+import exceptions.InvalidCommandException;
 import nodes.CommandFactory;
 import nodes.CommandNode;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.regex.Pattern;
 
 public class Parser {
     private CommandFactory myCommandFactory;
     private ResourceBundle parameterProperties;
-    private ResourceBundle commandProperties;
-    private static final String PARAMETER_PROPERTIES_LOCATION = "English.properties";
-    private static final String COMMAND_PROPERTIES_LOCATION = "Parameters.properties";
+    private static final String PARAMETER_PROPERTIES_LOCATION = "parser/Parameters";
     private String myCurrentCommand;
+    private List<Entry<String, Pattern>> mySymbols;
 
     public Parser() {
         myCommandFactory = new CommandFactory();
     }
 
-    public List<CommandNode> parse(String input) { // todo: throw invalidcommandexception and invalidnumberinputs exception
+    public List<CommandNode> parse(String input) throws InvalidCommandException { // todo: throw invalidcommandexception and invalidnumberinputs exception
         myCurrentCommand = input;
         List<CommandNode> topLevelCommands = new ArrayList<>();
         parameterProperties = ResourceBundle.getBundle(PARAMETER_PROPERTIES_LOCATION);
-        commandProperties = ResourceBundle.getBundle(COMMAND_PROPERTIES_LOCATION);
+        addPatterns();
         while(myCurrentCommand.length() > 0) {
             topLevelCommands.add(makeNodeTree());
         }
         return topLevelCommands;
     }
 
-    private CommandNode makeNodeTree() { // todo: check for invalid number of inputs and invalid commands
+    private CommandNode makeNodeTree() throws InvalidCommandException { // todo: check for invalid number of inputs and invalid commands
         String[] commandSplit = myCurrentCommand.split("\\s+");
-        String currentCommandString = commandSplit[0];
-        int expectedNumberOfParameters = Integer.parseInt(parameterProperties.getString(currentCommandString));
-        myCurrentCommand = myCurrentCommand.substring(currentCommandString.length() + 1);
+        String currentCommandKey = getCommandKey(commandSplit[0]);
+        int expectedNumberOfParameters = Integer.parseInt(parameterProperties.getString(currentCommandKey));
+        myCurrentCommand = myCurrentCommand.substring(currentCommandKey.length() + 1);
         CommandNode currentNode = myCommandFactory.makeCommand(commandSplit[0]);
         for(int i = 1; i < expectedNumberOfParameters; i++) {
             addChild(currentNode, commandSplit[i]);
@@ -42,7 +43,7 @@ public class Parser {
         return currentNode;
     }
 
-    private void addChild(CommandNode currentNode, String child) {
+    private void addChild(CommandNode currentNode, String child) throws InvalidCommandException {
         if(isDouble(child)) {
             currentNode.addChild(myCommandFactory.makeCommand(child));
         } else {
@@ -60,5 +61,29 @@ public class Parser {
             return false;
         }
     }
+
+    private String getCommandKey(String input) throws InvalidCommandException {
+        for(var symbol : mySymbols) {
+            if(match(input, symbol.getValue())) {
+                return symbol.getKey();
+            }
+        }
+        throw new InvalidCommandException(); // todo: personalize this
+    }
+
+    private boolean match (String text, Pattern regex) {
+        // THIS IS THE IMPORTANT LINE
+        return regex.matcher(text).matches();
+    }
+
+    private void addPatterns () {
+        mySymbols = new ArrayList<>();
+        for (var key : Collections.list(parameterProperties.getKeys())) {
+            var regex = parameterProperties.getString(key);
+            mySymbols.add(new SimpleEntry<>(key,
+                    Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
+        }
+    }
+
 
 }

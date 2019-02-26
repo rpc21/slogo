@@ -40,6 +40,7 @@ public class GUIDisplay {
     private Toolbar myToolbar;
     private StackedCanvasPane myStackedCanvasPane;
     private DisplayView currentDisplayView;
+    private static final String LANGUAGE_LOCATION = "languages/";
 
     private TabExplorer myTabExplorer;
     private SLogoTab myVariables;
@@ -60,7 +61,7 @@ public class GUIDisplay {
 
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
-        myResources = ResourceBundle.getBundle(myLanguage);
+        myResources = ResourceBundle.getBundle(LANGUAGE_LOCATION + myLanguage);
         myStage = stage;
         myRoot = createGridPane();
 //        createLanguageChooser();
