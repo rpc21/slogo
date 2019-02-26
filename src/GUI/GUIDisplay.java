@@ -63,7 +63,9 @@ public class GUIDisplay {
         myResources = ResourceBundle.getBundle(myLanguage);
         myStage = stage;
         myRoot = createGridPane();
-//        createLanguageChooser();
+        myLanguageChooser = createLanguageChooser();
+        buildLanguageChooser(myLanguageChooser);
+      //  createImageChooser();
         myScene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.LIGHTGRAY);
         handleResizability();
         myStage.setScene(myScene);
@@ -162,6 +164,7 @@ public class GUIDisplay {
     private void setToolbar(GridPane grid) {
         myToolbar = new Toolbar(myStackedCanvasPane.getBackgroundColorAccess(),
                 myStackedCanvasPane.getPenPropertiesAccess(), myStackedCanvasPane.getIconAccess());
+        myTurtleIconChooser = myToolbar.getMyImageChooser();
         grid.add(myToolbar, 1, 0, 1, 1);
     }
 
@@ -210,7 +213,7 @@ public class GUIDisplay {
 //                    currentDisplayView);
 //            myStackPane.getChildren().add(currentDisplayView);
 //        });
-//        return imageChooser;
+//        myTurtleIconChooser imageChooser;
 //    }
 
 
@@ -259,9 +262,13 @@ public class GUIDisplay {
 //        return imageChooser;
 //    }
 
-
-    private LanguageChooser createLanguageChooser() {
+    private LanguageChooser createLanguageChooser(){
         LanguageChooser menuButton = new LanguageChooser();
+        return menuButton;
+    }
+
+    private LanguageChooser buildLanguageChooser(LanguageChooser menuButton) {
+       // LanguageChooser menuButton = new LanguageChooser();
         menuButton.setText(myResources.getString("Language"));
         MenuItem english = new MenuItem("English");
         english.setOnAction(event -> {
@@ -324,7 +331,7 @@ public class GUIDisplay {
     }
 
     private void updateLanguage(){
-        myResources = ResourceBundle.getBundle("/resources.languages/"+myLanguage);
+        myResources = ResourceBundle.getBundle(myLanguage);
         myRunButton.setText(myResources.getString("Run"));
         myClearButton.setText(myResources.getString("Clear"));
         myHelpButton.setText(myResources.getString("Help"));
@@ -332,8 +339,6 @@ public class GUIDisplay {
         myCommands.setText(myResources.getString("CommandHistory"));
         myMethods.setText(myResources.getString("Methods"));
       //  myLanguageChooser.setText(myResources.getString("Language"));
-   //     myBackGroundColorChooser.setPromptText(myResources.getString("BackgroundColor"));
-   //     myPenColorChooser.setPromptText(myResources.getString("PenColor"));
         myTurtleIconChooser.setPromptText(myResources.getString("TurtleIcon"));
     }
 
@@ -351,7 +356,7 @@ public class GUIDisplay {
 
     private void initializeButtons(GridPane grid){
       //  myRunButton = runButton();
-        grid.add(myRunButton, 4, 2);
+       // grid.add(myRunButton, 4, 2);
 
         myClearButton = clearButton();
         grid.add(myClearButton, 4, 3);
