@@ -42,7 +42,7 @@ public class Parser {
         int expectedNumberOfParameters = Integer.parseInt(parameterProperties.getString(currentCommandKey));
         myCurrentCommand = myCurrentCommand.substring(currentCommandKey.length() + 1);
         System.out.println(currentCommandKey);
-        CommandNode currentNode = myCommandFactory.makeCommand("Turtle" + currentCommandKey); // todo get rid of this temporary fix
+        CommandNode currentNode = myCommandFactory.makeCommand(currentCommandKey); // todo get rid of this temporary fix
         for(int i = 1; i <= expectedNumberOfParameters; i++) {
             addChild(currentNode, commandSplit[i]);
         }
