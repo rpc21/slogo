@@ -3,4 +3,5 @@ module slogo.team06 {
     requires javafx.controls;
 
     exports GUI;
+    exports main;
 }

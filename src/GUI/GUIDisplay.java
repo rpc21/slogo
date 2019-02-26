@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import nodes.VisualCommand;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,7 @@ public class GUIDisplay {
     private SLogoTab myVariables;
     private SLogoTab myCommands;
     private SLogoTab myMethods;
+    private GridPane myCurrentGUIGrid;
     RetrieveCommand myRetrieveCommand = new RetrieveCommand() {
         @Override
         public void retrieveCommand(String a) {
@@ -58,7 +60,7 @@ public class GUIDisplay {
 
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
-        myResources = ResourceBundle.getBundle("/resources.languages/" + myLanguage);
+        myResources = ResourceBundle.getBundle(myLanguage);
         myStage = stage;
         myRoot = createGridPane();
 //        createLanguageChooser();
@@ -66,19 +68,28 @@ public class GUIDisplay {
         handleResizability();
         myStage.setScene(myScene);
     }
+    public void executeVisualCommands(List<VisualCommand> myCommands){
+        for (VisualCommand c: myCommands)
+            c.execute(myStackedCanvasPane);
+    }
 
     private void handleResizability() {
         myScene.widthProperty().addListener(observable -> {
             resizeCanvases();
+            resizeTabExplorer();
         });
         myScene.heightProperty().addListener(observable -> {
             resizeCanvases();
+            resizeTabExplorer();
         });
     }
 
+    private void resizeTabExplorer() {
+        myTabExplorer.resize(myScene.getWidth() * 5/12, myScene.getHeight()*4.5/6.5);
+    }
+
     private void resizeCanvases() {
-        myBackgroundCanvas.resize(myScene.getWidth() * 7/12, myScene.getHeight()*4.5/6.5);
-        myTurtleCanvas.resize(myScene.getWidth() * 7/12, myScene.getHeight()*4.5/6.5);
+        myStackedCanvasPane.resizeCanvases(myScene.getWidth() * 7/12, myScene.getHeight()*4.5/6.5);
     }
 
     public void display(){
@@ -91,10 +102,12 @@ public class GUIDisplay {
         setTitle(grid);
         createCanvas(grid);
         setToolbar(grid);
-        createLanguageChooser();
+//        createLanguageChooser();
         makeTextBox(grid);
         initializeButtons(grid);
         createTabExplorer(grid);
+        grid.setPrefSize(SCENE_WIDTH, SCENE_HEIGHT);
+        myCurrentGUIGrid = grid;
         return grid;
     }
 
@@ -113,12 +126,15 @@ public class GUIDisplay {
         myCommands.getContent().setOnMouseClicked(event -> {
             myTextBox.setText(dataTracker.getMyTextToUpdate());
         });
+        for(int i = 0; i< 100; i++){
+            myVariables.addContents("Blank line");
+        }
         myVariables.addContents("Sample variable one");
         myVariables.addContents("practice variable two");
         myCommands.addContents("sample commmand");
         myMethods.addContents("sample method");
         myTabExplorer.getTabs().addAll(myVariables, myMethods, myCommands);
-        grid.add(myTabExplorer, 6, 1, 1, 1);
+        grid.add(myTabExplorer, 8, 1, 5, 5);
     }
 
     private void createCanvas(GridPane grid) {
@@ -212,36 +228,36 @@ public class GUIDisplay {
 //        grid.add(toolbar, 1, 0, 4, 1);
 //    }
 
-    private void initializeToolbarMenus(List<Control> toolbarMenus) {
-        myLanguageChooser = createLanguageChooser();
-        toolbarMenus.add(myLanguageChooser);
-        myTurtleIconChooser = createImageChooser();
-        toolbarMenus.add(myTurtleIconChooser);
-        myBackGroundColorChooser = createBackgroundChooser();
-        toolbarMenus.add(myBackGroundColorChooser);
-        myPenColorChooser = new PenColorChooser();
-        toolbarMenus.add(myPenColorChooser);
-    }
+//    private void initializeToolbarMenus(List<Control> toolbarMenus) {
+//        myLanguageChooser = createLanguageChooser();
+//        toolbarMenus.add(myLanguageChooser);
+//        myTurtleIconChooser = createImageChooser();
+//        toolbarMenus.add(myTurtleIconChooser);
+//        myBackGroundColorChooser = createBackgroundChooser();
+//        toolbarMenus.add(myBackGroundColorChooser);
+//        myPenColorChooser = new PenColorChooser();
+//        toolbarMenus.add(myPenColorChooser);
+//    }
 
-    private BackgroundColorChooser createBackgroundChooser() {
-
-        BackgroundColorChooser backgroundColorChooser = new BackgroundColorChooser();
-
-        backgroundColorChooser.setOnAction(event -> {
-            myTurtleCanvas.getGraphicsContext2D().setFill(backgroundColorChooser.getValue());
-            myTurtleCanvas.getGraphicsContext2D().rect(0, 0, myTurtleCanvas.getWidth(), myTurtleCanvas.getHeight());
-            myTurtleCanvas.getGraphicsContext2D().fill();
-        });
-        return backgroundColorChooser;
-    }
-
-    private ImageChooser createImageChooser() {
-        ImageChooser imageChooser = new ImageChooser();
-        imageChooser.getItems().addAll("Basic Turtle Image", "Advanced Turtle Image");
-     //   imageChooser.getSelectionModel().selectFirst();
-        imageChooser.setPromptText(myResources.getString("TurtleIcon"));
-        return imageChooser;
-    }
+//    private BackgroundColorChooser createBackgroundChooser() {
+//
+//        BackgroundColorChooser backgroundColorChooser = new BackgroundColorChooser();
+//
+//        backgroundColorChooser.setOnAction(event -> {
+//            myTurtleCanvas.getGraphicsContext2D().setFill(backgroundColorChooser.getValue());
+//            myTurtleCanvas.getGraphicsContext2D().rect(0, 0, myTurtleCanvas.getWidth(), myTurtleCanvas.getHeight());
+//            myTurtleCanvas.getGraphicsContext2D().fill();
+//        });
+//        return backgroundColorChooser;
+//    }
+//
+//    private ImageChooser createImageChooser() {
+//        ImageChooser imageChooser = new ImageChooser();
+//        imageChooser.getItems().addAll("Basic Turtle Image", "Advanced Turtle Image");
+//     //   imageChooser.getSelectionModel().selectFirst();
+//        imageChooser.setPromptText(myResources.getString("TurtleIcon"));
+//        return imageChooser;
+//    }
 
 
     private LanguageChooser createLanguageChooser() {
@@ -334,19 +350,26 @@ public class GUIDisplay {
     }
 
     private void initializeButtons(GridPane grid){
-        myRunButton = runButton();
+      //  myRunButton = runButton();
         grid.add(myRunButton, 4, 2);
+
         myClearButton = clearButton();
         grid.add(myClearButton, 4, 3);
         myHelpButton = helpButton();
         grid.add(myHelpButton, 4, 4);
     }
 
-    private Button runButton(){
+    public void setUpRunButton(GUIExecute ref){
+        myRunButton = runButton(ref);
+        myCurrentGUIGrid.add(myRunButton, 8, 7);
+    }
+
+    private Button runButton(GUIExecute ref){
        // Button button = new Button(myResources.getString("Run"));
         Button button = new Button(myResources.getString("Run"));
-        button.setOnAction(event -> {
+        button.setOnMouseClicked(event -> {
             commandToExecute = myTextBox.getText();
+            ref.executeCurrentCommand(commandToExecute);
             addToCommandHistory(commandToExecute);
         });
         return button;
