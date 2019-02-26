@@ -4,14 +4,14 @@ import nodes.VisualCommand;
 
 import java.util.List;
 
-public class TurtleForward extends CommandNode {
-    public TurtleForward(String name){
+public class Backward extends CommandNode {
+    public Backward(String name){
         super(name);
     }
     @Override
     public double evaluate(List<VisualCommand> myVisCommands) {
         double pixels = myChildren.get(0).evaluate(myVisCommands);
-        myVisCommands.add(new VisualTurtleForward(pixels));
+        myVisCommands.add(new VisualTurtleForward( -1.0 * pixels));
         return pixels;
     }
     @Override

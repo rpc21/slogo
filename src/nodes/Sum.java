@@ -4,8 +4,8 @@ import nodes.VisualCommand;
 import java.util.List;
 
 
-public class SumNode extends CommandNode {
-    public SumNode(String a){
+public class Sum extends CommandNode {
+    public Sum(String a){
         super(a);
     }
     @Override
