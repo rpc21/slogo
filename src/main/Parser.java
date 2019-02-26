@@ -37,11 +37,9 @@ public class Parser {
     private CommandNode makeNodeTree() throws InvalidCommandException { // todo: check for invalid number of inputs and invalid commands
         String[] commandSplit = myCurrentCommand.split("\\s+");
         String currentValue = commandSplit[0];
-        System.out.println(myCurrentCommand);
         String currentCommandKey = getCommandKey(currentValue);
         int expectedNumberOfParameters = Integer.parseInt(parameterProperties.getString(currentCommandKey));
         myCurrentCommand = myCurrentCommand.substring(currentValue.length() + 1);
-        System.out.println(currentCommandKey);
         CommandNode currentNode = myCommandFactory.makeCommand(currentCommandKey);
         for(int i = 1; i <= expectedNumberOfParameters; i++) {
             addChild(currentNode, commandSplit[i]);
@@ -51,7 +49,6 @@ public class Parser {
 
     private void addChild(CommandNode currentNode, String child) throws InvalidCommandException {
         if(isDouble(child)) {
-            System.out.println("child:" + child);
             currentNode.addChild(myCommandFactory.makeCommand(child));
         } else {
             currentNode.addChild(makeNodeTree());
