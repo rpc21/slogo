@@ -1,7 +1,5 @@
 package nodes;
-
-import GUI.StackedCanvasPane;
-import nodes.VisualCommand;
+import apis.CanvasAPI;
 
 public class VisualTurtleForward extends VisualCommand {
     private double myPixels;
@@ -9,7 +7,7 @@ public class VisualTurtleForward extends VisualCommand {
         myPixels = pixels;
     }
     @Override
-    public void execute(StackedCanvasPane myCanvas) {
+    public void execute(CanvasAPI myCanvas) {
         myCanvas.turtleMove(-1.0 * myPixels);
     }
 }
