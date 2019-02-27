@@ -39,7 +39,7 @@ public class Parser {
         String currentValue = commandSplit[0];
         String currentCommandKey = getCommandKey(currentValue);
         int expectedNumberOfParameters = Integer.parseInt(parameterProperties.getString(currentCommandKey));
-        myCurrentCommand = myCurrentCommand.substring(currentValue.length() + 1);
+        updateString();
         CommandNode currentNode = myCommandFactory.makeCommand(currentCommandKey);
         for(int i = 1; i <= expectedNumberOfParameters; i++) {
             addChild(currentNode, commandSplit[i]);
@@ -53,7 +53,7 @@ public class Parser {
         } else {
             currentNode.addChild(makeNodeTree());
         }
-        myCurrentCommand = myCurrentCommand.substring(child.length()); // todo: make update method so it isn't substring based
+        updateString();
     }
 
     // purpose: check if something successfully can be parsed as a double
@@ -72,14 +72,14 @@ public class Parser {
                 return symbol.getKey();
             }
         }
-        throw new InvalidCommandException(); // todo: personalize this
+        throw new InvalidCommandException(input); // todo: personalize this
     }
 
     private boolean match (String text, Pattern regex) {
         return regex.matcher(text).matches();
     }
 
-    private void addPatterns () {
+    private void addPatterns() {
         mySymbols = new ArrayList<>();
         for (var key : Collections.list(commandProperties.getKeys())) {
             var regex = commandProperties.getString(key);
@@ -88,5 +88,13 @@ public class Parser {
         }
     }
 
+    private void updateString() {
+        String[] split = myCurrentCommand.split(" ");
+        myCurrentCommand = "";
+        for(int i = 1; i < split.length; i++) {
+            myCurrentCommand += split[i] + " ";
+        }
+        myCurrentCommand = myCurrentCommand.trim();
+    }
 
 }
