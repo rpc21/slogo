@@ -69,7 +69,6 @@ public class GUIDisplay {
         myLanguageConsumer = (x) -> {
             myLanguage = x;
             updateLanguage(x);
-//            myLanguageChooser.setText(myLanguage);
         };
         myLanguageChooser = new LanguageChooser(myLanguageConsumer);
         myToolbar.getChildren().add(myLanguageChooser);
