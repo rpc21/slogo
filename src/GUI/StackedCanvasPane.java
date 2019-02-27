@@ -9,8 +9,8 @@ import java.util.function.Consumer;
 
 public class StackedCanvasPane extends StackPane {
 
-    public static final double DEFAULT_CANVAS_WIDTH = 700D;
-    public static final double DEFAULT_CANVAS_HEIGHT = 450D;
+    public static final double DEFAULT_CANVAS_WIDTH = 800;
+    public static final double DEFAULT_CANVAS_HEIGHT = 400;
 
     private TurtleCanvas myBackgroundCanvas;
     private TurtleCanvas myDrawingCanvas;

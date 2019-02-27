@@ -35,7 +35,7 @@ public class Parser {
     }
 
     private CommandNode makeNodeTree() throws InvalidCommandException { // todo: check for invalid number of inputs and invalid commands
-        String[] commandSplit = myCurrentCommand.split("\\s+");
+        String[] commandSplit = myCurrentCommand.trim().split("\\s+");
         String currentValue = commandSplit[0];
         String currentCommandKey = getCommandKey(currentValue);
         int expectedNumberOfParameters = Integer.parseInt(parameterProperties.getString(currentCommandKey));
