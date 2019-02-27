@@ -1,6 +1,6 @@
 package APIs;
 
-//import otherStuff.CommandNode;
+import otherStuff.CommandNode;
 
 /**
  *
@@ -21,7 +21,7 @@ public interface InternalBackEnd {
     /**
      * Retrieving root of CommandTree after Parser generates it from reading
      */
-    //public CommandNode getCommandTree();
+    public CommandNode getCommandTree();
 
     /**
      * Saves the root of a CommandTree in a map that has String keys for the method name and CommandTree nodes for the
