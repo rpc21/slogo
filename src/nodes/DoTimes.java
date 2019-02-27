@@ -2,25 +2,25 @@ package nodes;
 
 import java.util.List;
 
-public class Repeat extends CommandNode{
+public class DoTimes extends CommandNode{
     private static final int NUM_ITERATIONS = 0;
     private static final int FIRST_COMMAND = 1;
-    public Repeat(String a) {
+    public DoTimes(String a) {
         super(a);
     }
 
     /**
-     * TODO - Initalize repcount and update with each iteration
+     * TODO - Initalize specific variable name and update with each iteration
      */
     @Override
     public double evaluate(List<VisualCommand> myVisCommands) {
-        //initialize repcount potentially
+        //initialize specific variable name and update with each iteration
         double ret = 0;
         int numIterations = (int)super.getChildren().get(1).evaluate(myVisCommands);
         for (int iter = NUM_ITERATIONS; iter < numIterations; iter++){
             for (int currChild = FIRST_COMMAND; currChild < super.getChildren().size(); currChild++)
                 ret = super.getChildren().get(currChild).evaluate(myVisCommands);
-            //update repcount
+            //update specific variable name
         }
         return ret;
     }

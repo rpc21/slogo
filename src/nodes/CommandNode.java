@@ -7,11 +7,12 @@ public abstract class CommandNode {
     public static final int ONE = 1;
     public static final int ZERO = 0;
     List<CommandNode> myChildren = new ArrayList<>();
+    String myName;
     /**
      * evaluates this node's value based upon its particular implementation
      */
     public CommandNode(String name){
-
+        myName = name;
     }
     /**
      * evaluates this node's value based upon its particular implementation
@@ -29,5 +30,13 @@ public abstract class CommandNode {
     public void addChild(CommandNode c){
         myChildren.add(c);
     }
+
+    public boolean needsName(){
+        return false;
+    }
+    protected String getName(){
+        return myName;
+    }
+
 
 }
