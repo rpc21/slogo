@@ -9,6 +9,6 @@ public class VisualTurtleBackward extends VisualCommand {
     }
     @Override
     public void execute(StackedCanvasPane myCanvas) {
-        myCanvas.turtleMove(-1.0 * myPixels);
+        myCanvas.turtleMove(myPixels);
     }
 }

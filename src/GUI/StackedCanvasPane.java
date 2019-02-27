@@ -73,7 +73,7 @@ public class StackedCanvasPane extends StackPane {
     }
 
     public void turtleMove(double pixels){
-        myCurrentDisplayView.addMove(new Move(Color.BLACK,penDown,PenStyle.DASHED, 2.0, new double[] {0, -1.0 * pixels}));
+        myCurrentDisplayView.addMove(new Move(Color.BLACK,penDown,PenStyle.DASHED, 2.0, new double[] {0, pixels}));
         myCurrentDisplayView.drawPath();
     }
 

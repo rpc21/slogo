@@ -1,5 +1,6 @@
 package main;
 
+import GUI.GUIExecute;
 import exceptions.InvalidCommandException;
 import nodes.CommandFactory;
 import nodes.CommandNode;
@@ -17,13 +18,21 @@ public class Parser {
     private static final String COMMAND_PROPERTIES_LOCATION = "languages/English";
     private String myCurrentCommand;
     private List<Entry<String, Pattern>> mySymbols;
+    private Map<String,Double> myVariables;
 
+    AddVariable myAddVarFunction = new AddVariable() {
+        @Override
+        public void addVar(String s,Double d) {
+            addVariable(s,d);
+        }
+    };
     public Parser() {
         myCommandFactory = new CommandFactory();
     }
 
     public List<CommandNode> parse(String input) throws InvalidCommandException { // todo: throw invalidcommandexception and invalidnumberinputs exception
         myCurrentCommand = input;
+        myVariables = new HashMap<>();
         List<CommandNode> topLevelCommands = new ArrayList<>();
         parameterProperties = ResourceBundle.getBundle(PARAMETER_PROPERTIES_LOCATION);
         commandProperties = ResourceBundle.getBundle(COMMAND_PROPERTIES_LOCATION);
@@ -32,6 +41,10 @@ public class Parser {
             topLevelCommands.add(makeNodeTree());
         }
         return topLevelCommands;
+    }
+
+    private void addVariable(String s, Double d){
+        myVariables.put(s,d);
     }
 
     private CommandNode makeNodeTree() throws InvalidCommandException { // todo: check for invalid number of inputs and invalid commands
