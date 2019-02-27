@@ -10,6 +10,6 @@ public class VisualTurtleForward extends VisualCommand {
     }
     @Override
     public void execute(StackedCanvasPane myCanvas) {
-        myCanvas.turtleMove(myPixels);
+        myCanvas.turtleMove(-1.0 * myPixels);
     }
 }
