@@ -5,15 +5,16 @@ import java.util.List;
 
 
 
-public class LessNode extends BooleanNode{
+public class And extends BooleanNode{
 
-    public LessNode(String a) {
+    public And(String a) {
         super(a);
     }
 
     @Override
     public double evaluate(List<VisualCommand> myVisCommands) {
-        if (super.getFirstExpression(myVisCommands) < super.getSecondExpression(myVisCommands))
+        if (super.getFirstExpression(myVisCommands) != ZERO &
+                super.getSecondExpression(myVisCommands) != ZERO)
             return ONE;
         return ZERO;
     }

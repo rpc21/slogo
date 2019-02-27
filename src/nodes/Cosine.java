@@ -4,19 +4,14 @@ import nodes.VisualCommand;
 import java.util.List;
 
 
-public class TanNode extends CommandNode {
-    private static final int NO_INPUT = 0;
-    public TanNode(String commandName) {
+
+public class Cosine extends CommandNode {
+    public Cosine(String commandName) {
         super(commandName);
     }
     @Override
     public double evaluate(List<VisualCommand> myVisCommands) {
-            try {
-                return Math.tan(super.getChildren().get(0).evaluate(myVisCommands));
-            }
-            catch(IllegalArgumentException e) {
-                return NO_INPUT;
-            }
+        return Math.sin(super.getChildren().get(0).evaluate(myVisCommands));
     }
     /**
      * Adds an addend to this nodes.SumNode's list of Children as main.Parser reads them in
@@ -28,5 +23,4 @@ public class TanNode extends CommandNode {
             throw new IllegalArgumentException();
         super.addChild(c);
     }
-
 }

@@ -4,15 +4,15 @@ import nodes.VisualCommand;
 import java.util.List;
 
 
-public class RemainderNode extends CommandNode {
-    public RemainderNode(String commandName) {
+public class Random extends CommandNode {
+    public Random(String commandName) {
         super(commandName);
     }
     @Override
-    public double evaluate(List<VisualCommand> myVisCommands) {
-        double firstExpression = super.getChildren().get(0).evaluate(myVisCommands);
-        double secondExpression = super.getChildren().get(1).evaluate(myVisCommands);
-        return firstExpression % secondExpression;
+    public double evaluate(List<VisualCommand> myVisCommands
+    ) {
+        double childValue = super.getChildren().get(0).evaluate(myVisCommands);
+        return Math.floor(Math.random()*childValue) + 1;
     }
     /**
      * Adds an addend to this nodes.SumNode's list of Children as main.Parser reads them in
@@ -20,7 +20,7 @@ public class RemainderNode extends CommandNode {
      */
     @Override
     public void addChild(CommandNode c){
-        if (super.getChildren().size() == 2)
+        if (super.getChildren().size() == 1)
             throw new IllegalArgumentException();
         super.addChild(c);
     }

@@ -1,20 +1,17 @@
 package nodes;
-import nodes.VisualCommand;
 
 import java.util.List;
 
 
+public class Not extends BooleanNode{
 
-public class AndNode extends BooleanNode{
-
-    public AndNode(String a) {
+    public Not(String a) {
         super(a);
     }
 
     @Override
     public double evaluate(List<VisualCommand> myVisCommands) {
-        if (super.getFirstExpression(myVisCommands) != ZERO &
-                super.getSecondExpression(myVisCommands) != ZERO)
+        if (super.getFirstExpression(myVisCommands) == ZERO)
             return ONE;
         return ZERO;
     }
@@ -26,7 +23,7 @@ public class AndNode extends BooleanNode{
      */
     @Override
     public void addChild(CommandNode c) {
-        if (super.getChildren().size() == 2)
+        if (super.getChildren().size() == 1)
             throw new IllegalArgumentException();
         super.addChild(c);
     }
