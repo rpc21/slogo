@@ -4,9 +4,9 @@ import nodes.VisualCommand;
 import java.util.List;
 
 
-public class Tan extends CommandNode {
+public class Tangent extends CommandNode {
     private static final int NO_INPUT = 0;
-    public Tan(String commandName) {
+    public Tangent(String commandName) {
         super(commandName);
     }
     @Override
