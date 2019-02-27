@@ -53,7 +53,7 @@ public class Parser {
         } else {
             currentNode.addChild(makeNodeTree());
         }
-        myCurrentCommand = myCurrentCommand.substring(child.length());
+        myCurrentCommand = myCurrentCommand.substring(child.length()); // todo: make update method so it isn't substring based
     }
 
     // purpose: check if something successfully can be parsed as a double
