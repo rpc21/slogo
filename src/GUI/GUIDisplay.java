@@ -96,7 +96,7 @@ public class GUIDisplay {
         setTitle(grid);
         createCanvas(grid);
         setToolbar(grid);
-//        createLanguageChooser();
+        createLanguageChooser();
         makeTextBox(grid);
         initializeButtons(grid);
         createTabExplorer(grid);
