@@ -34,6 +34,8 @@ public abstract class DisplayView extends ImageView {
         setFitWidth(IMAGE_WIDTH);
         myPen = new Pen(true, Color.BLACK, PenStyle.DASHED, 2.0);
         myMoveHistory = new ArrayList<>();
+        this.managedProperty().bind(this.visibleProperty());
+        setRotate(90);
     }
 
     public DisplayView(Canvas canvas){
@@ -87,7 +89,7 @@ public abstract class DisplayView extends ImageView {
         setTranslateY(getTranslateY() + move.getDisplacement()[1]);
     }
 
-    private void drawPath(Move move) {
+    public void drawPath(Move move) {
 //        GraphicsContext context = myCanvas.getGraphicsContext2D();
         myContext.setLineWidth(myPen.getMyWidth());
         myContext.setStroke(myPen.getMyColor());
@@ -114,5 +116,9 @@ public abstract class DisplayView extends ImageView {
 
     public List<String> getPossibleImages() {
         return possibleImages;
+    }
+
+    public Pen getMyPen() {
+        return myPen;
     }
 }
