@@ -4,18 +4,17 @@ import nodes.VisualCommand;
 import java.util.List;
 
 
-public class LogNode extends CommandNode {
+public class Tangent extends CommandNode {
     private static final int NO_INPUT = 0;
-    public LogNode(String commandName) {
+    public Tangent(String commandName) {
         super(commandName);
     }
     @Override
     public double evaluate(List<VisualCommand> myVisCommands) {
-
             try {
-                return Math.log(super.getChildren().get(0).evaluate(myVisCommands));
+                return Math.tan(super.getChildren().get(0).evaluate(myVisCommands));
             }
-            catch (IllegalArgumentException e){
+            catch(IllegalArgumentException e) {
                 return NO_INPUT;
             }
     }
@@ -29,4 +28,5 @@ public class LogNode extends CommandNode {
             throw new IllegalArgumentException();
         super.addChild(c);
     }
+
 }

@@ -4,8 +4,8 @@ import nodes.VisualCommand;
 import java.util.List;
 
 
-public class SineNode extends CommandNode {
-    public SineNode(String commandName) {
+public class Sine extends CommandNode {
+    public Sine(String commandName) {
         super(commandName);
     }
         @Override

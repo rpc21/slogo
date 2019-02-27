@@ -4,15 +4,19 @@ import nodes.VisualCommand;
 import java.util.List;
 
 
-public class PowNode extends CommandNode {
-    public PowNode(String commandName) {
+public class ArcTangent extends CommandNode {
+    private static final int NO_INPUT = 0;
+    public ArcTangent(String commandName) {
         super(commandName);
     }
     @Override
     public double evaluate(List<VisualCommand> myVisCommands) {
-        double base = super.getChildren().get(0).evaluate(myVisCommands);
-        double exp = super.getChildren().get(1).evaluate(myVisCommands);
-        return Math.pow(base,exp);
+        try {
+            return Math.atan(super.getChildren().get(0).evaluate(myVisCommands));
+        }
+        catch(IllegalArgumentException e) {
+            return NO_INPUT;
+        }
     }
     /**
      * Adds an addend to this nodes.SumNode's list of Children as main.Parser reads them in
@@ -20,8 +24,9 @@ public class PowNode extends CommandNode {
      */
     @Override
     public void addChild(CommandNode c){
-        if (super.getChildren().size() == 2)
+        if (super.getChildren().size() == 1)
             throw new IllegalArgumentException();
         super.addChild(c);
     }
+
 }

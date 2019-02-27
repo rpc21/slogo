@@ -1,20 +1,23 @@
 package nodes;
-import nodes.VisualCommand;
 
 import java.util.List;
 
-
-
-public class DifferenceNode extends CommandNode {
-    public DifferenceNode(String a) {
+public class Repeat extends CommandNode{
+    private static final int REPEAT_COUNT = 0;
+    private static final int COMMANDS_TO_EXECUTE = 1;
+    public Repeat(String a) {
         super(a);
     }
 
     @Override
     public double evaluate(List<VisualCommand> myVisCommands) {
-        double firstExpression = super.getChildren().get(0).evaluate(myVisCommands);
-        double secondExpression = super.getChildren().get(1).evaluate(myVisCommands);
-        return firstExpression - secondExpression;
+        int iterations = (int)(super.getChildren().get(REPEAT_COUNT).evaluate(myVisCommands));
+        int i = 1;
+        double ret = 0;
+        while (i < iterations){
+            ret = super.getChildren().get(COMMANDS_TO_EXECUTE).evaluate(myVisCommands);
+        }
+        return ret;
     }
 
     /**

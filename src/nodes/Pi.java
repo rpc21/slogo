@@ -4,30 +4,23 @@ import nodes.VisualCommand;
 import java.util.List;
 
 
-
-public class AndNode extends BooleanNode{
-
-    public AndNode(String a) {
-        super(a);
+public class Pi extends CommandNode {
+    public Pi(String commandName) {
+        super(commandName);
     }
-
     @Override
     public double evaluate(List<VisualCommand> myVisCommands) {
-        if (super.getFirstExpression(myVisCommands) != ZERO &
-                super.getSecondExpression(myVisCommands) != ZERO)
-            return ONE;
-        return ZERO;
+        return Math.PI;
     }
-
     /**
      * Adds an addend to this nodes.SumNode's list of Children as main.Parser reads them in
-     *
      * @TODO Read in possible Argument issues from a resources file to ensure parameter specifications are satisfied
      */
     @Override
-    public void addChild(CommandNode c) {
-        if (super.getChildren().size() == 2)
+    public void addChild(CommandNode c){
+        if (super.getChildren().size() == 0)
             throw new IllegalArgumentException();
         super.addChild(c);
     }
+
 }

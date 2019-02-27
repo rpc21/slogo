@@ -4,17 +4,16 @@ import nodes.VisualCommand;
 import java.util.List;
 
 
-public class OrNode extends BooleanNode{
-
-    public OrNode(String a) {
+public class Product extends CommandNode {
+    public Product(String a) {
         super(a);
     }
 
     @Override
     public double evaluate(List<VisualCommand> myVisCommands) {
-        if (super.getFirstExpression(myVisCommands) != ZERO ||  super.getSecondExpression(myVisCommands) != ZERO)
-            return ONE;
-        return ZERO;
+        double firstExpression = super.getChildren().get(0).evaluate(myVisCommands);
+        double secondExpression = super.getChildren().get(1).evaluate(myVisCommands);
+        return firstExpression * secondExpression;
     }
 
     /**

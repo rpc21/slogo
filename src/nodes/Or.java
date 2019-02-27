@@ -4,26 +4,17 @@ import nodes.VisualCommand;
 import java.util.List;
 
 
-public class QuotientNode extends CommandNode {
-    private static final int INVALID_INPUT = 0;
+public class Or extends BooleanNode{
 
-    public QuotientNode(String a) {
+    public Or(String a) {
         super(a);
     }
 
     @Override
     public double evaluate(List<VisualCommand> myVisCommands) {
-        double firstExpression = super.getChildren().get(0).evaluate(myVisCommands);
-        double secondExpression = super.getChildren().get(1).evaluate(myVisCommands);
-        if (validDenominator(secondExpression))
-            return firstExpression / secondExpression;
-        else {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    private boolean validDenominator(double d){
-        return d == 0.0;
+        if (super.getFirstExpression(myVisCommands) != ZERO ||  super.getSecondExpression(myVisCommands) != ZERO)
+            return ONE;
+        return ZERO;
     }
 
     /**

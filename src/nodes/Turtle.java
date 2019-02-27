@@ -4,8 +4,8 @@ import nodes.VisualCommand;
 
 import java.util.List;
 
-public class TurtleLeft extends CommandNode {
-    public TurtleLeft(String name){
+public class Turtle extends CommandNode {
+    public Turtle(String name){
         super(name);
     }
     @Override

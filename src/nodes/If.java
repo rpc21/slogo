@@ -1,19 +1,25 @@
 package nodes;
-import nodes.VisualCommand;
-
 import java.util.List;
 
+public class If extends CommandNode{
+    private static final int FALSE_PATH = 2;
+    private static final int IF_STATEMENT= 0;
+    private static final int TRUE_PATH = 1;
 
-public class ProductNode extends CommandNode {
-    public ProductNode(String a) {
+
+    public If(String a) {
         super(a);
     }
 
     @Override
     public double evaluate(List<VisualCommand> myVisCommands) {
-        double firstExpression = super.getChildren().get(0).evaluate(myVisCommands);
-        double secondExpression = super.getChildren().get(1).evaluate(myVisCommands);
-        return firstExpression * secondExpression;
+        double result = super.getChildren().get(IF_STATEMENT).evaluate(myVisCommands);
+        if (result != 0){
+            return super.getChildren().get(TRUE_PATH).evaluate(myVisCommands);
+        }
+        else{
+            return FALSE_PATH;
+        }
     }
 
     /**
@@ -23,7 +29,7 @@ public class ProductNode extends CommandNode {
      */
     @Override
     public void addChild(CommandNode c) {
-        if (super.getChildren().size() == 2)
+        if (super.getChildren().size() == 3)
             throw new IllegalArgumentException();
         super.addChild(c);
     }
