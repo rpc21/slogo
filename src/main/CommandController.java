@@ -28,7 +28,6 @@ public class CommandController {
         catch(ArithmeticException e){
          return INVALID_COMMAND;
        } catch (InvalidCommandException e) {
-            System.out.println("hi");
             return INVALID_COMMAND;
         }
         try {
