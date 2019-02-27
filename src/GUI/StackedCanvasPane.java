@@ -113,7 +113,7 @@ public class StackedCanvasPane extends StackPane implements CanvasAPI {
     }
 
     @Override
-    public void towards(double x, double y) {
+    public void setTowards(double x, double y) {
         double deltaX = x - myCurrentDisplayView.getTranslateX();
         double deltaY = y - myCurrentDisplayView.getTranslateY();
         if (deltaX == 0){
