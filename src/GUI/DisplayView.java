@@ -89,7 +89,7 @@ public abstract class DisplayView extends ImageView {
         setTranslateY(getTranslateY() + move.getDisplacement()[1]);
     }
 
-    private void drawPath(Move move) {
+    public void drawPath(Move move) {
 //        GraphicsContext context = myCanvas.getGraphicsContext2D();
         myContext.setLineWidth(myPen.getMyWidth());
         myContext.setStroke(myPen.getMyColor());
