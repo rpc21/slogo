@@ -1,54 +1,64 @@
 package main;
 
+import exceptions.InvalidCommandException;
 import nodes.CommandFactory;
 import nodes.CommandNode;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.regex.Pattern;
 
 public class Parser {
     private CommandFactory myCommandFactory;
-    private ResourceBundle parameterProperties;
-    private ResourceBundle commandProperties;
-    private static final String PARAMETER_PROPERTIES_LOCATION = "English.properties";
-    private static final String COMMAND_PROPERTIES_LOCATION = "Parameters.properties";
+    private ResourceBundle myParameterProperties;
+    private ResourceBundle myCommandProperties;
+    private static final String PARAMETER_PROPERTIES_LOCATION = "parser/Parameters";
+    private static final String DEFAULT_LANGUAGE = "English";
+    private static final String COMMAND_PROPERTIES_LOCATION = "languages/";
     private String myCurrentCommand;
+    private List<Entry<String, Pattern>> mySymbols;
+    private List<Entry<String, Pattern>> mySyntax;
 
     public Parser() {
         myCommandFactory = new CommandFactory();
+        myParameterProperties = ResourceBundle.getBundle(PARAMETER_PROPERTIES_LOCATION);
+        myCommandProperties = ResourceBundle.getBundle(COMMAND_PROPERTIES_LOCATION + DEFAULT_LANGUAGE);
+        mySymbols = new ArrayList<>();
+        mySyntax = new ArrayList<>();
+        addPatterns(mySymbols, myCommandProperties);
+        addPatterns(mySyntax, myParameterProperties);
     }
 
-    public List<CommandNode> parse(String input) { // todo: throw invalidcommandexception and invalidnumberinputs exception
+    public List<CommandNode> parse(String input) throws InvalidCommandException { // todo: throw invalidcommandexception and invalidnumberinputs exception
         myCurrentCommand = input;
         List<CommandNode> topLevelCommands = new ArrayList<>();
-        parameterProperties = ResourceBundle.getBundle(PARAMETER_PROPERTIES_LOCATION);
-        commandProperties = ResourceBundle.getBundle(COMMAND_PROPERTIES_LOCATION);
         while(myCurrentCommand.length() > 0) {
             topLevelCommands.add(makeNodeTree());
         }
         return topLevelCommands;
     }
 
-    private CommandNode makeNodeTree() { // todo: check for invalid number of inputs and invalid commands
-        String[] commandSplit = myCurrentCommand.split("\\s+");
-        String currentCommandString = commandSplit[0];
-        int expectedNumberOfParameters = Integer.parseInt(parameterProperties.getString(currentCommandString));
-        myCurrentCommand = myCurrentCommand.substring(currentCommandString.length() + 1);
-        CommandNode currentNode = myCommandFactory.makeCommand(commandSplit[0]);
-        for(int i = 1; i < expectedNumberOfParameters; i++) {
+    private CommandNode makeNodeTree() throws InvalidCommandException { // todo: check for invalid number of inputs?
+        String[] commandSplit = myCurrentCommand.trim().split("\\s+");
+        String currentValue = commandSplit[0];
+        String currentCommandKey = getCommandKey(currentValue);
+        int expectedNumberOfParameters = Integer.parseInt(myParameterProperties.getString(currentCommandKey));
+        updateString();
+        CommandNode currentNode = myCommandFactory.makeCommand(currentCommandKey);
+        for(int i = 1; i <= expectedNumberOfParameters; i++) {
             addChild(currentNode, commandSplit[i]);
         }
         return currentNode;
     }
 
-    private void addChild(CommandNode currentNode, String child) {
+    private void addChild(CommandNode currentNode, String child) throws InvalidCommandException {
         if(isDouble(child)) {
             currentNode.addChild(myCommandFactory.makeCommand(child));
         } else {
             currentNode.addChild(makeNodeTree());
         }
-        myCurrentCommand = myCurrentCommand.substring(child.length() + 1);
+        updateString();
     }
 
     // purpose: check if something successfully can be parsed as a double
@@ -59,6 +69,41 @@ public class Parser {
         } catch(NumberFormatException e) {
             return false;
         }
+    }
+
+    private String getCommandKey(String input) throws InvalidCommandException {
+        for(var symbol : mySymbols) {
+            if(match(input, symbol.getValue())) {
+                return symbol.getKey();
+            }
+        }
+        throw new InvalidCommandException(input);
+    }
+
+    private boolean match (String text, Pattern regex) {
+        return regex.matcher(text).matches();
+    }
+
+    private void addPatterns(List<Entry<String, Pattern>> patternList, ResourceBundle bundle) {
+        patternList.clear();
+        for (var key : Collections.list(bundle.getKeys())) {
+            var regex = bundle.getString(key);
+            patternList.add(new SimpleEntry<>(key, Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
+        }
+    }
+
+    private void updateString() {
+        String[] split = myCurrentCommand.split(" ");
+        myCurrentCommand = "";
+        for(int i = 1; i < split.length; i++) {
+            myCurrentCommand += split[i] + " ";
+        }
+        myCurrentCommand = myCurrentCommand.trim();
+    }
+
+    private void updateLanguage(String newLanguage) {
+        myCommandProperties = ResourceBundle.getBundle(COMMAND_PROPERTIES_LOCATION + newLanguage);
+        addPatterns(mySymbols, myCommandProperties);
     }
 
 }

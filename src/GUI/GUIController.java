@@ -19,6 +19,7 @@ public class GUIController {
     public void execute(String command){
         double answer = myController.execute(command);
         myDisplay.executeVisualCommands(myController.getMyVisualCommands());
+
         //myController.updateState(ImmutableTurtleState);
     }
 
