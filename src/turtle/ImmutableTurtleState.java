@@ -1,26 +1,27 @@
 package turtle;
 
 public class ImmutableTurtleState {
-    private boolean showTurtle;
     private double xCoor;
     private double yCoor;
+    private double heading;
+    private boolean visibility;
+    private boolean penState;
 
-    public ImmutableTurtleState(){
-        showTurtle = true;
-        xCoor = 0;
-        yCoor = 0;
-    }
-
-    public void getXCoor(double x){
-        xCoor =x;
-    }
-    public void getYCoor(double y){
+    public ImmutableTurtleState(double x,double y, double h, boolean v, boolean p ){
+        xCoor = x;
         yCoor = y;
+        heading = h;
+        visibility = v;
+        penState = p;
     }
-    public void hideTurtle(){
-        showTurtle = false;
+
+    public double getXCoor(){ return xCoor; }
+    public double getYCoor(){
+        return yCoor;
     }
-    public void showTurtle(){
-        showTurtle = true;
+    public double getHeading(){return heading;}
+    public boolean getVisibility(){
+        return visibility;
     }
+    public boolean getPenState(){ return penState; }
 }

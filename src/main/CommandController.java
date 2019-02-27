@@ -9,6 +9,7 @@ import exceptions.InvalidCommandException;
 import nodes.CommandNode;
 import nodes.*;
 import nodes.VisualCommand;
+import turtle.ImmutableTurtleState;
 
 public class CommandController {
     private Parser myParser;
@@ -44,6 +45,9 @@ public class CommandController {
     }
     public List<VisualCommand> getMyVisualCommands(){
         return myVisualCommands;
+    }
+    public void updateTurtle(ImmutableTurtleState currentState) {
+
     }
 
 }
