@@ -1,5 +1,6 @@
 package GUI;
 
+import apis.CanvasAPI;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -7,7 +8,7 @@ import javafx.scene.paint.Color;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class StackedCanvasPane extends StackPane {
+public class StackedCanvasPane extends StackPane implements CanvasAPI {
 
     public static final double DEFAULT_CANVAS_WIDTH = 800;
     public static final double DEFAULT_CANVAS_HEIGHT = 400;
@@ -77,11 +78,65 @@ public class StackedCanvasPane extends StackPane {
         myCurrentDisplayView.drawPath();
     }
 
+    @Override
+    public void turnRight(double degrees) {
+        setRotate(getRotate() + degrees);
+    }
+
+    @Override
+    public void turnLeft(double degrees) {
+        setRotate(getRotate() - degrees);
+    }
+
     public void setPenUp(){
         penDown = false;
     }
 
     public void setPenDown(){
         penDown = true;
+    }
+
+    @Override
+    public void showTurtle() {
+        myCurrentDisplayView.setVisible(true);
+    }
+
+    @Override
+    public void hideTurtle() {
+        myCurrentDisplayView.setVisible(false);
+    }
+
+    @Override
+    public void setOrientation(double degrees) {
+        myCurrentDisplayView.setRotate(degrees);
+    }
+
+    @Override
+    public void towards(double x, double y) {
+        double deltaX = x - myCurrentDisplayView.getTranslateX();
+        double deltaY = y - myCurrentDisplayView.getTranslateY();
+        if (deltaX == 0){
+            myCurrentDisplayView.setRotate(Double.POSITIVE_INFINITY * deltaY);
+        } else{
+            myCurrentDisplayView.setRotate(90 - Math.atan(deltaY/deltaX));
+        }
+    }
+
+    @Override
+    public void setLocation(double x, double y) {
+        myCurrentDisplayView.setTranslateX(x);
+        myCurrentDisplayView.setTranslateY(y);
+    }
+
+    @Override
+    public void goHome() {
+        setLocation(0, 0);
+    }
+
+    @Override
+    public void clearScreen() {
+        goHome();
+        myBackgroundCanvas.setColor(Color.WHITE);
+        myDrawingCanvas.clearCanvas();
     }
 }

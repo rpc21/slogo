@@ -34,6 +34,8 @@ public abstract class DisplayView extends ImageView {
         setFitWidth(IMAGE_WIDTH);
         myPen = new Pen(true, Color.BLACK, PenStyle.DASHED, 2.0);
         myMoveHistory = new ArrayList<>();
+        this.managedProperty().bind(this.visibleProperty());
+        setRotate(90);
     }
 
     public DisplayView(Canvas canvas){
@@ -114,5 +116,9 @@ public abstract class DisplayView extends ImageView {
 
     public List<String> getPossibleImages() {
         return possibleImages;
+    }
+
+    public Pen getMyPen() {
+        return myPen;
     }
 }
