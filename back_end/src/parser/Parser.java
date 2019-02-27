@@ -1,5 +1,6 @@
-package main;
+package parser;
 
+import apis.AddVariable;
 import exceptions.InvalidCommandException;
 import nodes.CommandFactory;
 import nodes.CommandNode;

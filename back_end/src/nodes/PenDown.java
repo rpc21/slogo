@@ -1,10 +1,15 @@
 package nodes;
 
+import java.util.List;
 
-import GUI.StackedCanvasPane;
+public class PenDown extends CommandNode {
+    public PenDown(String name){
+        super(name);
+    }
 
-public class PenDown extends VisualCommand {
-    public void execute(StackedCanvasPane myCanvas){
-        myCanvas.setPenDown();
+    @Override
+    public double evaluate(List<VisualCommand> myVisCommands) {
+        myVisCommands.add(new VisualPenDown());
+        return 1;
     }
 }

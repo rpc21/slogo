@@ -1,6 +1,6 @@
 package GUI;
 
-import main.CommandController;
+import parser.external.CommandController;
 
 public class GUIController {
     private CommandController myController = new CommandController();
