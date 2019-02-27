@@ -15,6 +15,7 @@ import nodes.VisualCommand;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 public class GUIDisplay {
 
@@ -47,12 +48,13 @@ public class GUIDisplay {
     private SLogoTab myCommands;
     private SLogoTab myMethods;
     private GridPane myCurrentGUIGrid;
-    RetrieveCommand myRetrieveCommand = new RetrieveCommand() {
-        @Override
-        public void retrieveCommand(String a) {
-            myTextBox.setText(a);
-        }
-    };
+    private Consumer<String> myLanguageConsumer;
+//    RetrieveCommand myRetrieveCommand = new RetrieveCommand() {
+//        @Override
+//        public void retrieveCommand(String a) {
+//            myTextBox.setText(a);
+//        }
+//    };
 
     public static final int SCENE_WIDTH = 1200;
     public static final int SCENE_HEIGHT = 650;
@@ -64,11 +66,17 @@ public class GUIDisplay {
         myResources = ResourceBundle.getBundle(LANGUAGE_LOCATION + myLanguage);
         myStage = stage;
         myRoot = createGridPane();
-        myLanguageChooser = createLanguageChooser();
-        buildLanguageChooser(myLanguageChooser);
+        myLanguageConsumer = (x) -> {
+            myLanguage = x;
+            updateLanguage(x);
+//            myLanguageChooser.setText(myLanguage);
+        };
+        myLanguageChooser = new LanguageChooser(myLanguageConsumer);
+        myToolbar.getChildren().add(myLanguageChooser);
+//        buildLanguageChooser(myLanguageChooser);
       //  createImageChooser();
         myScene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.LIGHTGRAY);
-        handleResizability();
+      //  handleResizability();
         myStage.setScene(myScene);
     }
     public void executeVisualCommands(List<VisualCommand> myCommands){
@@ -76,24 +84,24 @@ public class GUIDisplay {
             c.execute(myStackedCanvasPane);
     }
 
-    private void handleResizability() {
-        myScene.widthProperty().addListener(observable -> {
-            resizeCanvases();
-            resizeTabExplorer();
-        });
-        myScene.heightProperty().addListener(observable -> {
-            resizeCanvases();
-            resizeTabExplorer();
-        });
-    }
-
-    private void resizeTabExplorer() {
-        myTabExplorer.resize(myScene.getWidth() * 5/12, myScene.getHeight()*4.5/6.5);
-    }
-
-    private void resizeCanvases() {
-        myStackedCanvasPane.resizeCanvases(myScene.getWidth() * 7/12, myScene.getHeight()*4.5/6.5);
-    }
+//    private void handleResizability() {
+//        myScene.widthProperty().addListener(observable -> {
+//            resizeCanvases();
+//            resizeTabExplorer();
+//        });
+//        myScene.heightProperty().addListener(observable -> {
+//            resizeCanvases();
+//            resizeTabExplorer();
+//        });
+//    }
+//
+//    private void resizeTabExplorer() {
+//        myTabExplorer.resize(myScene.getWidth() * 5/12, myScene.getHeight()*4.5/6.5);
+//    }
+//
+//    private void resizeCanvases() {
+//        myStackedCanvasPane.resizeCanvases(myScene.getWidth() * 7/12, myScene.getHeight()*4.5/6.5);
+//    }
 
     public void display(){
         myStage.show();
@@ -139,6 +147,8 @@ public class GUIDisplay {
         myTabExplorer.getTabs().addAll(myVariables, myMethods, myCommands);
         grid.add(myTabExplorer, 8, 1, 5, 5);
     }
+
+
 
     private void createCanvas(GridPane grid) {
         myStackedCanvasPane = new StackedCanvasPane();
@@ -262,76 +272,77 @@ public class GUIDisplay {
 //        imageChooser.setPromptText(myResources.getString("TurtleIcon"));
 //        return imageChooser;
 //    }
+//
+//    private LanguageChooser createLanguageChooser(Consumer<String> consumer){
+//        LanguageChooser menuButton = new LanguageChooser(consumer);
+//        return menuButton;
+//    }
 
-    private LanguageChooser createLanguageChooser(){
-        LanguageChooser menuButton = new LanguageChooser();
-        return menuButton;
-    }
+//    private LanguageChooser buildLanguageChooser(LanguageChooser menuButton) {
+//       // LanguageChooser menuButton = new LanguageChooser();
+//        menuButton.setText(myResources.getString("Language"));
+//        MenuItem english = new MenuItem("English");
+//        english.setOnAction(event -> {
+//            myLanguage = "English";
+//            updateLanguage();
+//            myLanguageChooser.setText(myLanguage);
+//        });
+//
+//        MenuItem french = new MenuItem("Français");
+//        french.setOnAction(event -> {
+//            myLanguage = "French";
+//            updateLanguage();
+//            myLanguageChooser.setText("Français");
+//        });
+//        MenuItem chinese = new MenuItem("Zhōngwén");
+//        chinese.setOnAction(event -> {
+//            myLanguage = "Chinese";
+//            updateLanguage();
+//            myLanguageChooser.setText("Zhōngwén");
+//        });
+//        MenuItem german = new MenuItem("Deutsche");
+//        german.setOnAction(event -> {
+//            myLanguage = "German";
+//            updateLanguage();
+//            myLanguageChooser.setText("Deutsche");
+//        });
+//        MenuItem italian = new MenuItem("Italiano");
+//        italian.setOnAction(event -> {
+//            myLanguage = "Italian";
+//            updateLanguage();
+//            myLanguageChooser.setText("Italiano");
+//        });
+//        MenuItem portuguese = new MenuItem("Português");
+//        portuguese.setOnAction(event -> {
+//            myLanguage = "Portuguese";
+//            updateLanguage();
+//            myLanguageChooser.setText("Português");
+//        });
+//        MenuItem russian = new MenuItem("Russkiy");
+//        russian.setOnAction(event -> {
+//            myLanguage = "Russian";
+//            updateLanguage();
+//            myLanguageChooser.setText("Russkiy");
+//        });
+//        MenuItem spanish = new MenuItem("Español");
+//        spanish.setOnAction(event -> {
+//            myLanguage = "Spanish";
+//            updateLanguage();
+//            myLanguageChooser.setText("Español");
+//        });
+//        MenuItem urdu = new MenuItem("Urdu");
+//        urdu.setOnAction(event -> {
+//            myLanguage = "Urdu";
+//            updateLanguage();
+//            myLanguageChooser.setText("Urdu");
+//        });
+//        menuButton.getItems().addAll(english, french, chinese, german, italian, portuguese, russian, spanish, urdu);
+//        myToolbar.getChildren().add(menuButton);
+//        return menuButton;
+//    }
 
-    private LanguageChooser buildLanguageChooser(LanguageChooser menuButton) {
-       // LanguageChooser menuButton = new LanguageChooser();
-        menuButton.setText(myResources.getString("Language"));
-        MenuItem english = new MenuItem("English");
-        english.setOnAction(event -> {
-            myLanguage = "English";
-            updateLanguage();
-            myLanguageChooser.setText(myLanguage);
-        });
-
-        MenuItem french = new MenuItem("Français");
-        french.setOnAction(event -> {
-            myLanguage = "French";
-            updateLanguage();
-            myLanguageChooser.setText("Français");
-        });
-        MenuItem chinese = new MenuItem("Zhōngwén");
-        chinese.setOnAction(event -> {
-            myLanguage = "Chinese";
-            updateLanguage();
-            myLanguageChooser.setText("Zhōngwén");
-        });
-        MenuItem german = new MenuItem("Deutsche");
-        german.setOnAction(event -> {
-            myLanguage = "German";
-            updateLanguage();
-            myLanguageChooser.setText("Deutsche");
-        });
-        MenuItem italian = new MenuItem("Italiano");
-        italian.setOnAction(event -> {
-            myLanguage = "Italian";
-            updateLanguage();
-            myLanguageChooser.setText("Italiano");
-        });
-        MenuItem portuguese = new MenuItem("Português");
-        portuguese.setOnAction(event -> {
-            myLanguage = "Portuguese";
-            updateLanguage();
-            myLanguageChooser.setText("Português");
-        });
-        MenuItem russian = new MenuItem("Russkiy");
-        russian.setOnAction(event -> {
-            myLanguage = "Russian";
-            updateLanguage();
-            myLanguageChooser.setText("Russkiy");
-        });
-        MenuItem spanish = new MenuItem("Español");
-        spanish.setOnAction(event -> {
-            myLanguage = "Spanish";
-            updateLanguage();
-            myLanguageChooser.setText("Español");
-        });
-        MenuItem urdu = new MenuItem("Urdu");
-        urdu.setOnAction(event -> {
-            myLanguage = "Urdu";
-            updateLanguage();
-            myLanguageChooser.setText("Urdu");
-        });
-        menuButton.getItems().addAll(english, french, chinese, german, italian, portuguese, russian, spanish, urdu);
-        myToolbar.getChildren().add(menuButton);
-        return menuButton;
-    }
-
-    private void updateLanguage(){
+    private void updateLanguage(String language){
+        myLanguage = language;
         myResources = ResourceBundle.getBundle(myLanguage);
         myRunButton.setText(myResources.getString("Run"));
         myClearButton.setText(myResources.getString("Clear"));

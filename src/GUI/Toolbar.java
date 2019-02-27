@@ -21,7 +21,7 @@ public class Toolbar extends HBox implements GUIComponent {
 
     public Toolbar(Consumer<Color> backgroundColorAccess, Consumer<Color> penColorAccess, Consumer<String> iconAccess){
         this();
-   //     myLanguageChooser = createLanguageChooser();
+      //  myLanguageChooser = createLanguageChooser();
         myBackgroundColorChooser = new BackgroundColorChooser(backgroundColorAccess);
         myPenColorChooser = new PenColorChooser(penColorAccess);
         myImageChooser = createImageChooser(iconAccess);
@@ -39,7 +39,9 @@ public class Toolbar extends HBox implements GUIComponent {
         return myImageChooser;
     }
 
-
+    public LanguageChooser getMyLanguageChooser(){
+        return myLanguageChooser;
+    }
 
 //    private LanguageChooser createLanguageChooser() {
 //        LanguageChooser languageChooser = new LanguageChooser<>();
