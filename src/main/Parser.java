@@ -11,34 +11,39 @@ import java.util.regex.Pattern;
 
 public class Parser {
     private CommandFactory myCommandFactory;
-    private ResourceBundle parameterProperties;
-    private ResourceBundle commandProperties;
+    private ResourceBundle myParameterProperties;
+    private ResourceBundle myCommandProperties;
     private static final String PARAMETER_PROPERTIES_LOCATION = "parser/Parameters";
-    private static final String COMMAND_PROPERTIES_LOCATION = "languages/English";
+    private static final String DEFAULT_LANGUAGE = "English";
+    private static final String COMMAND_PROPERTIES_LOCATION = "languages/";
     private String myCurrentCommand;
     private List<Entry<String, Pattern>> mySymbols;
+    private List<Entry<String, Pattern>> mySyntax;
 
     public Parser() {
         myCommandFactory = new CommandFactory();
+        myParameterProperties = ResourceBundle.getBundle(PARAMETER_PROPERTIES_LOCATION);
+        myCommandProperties = ResourceBundle.getBundle(COMMAND_PROPERTIES_LOCATION + DEFAULT_LANGUAGE);
+        mySymbols = new ArrayList<>();
+        mySyntax = new ArrayList<>();
+        addPatterns(mySymbols, myCommandProperties);
+        addPatterns(mySyntax, myParameterProperties);
     }
 
     public List<CommandNode> parse(String input) throws InvalidCommandException { // todo: throw invalidcommandexception and invalidnumberinputs exception
         myCurrentCommand = input;
         List<CommandNode> topLevelCommands = new ArrayList<>();
-        parameterProperties = ResourceBundle.getBundle(PARAMETER_PROPERTIES_LOCATION);
-        commandProperties = ResourceBundle.getBundle(COMMAND_PROPERTIES_LOCATION);
-        addPatterns();
         while(myCurrentCommand.length() > 0) {
             topLevelCommands.add(makeNodeTree());
         }
         return topLevelCommands;
     }
 
-    private CommandNode makeNodeTree() throws InvalidCommandException { // todo: check for invalid number of inputs and invalid commands
+    private CommandNode makeNodeTree() throws InvalidCommandException { // todo: check for invalid number of inputs?
         String[] commandSplit = myCurrentCommand.trim().split("\\s+");
         String currentValue = commandSplit[0];
         String currentCommandKey = getCommandKey(currentValue);
-        int expectedNumberOfParameters = Integer.parseInt(parameterProperties.getString(currentCommandKey));
+        int expectedNumberOfParameters = Integer.parseInt(myParameterProperties.getString(currentCommandKey));
         updateString();
         CommandNode currentNode = myCommandFactory.makeCommand(currentCommandKey);
         for(int i = 1; i <= expectedNumberOfParameters; i++) {
@@ -66,25 +71,24 @@ public class Parser {
         }
     }
 
-    private String getCommandKey(String input) throws InvalidCommandException {//throws InvalidCommandException {
+    private String getCommandKey(String input) throws InvalidCommandException {
         for(var symbol : mySymbols) {
             if(match(input, symbol.getValue())) {
                 return symbol.getKey();
             }
         }
-        throw new InvalidCommandException(input); // todo: personalize this
+        throw new InvalidCommandException(input);
     }
 
     private boolean match (String text, Pattern regex) {
         return regex.matcher(text).matches();
     }
 
-    private void addPatterns() {
-        mySymbols = new ArrayList<>();
-        for (var key : Collections.list(commandProperties.getKeys())) {
-            var regex = commandProperties.getString(key);
-            mySymbols.add(new SimpleEntry<>(key,
-                    Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
+    private void addPatterns(List<Entry<String, Pattern>> patternList, ResourceBundle bundle) {
+        patternList.clear();
+        for (var key : Collections.list(bundle.getKeys())) {
+            var regex = bundle.getString(key);
+            patternList.add(new SimpleEntry<>(key, Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
         }
     }
 
@@ -95,6 +99,11 @@ public class Parser {
             myCurrentCommand += split[i] + " ";
         }
         myCurrentCommand = myCurrentCommand.trim();
+    }
+
+    private void updateLanguage(String newLanguage) {
+        myCommandProperties = ResourceBundle.getBundle(COMMAND_PROPERTIES_LOCATION + newLanguage);
+        addPatterns(mySymbols, myCommandProperties);
     }
 
 }
