@@ -54,8 +54,6 @@ public class GUIDisplay {
             myLanguage = x;
             updateLanguage(x);
         };
-        myLanguageChooser = new LanguageChooser(myLanguageConsumer);
-        myToolbar.getChildren().add(myLanguageChooser);
         myScene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.LIGHTGRAY);
         myStage.setScene(myScene);
     }
@@ -126,6 +124,8 @@ public class GUIDisplay {
         myToolbar = new Toolbar(myStackedCanvasPane.getBackgroundColorAccess(),
                 myStackedCanvasPane.getPenPropertiesAccess(), myStackedCanvasPane.getIconAccess());
         myTurtleIconChooser = myToolbar.getMyImageChooser();
+        myLanguageChooser = new LanguageChooser(myLanguageConsumer);
+        myToolbar.getChildren().add(myLanguageChooser);
         grid.add(myToolbar, 1, 0, 1, 1);
     }
 

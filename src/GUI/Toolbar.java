@@ -3,6 +3,7 @@ package GUI;
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 import java.util.function.Consumer;
 
@@ -19,7 +20,7 @@ public class Toolbar extends HBox implements GUIComponent {
         setSpacing(10);
     }
 
-    public Toolbar(Consumer<Color> backgroundColorAccess, Consumer<Color> penColorAccess, Consumer<String> iconAccess){
+    public Toolbar(Consumer<Color> backgroundColorAccess, Consumer<Paint> penColorAccess, Consumer<String> iconAccess){
         this();
       //  myLanguageChooser = createLanguageChooser();
         myBackgroundColorChooser = new BackgroundColorChooser(backgroundColorAccess);

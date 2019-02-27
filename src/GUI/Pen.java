@@ -1,15 +1,16 @@
 package GUI;
 
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 public class Pen {
 
     private boolean down;
-    private Color myColor;
+    private Paint myColor;
     private PenStyle myStyle;
     private double myWidth;
 
-    public Pen(boolean down, Color myColor, PenStyle myStyle, double myWidth) {
+    public Pen(boolean down, Paint myColor, PenStyle myStyle, double myWidth) {
         this.down = down;
         this.myColor = myColor;
         this.myStyle = myStyle;
@@ -24,11 +25,11 @@ public class Pen {
         this.down = down;
     }
 
-    public Color getMyColor() {
+    public Paint getMyColor() {
         return myColor;
     }
 
-    public void setMyColor(Color myColor) {
+    public void setMyColor(Paint myColor) {
         this.myColor = myColor;
     }
 
