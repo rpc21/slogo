@@ -40,4 +40,8 @@ public class CommandController {
 
     }
 
+    public void updateLanguage(String newLanguage) {
+        myParser.updateLanguage(newLanguage);
+    }
+
 }

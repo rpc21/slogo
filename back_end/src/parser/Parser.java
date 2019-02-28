@@ -139,7 +139,7 @@ public class Parser {
         myCurrentCommand = myCurrentCommand.trim();
     }
 
-    private void updateLanguage(String newLanguage) {
+    public void updateLanguage(String newLanguage) {
         myCommandProperties = ResourceBundle.getBundle(COMMAND_PROPERTIES_LOCATION + newLanguage);
         addPatterns(myCommandSyntax, myCommandProperties);
     }
