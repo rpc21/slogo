@@ -1,6 +1,6 @@
 package nodes;
 
-import GUI.StackedCanvasPane;
+
 import apis.CanvasAPI;
 
 public class VisualTurtleBackward extends VisualCommand {

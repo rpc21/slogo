@@ -1,6 +1,5 @@
 package nodes;
 
-import GUI.StackedCanvasPane;
 import apis.CanvasAPI;
 
 public abstract class VisualCommand {
