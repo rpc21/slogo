@@ -123,9 +123,11 @@ public abstract class DisplayView extends ImageView {
     }
 
     public void turtleMove(double pixels) {
+        System.out.println(pixels);;
         double orientation = Math.toRadians(getRotate());
         double deltaX = pixels * Math.sin(orientation);
         double deltaY = - pixels * Math.cos(orientation);
+        System.out.println(getTranslateX() + " " + deltaX + "");
         moveTo(new Point2D(getTranslateX() + deltaX, getTranslateY() + deltaY));
     }
 
