@@ -36,7 +36,7 @@ public abstract class DisplayView extends ImageView {
         myPen = new Pen(true, Color.BLACK, PenStyle.DASHED, 2.0);
         myMoveHistory = new ArrayList<>();
         this.managedProperty().bind(this.visibleProperty());
-        setRotate(90);
+        setRotate(0);
     }
 
     public DisplayView(Canvas canvas){
@@ -86,8 +86,8 @@ public abstract class DisplayView extends ImageView {
     }
 
     private void updatePosition(Move move) {
-        setTranslateX(getTranslateX() + move.getDisplacement().getX());
-        setTranslateY(getTranslateY() + move.getDisplacement().getY());
+        setTranslateX(move.getDisplacement().getX());
+        setTranslateY(move.getDisplacement().getY());
     }
 
     public void drawPath(Move move) {
@@ -122,16 +122,18 @@ public abstract class DisplayView extends ImageView {
         return myPen;
     }
 
-    public void turtleMove(double pixels) {
-        System.out.println(pixels);;
-        double orientation = Math.toRadians(getRotate());
-        double deltaX = pixels * Math.sin(orientation);
-        double deltaY = - pixels * Math.cos(orientation);
+    public void turtleMove(double deltaX, double deltaY) {
+//        System.out.println(pixels);;
+//        double orientation = Math.toRadians(getRotate());
+//        double deltaX = pixels * Math.sin(orientation);
+//        double deltaY = - pixels * Math.cos(orientation);
         System.out.println(getTranslateX() + " " + deltaX + "");
         moveTo(new Point2D(getTranslateX() + deltaX, getTranslateY() + deltaY));
+        System.out.println(getTranslateY());
     }
 
     private void moveTo(Point2D newLocation){
+        System.out.println("####" +  newLocation);
         Move move = new Move(new Pen(getMyPen()), newLocation);
         addMove(move);
         drawPath(move);

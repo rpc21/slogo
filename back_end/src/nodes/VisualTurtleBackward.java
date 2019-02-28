@@ -10,6 +10,6 @@ public class VisualTurtleBackward extends VisualCommand {
     }
     @Override
     public void execute(CanvasAPI myCanvas) {
-        myCanvas.turtleMove(- myPixels);
+        myCanvas.turtleMove(0,0);
     }
 }

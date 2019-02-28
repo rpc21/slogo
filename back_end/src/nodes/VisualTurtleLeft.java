@@ -9,6 +9,6 @@ public class VisualTurtleLeft extends VisualCommand {//extends VisualCommand {
     }
     //@Override
     public void execute(CanvasAPI myCanvas) {
-        myCanvas.turnLeft(myPixels);
+        myCanvas.turtleTurn(myPixels);
     }
 }

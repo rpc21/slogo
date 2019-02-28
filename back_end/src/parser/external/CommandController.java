@@ -21,12 +21,14 @@ public class CommandController {
 
     public CommandController(){
         myParser = new Parser();
+        myTurtle = new Turtle();
+        myVisualCommands = new ArrayList<>();
     }
 
     public double execute(String command, String language) throws InvalidCommandException, NothingToRunException {
         updateLanguage(language);
         CommandNode myNode;
-        myVisualCommands = new ArrayList<>();
+        myVisualCommands.clear();
         try {
             myNode = myParser.parse(command).get(0); // note of change! This is changed now because their could be many commands in a list that come from a parser.
         } catch (IndexOutOfBoundsException e) {

@@ -12,7 +12,10 @@ public class Backward extends CommandNode {
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle)  {
         double pixels = myChildren.get(0).evaluate(myVisCommands, myTurtle);
-        myVisCommands.add(new VisualTurtleForward( -1.0 * pixels));
+        VisualTurtleMove myVisMove = new VisualTurtleMove( -1.0 * pixels, myTurtle.getHeading());
+        myVisCommands.add(myVisMove);
+        myTurtle.setXCoor(myTurtle.getXCoor() + myVisMove.getXDelta());
+        myTurtle.setYCoor(myTurtle.getYCoor() + myVisMove.getYDelta());
         return pixels;
     }
     @Override
