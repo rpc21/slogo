@@ -1,6 +1,7 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
+import turtle.Turtle;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class Name extends  CommandNode{
         myName = n;
     }
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands){
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle){
         return NO_EXECUTE_RESULT;
     }
     @Override

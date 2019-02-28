@@ -1,10 +1,7 @@
 package nodes;
-
 import apis.ImmutableVisualCommand;
-
+import turtle.Turtle;
 import java.util.List;
-
-
 
 public class Difference extends CommandNode {
     public Difference(String a) {
@@ -12,9 +9,9 @@ public class Difference extends CommandNode {
     }
 
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands) {
-        double firstExpression = super.getChildren().get(0).evaluate(myVisCommands);
-        double secondExpression = super.getChildren().get(1).evaluate(myVisCommands);
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
+        double firstExpression = super.getChildren().get(0).evaluate(myVisCommands, myTurtle);
+        double secondExpression = super.getChildren().get(1).evaluate(myVisCommands, myTurtle);
         return firstExpression - secondExpression;
     }
 

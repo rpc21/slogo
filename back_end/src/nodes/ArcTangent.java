@@ -1,6 +1,7 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
+import turtle.Turtle;
 
 import java.util.List;
 
@@ -11,9 +12,9 @@ public class ArcTangent extends CommandNode {
         super(commandName);
     }
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands) {
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
         try {
-            return Math.atan(super.getChildren().get(0).evaluate(myVisCommands));
+            return Math.atan(super.getChildren().get(0).evaluate(myVisCommands, myTurtle));
         }
         catch(IllegalArgumentException e) {
             return NO_INPUT;

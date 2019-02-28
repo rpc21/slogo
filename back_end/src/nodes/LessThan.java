@@ -1,6 +1,7 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
+import turtle.Turtle;
 
 import java.util.List;
 
@@ -13,8 +14,8 @@ public class LessThan extends BooleanNode{
     }
 
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands) {
-        if (super.getFirstExpression(myVisCommands) < super.getSecondExpression(myVisCommands))
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
+        if (super.getFirstExpression(myVisCommands,myTurtle) < super.getSecondExpression(myVisCommands,myTurtle))
             return ONE;
         return ZERO;
     }
