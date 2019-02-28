@@ -17,6 +17,13 @@ public class Pen {
         this.myWidth = myWidth;
     }
 
+    public Pen(Pen pen){
+        this.down = pen.down;
+        this.myColor = pen.myColor;
+        this.myStyle = pen.myStyle;
+        this.myWidth = pen.myWidth;
+    }
+
     public boolean isDown() {
         return down;
     }
