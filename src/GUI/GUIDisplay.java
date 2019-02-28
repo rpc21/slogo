@@ -44,10 +44,11 @@ public class GUIDisplay {
     public static final int SCENE_WIDTH = 1200;
     public static final int SCENE_HEIGHT = 650;
     public GUIdata dataTracker = new GUIdata();
+    private ErrorDisplay myError;
 
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
-        myResources = ResourceBundle.getBundle(LANGUAGE_LOCATION + myLanguage);
+        myResources = ResourceBundle.getBundle(myLanguage);
         myStage = stage;
         myRoot = createGridPane();
         myLanguageConsumer = (x) -> {
@@ -158,6 +159,8 @@ public class GUIDisplay {
         grid.add(myClearButton, 4, 3);
         myHelpButton = new HelpButton(myResources.getString("Help"), myResources, helpMenuConsumer);
         grid.add(myHelpButton, 4, 4);
+        myError = new ErrorDisplay();
+        grid.add(myError, 0, 6);
     }
 
     public void setUpRunButton(GUIExecute ref){
@@ -169,7 +172,13 @@ public class GUIDisplay {
         Button button = new Button(myResources.getString("Run"));
         button.setOnMouseClicked(event -> {
             commandToExecute = myTextBox.getText();
-            ref.executeCurrentCommand(commandToExecute);
+            myError.setText("");
+            try {
+                ref.executeCurrentCommand(commandToExecute);
+            } catch(Exception InvalidCommandException) {
+                System.out.println("Working on it");
+                myError.setText("Please Enter a Valid SLogo Command");
+            }
             addToCommandHistory(commandToExecute);
         });
         return button;
@@ -188,7 +197,10 @@ public class GUIDisplay {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(myResources.getString("Help"));
         alert.setHeaderText(myResources.getString("HelpHeader"));
-        alert.setContentText(myResources.getString("HelpInfo"));
+       // alert.setContentText(myResources.getString("HelpInfo"));
+        ScrollPane pane = new ScrollPane();
+        pane.setContent(new Label(myResources.getString("HelpInfo")));
+        alert.getDialogPane().setExpandableContent(pane);
         return alert;
     }
 
