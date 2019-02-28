@@ -2,6 +2,7 @@ package GUI;
 
 import apis.ImmutableVisualCommand;
 
+import exceptions.InvalidCommandException;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -176,8 +177,8 @@ public class GUIDisplay {
             myError.setText("");
             try {
                 ref.executeCurrentCommand(commandToExecute);
-            } catch(Exception InvalidCommandException) {
-                myError.setText("Please Enter a Valid SLogo Command");
+            } catch(exceptions.InvalidCommandException e) {
+                myError.setText("Invalid Command: " + e.getReason());
             }
             addToCommandHistory(commandToExecute);
         });
