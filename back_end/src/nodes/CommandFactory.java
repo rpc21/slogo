@@ -9,11 +9,6 @@ public class CommandFactory {
     }
 
     public CommandNode makeCommand(String c){
-
-        if (c.length() < 3){
-            ConstantNode hmmm = new ConstantNode(c);
-            return hmmm;
-        }
         Class myCommandClass;
         try {
             myCommandClass = Class.forName("nodes." + c);
