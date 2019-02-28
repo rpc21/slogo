@@ -47,7 +47,7 @@ public class GUIDisplay {
 
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
-        myResources = ResourceBundle.getBundle(LANGUAGE_LOCATION + myLanguage);
+        myResources = ResourceBundle.getBundle(myLanguage);
         myStage = stage;
         myRoot = createGridPane();
         myLanguageConsumer = (x) -> {
@@ -188,7 +188,10 @@ public class GUIDisplay {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(myResources.getString("Help"));
         alert.setHeaderText(myResources.getString("HelpHeader"));
-        alert.setContentText(myResources.getString("HelpInfo"));
+       // alert.setContentText(myResources.getString("HelpInfo"));
+        ScrollPane pane = new ScrollPane();
+        pane.setContent(new Label(myResources.getString("HelpInfo")));
+        alert.getDialogPane().setExpandableContent(pane);
         return alert;
     }
 
