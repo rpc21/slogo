@@ -23,7 +23,8 @@ public class CommandController {
         myParser = new Parser();
     }
 
-    public double execute(String command) throws InvalidCommandException, NothingToRunException {
+    public double execute(String command, String language) throws InvalidCommandException, NothingToRunException {
+        updateLanguage(language);
         CommandNode myNode;
         myVisualCommands = new ArrayList<>();
         try {

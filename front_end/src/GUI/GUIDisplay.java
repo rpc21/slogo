@@ -176,7 +176,7 @@ public class GUIDisplay {
             commandToExecute = myTextBox.getText();
             myError.setText("");
             try {
-                ref.executeCurrentCommand(commandToExecute);
+                ref.executeCurrentCommand(commandToExecute, myLanguage);
             } catch(exceptions.InvalidCommandException e) {
                 myError.setText("Invalid Command: " + e.getReason());
             } catch(exceptions.NothingToRunException e){
