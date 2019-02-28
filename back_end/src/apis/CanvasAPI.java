@@ -2,9 +2,10 @@ package apis;
 
 public interface CanvasAPI {
 
-    void turtleMove(double pixels);
-    void turnRight(double degrees);
-    void turnLeft(double degrees);
+    void turtleMove(double x, double y);
+    void turtleTurn(double degrees);
+//    void turnRight(double degrees);
+//    void turnLeft(double degrees);
     void setPenUp();
     void setPenDown();
     void showTurtle();

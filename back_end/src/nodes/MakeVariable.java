@@ -20,5 +20,9 @@ public class MakeVariable extends CommandNode{
             throw new IllegalArgumentException();
         super.addChild(c);
     }
+    @Override
+    public boolean needsName(){
+        return true;
+    }
 
 }
