@@ -179,6 +179,8 @@ public class GUIDisplay {
                 ref.executeCurrentCommand(commandToExecute);
             } catch(exceptions.InvalidCommandException e) {
                 myError.setText("Invalid Command: " + e.getReason());
+            } catch(exceptions.NothingToRunException e){
+                myError.setText("There is nothing here to run");
             }
             addToCommandHistory(commandToExecute);
         });
