@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 
 public class AdvancedTurtleView extends DisplayView {
 
-    public static final String ADVANCED_TURTLE_IMAGE = "file:/resources_images/turtle.jpg";
+    public static final String ADVANCED_TURTLE_IMAGE = "turtle.jpg";
 
     public AdvancedTurtleView() {
         super(new Image(ADVANCED_TURTLE_IMAGE));
@@ -19,3 +19,4 @@ public class AdvancedTurtleView extends DisplayView {
         super(displayView, new Image(ADVANCED_TURTLE_IMAGE));
     }
 }
+

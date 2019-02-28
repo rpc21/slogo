@@ -7,6 +7,7 @@ import java.util.List;
 
 import apis.ImmutableVisualCommand;
 import exceptions.InvalidCommandException;
+import exceptions.NothingToRunException;
 import nodes.CommandNode;
 import parser.Parser;
 import turtle.ImmutableTurtleState;
@@ -20,23 +21,29 @@ public class CommandController {
 
     public CommandController(){
         myParser = new Parser();
+        myTurtle = new Turtle();
+        myVisualCommands = new ArrayList<>();
     }
 
-    public double execute(String command) throws InvalidCommandException {
+    public double execute(String command) throws InvalidCommandException, NothingToRunException {
         CommandNode myNode;
-        myVisualCommands = new ArrayList<>();
-        myNode = myParser.parse(command).get(0); // note of change! This is changed now because their could be many commands in a list that come from a parser.
+        myVisualCommands.clear();
+        try {
+            myNode = myParser.parse(command).get(0); // note of change! This is changed now because their could be many commands in a list that come from a parser.
+        } catch (IndexOutOfBoundsException e) {
+            throw new NothingToRunException();
+        }
         return myNode.evaluate(myVisualCommands, myTurtle);
-        //pass list of visual commands to vis
-        //would need to write
-        //for (nodes.VisualCommand c: myVisualCommands)
-        // c.execute(myCanvas);
     }
     public List<ImmutableVisualCommand> getMyVisualCommands(){
         return myVisualCommands;
     }
     public void updateTurtle(ImmutableTurtleState currentState) {
 
+    }
+
+    public void updateLanguage(String newLanguage) {
+        myParser.updateLanguage(newLanguage);
     }
 
 }

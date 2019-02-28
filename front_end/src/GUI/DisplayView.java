@@ -86,8 +86,8 @@ public abstract class DisplayView extends ImageView {
     }
 
     private void updatePosition(Move move) {
-        setTranslateX(getTranslateX() + move.getDisplacement().getX());
-        setTranslateY(getTranslateY() + move.getDisplacement().getY());
+        setTranslateX(move.getDisplacement().getX());
+        setTranslateY(move.getDisplacement().getY());
     }
 
     public void drawPath(Move move) {
@@ -129,9 +129,11 @@ public abstract class DisplayView extends ImageView {
 //        double deltaY = - pixels * Math.cos(orientation);
         System.out.println(getTranslateX() + " " + deltaX + "");
         moveTo(new Point2D(getTranslateX() + deltaX, getTranslateY() + deltaY));
+        System.out.println(getTranslateY());
     }
 
     private void moveTo(Point2D newLocation){
+        System.out.println("####" +  newLocation);
         Move move = new Move(new Pen(getMyPen()), newLocation);
         addMove(move);
         drawPath(move);

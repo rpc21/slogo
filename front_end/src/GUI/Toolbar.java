@@ -32,6 +32,7 @@ public class Toolbar extends HBox implements GUIComponent {
     private ImageChooser<String> createImageChooser(Consumer<String> iconAccess) {
         ImageChooser<String> imageChooser = new ImageChooser<>(iconAccess);
         imageChooser.getItems().addAll(new BasicTurtleView().getPossibleImages());
+        //imageChooser.getItems().addAll(new AdvancedTurtleView().getPossibleImages());
         imageChooser.getSelectionModel().selectFirst();
         return imageChooser;
     }
