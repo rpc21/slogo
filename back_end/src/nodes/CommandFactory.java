@@ -3,6 +3,11 @@ package nodes;
 import java.lang.reflect.Constructor;
 
 public class CommandFactory {
+
+    public CommandNode makeCommand(double d) {
+        return new ConstantNode("" + d);
+    }
+
     public CommandNode makeCommand(String c){
 
         if (c.length() < 3){

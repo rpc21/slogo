@@ -2,7 +2,6 @@ package parser;
 
 import apis.AddVariable;
 import exceptions.InvalidCommandException;
-import exceptions.NothingToRunException;
 import nodes.CommandFactory;
 import nodes.CommandNode;
 
@@ -77,7 +76,7 @@ public class Parser {
 
     private void addChild(CommandNode currentNode, String child) throws InvalidCommandException {
         if(isDouble(child)) {
-            currentNode.addChild(myCommandFactory.makeCommand(child));
+            currentNode.addChild(myCommandFactory.makeCommand(Double.parseDouble(child)));
         } else {
             currentNode.addChild(makeNodeTree());
         }
