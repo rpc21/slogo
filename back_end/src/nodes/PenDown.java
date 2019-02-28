@@ -1,9 +1,18 @@
 package nodes;
 
-import apis.CanvasAPI;
+import apis.ImmutableVisualCommand;
+import turtle.Turtle;
 
-public class PenDown extends VisualCommand {
-    public void execute(CanvasAPI myCanvas){
-        myCanvas.setPenDown();
+import java.util.List;
+
+public class PenDown extends CommandNode {
+    public PenDown(String name){
+        super(name);
+    }
+
+    @Override
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
+        myVisCommands.add(new VisualPenDown());
+        return 1;
     }
 }

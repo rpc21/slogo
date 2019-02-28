@@ -1,6 +1,7 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
+import turtle.Turtle;
 
 import java.util.List;
 
@@ -12,8 +13,8 @@ public class SetHeading extends CommandNode {
      * TODO - Use immutable turtle state to calculate degrees moved, rather than the new heading
      */
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands) {
-        double degrees = super.getChildren().get(0).evaluate(myVisCommands);
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
+        double degrees = super.getChildren().get(0).evaluate(myVisCommands, myTurtle);
         VisualTurtleHeading myHeading = new VisualTurtleHeading(degrees);
         myVisCommands.add(new VisualTurtleHeading(degrees));
 

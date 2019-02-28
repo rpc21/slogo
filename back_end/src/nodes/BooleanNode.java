@@ -1,27 +1,28 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
+import turtle.Turtle;
 
 import java.util.List;
 
 
 
-
 public abstract class BooleanNode extends CommandNode {
     private static final int INVALID_INPUT = 0;
+    public BooleanNode(String name){
+        super(name);
+    }
 
-    public BooleanNode(String a) {
-        super(a);
+
+    protected double getFirstExpression(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle){
+        return super.getChildren().get(0).evaluate(myVisCommands, myTurtle);
     }
-    protected double getFirstExpression(List<ImmutableVisualCommand> myVisCommands){
-        return super.getChildren().get(0).evaluate(myVisCommands);
-    }
-    protected double getSecondExpression(List<ImmutableVisualCommand> myVisCommands){
-        return super.getChildren().get(1).evaluate(myVisCommands);
+    protected double getSecondExpression(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle){
+        return super.getChildren().get(1).evaluate(myVisCommands, myTurtle);
     }
 
     @Override
-    public abstract double evaluate(List<ImmutableVisualCommand> myVisCommands);
+    public abstract double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle);
 
     /**
      * Adds an addend to this nodes.SumNode's list of Children as main.Parser reads them in

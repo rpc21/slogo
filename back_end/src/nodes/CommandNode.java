@@ -1,7 +1,7 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
-
+import turtle.Turtle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +19,7 @@ public abstract class CommandNode {
     /**
      * evaluates this node's value based upon its particular implementation
      */
-    public abstract double evaluate(List<ImmutableVisualCommand> myVisCommands);
+    public abstract double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle);
     /**
      * returns list of this Node's children - these will be used as arguments to evaluate a nodes.CommandNode
      */
