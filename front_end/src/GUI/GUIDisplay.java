@@ -62,8 +62,9 @@ public class GUIDisplay {
         myStage.setScene(myScene);
     }
     public void executeVisualCommands(List<ImmutableVisualCommand> myCommands){
-        for (ImmutableVisualCommand c: myCommands)
+        for (ImmutableVisualCommand c: myCommands) {
             c.execute(myStackedCanvasPane);
+        }
     }
 
     public void display(){
