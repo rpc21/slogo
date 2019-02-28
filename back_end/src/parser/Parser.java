@@ -28,6 +28,7 @@ public class Parser {
             addVariable(s,d);
         }
     };
+
     public Parser() {
         myCommandFactory = new CommandFactory();
         myParameterProperties = ResourceBundle.getBundle(PARAMETER_PROPERTIES_LOCATION);
