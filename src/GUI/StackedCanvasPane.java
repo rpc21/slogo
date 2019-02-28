@@ -1,9 +1,11 @@
 package GUI;
 
 import apis.CanvasAPI;
+import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -42,8 +44,8 @@ public class StackedCanvasPane extends StackPane implements CanvasAPI {
         return myBackgroundCanvas.getBackgroundColorAccess();
     }
 
-    public Consumer<Color> getPenPropertiesAccess(){
-        return myDrawingCanvas.getPenColorAccess();
+    public Consumer<Paint> getPenPropertiesAccess(){
+        return (x) -> myCurrentDisplayView.getMyPen().setMyColor(x);
     }
 
     public Consumer<String> getIconAccess(){
@@ -73,28 +75,29 @@ public class StackedCanvasPane extends StackPane implements CanvasAPI {
         myDrawingCanvas.resize(v, v1);
     }
 
+    @Override
     public void turtleMove(double pixels){
-        Move move = new Move(Color.BLACK,penDown,PenStyle.DASHED, 2.0, new double[] {0, -1.0 * pixels});
-        myCurrentDisplayView.addMove(move);
-        myCurrentDisplayView.drawPath(move);
+        myCurrentDisplayView.turtleMove(pixels);
     }
 
     @Override
     public void turnRight(double degrees) {
-        setRotate(getRotate() + degrees);
+        myCurrentDisplayView.turn(degrees);
     }
 
     @Override
     public void turnLeft(double degrees) {
-        setRotate(getRotate() - degrees);
+        myCurrentDisplayView.turn(-degrees);
     }
 
+    @Override
     public void setPenUp(){
-        penDown = false;
+        myCurrentDisplayView.getMyPen().setDown(false);
     }
 
+    @Override
     public void setPenDown(){
-        penDown = true;
+        myCurrentDisplayView.getMyPen().setDown(true);
     }
 
     @Override
@@ -114,24 +117,17 @@ public class StackedCanvasPane extends StackPane implements CanvasAPI {
 
     @Override
     public void towards(double x, double y) {
-        double deltaX = x - myCurrentDisplayView.getTranslateX();
-        double deltaY = y - myCurrentDisplayView.getTranslateY();
-        if (deltaX == 0){
-            myCurrentDisplayView.setRotate(Double.POSITIVE_INFINITY * deltaY);
-        } else{
-            myCurrentDisplayView.setRotate(90 - Math.atan(deltaY/deltaX));
-        }
+        myCurrentDisplayView.towards(x, y);
     }
 
     @Override
     public void setLocation(double x, double y) {
-        myCurrentDisplayView.setTranslateX(x);
-        myCurrentDisplayView.setTranslateY(y);
+        myCurrentDisplayView.setLocation(x, y);
     }
 
     @Override
     public void goHome() {
-        setLocation(0, 0);
+        myCurrentDisplayView.goHome();
     }
 
     @Override
@@ -140,4 +136,5 @@ public class StackedCanvasPane extends StackPane implements CanvasAPI {
         myBackgroundCanvas.setColor(Color.WHITE);
         myDrawingCanvas.clearCanvas();
     }
+
 }

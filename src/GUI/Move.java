@@ -1,18 +1,18 @@
 package GUI;
 
-import javafx.scene.paint.Color;
+import javafx.geometry.Point2D;
+import javafx.scene.paint.Paint;
 
-import java.util.Vector;
 
 public class Move {
 
-    private Color penColor;
+    private Paint penColor;
     private boolean penDown;
     private PenStyle pathStyle;
     private double penWidth;
-    private double[] displacement;
+    private Point2D displacement;
 
-    public Move(Color penColor, boolean penDown, PenStyle pathStyle, double penWidth, double[] displacement) {
+    public Move(Paint penColor, boolean penDown, PenStyle pathStyle, double penWidth, Point2D displacement) {
         this.penColor = penColor;
         this.penDown = penDown;
         this.pathStyle = pathStyle;
@@ -20,7 +20,15 @@ public class Move {
         this.displacement = displacement;
     }
 
-    public Color getPenColor() {
+    public Move(Pen pen, Point2D displacement){
+        this(pen.getMyColor(), pen.isDown(), pen.getMyStyle(), pen.getMyWidth(), displacement);
+    }
+
+    public Move(Pen pen, double[] displacement){
+        this(pen, new Point2D(displacement[0], displacement[1]));
+    }
+
+    public Paint getPenColor() {
         return penColor;
     }
 
@@ -36,7 +44,7 @@ public class Move {
         return penWidth;
     }
 
-    public double[] getDisplacement() {
+    public Point2D getDisplacement() {
         return displacement;
     }
 }

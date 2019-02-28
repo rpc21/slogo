@@ -1,11 +1,12 @@
 package GUI;
 
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 public class ImmutablePen {
 
     private boolean down;
-    private Color myColor;
+    private Paint myColor;
     private PenStyle myStyle;
     private double myWidth;
 
@@ -20,7 +21,7 @@ public class ImmutablePen {
         return down;
     }
 
-    public Color getMyColor() {
+    public Paint getMyColor() {
         return myColor;
     }
 
