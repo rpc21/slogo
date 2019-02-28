@@ -25,7 +25,8 @@ public class CommandController {
         myVisualCommands = new ArrayList<>();
     }
 
-    public double execute(String command) throws InvalidCommandException, NothingToRunException {
+    public double execute(String command, String language) throws InvalidCommandException, NothingToRunException {
+        updateLanguage(language);
         CommandNode myNode;
         myVisualCommands.clear();
         try {
