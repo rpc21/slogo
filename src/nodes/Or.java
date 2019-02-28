@@ -1,4 +1,5 @@
 package nodes;
+import apis.ImmutableVisualCommand;
 import nodes.VisualCommand;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public class Or extends BooleanNode{
     }
 
     @Override
-    public double evaluate(List<VisualCommand> myVisCommands) {
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands) {
         if (super.getFirstExpression(myVisCommands) != ZERO ||  super.getSecondExpression(myVisCommands) != ZERO)
             return ONE;
         return ZERO;

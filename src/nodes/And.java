@@ -1,4 +1,6 @@
 package nodes;
+import apis.ImmutableVisualCommand;
+import main.Turtle;
 import nodes.VisualCommand;
 
 import java.util.List;
@@ -12,7 +14,7 @@ public class And extends BooleanNode{
     }
 
     @Override
-    public double evaluate(List<VisualCommand> myVisCommands) {
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
         if (super.getFirstExpression(myVisCommands) != ZERO &
                 super.getSecondExpression(myVisCommands) != ZERO)
             return ONE;

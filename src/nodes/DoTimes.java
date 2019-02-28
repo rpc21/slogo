@@ -1,5 +1,8 @@
 package nodes;
 
+import apis.ImmutableVisualCommand;
+import main.Turtle;
+
 import java.util.List;
 
 public class DoTimes extends CommandNode{
@@ -13,13 +16,13 @@ public class DoTimes extends CommandNode{
      * TODO - Initalize specific variable name and update with each iteration
      */
     @Override
-    public double evaluate(List<VisualCommand> myVisCommands) {
-        //initialize specific variable name and update with each iteration
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
+    //initialize specific variable name and update with each iteration
         double ret = 0;
-        int numIterations = (int)super.getChildren().get(1).evaluate(myVisCommands);
+        int numIterations = (int)super.getChildren().get(1).evaluate(myVisCommands, myTurtle);
         for (int iter = NUM_ITERATIONS; iter < numIterations; iter++){
             for (int currChild = FIRST_COMMAND; currChild < super.getChildren().size(); currChild++)
-                ret = super.getChildren().get(currChild).evaluate(myVisCommands);
+                ret = super.getChildren().get(currChild).evaluate(myVisCommands, myTurtle);
             //update specific variable name
         }
         return ret;

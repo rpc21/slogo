@@ -1,4 +1,5 @@
 package nodes;
+import apis.ImmutableVisualCommand;
 import nodes.VisualCommand;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public class Pi extends CommandNode {
         super(commandName);
     }
     @Override
-    public double evaluate(List<VisualCommand> myVisCommands) {
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands) {
         return Math.PI;
     }
     /**

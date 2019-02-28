@@ -1,4 +1,5 @@
 package nodes;
+import apis.ImmutableVisualCommand;
 import nodes.VisualCommand;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public class Sum extends CommandNode {
         super(a);
     }
     @Override
-    public double evaluate(List<VisualCommand> myVisCommands) {
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands) {
         int sum = 0;
         for (CommandNode c: super.getChildren()) {
             sum += c.evaluate(myVisCommands);

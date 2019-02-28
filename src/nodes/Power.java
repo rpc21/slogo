@@ -1,4 +1,5 @@
 package nodes;
+import apis.ImmutableVisualCommand;
 import nodes.VisualCommand;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public class Power extends CommandNode {
         super(commandName);
     }
     @Override
-    public double evaluate(List<VisualCommand> myVisCommands) {
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands) {
         double base = super.getChildren().get(0).evaluate(myVisCommands);
         double exp = super.getChildren().get(1).evaluate(myVisCommands);
         return Math.pow(base,exp);

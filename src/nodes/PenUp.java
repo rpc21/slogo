@@ -1,5 +1,7 @@
 package nodes;
 
+import apis.ImmutableVisualCommand;
+
 import java.util.List;
 
 public class PenUp extends CommandNode {
@@ -8,7 +10,7 @@ public class PenUp extends CommandNode {
     }
 
     @Override
-    public double evaluate(List<VisualCommand> myVisCommands) {
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands) {
         myVisCommands.add(new VisualPenUp());
         return 0;
     }

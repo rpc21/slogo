@@ -1,6 +1,8 @@
 
 
 package nodes;
+import apis.ImmutableVisualCommand;
+
 import java.util.List;
 public class Minus extends CommandNode {
     private static final int NO_INPUT = 0;
@@ -8,7 +10,7 @@ public class Minus extends CommandNode {
         super(commandName);
     }
     @Override
-    public double evaluate(List<VisualCommand> myVisCommands) {
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands) {
         return -1.0 * super.getChildren().get(0).evaluate(myVisCommands);
     }
     /**

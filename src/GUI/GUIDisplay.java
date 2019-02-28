@@ -1,5 +1,6 @@
 package GUI;
 
+import apis.ImmutableVisualCommand;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -71,8 +72,8 @@ public class GUIDisplay {
         handleResizability();
         myStage.setScene(myScene);
     }
-    public void executeVisualCommands(List<VisualCommand> myCommands){
-        for (VisualCommand c: myCommands)
+    public void executeVisualCommands(List<ImmutableVisualCommand> myCommands){
+        for (ImmutableVisualCommand c: myCommands)
             c.execute(myStackedCanvasPane);
     }
 

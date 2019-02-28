@@ -1,5 +1,7 @@
 package nodes;
 
+import apis.ImmutableVisualCommand;
+
 import java.util.List;
 
 public class Name extends  CommandNode{
@@ -10,7 +12,7 @@ public class Name extends  CommandNode{
         myName = n;
     }
     @Override
-    public double evaluate(List<VisualCommand> myVisCommands){
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands){
         return NO_EXECUTE_RESULT;
     }
     @Override
