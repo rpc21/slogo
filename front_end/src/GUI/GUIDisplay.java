@@ -52,11 +52,11 @@ public class GUIDisplay {
         myLanguage = DEFAULT_LANGUAGE;
         myResources = ResourceBundle.getBundle(myLanguage);
         myStage = stage;
-        myRoot = createGridPane();
         myLanguageConsumer = (x) -> {
             myLanguage = x;
             updateLanguage(x);
         };
+        myRoot = createGridPane();
         myScene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.LIGHTGRAY);
         myStage.setScene(myScene);
     }
@@ -177,7 +177,6 @@ public class GUIDisplay {
             try {
                 ref.executeCurrentCommand(commandToExecute);
             } catch(Exception InvalidCommandException) {
-                System.out.println("Working on it");
                 myError.setText("Please Enter a Valid SLogo Command");
             }
             addToCommandHistory(commandToExecute);
