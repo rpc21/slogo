@@ -8,6 +8,6 @@ public class VisualTurtleForward extends VisualCommand {
     }
     @Override
     public void execute(CanvasAPI myCanvas) {
-        myCanvas.turtleMove(-1.0 * myPixels);
+        myCanvas.turtleMove(myPixels);
     }
 }

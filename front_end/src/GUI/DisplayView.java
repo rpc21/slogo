@@ -1,5 +1,6 @@
 package GUI;
 
+import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -85,14 +86,13 @@ public abstract class DisplayView extends ImageView {
     }
 
     private void updatePosition(Move move) {
-        setTranslateX(getTranslateX() + move.getDisplacement()[0]);
-        setTranslateY(getTranslateY() + move.getDisplacement()[1]);
+        setTranslateX(getTranslateX() + move.getDisplacement().getX());
+        setTranslateY(getTranslateY() + move.getDisplacement().getY());
     }
 
     public void drawPath(Move move) {
-//        GraphicsContext context = myCanvas.getGraphicsContext2D();
-        myContext.setLineWidth(myPen.getMyWidth());
-        myContext.setStroke(myPen.getMyColor());
+        myContext.setLineWidth(move.getPenWidth());
+        myContext.setStroke(move.getPenColor());
         myContext.beginPath();
         myContext.moveTo(this.getTranslateX() + myCanvas.getWidth()/2, this.getTranslateY() + myCanvas.getHeight()/2);
         updatePosition(move);
@@ -120,5 +120,43 @@ public abstract class DisplayView extends ImageView {
 
     public Pen getMyPen() {
         return myPen;
+    }
+
+    public void turtleMove(double pixels) {
+        System.out.println(pixels);;
+        double orientation = Math.toRadians(getRotate());
+        double deltaX = pixels * Math.sin(orientation);
+        double deltaY = - pixels * Math.cos(orientation);
+        System.out.println(getTranslateX() + " " + deltaX + "");
+        moveTo(new Point2D(getTranslateX() + deltaX, getTranslateY() + deltaY));
+    }
+
+    private void moveTo(Point2D newLocation){
+        Move move = new Move(new Pen(getMyPen()), newLocation);
+        addMove(move);
+        drawPath(move);
+    }
+
+    public void towards(double x, double y) {
+        double deltaX = x - getTranslateX();
+        double deltaY = y - getTranslateY();
+        if (deltaX == 0){
+            setRotate(Double.POSITIVE_INFINITY * deltaY);
+        } else{
+            setRotate(90 - Math.atan(deltaY/deltaX));
+        }
+    }
+
+    public void setLocation(double x, double y) {
+        moveTo(new Point2D(x, y));
+    }
+
+    public void goHome() {
+        moveTo(new Point2D(0,0));
+        setRotate(0);
+    }
+
+    public void turn(double degrees) {
+        setRotate(getRotate() + degrees);
     }
 }

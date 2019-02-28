@@ -1,17 +1,9 @@
 package nodes;
 
-import apis.ImmutableVisualCommand;
+import apis.CanvasAPI;
 
-import java.util.List;
-
-public class PenDown extends CommandNode {
-    public PenDown(String name){
-        super(name);
-    }
-
-    @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands) {
-        myVisCommands.add(new VisualPenDown());
-        return 1;
+public class PenDown extends VisualCommand {
+    public void execute(CanvasAPI myCanvas){
+        myCanvas.setPenDown();
     }
 }

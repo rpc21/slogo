@@ -1,5 +1,6 @@
 package GUI;
 
+import exceptions.InvalidCommandException;
 import parser.external.CommandController;
 
 public class GUIController {
@@ -7,7 +8,7 @@ public class GUIController {
     private GUIDisplay myDisplay;
     GUIExecute myExecuteFunction = new GUIExecute() {
         @Override
-        public void executeCurrentCommand(String c) {
+        public void executeCurrentCommand(String c) throws InvalidCommandException {
             execute(c);
         }
     };
@@ -16,7 +17,7 @@ public class GUIController {
         myDisplay = display;
         myDisplay.setUpRunButton(myExecuteFunction);
     }
-    public void execute(String command){
+    public void execute(String command) throws InvalidCommandException {
         double answer = myController.execute(command);
         myDisplay.executeVisualCommands(myController.getMyVisualCommands());
 
