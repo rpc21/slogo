@@ -1,5 +1,7 @@
 package nodes;
 
+import apis.ImmutableVisualCommand;
+
 import java.util.List;
 
 public class Right extends CommandNode{
@@ -8,7 +10,7 @@ public class Right extends CommandNode{
         super(name);
     }
     @Override
-    public double evaluate(List<VisualCommand> myVisCommands) {
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands) {
         double degrees = myChildren.get(0).evaluate(myVisCommands);
         myVisCommands.add(new VisualTurtleRight(degrees));
         return degrees;

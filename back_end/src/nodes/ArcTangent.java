@@ -1,5 +1,7 @@
 package nodes;
 
+import apis.ImmutableVisualCommand;
+
 import java.util.List;
 
 
@@ -9,7 +11,7 @@ public class ArcTangent extends CommandNode {
         super(commandName);
     }
     @Override
-    public double evaluate(List<VisualCommand> myVisCommands) {
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands) {
         try {
             return Math.atan(super.getChildren().get(0).evaluate(myVisCommands));
         }

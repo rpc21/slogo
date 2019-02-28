@@ -1,5 +1,7 @@
 package nodes;
 
+import apis.ImmutableVisualCommand;
+
 import java.util.List;
 
 
@@ -11,7 +13,7 @@ public class And extends BooleanNode{
     }
 
     @Override
-    public double evaluate(List<VisualCommand> myVisCommands) {
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands) {
         if (super.getFirstExpression(myVisCommands) != ZERO &
                 super.getSecondExpression(myVisCommands) != ZERO)
             return ONE;

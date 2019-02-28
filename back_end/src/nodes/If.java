@@ -1,4 +1,6 @@
 package nodes;
+import apis.ImmutableVisualCommand;
+
 import java.util.List;
 
 public class If extends CommandNode{
@@ -12,7 +14,7 @@ public class If extends CommandNode{
     }
 
     @Override
-    public double evaluate(List<VisualCommand> myVisCommands) {
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands) {
         double result = super.getChildren().get(IF_STATEMENT).evaluate(myVisCommands);
         if (result != 0){
             return super.getChildren().get(TRUE_PATH).evaluate(myVisCommands);

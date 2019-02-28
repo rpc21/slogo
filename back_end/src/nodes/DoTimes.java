@@ -1,5 +1,7 @@
 package nodes;
 
+import apis.ImmutableVisualCommand;
+
 import java.util.List;
 
 public class DoTimes extends CommandNode{
@@ -13,7 +15,7 @@ public class DoTimes extends CommandNode{
      * TODO - Initalize specific variable name and update with each iteration
      */
     @Override
-    public double evaluate(List<VisualCommand> myVisCommands) {
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands) {
         //initialize specific variable name and update with each iteration
         double ret = 0;
         int numIterations = (int)super.getChildren().get(1).evaluate(myVisCommands);

@@ -1,5 +1,7 @@
 package nodes;
 
+import apis.ImmutableVisualCommand;
+
 import java.util.List;
 
 public class Forward extends CommandNode {
@@ -7,7 +9,7 @@ public class Forward extends CommandNode {
         super(name);
     }
     @Override
-    public double evaluate(List<VisualCommand> myVisCommands) {
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands) {
         double pixels = myChildren.get(0).evaluate(myVisCommands);
         myVisCommands.add(new VisualTurtleForward(pixels));
         return pixels;

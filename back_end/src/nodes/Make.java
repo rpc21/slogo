@@ -1,5 +1,7 @@
 package nodes;
 
+import apis.ImmutableVisualCommand;
+
 import java.util.List;
 
 public class Make extends CommandNode{
@@ -10,7 +12,7 @@ public class Make extends CommandNode{
      * TODO - Use lambda to Parser's addVariable method to add this variable as a possible variable
      */
     @Override
-    public double evaluate(List<VisualCommand> myVisCommands) {
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands) {
         String varName = myChildren.get(0).getName();
         double varValue = myChildren.get(1).evaluate(myVisCommands);
         return varValue;

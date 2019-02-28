@@ -1,5 +1,7 @@
 package nodes;
 
+import apis.ImmutableVisualCommand;
+
 import java.util.List;
 
 
@@ -11,7 +13,7 @@ public class Quotient extends CommandNode {
     }
 
     @Override
-    public double evaluate(List<VisualCommand> myVisCommands) {
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands) {
         double firstExpression = super.getChildren().get(0).evaluate(myVisCommands);
         double secondExpression = super.getChildren().get(1).evaluate(myVisCommands);
         if (validDenominator(secondExpression))

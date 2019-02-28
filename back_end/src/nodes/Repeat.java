@@ -1,5 +1,7 @@
 package nodes;
 
+import apis.ImmutableVisualCommand;
+
 import java.util.List;
 
 public class Repeat extends CommandNode{
@@ -13,7 +15,7 @@ public class Repeat extends CommandNode{
      * TODO - Initalize repcount and update with each iteration
      */
     @Override
-    public double evaluate(List<VisualCommand> myVisCommands) {
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands) {
         //initialize repcount potentially
         double ret = 0;
         int numIterations = (int)super.getChildren().get(1).evaluate(myVisCommands);
