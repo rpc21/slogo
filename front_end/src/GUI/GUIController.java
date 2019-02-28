@@ -8,8 +8,8 @@ public class GUIController {
     private GUIDisplay myDisplay;
     GUIExecute myExecuteFunction = new GUIExecute() {
         @Override
-        public void executeCurrentCommand(String c) throws InvalidCommandException {
-            execute(c);
+        public void executeCurrentCommand(String c, String language) throws InvalidCommandException {
+            execute(c, language);
         }
     };
 
@@ -17,8 +17,9 @@ public class GUIController {
         myDisplay = display;
         myDisplay.setUpRunButton(myExecuteFunction);
     }
-    public void execute(String command) throws InvalidCommandException {
-        double answer = myController.execute(command);
+    public void execute(String command, String language) throws InvalidCommandException {
+        double answer = myController.execute(command, language);
+
         myDisplay.executeVisualCommands(myController.getMyVisualCommands());
 
         //myController.updateState(ImmutableTurtleState);
