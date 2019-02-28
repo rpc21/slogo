@@ -12,8 +12,8 @@ public class Left extends CommandNode{
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
         double degrees = myChildren.get(0).evaluate(myVisCommands, myTurtle);
-        myTurtle.setHeading(-1.0 * degrees);
-        myVisCommands.add(new VisualTurtleLeft(degrees));
+        myTurtle.setHeading(myTurtle.getHeading() + -1.0 * degrees);
+        myVisCommands.add(new VisualTurtleTurn(-1.0 * degrees));
         return degrees;
     }
     @Override

@@ -17,8 +17,7 @@ public class SetHeading extends CommandNode {
         double degrees = super.getChildren().get(0).evaluate(myVisCommands, myTurtle);
         VisualTurtleHeading myHeading = new VisualTurtleHeading(degrees);
         myVisCommands.add(new VisualTurtleHeading(degrees));
-
-        return degrees;
+        return Math.abs(myTurtle.getHeading() - degrees);
     }
     @Override
     public void addChild(CommandNode c){

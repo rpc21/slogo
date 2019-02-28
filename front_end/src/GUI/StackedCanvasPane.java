@@ -76,19 +76,24 @@ public class StackedCanvasPane extends StackPane implements CanvasAPI {
     }
 
     @Override
-    public void turtleMove(double pixels){
-        myCurrentDisplayView.turtleMove(pixels);
+    public void turtleMove(double x, double y){
+        myCurrentDisplayView.turtleMove(x,y);
     }
 
     @Override
-    public void turnRight(double degrees) {
+    public void turtleTurn(double degrees){
         myCurrentDisplayView.turn(degrees);
     }
 
-    @Override
-    public void turnLeft(double degrees) {
-        myCurrentDisplayView.turn(-degrees);
-    }
+//    @Override
+//    public void turnRight(double degrees) {
+//        myCurrentDisplayView.turn(degrees);
+//    }
+//
+//    @Override
+//    public void turnLeft(double degrees) {
+//        myCurrentDisplayView.turn(-degrees);
+//    }
 
     @Override
     public void setPenUp(){

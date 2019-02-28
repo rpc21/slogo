@@ -5,8 +5,8 @@ import turtle.Turtle;
 
 import java.util.List;
 
-public class SetTowards extends CommandNode {
-    public SetTowards(String name){
+public class SetPosition extends CommandNode {
+    public SetPosition(String name){
         super(name);
     }
     /**
@@ -16,15 +16,9 @@ public class SetTowards extends CommandNode {
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
         double newXCoor = super.getChildren().get(0).evaluate(myVisCommands, myTurtle);
         double newYCoor = super.getChildren().get(1).evaluate(myVisCommands, myTurtle);
-        var angle = Math.atan2(newYCoor - myTurtle.getYCoor(), newXCoor - myTurtle.getXCoor() );
-        angle = angle * (180/Math.PI);
-        if(angle < 0)
-        {
-            angle = 360 - (-1.0 * angle);
-        }
-        var newAngle = 90 + angle;
-        myVisCommands.add(new VisualTurtleTurn(newAngle));
-        return Math.abs(myTurtle.getHeading() - newAngle);
+        myVisCommands.add(new VisualTurtleMove(newXCoor,newYCoor));
+        double distance = Math.pow(Math.abs(myTurtle.getXCoor() - newXCoor),2)  + Math.pow(Math.abs(myTurtle.getYCoor() - newYCoor),2);
+        return distance;
     }
     @Override
     public void addChild(CommandNode c){

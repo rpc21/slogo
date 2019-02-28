@@ -2,9 +2,9 @@ package nodes;
 
 import apis.CanvasAPI;
 
-public class VisualTurtleRight extends VisualCommand  {
+public class VisualTurtleTurn extends VisualCommand  {
     private double myDegrees;
-    public VisualTurtleRight(double degrees){
+    public VisualTurtleTurn(double degrees){
         myDegrees = degrees;
     }
     public void execute(CanvasAPI myCanvas) {

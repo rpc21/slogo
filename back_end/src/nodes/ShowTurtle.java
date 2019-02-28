@@ -12,6 +12,7 @@ public class ShowTurtle extends CommandNode {
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
         myVisCommands.add(new VisualShowTurtle());
+        myTurtle.setVisibility(true);
         return 0;
     }
     @Override
