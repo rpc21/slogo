@@ -12,6 +12,7 @@ public class SetTowards extends CommandNode {
     /**
      * TODO - Use immutable turtle state to get current coordinates to determine degrees turned
      */
+
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
         double newXCoor = super.getChildren().get(0).evaluate(myVisCommands, myTurtle);
