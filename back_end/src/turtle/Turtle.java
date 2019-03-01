@@ -8,8 +8,10 @@ public class Turtle {
     private boolean myPenIsUp;
     private int myPenColor;
     private int myShape;
+    private int myID;
     public Turtle(){
         myXCoor = myYCoor = myHeading = myPenColor = myShape = 0;
+        myID = 1;
         myVisibility = true;
         myPenIsUp = true;
     }
@@ -20,6 +22,7 @@ public class Turtle {
     public double getHeading(){ return myHeading; }
     public int getPenColor(){ return myPenColor;}
     public int getShape(){ return myShape; }
+    public int getID(){return myID;}
     public boolean getVisibility(){ return myVisibility; }
     public boolean getPenState(){
         return myPenIsUp;
