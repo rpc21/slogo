@@ -16,8 +16,13 @@ public class SetHeading extends CommandNode {
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
         double degrees = super.getChildren().get(0).evaluate(myVisCommands, myTurtle);
         VisualTurtleHeading myHeading = new VisualTurtleHeading(degrees);
+
+        double currHeading = myTurtle.getHeading();
+        myTurtle.setHeading(degrees);
+
         myVisCommands.add(new VisualTurtleHeading(degrees));
-        return Math.abs(myTurtle.getHeading() - degrees);
+
+        return Math.abs(currHeading - degrees);
     }
     @Override
     public void addChild(CommandNode c){

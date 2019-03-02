@@ -28,13 +28,17 @@ public class CommandController {
     public double execute(String command, String language) throws InvalidCommandException, NothingToRunException {
         updateLanguage(language);
         CommandNode myNode;
+        double ret = 0;
         myVisualCommands.clear();
         try {
-            myNode = myParser.parse(command).get(0); // note of change! This is changed now because their could be many commands in a list that come from a parser.
+            for (CommandNode a: myParser.parse(command)) {
+                ret = a.evaluate(myVisualCommands,myTurtle);
+            }
+            //myNode = myParser.parse(command).get(0); // note of change! This is changed now because their could be many commands in a list that come from a parser.
         } catch (IndexOutOfBoundsException e) {
             throw new NothingToRunException();
         }
-        return myNode.evaluate(myVisualCommands, myTurtle);
+        return ret;
     }
     public List<ImmutableVisualCommand> getMyVisualCommands(){
         return myVisualCommands;

@@ -5,21 +5,21 @@ import turtle.Turtle;
 
 import java.util.List;
 
-public class Left extends CommandNode{
-    public Left(String name){
-        super(name);
+public class SetPenSize extends CommandNode {
+    public SetPenSize(String n){
+        super(n);
     }
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
-        double degrees = myChildren.get(0).evaluate(myVisCommands, myTurtle);
-        myTurtle.updateHeading(-1.0 * degrees);
-        myVisCommands.add(new VisualTurtleTurn(-1.0 * degrees));
-        return degrees;
+        double pixels = super.getChildren().get(0).evaluate(myVisCommands, myTurtle);
+        myVisCommands.add(new VisualPenSize(pixels));
+        return pixels;
     }
     @Override
     public void addChild(CommandNode c){
-        if (super.getChildren().size() == 1)
+        if (super.getChildren().size() ==1)
             throw new IllegalArgumentException();
         super.addChild(c);
     }
+
 }
