@@ -2,6 +2,7 @@ package parser;
 
 import apis.AddVariable;
 import exceptions.InvalidCommandException;
+import exceptions.InvalidVariableException;
 import nodes.CommandFactory;
 import nodes.CommandNode;
 
@@ -25,6 +26,8 @@ public class Parser {
     private List<Entry<String, Pattern>> myNumberOfParameters;
     private List<Entry<String, Pattern>> myGeneralSyntax;
     private static final int COMMENT_INDEX = 0;
+    private static final int VARIABLE_INDEX = 2;
+    private UserCreated myUserCreated;
 
     AddVariable myAddVarFunction = new AddVariable() {
         @Override
@@ -33,7 +36,8 @@ public class Parser {
         }
     };
 
-    public Parser() {
+    public Parser(UserCreated userCreated) {
+        myUserCreated = userCreated;
         myCommandFactory = new CommandFactory();
         myParameterProperties = ResourceBundle.getBundle(PARAMETER_PROPERTIES_LOCATION);
         myCommandProperties = ResourceBundle.getBundle(COMMAND_PROPERTIES_LOCATION + DEFAULT_LANGUAGE);
@@ -46,7 +50,7 @@ public class Parser {
         addPatterns(myGeneralSyntax, mySyntaxProperties);
     }
 
-    public List<CommandNode> parse(String input) throws InvalidCommandException { // todo: throw invalidcommandexception and invalidnumberinputs exception
+    public List<CommandNode> parse(String input) throws InvalidCommandException, InvalidVariableException { // todo: throw invalidcommandexception and invalidnumberinputs exception
         myCurrentCommand = input;
         removeComments();
         myVariables = new HashMap<>();
@@ -61,7 +65,7 @@ public class Parser {
         myVariables.put(s,d);
     }
 
-    private CommandNode makeNodeTree() throws InvalidCommandException { // todo: check for invalid number of inputs?
+    private CommandNode makeNodeTree() throws InvalidCommandException, InvalidVariableException { // todo: check for invalid number of inputs?
         String[] commandSplit = myCurrentCommand.trim().split("\\s+");
         String currentValue = commandSplit[0];
         String currentCommandKey = getCommandKey(currentValue);
@@ -74,7 +78,16 @@ public class Parser {
         return currentNode;
     }
 
-    private void addChild(CommandNode currentNode, String child) throws InvalidCommandException {
+    private void validateVariableName(String variable) throws InvalidVariableException {
+        if(!isSpecificFormat(variable, VARIABLE_INDEX)) {
+            throw new InvalidVariableException(variable);
+        }
+    }
+
+    private void addChild(CommandNode currentNode, String child) throws InvalidCommandException, InvalidVariableException {
+        if(currentNode.needsName()) {
+            validateVariableName(child);
+        }
         if(isDouble(child)) {
             currentNode.addChild(myCommandFactory.makeCommand(Double.parseDouble(child)));
         } else {
@@ -114,15 +127,15 @@ public class Parser {
         }
     }
 
-    private boolean isComment(String text) {
-        return match(text, myGeneralSyntax.get(COMMENT_INDEX).getValue());
+    private boolean isSpecificFormat(String text, int syntaxIndex) {
+        return match(text, myGeneralSyntax.get(syntaxIndex).getValue());
     }
 
     private void removeComments() {
         String[] lines = myCurrentCommand.split("\\n");
         for(int i = 0; i < lines.length; i++) {
             System.out.println(lines[i]);
-            if(isComment(lines[i])) {
+            if(isSpecificFormat(lines[i], COMMENT_INDEX)) {
                 lines[i] = " ";
             }
         }
