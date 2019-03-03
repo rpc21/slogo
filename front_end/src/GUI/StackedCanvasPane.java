@@ -7,6 +7,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -18,10 +19,12 @@ public class StackedCanvasPane extends StackPane implements CanvasAPI {
     private TurtleCanvas myBackgroundCanvas;
     private TurtleCanvas myDrawingCanvas;
     private DisplayView myCurrentDisplayView;
+    private List<DisplayView> myTurtles;
     private boolean penDown;
 
     public StackedCanvasPane(){
         super();
+        myTurtles = new ArrayList<>();
         myBackgroundCanvas = createBackgroundCanvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
         myDrawingCanvas = new TurtleCanvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
         myCurrentDisplayView = new BasicTurtleView(myDrawingCanvas);
@@ -38,6 +41,11 @@ public class StackedCanvasPane extends StackPane implements CanvasAPI {
         gc.rect(0, 0, canvas.getWidth(), canvas.getHeight());
         gc.fill();
         return canvas;
+    }
+
+    public void makeTurtle(){
+        DisplayView newTurtle = new BasicTurtleView(myDrawingCanvas);
+
     }
 
     public Consumer<Color> getBackgroundColorAccess(){

@@ -31,6 +31,7 @@ public abstract class DisplayView extends ImageView {
     private GraphicsContext myContext;
     protected List<Move> myMoveHistory;
     private ContextMenu myContextMenu;
+    private int myIndex;
 
     public DisplayView(){
         this(new Image(TURTLE_IMAGE));
@@ -40,6 +41,7 @@ public abstract class DisplayView extends ImageView {
         super(image);
         setFitHeight(IMAGE_HEIGHT);
         setFitWidth(IMAGE_WIDTH);
+        myIndex = 0;
         myPen = new Pen(true, Color.BLACK, PenStyle.DASHED, 2.0);
         myMoveHistory = new ArrayList<>();
         this.managedProperty().bind(this.visibleProperty());
@@ -82,6 +84,7 @@ public abstract class DisplayView extends ImageView {
         this(image, displayView.myCanvas);
         copyMoveHistoryAndPen(displayView);
         copyPositionAndOrientation(displayView);
+        myIndex = displayView.myIndex;
     }
 
     private void copyPositionAndOrientation(DisplayView displayView) {
