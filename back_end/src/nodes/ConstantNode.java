@@ -15,6 +15,10 @@ public class ConstantNode extends CommandNode{
         super(val);
         myValue = Double.parseDouble(val);
     }
+    public ConstantNode(double val){
+        super("" + val);
+        myValue = val;
+    }
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles){
         return myValue;
     }

@@ -25,7 +25,6 @@ public class CommandFactory {
             System.out.println("Anna writes bad code");
             return new ConstantNode("1");
         }
-        // I'm going to take for granted that I don't have to explain how or why `party` shouldn't be an instance variable.
         CommandNode myCommandNode;
         try {
             myCommandNode = (CommandNode)myConstructor.newInstance(c);
