@@ -1,7 +1,8 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
-import turtle.Turtle;
+import turtle.Bale;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public abstract class CommandNode {
     /**
      * evaluates this node's value based upon its particular implementation
      */
-    public abstract double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle);
+    public abstract double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles);
     /**
      * returns list of this Node's children - these will be used as arguments to evaluate a nodes.CommandNode
      */
@@ -36,6 +37,7 @@ public abstract class CommandNode {
     public boolean needsName(){
         return false;
     }
+    public boolean isMethodDeclaration() {return false;}
     protected String getName(){
         return myName;
     }

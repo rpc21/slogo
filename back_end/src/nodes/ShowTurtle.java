@@ -1,7 +1,7 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
-import turtle.Turtle;
+import turtle.Bale;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ public class ShowTurtle extends CommandNode {
         super(name);
     }
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
         myVisCommands.add(new VisualShowTurtle());
-        myTurtle.setVisibility(true);
+        myTurtles.get(0).setVisibility(true);
         return 0;
     }
     @Override

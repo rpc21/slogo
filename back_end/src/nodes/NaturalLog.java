@@ -1,7 +1,7 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
-import turtle.Turtle;
+import turtle.Bale;
 
 import java.util.List;
 
@@ -12,10 +12,10 @@ public class NaturalLog extends CommandNode {
         super(commandName);
     }
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
 
             try {
-                return Math.log(super.getChildren().get(0).evaluate(myVisCommands, myTurtle));
+                return Math.log(super.getChildren().get(0).evaluate(myVisCommands, myTurtles));
             }
             catch (IllegalArgumentException e){
                 return NO_INPUT;

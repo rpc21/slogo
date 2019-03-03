@@ -1,6 +1,7 @@
 package nodes;
 import apis.ImmutableVisualCommand;
-import turtle.Turtle;
+import turtle.Bale;
+
 import java.util.List;
 
 public class Home extends CommandNode {
@@ -11,9 +12,9 @@ public class Home extends CommandNode {
      * TODO - Use immutable turtle state to get current coordinates to return distance moved to go home
      */
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
-        myTurtle.setXCoor(0);
-        myTurtle.setYCoor(0);
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
+        myTurtles.get(0).setXCoor(0);
+        myTurtles.get(0).setYCoor(0);
         myVisCommands.add(new VisualHomeTurtle());
         return 0;
     }

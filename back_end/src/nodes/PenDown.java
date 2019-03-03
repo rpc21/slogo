@@ -1,7 +1,7 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
-import turtle.Turtle;
+import turtle.Bale;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ public class PenDown extends CommandNode {
     }
 
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
         myVisCommands.add(new VisualPenDown());
-        myTurtle.setPenState(false);
+        myTurtles.get(0).setPenState(false);
         return 1;
     }
 }

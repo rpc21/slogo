@@ -1,6 +1,7 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
+import turtle.Bale;
 import turtle.Turtle;
 
 import java.util.List;
@@ -10,9 +11,10 @@ public class SetShape extends CommandNode {
         super(n);
     }
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
-        int index = (int)super.getChildren().get(0).evaluate(myVisCommands, myTurtle);
-        myTurtle.setShape(index);
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
+        int index = (int)super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
+        for (Turtle t: myTurtles.getActiveTurtles())
+            t.setShape(index);
         myVisCommands.add(new VisualBackgroundColor(index));
         return index;
     }
