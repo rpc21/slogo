@@ -1,7 +1,7 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
-import turtle.Turtle;
+import turtle.Bale;
 
 import java.util.List;
 
@@ -10,7 +10,11 @@ public class ID extends CommandNode{
         super(n);
     }
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
-        return myTurtle.getID();
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
+        return myTurtles.getActiveID();
+    }
+    @Override
+    public void addChild(CommandNode c){
+        throw new IllegalArgumentException();
     }
 }

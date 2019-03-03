@@ -1,7 +1,7 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
-import turtle.Turtle;
+import turtle.Bale;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public class GetPenColor extends CommandNode{
         super(n);
     }
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
-        return myTurtle.getPenColor();
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
+        return myTurtles.get(0).getPenColor();
     }
 }

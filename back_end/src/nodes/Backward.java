@@ -1,7 +1,7 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
-import turtle.Turtle;
+import turtle.Bale;
 
 import java.util.List;
 
@@ -10,12 +10,12 @@ public class Backward extends CommandNode {
         super(name);
     }
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle)  {
-        double pixels = myChildren.get(0).evaluate(myVisCommands, myTurtle);
-        VisualTurtleMove myVisMove = new VisualTurtleMove( -1.0 * pixels, myTurtle.getHeading());
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles)  {
+        double pixels = myChildren.get(0).evaluate(myVisCommands, myTurtles);
+        VisualTurtleMove myVisMove = new VisualTurtleMove( -1.0 * pixels, myTurtles.get(0).getHeading());
         myVisCommands.add(myVisMove);
-        myTurtle.setXCoor(myTurtle.getXCoor() + myVisMove.getXDelta());
-        myTurtle.setYCoor(myTurtle.getYCoor() + myVisMove.getYDelta());
+        myTurtles.get(0).setXCoor(myTurtles.get(0).getXCoor() + myVisMove.getXDelta());
+        myTurtles.get(0).setYCoor(myTurtles.get(0).getYCoor() + myVisMove.getYDelta());
         return pixels;
     }
     @Override

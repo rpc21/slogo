@@ -1,6 +1,6 @@
 package nodes;
 import apis.ImmutableVisualCommand;
-import turtle.Turtle;
+import turtle.Bale;
 
 import java.util.List;
 
@@ -15,10 +15,10 @@ public class If extends CommandNode{
     }
 
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
-        double result = super.getChildren().get(IF_STATEMENT).evaluate(myVisCommands, myTurtle);
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
+        double result = super.getChildren().get(IF_STATEMENT).evaluate(myVisCommands, myTurtles);
         if (result != 0){
-            return super.getChildren().get(TRUE_PATH).evaluate(myVisCommands, myTurtle);
+            return super.getChildren().get(TRUE_PATH).evaluate(myVisCommands, myTurtles);
         }
         else{
             return FALSE_PATH;

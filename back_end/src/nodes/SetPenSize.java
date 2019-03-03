@@ -1,7 +1,7 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
-import turtle.Turtle;
+import turtle.Bale;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ public class SetPenSize extends CommandNode {
         super(n);
     }
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
-        double pixels = super.getChildren().get(0).evaluate(myVisCommands, myTurtle);
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
+        double pixels = super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
         myVisCommands.add(new VisualPenSize(pixels));
         return pixels;
     }
