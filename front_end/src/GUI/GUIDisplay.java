@@ -64,6 +64,7 @@ public class GUIDisplay {
             updateLanguage(x);
         };
         myRoot = createGridPane();
+        myRoot.setGridLinesVisible(false);
         myScene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.LIGHTGRAY);
         myStage.setScene(myScene);
     }
@@ -100,7 +101,7 @@ public class GUIDisplay {
         myTurtlePalette.addPaletteElement(new TurtlePaletteElement(2, "AdvancedTurtleView"));
         myTurtlePalette.addPaletteElement(new TurtlePaletteElement(4, "BasicTurtleView"));
         myTurtlePalette.addPaletteElement(new TurtlePaletteElement(3, "AdvancedTurtleView"));
-        grid.add(myTurtlePalette, 10,3,1,4);
+        grid.add(myTurtlePalette, 2,3,1,1);
     }
 
     private void createColorPalette(GridPane grid) {
@@ -108,7 +109,7 @@ public class GUIDisplay {
         myColorPalette.addPaletteElement(new ColorPaletteElement(1, Color.BLACK));
         myColorPalette.addPaletteElement(new ColorPaletteElement(2, Color.RED));
         myColorPalette.addPaletteElement(new ColorPaletteElement(3, Color.GREEN));
-        grid.add(myColorPalette, 8, 3, 1, 4);
+        grid.add(myColorPalette, 3, 3, 1, 1);
     }
 
     private void createTabExplorer(GridPane grid) {
@@ -126,7 +127,7 @@ public class GUIDisplay {
         myCommands.addContents("sample commmand");
         myMethods.addContents("sample method");
         myTabExplorer.getTabs().addAll(myVariables, myMethods, myCommands);
-        grid.add(myTabExplorer, 8, 1, 3, 1);
+        grid.add(myTabExplorer, 2, 1, 2, 2);
     }
 
     private SLogoTab makeTab(String tabType, GUIdata data, ResourceBundle resources, TextArea commandLine){
@@ -139,7 +140,7 @@ public class GUIDisplay {
 
     private void createCanvas(GridPane grid) {
         myStackedCanvasPane = new StackedCanvasPane();
-        grid.add(myStackedCanvasPane, 0, 1, 5, 1);
+        grid.add(myStackedCanvasPane, 0, 1, 2, 4);
     }
 
     private void makeTextBox(GridPane grid){
@@ -147,7 +148,7 @@ public class GUIDisplay {
         myTextBox.setPrefRowCount(4);
         myTextBox.setPrefColumnCount(10);
         myTextBox.setWrapText(true);
-        grid.add(myTextBox, 0, 2, 4, 4);
+        grid.add(myTextBox, 0, 5, 2, 4);
     }
 
     private void setToolbar(GridPane grid) {
@@ -185,16 +186,16 @@ public class GUIDisplay {
 
     private void initializeButtons(GridPane grid){
         myClearButton = new ClearButton(myResources.getString("Clear"), myTextBox);
-        grid.add(myClearButton, 4, 3);
+        grid.add(myClearButton, 2, 5);
         myHelpButton = new HelpButton(myResources.getString("Help"), myResources, helpMenuConsumer);
-        grid.add(myHelpButton, 4, 4);
+        grid.add(myHelpButton, 2, 6);
         myError = new ErrorDisplay();
         grid.add(myError, 0, 6);
     }
 
     public void setUpRunButton(GUIExecute ref){
         myRunButton = runButton(ref);
-        myCurrentGUIGrid.add(myRunButton, 4, 5);
+        myCurrentGUIGrid.add(myRunButton, 2, 7);
     }
 
     private Button runButton(GUIExecute ref){
