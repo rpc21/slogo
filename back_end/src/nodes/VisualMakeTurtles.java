@@ -1,6 +1,6 @@
 package nodes;
 
-import apis.CanvasAPI;
+import apis.VisualUpdateAPI;
 
 public class VisualMakeTurtles extends VisualCommand {
     private int numberOfNewTurtles;
@@ -8,7 +8,7 @@ public class VisualMakeTurtles extends VisualCommand {
         numberOfNewTurtles = numTurtles;
     }
     @Override
-    public void execute(CanvasAPI myCanvas) {
+    public void execute(VisualUpdateAPI myCanvas) {
         //need to tell visualization to make x amount of new turtles
     }
 }

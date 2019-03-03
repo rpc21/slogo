@@ -15,13 +15,13 @@ public class SetHeading extends CommandNode {
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
         double degrees = super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
-        VisualTurtleHeading myHeading = new VisualTurtleHeading(degrees);
-
-        double currHeading = myTurtles.get(0).getHeading();
-        myTurtles.get(0).setHeading(degrees);
-
-        myVisCommands.add(new VisualTurtleHeading(degrees));
-
+        double currHeading = 0;
+        for (Integer id: myTurtles.getActiveTurtlesIDs()) {
+            VisualTurtleHeading myHeading = new VisualTurtleHeading(id,degrees);
+            currHeading = myTurtles.get(id).getHeading();
+            myTurtles.get(id).setHeading(degrees);
+            myVisCommands.add(new VisualTurtleHeading(id,degrees));
+        }
         return Math.abs(currHeading - degrees);
     }
     @Override

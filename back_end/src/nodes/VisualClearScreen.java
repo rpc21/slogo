@@ -1,9 +1,9 @@
 package nodes;
-import apis.CanvasAPI;
+import apis.VisualUpdateAPI;
 
 public class VisualClearScreen extends VisualCommand {
     @Override
-    public void execute(CanvasAPI myCanvas) {
+    public void execute(VisualUpdateAPI myCanvas) {
         myCanvas.clearScreen();
     }
 }

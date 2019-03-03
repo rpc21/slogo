@@ -49,7 +49,7 @@ public class SetTowards extends CommandNode {
             degrees = -1.0 * (180 - degrees);
         System.out.println("DEGREE TURN POST: " + degrees);
         System.out.println("CURRENT HEADING: " + myTurtles.get(0).getHeading());
-        myVisCommands.add(new VisualTurtleTurn(degrees - myTurtles.get(0).getHeading()));
+        myVisCommands.add(new VisualTurtleTurn(0,degrees - myTurtles.get(0).getHeading()));
         myTurtles.get(0).updateHeading(degrees - myTurtles.get(0).getHeading());
         double curr = myTurtles.get(0).getHeading();
         if (curr > 180)

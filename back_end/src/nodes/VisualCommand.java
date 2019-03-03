@@ -1,7 +1,7 @@
 package nodes;
-import apis.CanvasAPI;
+import apis.VisualUpdateAPI;
 import apis.ImmutableVisualCommand;
 
 public abstract class VisualCommand implements ImmutableVisualCommand {
-    public abstract void execute(CanvasAPI myCanvas);
+    public abstract void execute(VisualUpdateAPI myCanvas);
 }

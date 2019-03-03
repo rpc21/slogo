@@ -1,10 +1,12 @@
 package nodes;
-import apis.CanvasAPI;
+import apis.VisualUpdateAPI;
 
 public class VisualTurtleMove extends VisualCommand {
+    private int myID;
     private double myXDelta;
     private double myYDelta;
-    public VisualTurtleMove(double pixels, double currHeading){
+    public VisualTurtleMove(int turtleID, double pixels, double currHeading){
+        myID = turtleID;
         double orientation = Math.toRadians(currHeading);
         double deltaX = pixels * Math.sin(orientation);
         double deltaY = 1.0 *  pixels * Math.cos(orientation);
@@ -12,8 +14,8 @@ public class VisualTurtleMove extends VisualCommand {
         myYDelta = deltaY;
     }
     @Override
-    public void execute(CanvasAPI myCanvas) {
-        myCanvas.turtleMove(myXDelta, -1.0 * myYDelta);
+    public void execute(VisualUpdateAPI myCanvas) {
+        myCanvas.turtleMove(myID, myXDelta, -1.0 * myYDelta);
     }
 
     public double getXDelta(){

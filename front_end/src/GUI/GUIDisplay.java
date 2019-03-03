@@ -2,7 +2,6 @@ package GUI;
 
 import apis.ImmutableVisualCommand;
 
-import exceptions.InvalidCommandException;
 import exceptions.InvalidVariableException;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;

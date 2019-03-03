@@ -7,11 +7,13 @@ public class Turtle {
     private boolean myVisibility;
     private boolean myPenIsUp;
     private int myPenColor;
+    private double myPenSize;
     private int myShape;
     private int myID;
     private boolean isActive;
     public Turtle(int id){
         myXCoor = myYCoor = myHeading = myPenColor = myShape = 0;
+        myPenSize = 2;
         myID = id;
         myVisibility = true;
         myPenIsUp = true;
@@ -33,7 +35,7 @@ public class Turtle {
         return myPenIsUp;
     }
     public boolean isActive(){ return isActive;}
-
+    public void setPenSize(double pixels){myPenSize = pixels;}
     public void setActive(boolean a ){isActive = a;}
     public void setShape(int index){myShape = index;}
     public void setPenColor(int index){myPenColor = index;}
