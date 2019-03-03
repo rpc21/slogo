@@ -12,8 +12,10 @@ public class PenDown extends CommandNode {
 
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
-        myVisCommands.add(new VisualPenDown());
-        myTurtles.get(0).setPenState(false);
+        for (Integer id: myTurtles.getActiveTurtlesIDs()) {
+            myTurtles.get(id).setPenState(false);
+            myVisCommands.add(new VisualPenDown(id));
+        }
         return 1;
     }
 }

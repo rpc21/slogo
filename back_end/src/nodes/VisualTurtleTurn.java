@@ -1,13 +1,15 @@
 package nodes;
 
-import apis.CanvasAPI;
+import apis.VisualUpdateAPI;
 
 public class VisualTurtleTurn extends VisualCommand  {
+    private int myID;
     private double myDegrees;
-    public VisualTurtleTurn(double degrees){
+    public VisualTurtleTurn(int id,double degrees){
+        myID = id;
         myDegrees = degrees;
     }
-    public void execute(CanvasAPI myCanvas) {
-        myCanvas.turtleTurn(myDegrees);
+    public void execute(VisualUpdateAPI myCanvas) {
+        myCanvas.turtleTurn(myID,myDegrees);
     }
 }

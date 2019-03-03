@@ -9,9 +9,10 @@ public class HideTurtle extends CommandNode {
         super(name);
     }
     @Override public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
-
-        myVisCommands.add(new VisualHideTurtle());
-        myTurtles.get(0).setVisibility(false);
+        for (Integer id: myTurtles.getActiveTurtlesIDs()) {
+            myVisCommands.add(new VisualHideTurtle(id));
+            myTurtles.get(id).setVisibility(false);
+        }
         return 0;
     }
     @Override

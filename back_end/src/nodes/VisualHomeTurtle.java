@@ -1,9 +1,12 @@
 package nodes;
-import apis.CanvasAPI;
+import apis.VisualUpdateAPI;
 
 public class VisualHomeTurtle extends VisualCommand {
-    @Override
-    public void execute(CanvasAPI myCanvas) {
-        myCanvas.setLocation(0,0);
+    private int myID;
+    public VisualHomeTurtle(int id){
+        myID = id;
+    }
+    public void execute(VisualUpdateAPI myCanvas){
+        myCanvas.setLocation(myID, 0, 0);
     }
 }

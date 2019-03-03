@@ -1,14 +1,16 @@
 package nodes;
 
-import apis.CanvasAPI;
+import apis.VisualUpdateAPI;
 
 public class VisualTurtleLeft extends VisualCommand {//extends VisualCommand {
     private double myPixels;
-    public VisualTurtleLeft(double pixels){
+    private int myID;
+    public VisualTurtleLeft(int id,double pixels){
+        myID = id;
         myPixels = pixels;
     }
     //@Override
-    public void execute(CanvasAPI myCanvas) {
-        myCanvas.turtleTurn(myPixels);
+    public void execute(VisualUpdateAPI myCanvas) {
+        myCanvas.turtleTurn(myID,myPixels);
     }
 }

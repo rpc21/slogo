@@ -1,7 +1,6 @@
 package GUI;
 
-import apis.CanvasAPI;
-import javafx.geometry.Point2D;
+import apis.VisualUpdateAPI;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class StackedCanvasPane extends StackPane implements CanvasAPI {
+public class StackedCanvasPane extends StackPane implements VisualUpdateAPI {
 
     public static final double DEFAULT_CANVAS_WIDTH = 800;
     public static final double DEFAULT_CANVAS_HEIGHT = 450;

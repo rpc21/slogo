@@ -23,6 +23,12 @@ public class Bale extends ArrayList<Turtle> {
         }
         return activeTurtles;
     }
+    public List<Integer> getActiveTurtlesIDs(){
+        List<Integer> myActiveTurtleIDs = new ArrayList<>();
+        for (Turtle t: getActiveTurtles())
+            myActiveTurtleIDs.add(t.getID());
+        return myActiveTurtleIDs;
+    }
 
     public void setActiveTurtles(List<Integer> myTurtleIDs){
         for (Turtle t: this)

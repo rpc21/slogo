@@ -1,8 +1,12 @@
 package nodes;
-        import apis.CanvasAPI;
+import apis.VisualUpdateAPI;
 
 public class VisualHideTurtle extends VisualCommand {
-    public void execute(CanvasAPI myCanvas){
-        myCanvas.hideTurtle();
+    private int myID;
+    public VisualHideTurtle(int id){
+        myID = id;
+    }
+    public void execute(VisualUpdateAPI myCanvas){
+        myCanvas.hideTurtle(myID);
     }
 }

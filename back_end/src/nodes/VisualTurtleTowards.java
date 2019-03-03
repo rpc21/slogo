@@ -1,13 +1,15 @@
 package nodes;
-import apis.CanvasAPI;
+import apis.VisualUpdateAPI;
 
 public class VisualTurtleTowards extends VisualCommand {
+    private int myID;
     private double myDegrees;
-    public VisualTurtleTowards(double degrees) {
+    public VisualTurtleTowards(int id,double degrees) {
+        myID = id;
         myDegrees = degrees;
     }
     @Override
-    public void execute(CanvasAPI myCanvas) {
-        myCanvas.setTowards(myDegrees);
+    public void execute(VisualUpdateAPI myCanvas) {
+        myCanvas.setTowards(myID,myDegrees);
     }
 }

@@ -1,14 +1,16 @@
 package nodes;
 
-import apis.CanvasAPI;
+import apis.VisualUpdateAPI;
 
 public class VisualPenColor extends VisualCommand {
-    double myIndex;
-    public VisualPenColor(int index){
+    private int myID;
+    private int myIndex;
+    public VisualPenColor(int id, int index){
+        myID = id;
         myIndex = index;
     }
     @Override
-    public void execute(CanvasAPI myCanvas) {
-
+    public void execute(VisualUpdateAPI myCanvas) {
+        myCanvas.setPenColor(myID, myIndex);
     }
 }

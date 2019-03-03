@@ -1,6 +1,6 @@
 package nodes;
 
-import apis.CanvasAPI;
+import apis.VisualUpdateAPI;
 
 public class VisualPalette extends VisualCommand{
     private int myIndex;
@@ -16,8 +16,8 @@ public class VisualPalette extends VisualCommand{
     }
 
     @Override
-    public void execute(CanvasAPI myCanvas) {
-
+    public void execute(VisualUpdateAPI myCanvas) {
+        myCanvas.setPalette(myIndex,myRed,myBlue,myGreen);
     }
 
 }
