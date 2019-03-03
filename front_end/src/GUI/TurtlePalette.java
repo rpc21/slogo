@@ -2,6 +2,7 @@ package GUI;
 
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
 import java.util.*;
@@ -28,4 +29,7 @@ public class TurtlePalette<T extends Node> extends ScrollPane {
         myPaletteElements.remove(element.getMyIndex());
     }
 
+    public DisplayView getContent(int index) {
+        return myPaletteElements.get(index).getMyTurtle();
+    }
 }

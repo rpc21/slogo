@@ -3,6 +3,7 @@ package GUI;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.util.*;
 
@@ -28,4 +29,7 @@ public class ColorPalette<T extends Node> extends ScrollPane {
         myPaletteElements.remove(element.getMyIndex());
     }
 
+    public Color getContent(int index) {
+        return myPaletteElements.get(index).getMyColor();
+    }
 }

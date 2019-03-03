@@ -26,8 +26,12 @@ public class ColorPaletteElement extends GridPane implements Comparator<ColorPal
         this(index, Color.rgb(red, green, blue));
     }
 
-    public double[] getMyColor(){
+    public double[] getMyRBG(){
         return new double[] {myColor.getRed(), myColor.getBlue(), myColor.getGreen()};
+    }
+
+    public Color getMyColor(){
+        return myColor;
     }
 
     public int getMyIndex(){

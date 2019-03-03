@@ -1,6 +1,5 @@
 package GUI;
 
-import apis.VisualUpdateAPI;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -10,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class StackedCanvasPane extends StackPane implements VisualUpdateAPI {
+public class StackedCanvasPane extends StackPane {
 
     public static final double DEFAULT_CANVAS_WIDTH = 800;
     public static final double DEFAULT_CANVAS_HEIGHT = 450;
@@ -26,7 +25,9 @@ public class StackedCanvasPane extends StackPane implements VisualUpdateAPI {
         myTurtles = new ArrayList<>();
         myBackgroundCanvas = createBackgroundCanvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
         myDrawingCanvas = new TurtleCanvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
-        myCurrentDisplayView = new BasicTurtleView(myDrawingCanvas);
+//        myCurrentDisplayView = new BasicTurtleView(myDrawingCanvas);
+        makeTurtle();
+        myCurrentDisplayView = myTurtles.get(0);
         penDown = true;
         getChildren().addAll(myBackgroundCanvas, myDrawingCanvas, myCurrentDisplayView);
         this.setLayoutX(DEFAULT_CANVAS_WIDTH);
@@ -44,7 +45,7 @@ public class StackedCanvasPane extends StackPane implements VisualUpdateAPI {
 
     public void makeTurtle(){
         DisplayView newTurtle = new BasicTurtleView(myDrawingCanvas);
-
+        myTurtles.add(newTurtle);
     }
 
     public Consumer<Color> getBackgroundColorAccess(){
@@ -64,32 +65,30 @@ public class StackedCanvasPane extends StackPane implements VisualUpdateAPI {
         return changeIcon;
     }
 
-    public void addMove(Move move){
-        myCurrentDisplayView.addMove(move);
-        myCurrentDisplayView.drawPath();
-    }
+//    public void addMove(Move move){
+//        myCurrentDisplayView.addMove(move);
+//        myCurrentDisplayView.drawPath();
+//    }
 
-    public void addAllMoves(List<Move> moves){
-        myCurrentDisplayView.addAllMoves(moves);
-    }
-
-    public void batchUpdateCanvas(){
-        myCurrentDisplayView.drawPath();
-    }
+//    public void addAllMoves(List<Move> moves){
+//        myCurrentDisplayView.addAllMoves(moves);
+//    }
+//
+//    public void batchUpdateCanvas(){
+//        myCurrentDisplayView.drawPath();
+//    }
 
     public void resizeCanvases(double v, double v1) {
         myBackgroundCanvas.resize(v, v1);
         myDrawingCanvas.resize(v, v1);
     }
 
-    @Override
-    public void turtleMove(double x, double y){
-        myCurrentDisplayView.turtleMove(x,y);
+    public void turtleMove(int id, double x, double y){
+        myTurtles.get(id).turtleMove(x,y);
     }
 
-    @Override
-    public void turtleTurn(double degrees){
-        myCurrentDisplayView.turn(degrees);
+    public void turtleTurn(int id, double degrees){
+        myTurtles.get(id).turn(degrees);
     }
 
 //    @Override
@@ -102,50 +101,56 @@ public class StackedCanvasPane extends StackPane implements VisualUpdateAPI {
 //        myCurrentDisplayView.turn(-degrees);
 //    }
 
-    @Override
-    public void setPenUp(){
-        myCurrentDisplayView.getMyPen().setDown(false);
+    public void setPenUp(int id){
+        myTurtles.get(id).getMyPen().setDown(false);
     }
 
-    @Override
-    public void setPenDown(){
-        myCurrentDisplayView.getMyPen().setDown(true);
+    public void setPenDown(int id){
+        myTurtles.get(id).getMyPen().setDown(true);
     }
 
-    @Override
-    public void showTurtle() {
-        myCurrentDisplayView.setVisible(true);
+    public void showTurtle(int id) {
+        myTurtles.get(id).setVisible(true);
     }
 
-    @Override
-    public void hideTurtle() {
-        myCurrentDisplayView.setVisible(false);
+    public void hideTurtle(int id) {
+        myTurtles.get(id).setVisible(false);
     }
 
-    @Override
-    public void setOrientation(double degrees) {
-        myCurrentDisplayView.setRotate(degrees);
+    public void setOrientation(int id, double degrees) {
+        myTurtles.get(id).setRotate(degrees);
     }
 
-    public void setTowards(double degrees) {
-        myCurrentDisplayView.towards(degrees);
+    public void setTowards(int id, double degrees) {
+        myTurtles.get(id).towards(degrees);
     }
 
-    @Override
-    public void setLocation(double x, double y) {
-        myCurrentDisplayView.setLocation(x, y);
+    public void setLocation(int id, double x, double y) {
+        myTurtles.get(id).setLocation(x, y);
     }
 
-    @Override
-    public void goHome() {
-        myCurrentDisplayView.goHome();
+    public void goHome(int id) {
+        myTurtles.get(id).goHome();
     }
 
-    @Override
     public void clearScreen() {
-        goHome();
+        for (int i = 0; i < myTurtles.size(); i++) {
+            goHome(i);
+        }
         myBackgroundCanvas.setColor(Color.WHITE);
         myDrawingCanvas.clearCanvas();
     }
 
+    public void setPenColor(int id, int index) {
+        //TODO: Do this later when palettes are working
+    }
+
+    public void setPenSize(int id, double pixels) {
+        myTurtles.get(id).getMyPen().setMyWidth(pixels);
+    }
+
+    public void setTurtleShape(int id, DisplayView content) {
+//        DisplayView newTurtle = new
+        //TODO: Do this later when you are smarter
+    }
 }

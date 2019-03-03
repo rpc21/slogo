@@ -2,6 +2,7 @@ package GUI;
 
 import apis.ImmutableVisualCommand;
 
+import apis.VisualUpdateAPI;
 import exceptions.InvalidVariableException;
 import javafx.geometry.Insets;
 import javafx.geometry.Side;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
-public class GUIDisplay {
+public class GUIDisplay implements VisualUpdateAPI {
 
     public static final String DEFAULT_LANGUAGE = "English";
     private Stage myStage;
@@ -71,7 +72,7 @@ public class GUIDisplay {
 
     public void executeVisualCommands(List<ImmutableVisualCommand> myCommands){
         for (ImmutableVisualCommand c: myCommands) {
-            c.execute(myStackedCanvasPane);
+            c.execute(this);
         }
     }
 
@@ -237,4 +238,84 @@ public class GUIDisplay {
         return alert;
     }
 
+    @Override
+    public void turtleMove(int id, double x, double y) {
+        myStackedCanvasPane.turtleMove(id, x, y);
+    }
+
+    @Override
+    public void turtleTurn(int id, double degrees) {
+        myStackedCanvasPane.turtleTurn(id, degrees);
+    }
+
+    @Override
+    public void setPenUp(int id) {
+        myStackedCanvasPane.setPenUp(id);
+    }
+
+    @Override
+    public void setPenDown(int id) {
+        myStackedCanvasPane.setPenDown(id);
+    }
+
+    @Override
+    public void showTurtle(int id) {
+        myStackedCanvasPane.showTurtle(id);
+    }
+
+    @Override
+    public void hideTurtle(int id) {
+        myStackedCanvasPane.hideTurtle(id);
+    }
+
+    @Override
+    public void setOrientation(int id, double degrees) {
+        myStackedCanvasPane.setOrientation(id, degrees);
+    }
+
+    @Override
+    public void setTowards(int id, double degrees) {
+        myStackedCanvasPane.setTowards(id, degrees);
+    }
+
+    @Override
+    public void setLocation(int id, double x, double y) {
+        myStackedCanvasPane.setLocation(id, x, y);
+    }
+
+    @Override
+    public void goHome(int id) {
+        myStackedCanvasPane.goHome(id);
+    }
+
+    @Override
+    public void clearScreen() {
+        myStackedCanvasPane.clearScreen();
+    }
+
+    @Override
+    public void setBackgroundColor(int index) {
+        //TODO: Refactor
+        myStackedCanvasPane.getBackgroundColorAccess().accept(myColorPalette.getContent(index));
+    }
+
+    @Override
+    public void setPenColor(int id, int index) {
+        myStackedCanvasPane.setPenColor(id, index);
+    }
+
+    @Override
+    public void setPenSize(int id, double pixels) {
+        myStackedCanvasPane.setPenSize(id, pixels);
+    }
+
+    @Override
+    public void setShape(int id, int index) {
+        myStackedCanvasPane.setTurtleShape(id, myTurtlePalette.getContent(index));
+    }
+
+    @Override
+    public void setPalette(int index, int r, int b, int g) {
+        myColorPalette.addPaletteElement(new ColorPaletteElement(index, r, g, b));
+    }
 }

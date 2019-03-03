@@ -30,6 +30,10 @@ public class TurtlePaletteElement extends GridPane implements Comparator<TurtleP
         return myIndex;
     }
 
+    public DisplayView getMyTurtle(){
+        return myTurtle;
+    }
+
     @Override
     public int compare(TurtlePaletteElement o1, TurtlePaletteElement o2) {
         return Integer.compare(o1.myIndex, o2.myIndex);
