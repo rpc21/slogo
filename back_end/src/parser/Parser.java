@@ -3,7 +3,6 @@ package parser;
 import apis.AddVariable;
 import exceptions.InvalidCommandException;
 import exceptions.InvalidVariableException;
-import nodes.CommandFactory;
 import nodes.CommandNode;
 
 import java.util.*;
@@ -87,8 +86,9 @@ public class Parser {
     private void addChild(CommandNode currentNode, String child) throws InvalidCommandException, InvalidVariableException {
         if(currentNode.needsName()) {
             validateVariableName(child);
+            currentNode.addChild(myCommandFactory.makeCommand(Double.parseDouble(child)));
         }
-        if(isDouble(child)) {
+        else if(isDouble(child)) {
             currentNode.addChild(myCommandFactory.makeCommand(Double.parseDouble(child)));
         } else {
             currentNode.addChild(makeNodeTree());
