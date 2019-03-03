@@ -3,6 +3,7 @@ package GUI;
 import apis.ImmutableVisualCommand;
 
 import exceptions.InvalidCommandException;
+import exceptions.InvalidVariableException;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -181,6 +182,8 @@ public class GUIDisplay {
                 myError.setText("Invalid Command: " + e.getReason());
             } catch(exceptions.NothingToRunException e){
                 myError.setText("There is nothing here to run");
+            } catch (InvalidVariableException e) {
+                //todo: ADD ERROR MESSAGE!!!!
             }
             addToCommandHistory(commandToExecute);
         });

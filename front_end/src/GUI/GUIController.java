@@ -1,6 +1,7 @@
 package GUI;
 
 import exceptions.InvalidCommandException;
+import exceptions.InvalidVariableException;
 import parser.external.CommandController;
 
 public class GUIController {
@@ -8,7 +9,7 @@ public class GUIController {
     private GUIDisplay myDisplay;
     GUIExecute myExecuteFunction = new GUIExecute() {
         @Override
-        public void executeCurrentCommand(String c, String language) throws InvalidCommandException {
+        public void executeCurrentCommand(String c, String language) throws InvalidCommandException, InvalidVariableException {
             execute(c, language);
         }
     };
@@ -17,7 +18,7 @@ public class GUIController {
         myDisplay = display;
         myDisplay.setUpRunButton(myExecuteFunction);
     }
-    public void execute(String command, String language) throws InvalidCommandException {
+    public void execute(String command, String language) throws InvalidCommandException, InvalidVariableException {
         double answer = myController.execute(command, language);
 
         myDisplay.executeVisualCommands(myController.getMyVisualCommands());

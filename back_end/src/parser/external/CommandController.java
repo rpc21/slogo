@@ -7,9 +7,11 @@ import java.util.List;
 
 import apis.ImmutableVisualCommand;
 import exceptions.InvalidCommandException;
+import exceptions.InvalidVariableException;
 import exceptions.NothingToRunException;
 import nodes.CommandNode;
 import parser.Parser;
+import parser.UserCreated;
 import turtle.Bale;
 import turtle.ImmutableTurtleState;
 import turtle.Turtle;
@@ -19,16 +21,18 @@ public class CommandController {
     private Bale myTurtles;
     private static final int INVALID_COMMAND = 0;
     List<ImmutableVisualCommand> myVisualCommands;
+    private UserCreated myUserCreated;
 
 
-    public CommandController(){
-        myParser = new Parser();
+    public CommandController() {
+        myUserCreated = new UserCreated();
+        myParser = new Parser(myUserCreated);
         myTurtles = new Bale();
         myTurtles.add(new Turtle(0));
         myVisualCommands = new ArrayList<>();
     }
 
-    public double execute(String command, String language) throws InvalidCommandException, NothingToRunException {
+    public double execute(String command, String language) throws InvalidCommandException, NothingToRunException, InvalidVariableException {
         updateLanguage(language);
         CommandNode myNode;
         double ret = 0;
