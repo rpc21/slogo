@@ -25,7 +25,7 @@ public class CommandFactory {
             // todo; handle this pls
             return null;
         } else {
-            return new MakeVariable(c, uc);
+            return null; //new MakeVariable(c, uc);
         }
     }
 }

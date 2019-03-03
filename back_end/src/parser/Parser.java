@@ -5,6 +5,7 @@ import exceptions.InvalidCommandException;
 import exceptions.InvalidVariableException;
 import nodes.CommandNode;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.AbstractMap.SimpleEntry;
@@ -28,12 +29,6 @@ public class Parser {
     private static final int VARIABLE_INDEX = 2;
     private UserCreated myUserCreated;
 
-    AddVariable myAddVarFunction = new AddVariable() {
-        @Override
-        public void addVar(String s,Double d) {
-            addVariable(s,d);
-        }
-    };
 
     public Parser(UserCreated userCreated) {
         myUserCreated = userCreated;
@@ -49,7 +44,7 @@ public class Parser {
         addPatterns(myGeneralSyntax, mySyntaxProperties);
     }
 
-    public List<CommandNode> parse(String input) throws InvalidCommandException, InvalidVariableException { // todo: throw invalidcommandexception and invalidnumberinputs exception
+    public List<CommandNode> parse(String input) throws InvalidCommandException, InvalidVariableException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException { // todo: throw invalidcommandexception and invalidnumberinputs exception
         myCurrentCommand = input;
         removeComments();
         myVariables = new HashMap<>();
@@ -64,7 +59,7 @@ public class Parser {
         myVariables.put(s,d);
     }
 
-    private CommandNode makeNodeTree() throws InvalidCommandException, InvalidVariableException { // todo: check for invalid number of inputs?
+    private CommandNode makeNodeTree() throws InvalidCommandException, InvalidVariableException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException { // todo: check for invalid number of inputs?
         String[] commandSplit = myCurrentCommand.trim().split("\\s+");
         String currentValue = commandSplit[0];
         String currentCommandKey = getCommandKey(currentValue);
@@ -83,7 +78,7 @@ public class Parser {
         }
     }
 
-    private void addChild(CommandNode currentNode, String child) throws InvalidCommandException, InvalidVariableException {
+    private void addChild(CommandNode currentNode, String child) throws InvalidCommandException, InvalidVariableException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         if(currentNode.needsName()) {
             validateVariableName(child);
             currentNode.addChild(myCommandFactory.makeCommand(Double.parseDouble(child)));

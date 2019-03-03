@@ -1,19 +1,29 @@
 package nodes;
 
+import apis.AddVariable;
 import apis.ImmutableVisualCommand;
 import turtle.Bale;
 
 import java.util.List;
 
 public class MakeVariable extends CommandNode{
+    private AddVariable myAddVarFunction;
     public MakeVariable(String a){
         super(a);
+    }
+    public MakeVariable(String a, AddVariable add){
+        super(a);
+        myAddVarFunction = add;
     }
 
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles){
-        return super.getChildren().get(1).evaluate(myVisCommands, myTurtles);
+        String varName = super.getChildren().get(0).getName();
+        double varValue = super.getChildren().get(1).evaluate(myVisCommands, myTurtles);
+        myAddVarFunction.addVar(varName,varValue);
+        return varValue;
     }
+
     @Override
     public void addChild(CommandNode c){
         if (super.getChildren().size() == 2)
