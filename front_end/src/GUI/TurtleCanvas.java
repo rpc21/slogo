@@ -51,6 +51,6 @@ public class TurtleCanvas extends Canvas implements GUIComponent {
     }
 
     public void clearCanvas(){
-        setColor(Color.TRANSPARENT);
+        getGraphicsContext2D().clearRect(0, 0, getWidth(), getHeight());
     }
 }

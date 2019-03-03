@@ -2,7 +2,6 @@ package GUI;
 
 import apis.ImmutableVisualCommand;
 
-import exceptions.InvalidCommandException;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -48,6 +47,8 @@ public class GUIDisplay {
     public static final int SCENE_HEIGHT = 650;
     public GUIdata dataTracker = new GUIdata();
     private ErrorDisplay myError;
+    private ColorPalette myColorPalette;
+    private TurtlePalette myTurtlePalette;
 
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
@@ -80,9 +81,28 @@ public class GUIDisplay {
         makeTextBox(grid);
         initializeButtons(grid);
         createTabExplorer(grid);
+        createColorPalette(grid);
+        createTurtlePalette(grid);
         grid.setPrefSize(SCENE_WIDTH, SCENE_HEIGHT);
         myCurrentGUIGrid = grid;
         return grid;
+    }
+
+    private void createTurtlePalette(GridPane grid){
+        myTurtlePalette = new TurtlePalette();
+        myTurtlePalette.addPaletteElement(new TurtlePaletteElement(1, "BasicTurtleView"));
+        myTurtlePalette.addPaletteElement(new TurtlePaletteElement(2, "AdvancedTurtleView"));
+        myTurtlePalette.addPaletteElement(new TurtlePaletteElement(4, "BasicTurtleView"));
+        myTurtlePalette.addPaletteElement(new TurtlePaletteElement(3, "AdvancedTurtleView"));
+        grid.add(myTurtlePalette, 10,3,1,4);
+    }
+
+    private void createColorPalette(GridPane grid) {
+        myColorPalette = new ColorPalette();
+        myColorPalette.addPaletteElement(new ColorPaletteElement(1, Color.BLACK));
+        myColorPalette.addPaletteElement(new ColorPaletteElement(2, Color.RED));
+        myColorPalette.addPaletteElement(new ColorPaletteElement(3, Color.GREEN));
+        grid.add(myColorPalette, 8, 3, 1, 4);
     }
 
     private void createTabExplorer(GridPane grid) {
@@ -100,7 +120,7 @@ public class GUIDisplay {
         myCommands.addContents("sample commmand");
         myMethods.addContents("sample method");
         myTabExplorer.getTabs().addAll(myVariables, myMethods, myCommands);
-        grid.add(myTabExplorer, 8, 1, 5, 5);
+        grid.add(myTabExplorer, 8, 1, 3, 1);
     }
 
     private SLogoTab makeTab(String tabType, GUIdata data, ResourceBundle resources, TextArea commandLine){
