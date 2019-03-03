@@ -2,9 +2,14 @@ package GUI;
 
 import apis.ImmutableVisualCommand;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Side;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -49,6 +54,7 @@ public class GUIDisplay {
     private ErrorDisplay myError;
     private ColorPalette myColorPalette;
     private TurtlePalette myTurtlePalette;
+    private ContextMenu myContextMenu;
 
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
@@ -62,6 +68,7 @@ public class GUIDisplay {
         myScene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.LIGHTGRAY);
         myStage.setScene(myScene);
     }
+
     public void executeVisualCommands(List<ImmutableVisualCommand> myCommands){
         for (ImmutableVisualCommand c: myCommands) {
             c.execute(myStackedCanvasPane);
@@ -87,7 +94,7 @@ public class GUIDisplay {
         myCurrentGUIGrid = grid;
         return grid;
     }
-
+    
     private void createTurtlePalette(GridPane grid){
         myTurtlePalette = new TurtlePalette();
         myTurtlePalette.addPaletteElement(new TurtlePaletteElement(1, "BasicTurtleView"));

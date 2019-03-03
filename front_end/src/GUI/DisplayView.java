@@ -1,8 +1,14 @@
 package GUI;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.geometry.Side;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -24,6 +30,7 @@ public abstract class DisplayView extends ImageView {
     private Pen myPen;
     private GraphicsContext myContext;
     protected List<Move> myMoveHistory;
+    private ContextMenu myContextMenu;
 
     public DisplayView(){
         this(new Image(TURTLE_IMAGE));
@@ -37,6 +44,26 @@ public abstract class DisplayView extends ImageView {
         myMoveHistory = new ArrayList<>();
         this.managedProperty().bind(this.visibleProperty());
         setRotate(0);
+        initalizeContextMenu();
+        this.setOnMouseClicked(e -> myContextMenu.show(this, e.getSceneX(),e.getSceneY()));
+    }
+
+    private void initalizeContextMenu(){
+        myContextMenu = new ContextMenu();
+        MenuItem item1 = new MenuItem("About");
+        item1.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                System.out.println("About");
+            }
+        });
+        MenuItem item2 = new MenuItem("Preferences");
+        item2.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                System.out.println("Preferences");
+            }
+        });
+        myContextMenu.getItems().addAll(item1, item2);
+
     }
 
     public DisplayView(Canvas canvas){
