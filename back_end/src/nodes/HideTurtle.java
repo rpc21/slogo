@@ -1,16 +1,17 @@
 package nodes;
 import apis.ImmutableVisualCommand;
-import turtle.Turtle;
+import turtle.Bale;
+
 import java.util.List;
 
 public class HideTurtle extends CommandNode {
     public HideTurtle(String name){
         super(name);
     }
-    @Override public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
-        myTurtle.setVisibility(false);
+    @Override public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
+
         myVisCommands.add(new VisualHideTurtle());
-        myTurtle.setVisibility(false);
+        myTurtles.get(0).setVisibility(false);
         return 0;
     }
     @Override

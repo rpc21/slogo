@@ -1,7 +1,7 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
-import turtle.Turtle;
+import turtle.Bale;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class ClearScreen extends CommandNode {
      * TODO - Use immutable turtle state to get current coordinates to return distance moved to go home
      */
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
         myVisCommands.add(new VisualClearScreen());
         return 0;
     }

@@ -1,6 +1,7 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
+import turtle.Bale;
 import turtle.Turtle;
 
 import java.util.List;
@@ -13,11 +14,15 @@ public class SetPosition extends CommandNode {
      * TODO - Use immutable turtle state to get current coordinates to determine degrees turned
      */
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
-        double newXCoor = super.getChildren().get(0).evaluate(myVisCommands, myTurtle);
-        double newYCoor = super.getChildren().get(1).evaluate(myVisCommands, myTurtle);
-        myVisCommands.add(new VisualTurtleMove(newXCoor,newYCoor));
-        double distance = Math.pow(Math.abs(myTurtle.getXCoor() - newXCoor),2)  + Math.pow(Math.abs(myTurtle.getYCoor() - newYCoor),2);
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
+        double newXCoor = super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
+        double newYCoor = super.getChildren().get(1).evaluate(myVisCommands, myTurtles);
+        myVisCommands.add(new VisualTurtlePosition(newXCoor,newYCoor));
+        double distance = Math.pow(Math.abs(myTurtles.get(0).getXCoor() - newXCoor),2)  + Math.pow(Math.abs(myTurtles.get(0).getYCoor() - newYCoor),2);
+        for (Turtle t: myTurtles.getActiveTurtles()) {
+            t.setXCoor(newXCoor);
+            t.setYCoor(newYCoor);
+        }
         return distance;
     }
     @Override

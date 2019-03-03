@@ -166,14 +166,9 @@ public abstract class DisplayView extends ImageView {
         drawPath(move);
     }
 
-    public void towards(double x, double y) {
-        double deltaX = x - getTranslateX();
-        double deltaY = y - getTranslateY();
-        if (deltaX == 0){
-            setRotate(Double.POSITIVE_INFINITY * deltaY);
-        } else{
-            setRotate(90 - Math.atan(deltaY/deltaX));
-        }
+    public void towards(double degrees) {
+        setRotate(degrees);
+        System.out.println("VISUALIZATION :" + getRotate());
     }
 
     public void setLocation(double x, double y) {

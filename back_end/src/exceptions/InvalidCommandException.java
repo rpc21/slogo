@@ -1,13 +1,8 @@
 package exceptions;
 
-public class InvalidCommandException extends Exception {
-    private String myReason;
+public class InvalidCommandException extends InvalidInputException {
 
-    public InvalidCommandException(String reason) {
-        myReason = reason;
-    }
-
-    public String getReason() {
-        return myReason;
+    public InvalidCommandException(String command) {
+        super(command);
     }
 }

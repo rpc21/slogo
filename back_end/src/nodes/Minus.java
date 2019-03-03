@@ -2,7 +2,7 @@
 
 package nodes;
 import apis.ImmutableVisualCommand;
-import turtle.Turtle;
+import turtle.Bale;
 
 import java.util.List;
 public class Minus extends CommandNode {
@@ -11,8 +11,8 @@ public class Minus extends CommandNode {
         super(commandName);
     }
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
-        return -1.0 * super.getChildren().get(0).evaluate(myVisCommands, myTurtle);
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
+        return -1.0 * super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
     }
     /**
      * Adds an addend to this nodes.SumNode's list of Children as main.Parser reads them in

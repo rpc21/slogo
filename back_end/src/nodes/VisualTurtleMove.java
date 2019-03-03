@@ -7,13 +7,13 @@ public class VisualTurtleMove extends VisualCommand {
     public VisualTurtleMove(double pixels, double currHeading){
         double orientation = Math.toRadians(currHeading);
         double deltaX = pixels * Math.sin(orientation);
-        double deltaY = -1.0 *  pixels * Math.cos(orientation);
+        double deltaY = 1.0 *  pixels * Math.cos(orientation);
         myXDelta = deltaX;
         myYDelta = deltaY;
     }
     @Override
     public void execute(CanvasAPI myCanvas) {
-        myCanvas.turtleMove(myXDelta, myYDelta);
+        myCanvas.turtleMove(myXDelta, -1.0 * myYDelta);
     }
 
     public double getXDelta(){

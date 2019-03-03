@@ -1,7 +1,7 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
-import turtle.Turtle;
+import turtle.Bale;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public class Pi extends CommandNode {
         super(commandName);
     }
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
         return Math.PI;
     }
     /**
