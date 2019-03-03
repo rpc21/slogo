@@ -120,8 +120,8 @@ public class StackedCanvasPane extends StackPane implements CanvasAPI {
         myCurrentDisplayView.setRotate(degrees);
     }
 
-    public void setTowards(double x, double y) {
-        myCurrentDisplayView.towards(x, y);
+    public void setTowards(double degrees) {
+        myCurrentDisplayView.towards(degrees);
     }
 
     @Override

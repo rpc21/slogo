@@ -1,6 +1,7 @@
 package nodes;
 import apis.ImmutableVisualCommand;
-import turtle.Turtle;
+import turtle.Bale;
+
 import java.util.List;
 
 public class SetBackground extends CommandNode{
@@ -9,8 +10,8 @@ public class SetBackground extends CommandNode{
     }
 
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
-        int index = (int)super.getChildren().get(0).evaluate(myVisCommands, myTurtle);
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
+        int index = (int)super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
         myVisCommands.add(new VisualBackgroundColor(index));
         return index;
     }

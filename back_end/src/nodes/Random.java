@@ -1,7 +1,7 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
-import turtle.Turtle;
+import turtle.Bale;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ public class Random extends CommandNode {
         super(commandName);
     }
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
-        double childValue = super.getChildren().get(0).evaluate(myVisCommands, myTurtle);
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
+        double childValue = super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
         return Math.floor(Math.random()*childValue) + 1;
     }
     /**

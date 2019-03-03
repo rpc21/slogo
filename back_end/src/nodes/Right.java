@@ -1,7 +1,7 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
-import turtle.Turtle;
+import turtle.Bale;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ public class Right extends CommandNode{
         super(name);
     }
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
-        double degrees = myChildren.get(0).evaluate(myVisCommands, myTurtle);
-        myTurtle.updateHeading(1.0 * degrees);
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
+        double degrees = myChildren.get(0).evaluate(myVisCommands, myTurtles);
+        myTurtles.get(0).updateHeading(1.0 * degrees);
         myVisCommands.add(new VisualTurtleTurn(1.0 * degrees));
         return degrees;
     }

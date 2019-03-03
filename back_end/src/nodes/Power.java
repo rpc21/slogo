@@ -1,7 +1,7 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
-import turtle.Turtle;
+import turtle.Bale;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ public class Power extends CommandNode {
         super(commandName);
     }
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
-        double base = super.getChildren().get(0).evaluate(myVisCommands, myTurtle);
-        double exp = super.getChildren().get(1).evaluate(myVisCommands, myTurtle);
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
+        double base = super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
+        double exp = super.getChildren().get(1).evaluate(myVisCommands, myTurtles);
         return Math.pow(base,exp);
     }
     /**

@@ -1,7 +1,7 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
-import turtle.Turtle;
+import turtle.Bale;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ public class Cosine extends CommandNode {
         super(commandName);
     }
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle)  {
-        return Math.sin(super.getChildren().get(0).evaluate(myVisCommands, myTurtle));
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles)  {
+        return Math.sin(super.getChildren().get(0).evaluate(myVisCommands, myTurtles));
     }
     /**
      * Adds an addend to this nodes.SumNode's list of Children as main.Parser reads them in

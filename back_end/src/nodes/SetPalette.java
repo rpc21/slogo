@@ -1,7 +1,7 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
-import turtle.Turtle;
+import turtle.Bale;
 
 import java.util.List;
 
@@ -15,11 +15,11 @@ public class SetPalette extends CommandNode {
         super(n);
     }
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
-        double currIndex = super.getChildren().get(INDEX).evaluate(myVisCommands,myTurtle);
-        double red = super.getChildren().get(RED_VAL).evaluate(myVisCommands,myTurtle);
-        double green = super.getChildren().get(BLUE_VAL).evaluate(myVisCommands,myTurtle);
-        double blue = super.getChildren().get(GREEN_VAL).evaluate(myVisCommands,myTurtle);
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
+        double currIndex = super.getChildren().get(INDEX).evaluate(myVisCommands, myTurtles);
+        double red = super.getChildren().get(RED_VAL).evaluate(myVisCommands, myTurtles);
+        double green = super.getChildren().get(BLUE_VAL).evaluate(myVisCommands, myTurtles);
+        double blue = super.getChildren().get(GREEN_VAL).evaluate(myVisCommands, myTurtles);
         if (checkRGBValue(red) & checkRGBValue(red) & checkRGBValue(red)) {
 
         }

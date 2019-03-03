@@ -5,17 +5,13 @@ import turtle.Bale;
 
 import java.util.List;
 
-public class ClearScreen extends CommandNode {
-    public ClearScreen(String name){
-        super(name);
+public class Turtles extends CommandNode{
+    public Turtles(String n){
+        super(n);
     }
-    /**
-     * TODO - Use immutable turtle state to get current coordinates to return distance moved to go home
-     */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
-        myVisCommands.add(new VisualClearScreen());
-        return 0;
+        return myTurtles.size();
     }
     @Override
     public void addChild(CommandNode c){

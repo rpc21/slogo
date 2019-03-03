@@ -1,7 +1,7 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
-import turtle.Turtle;
+import turtle.Bale;
 
 import java.util.List;
 
@@ -12,9 +12,9 @@ public class Product extends CommandNode {
     }
 
     @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Turtle myTurtle) {
-        double firstExpression = super.getChildren().get(0).evaluate(myVisCommands, myTurtle);
-        double secondExpression = super.getChildren().get(1).evaluate(myVisCommands, myTurtle);
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
+        double firstExpression = super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
+        double secondExpression = super.getChildren().get(1).evaluate(myVisCommands, myTurtles);
         return firstExpression * secondExpression;
     }
 

@@ -9,13 +9,18 @@ public class Turtle {
     private int myPenColor;
     private int myShape;
     private int myID;
-    public Turtle(){
+    private boolean isActive;
+    public Turtle(int id){
         myXCoor = myYCoor = myHeading = myPenColor = myShape = 0;
-        myID = 1;
+        myID = id;
         myVisibility = true;
         myPenIsUp = true;
-    }
+        if (id == 0)
+            isActive = true;
+        else
+            isActive = false;
 
+    }
 
     public double getXCoor(){ return myXCoor; }
     public double getYCoor() { return myYCoor; }
@@ -27,7 +32,9 @@ public class Turtle {
     public boolean getPenState(){
         return myPenIsUp;
     }
+    public boolean isActive(){ return isActive;}
 
+    public void setActive(boolean a ){isActive = a;}
     public void setShape(int index){myShape = index;}
     public void setPenColor(int index){myPenColor = index;}
     public void updateXCoor(double x){ myXCoor = x; }
@@ -40,13 +47,24 @@ public class Turtle {
     }
     public void updateHeading(double degrees){
         myHeading += degrees;
+        checkHeading();
     }
     public void setHeading(double degrees){
         myHeading = degrees;
+        checkHeading();
     }
     public void setVisibility(boolean isVisible){ myVisibility = isVisible; }
     public void setPenState(boolean isPenUp){
         myPenIsUp = isPenUp;
     }
 
+    private void checkHeading(){
+        if (myHeading > 360)
+            myHeading = myHeading % 360;
+        if (myHeading < 0) {
+            myHeading = myHeading % 360;
+            myHeading = myHeading + 360;
+
+        }
+    }
 }
