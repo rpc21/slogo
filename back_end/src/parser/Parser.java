@@ -29,12 +29,6 @@ public class Parser {
     private static final int VARIABLE_INDEX = 2;
     private UserCreated myUserCreated;
 
-    AddVariable myAddVarFunction = new AddVariable() {
-        @Override
-        public void addVar(String s,Double d) {
-            addVariable(s,d);
-        }
-    };
 
     public Parser(UserCreated userCreated) {
         myUserCreated = userCreated;
