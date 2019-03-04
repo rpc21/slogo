@@ -6,6 +6,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class ColorPalette<T extends Node> extends ScrollPane {
 
@@ -31,5 +33,9 @@ public class ColorPalette<T extends Node> extends ScrollPane {
 
     public Color getContent(int index) {
         return myPaletteElements.get(index).getMyColor();
+    }
+
+    public Function<Integer, Color> colorLookupAccess(){
+        return (x) -> getContent(x);
     }
 }

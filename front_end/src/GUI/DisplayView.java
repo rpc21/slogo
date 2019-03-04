@@ -52,7 +52,7 @@ public abstract class DisplayView extends ImageView {
 
     private void initalizeContextMenu(){
         myContextMenu = new ContextMenu();
-        MenuItem item1 = new MenuItem("About");
+        MenuItem item1 = new MenuItem("s");
         item1.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 System.out.println("About");
@@ -155,10 +155,6 @@ public abstract class DisplayView extends ImageView {
     }
 
     public void turtleMove(double deltaX, double deltaY) {
-//        System.out.println(pixels);;
-//        double orientation = Math.toRadians(getRotate());
-//        double deltaX = pixels * Math.sin(orientation);
-//        double deltaY = - pixels * Math.cos(orientation);
         System.out.println(getTranslateX() + " " + deltaX + "");
         moveTo(new Point2D(getTranslateX() + deltaX, getTranslateY() + deltaY));
         System.out.println(getTranslateY());

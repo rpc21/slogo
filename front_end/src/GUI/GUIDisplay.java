@@ -22,7 +22,12 @@ import java.util.function.Consumer;
 
 public class GUIDisplay implements VisualUpdateAPI {
 
-    public static final String DEFAULT_LANGUAGE = "English";
+    public static final Language DEFAULT_LANGUAGE = Language.ENGLISH;
+    public static final String CLEAR = "Clear";
+    public static final String HELP = "Help";
+    public static final String RUN = "Run";
+    public static final String TURTLE_ICON = "TurtleIcon";
+    //    public static final String DEFAULT_LANGUAGE = "English";
     private Stage myStage;
     private Scene myScene;
     private String myTitle = "SLogo";
@@ -35,7 +40,8 @@ public class GUIDisplay implements VisualUpdateAPI {
     private Button myClearButton;
     private Button myHelpButton;
     private ResourceBundle myResources;
-    private String myLanguage;
+    private Language myLanguage;
+//    private String myLanguage;
     private Toolbar myToolbar;
     private StackedCanvasPane myStackedCanvasPane;
     private static final String LANGUAGE_LOCATION = "languages/";
@@ -47,7 +53,8 @@ public class GUIDisplay implements VisualUpdateAPI {
     private SLogoTab myCommands;
     private SLogoTab myMethods;
     private GridPane myCurrentGUIGrid;
-    private Consumer<String> myLanguageConsumer;
+    private Consumer<Language> myLanguageConsumer;
+//    private Consumer<String> myLanguageConsumer;
     public static final int SCENE_WIDTH = 1200;
     public static final int SCENE_HEIGHT = 650;
     public GUIdata dataTracker = new GUIdata();
@@ -58,13 +65,15 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
-        myResources = ResourceBundle.getBundle(myLanguage);
+//        myResources = ResourceBundle.getBundle(myLanguage);
         myStage = stage;
         myLanguageConsumer = (x) -> {
             myLanguage = x;
             updateLanguage(x);
         };
         myRoot = createGridPane();
+        myStackedCanvasPane.setColorPaletteLookupAccess(myColorPalette.colorLookupAccess());
+        myStackedCanvasPane.setTurtleLookupAccess(myTurtlePalette.turtleLookupAccess());
         myRoot.setGridLinesVisible(false);
         myScene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.LIGHTGRAY);
         myStage.setScene(myScene);
@@ -132,7 +141,7 @@ public class GUIDisplay implements VisualUpdateAPI {
     }
 
     private SLogoTab makeTab(String tabType, GUIdata data, ResourceBundle resources, TextArea commandLine){
-        SLogoTab tab = new SLogoTab(resources.getString(tabType), data);
+        SLogoTab tab = new SLogoTab(myLanguage.getTranslatedWord(tabType), data);
         tab.getContent().setOnMouseClicked(event -> {
             commandLine.setText(data.getMyTextToUpdate());
         });
@@ -161,16 +170,16 @@ public class GUIDisplay implements VisualUpdateAPI {
         grid.add(myToolbar, 1, 0, 1, 1);
     }
 
-    private void updateLanguage(String language){
+    private void updateLanguage(Language language){
         myLanguage = language;
-        myResources = ResourceBundle.getBundle(myLanguage);
-        myRunButton.setText(myResources.getString("Run"));
-        myClearButton.setText(myResources.getString("Clear"));
-        myHelpButton.setText(myResources.getString("Help"));
-        myVariables.setText(myResources.getString("Variables"));
-        myCommands.setText(myResources.getString("CommandHistory"));
-        myMethods.setText(myResources.getString("Methods"));
-        myTurtleIconChooser.setPromptText(myResources.getString("TurtleIcon"));
+//        myResources = ResourceBundle.getBundle(myLanguage);
+        myRunButton.setText(myLanguage.getTranslatedWord(RUN));
+        myClearButton.setText(myLanguage.getTranslatedWord(CLEAR));
+        myHelpButton.setText(myLanguage.getTranslatedWord(HELP));
+        myVariables.setText(myLanguage.getTranslatedWord(VARIABLES));
+        myCommands.setText(myLanguage.getTranslatedWord(COMMANDS));
+        myMethods.setText(myLanguage.getTranslatedWord(METHODS));
+        myTurtleIconChooser.setPromptText(myLanguage.getTranslatedWord(TURTLE_ICON));
     }
 
     private void setTitle(GridPane grid) {
@@ -186,9 +195,9 @@ public class GUIDisplay implements VisualUpdateAPI {
     }
 
     private void initializeButtons(GridPane grid){
-        myClearButton = new ClearButton(myResources.getString("Clear"), myTextBox);
+        myClearButton = new ClearButton(myLanguage.getTranslatedWord(CLEAR), myTextBox);
         grid.add(myClearButton, 2, 5);
-        myHelpButton = new HelpButton(myResources.getString("Help"), myResources, helpMenuConsumer);
+        myHelpButton = new HelpButton(myLanguage.getTranslatedWord(HELP), myResources, helpMenuConsumer);
         grid.add(myHelpButton, 2, 6);
         myError = new ErrorDisplay();
         grid.add(myError, 0, 6);
@@ -200,12 +209,12 @@ public class GUIDisplay implements VisualUpdateAPI {
     }
 
     private Button runButton(GUIExecute ref){
-        Button button = new Button(myResources.getString("Run"));
+        Button button = new Button(myLanguage.getTranslatedWord(RUN));
         button.setOnMouseClicked(event -> {
             commandToExecute = myTextBox.getText();
             myError.setText("");
             try {
-                ref.executeCurrentCommand(commandToExecute, myLanguage);
+                ref.executeCurrentCommand(commandToExecute, myLanguage.getLanguageString());
             } catch(exceptions.InvalidCommandException e) {
                 myError.setText("Invalid Command: " + e.getReason());
             } catch(exceptions.NothingToRunException e){
@@ -229,11 +238,11 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     private Alert showHelpMenu(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(myResources.getString("Help"));
-        alert.setHeaderText(myResources.getString("HelpHeader"));
+        alert.setTitle(myLanguage.getTranslatedWord("Help"));
+        alert.setHeaderText(myLanguage.getTranslatedWord("HelpHeader"));
        // alert.setContentText(myResources.getString("HelpInfo"));
         ScrollPane pane = new ScrollPane();
-        pane.setContent(new Label(myResources.getString("HelpInfo")));
+        pane.setContent(new Label(myLanguage.getTranslatedWord("HelpInfo")));
         alert.getDialogPane().setExpandableContent(pane);
         return alert;
     }

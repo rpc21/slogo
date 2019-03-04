@@ -4,8 +4,10 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.util.*;
+import java.util.function.Function;
 
 public class TurtlePalette<T extends Node> extends ScrollPane {
 
@@ -31,5 +33,9 @@ public class TurtlePalette<T extends Node> extends ScrollPane {
 
     public DisplayView getContent(int index) {
         return myPaletteElements.get(index).getMyTurtle();
+    }
+
+    public Function<Integer, DisplayView> turtleLookupAccess(){
+        return (x) -> getContent(x);
     }
 }

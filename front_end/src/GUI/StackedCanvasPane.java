@@ -8,6 +8,7 @@ import javafx.scene.paint.Paint;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class StackedCanvasPane extends StackPane {
 
@@ -18,7 +19,9 @@ public class StackedCanvasPane extends StackPane {
     private TurtleCanvas myDrawingCanvas;
     private DisplayView myCurrentDisplayView;
     private List<DisplayView> myTurtles;
-    private boolean penDown;
+    public Function<Integer, Color> colorPaletteLookup;
+    private Function<Integer, DisplayView> turtlePaletteLookup;
+//    private boolean penDown;
 
     public StackedCanvasPane(){
         super();
@@ -28,7 +31,7 @@ public class StackedCanvasPane extends StackPane {
 //        myCurrentDisplayView = new BasicTurtleView(myDrawingCanvas);
         makeTurtle();
         myCurrentDisplayView = myTurtles.get(0);
-        penDown = true;
+//        penDown = true;
         getChildren().addAll(myBackgroundCanvas, myDrawingCanvas, myCurrentDisplayView);
         this.setLayoutX(DEFAULT_CANVAS_WIDTH);
         this.setLayoutY(DEFAULT_CANVAS_HEIGHT);
@@ -143,6 +146,7 @@ public class StackedCanvasPane extends StackPane {
 
     public void setPenColor(int id, int index) {
         //TODO: Do this later when palettes are working
+        myTurtles.get(id).getMyPen().setMyColor(colorPaletteLookup.apply(index));
     }
 
     public void setPenSize(int id, double pixels) {
@@ -152,5 +156,13 @@ public class StackedCanvasPane extends StackPane {
     public void setTurtleShape(int id, DisplayView content) {
 //        DisplayView newTurtle = new
         //TODO: Do this later when you are smarter
+    }
+
+    public void setColorPaletteLookupAccess(Function colorLookupAccess) {
+        colorPaletteLookup = colorLookupAccess;
+    }
+
+    public void setTurtleLookupAccess(Function turtleLookupAccess) {
+        turtlePaletteLookup = turtleLookupAccess;
     }
 }
