@@ -127,7 +127,9 @@ public abstract class DisplayView extends ImageView {
         myContext.moveTo(this.getTranslateX() + myCanvas.getWidth()/2, this.getTranslateY() + myCanvas.getHeight()/2);
         updatePosition(move);
         myContext.lineTo(this.getTranslateX() + myCanvas.getWidth()/2, this.getTranslateY() + myCanvas.getHeight()/2);
-        myContext.stroke();
+        if (myPen.isDown()) {
+            myContext.stroke();
+        }
         myContext.closePath();
     }
 
