@@ -1,5 +1,6 @@
 package parser;
 
+import apis.AddVariable;
 import nodes.CommandNode;
 import nodes.ConstantNode;
 import nodes.MakeVariable;
@@ -20,12 +21,8 @@ public class CommandFactory {
         return myCommandNode;
     }
 
-    public CommandNode makeCommand(String c, UserCreated uc) {
-        if(!c.equals("Make")) {
-            // todo; handle this pls
-            return null;
-        } else {
-            return null; //new MakeVariable(c, uc);
-        }
+    public CommandNode makeCommand(String c, AddVariable av) {
+        System.out.println("in make command");
+        return new MakeVariable(c, av);
     }
 }
