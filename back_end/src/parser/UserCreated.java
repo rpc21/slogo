@@ -1,20 +1,25 @@
 package parser;
 
 import apis.AddVariable;
+import apis.GetVariableValue;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 public class UserCreated {
-    Map<String, Double> myVariables;
-    Map<String, UserCommand> myCommands;
+    Map<String, Double> myVariables = new HashMap<>();
+    Map<String, UserCommand> myCommands = new HashMap<>();
 
     AddVariable myAddVarFunction = new AddVariable() {
         @Override
-        public void addVar(String s,Double d) {
+        public void addNewVariable(String s,Double d) {
             addVariable(s,d);
         }
+    };
+    GetVariableValue myGetVarValFunction = new GetVariableValue() {
+        @Override
+        public double getUserVariableValue(String s) {return getVariableValue(s);}
     };
     public UserCreated() {
         myVariables = new HashMap<>();
@@ -24,8 +29,10 @@ public class UserCreated {
     public AddVariable getMyAddVarFunction(){
         return myAddVarFunction;
     }
+    public GetVariableValue getMyGetVarFunction() {return myGetVarValFunction;}
 
     public void addVariable(String variableName, double variableValue) {
+        System.out.println("REFERENCED ADD VAR FUNCTION");
         myVariables.put(variableName, variableValue);
         for (String a: myVariables.keySet())
             System.out.println(a + ": "+  myVariables.get(a));
@@ -34,5 +41,9 @@ public class UserCreated {
 
     public Map<String, Double> getVariableMap() {
         return Collections.unmodifiableMap(myVariables);
+    }
+
+    public double getVariableValue(String key) {
+        return myVariables.get(key);
     }
 }
