@@ -2,6 +2,7 @@ package nodes;
 
 import apis.ImmutableVisualCommand;
 import turtle.Bale;
+import turtle.Turtle;
 
 import java.util.List;
 
@@ -14,6 +15,12 @@ public class ClearScreen extends CommandNode {
      */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
+        for (Turtle t: myTurtles){
+            t.setXCoor(0);
+            t.setYCoor(0);
+            t.setHeading(0);
+        }
+
         myVisCommands.add(new VisualClearScreen());
         return 0;
     }
