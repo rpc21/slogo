@@ -1,14 +1,9 @@
 package GUI;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
-import javafx.geometry.Side;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -32,7 +27,7 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
     private GraphicsContext myContext;
     protected List<Move> myMoveHistory;
     private Consumer<String> myCommandAccess;
-    private TurtleContextMenu myTurtleContextMenu;
+    private DisplayViewContextMenu myDisplayViewContextMenu;
     private Language myLanguage;
 //    private int myIndex;
 
@@ -182,10 +177,8 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
         if (myLanguage == null){
             myLanguage = Language.ENGLISH;
         }
-        myTurtleContextMenu = new TurtleContextMenu(myLanguage, commandAccess);
-        setOnMouseClicked(e -> {
-            myTurtleContextMenu.show(this, e.getSceneX(), e.getSceneY());
-        });
+        myDisplayViewContextMenu = new DisplayViewContextMenu(myLanguage, commandAccess);
+        setOnContextMenuRequested(e -> myDisplayViewContextMenu.show(this, e.getSceneX(), e.getSceneY()));
     }
 
     @Override
@@ -196,8 +189,8 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
     @Override
     public void setLanguage(Language language){
         myLanguage = language;
-        if (myTurtleContextMenu != null) {
-            myTurtleContextMenu.setLanguage(language);
+        if (myDisplayViewContextMenu != null) {
+            myDisplayViewContextMenu.setLanguage(language);
         }
     }
 }

@@ -3,13 +3,15 @@ package GUI;
 import exceptions.InvalidCommandException;
 import exceptions.InvalidVariableException;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
 import java.util.List;
 import java.util.function.Consumer;
 
-public class TurtleContextMenu extends ContextMenu implements LanguageChangeable{
+public class TurtleContextMenu extends Menu implements LanguageChangeable{
 
+    private static final String TURTLE_CONTEXT_NAME = "Interactive Turtle Commands";
     private static final String FORWARD = "Forward";
     private static final String BACKWARD = "Backward";
     private static final String RIGHT = "Right";
@@ -20,6 +22,7 @@ public class TurtleContextMenu extends ContextMenu implements LanguageChangeable
     private Consumer<String> myCommandAccess;
 
     public TurtleContextMenu(Language language, Consumer<String> commandAccess) {
+        setText(TURTLE_CONTEXT_NAME);
         myLanguage = language;
         myCommandAccess = commandAccess;
         initializeMenuItems();

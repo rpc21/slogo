@@ -216,8 +216,8 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     public void setUpRunButton(GUIExecute ref){
         guiExecute = ref;
-        for (LanguageChangeable componenet: languageChangeableComponents){
-            componenet.setLanguage(Language.ENGLISH);
+        for (LanguageChangeable component: languageChangeableComponents){
+            component.setLanguage(Language.ENGLISH);
         }
         for (CommandExecutable component : commandExecutableComponents){
             component.giveAbilityToRunCommands((x) -> runCommand(guiExecute, x));
