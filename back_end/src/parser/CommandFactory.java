@@ -4,6 +4,7 @@ import apis.AddVariable;
 import nodes.CommandNode;
 import nodes.ConstantNode;
 import nodes.MakeVariable;
+import nodes.Name;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -11,7 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 public class CommandFactory {
 
     public CommandNode makeCommand(double d) {
-        return new ConstantNode("" + d);
+        return new ConstantNode(d);
     }
 
     public CommandNode makeCommand(String c) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException, ClassNotFoundException {
@@ -24,5 +25,9 @@ public class CommandFactory {
     public CommandNode makeCommand(String c, AddVariable av) {
         System.out.println("in make command");
         return new MakeVariable(c, av);
+    }
+
+    public CommandNode makeNameNode(String s) {
+        return new Name(s);
     }
 }

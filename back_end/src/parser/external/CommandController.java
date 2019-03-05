@@ -33,31 +33,15 @@ public class CommandController {
         myVisualCommands = new ArrayList<>();
     }
 
-    public double execute(String command, String language) throws InvalidCommandException, NothingToRunException, InvalidVariableException {
+    public double execute(String command, String language) throws InvalidCommandException, NothingToRunException, InvalidVariableException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         updateLanguage(language);
         CommandNode myNode;
         double ret = 0;
         myVisualCommands.clear();
         System.out.println("wat1");
-        try {
-            for (CommandNode a: myParser.parse(command)) {
-                System.out.println("EXECUTING");
-                ret = a.evaluate(myVisualCommands,myTurtles);
-            }
-            //myNode = myParser.parse(command).get(0); // note of change! This is changed now because their could be many commands in a list that come from a parser.
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("wat");
-            throw new NothingToRunException();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        for (CommandNode a : myParser.parse(command)) {
+            System.out.println("EXECUTING");
+            ret = a.evaluate(myVisualCommands, myTurtles);
         }
         return ret;
     }
