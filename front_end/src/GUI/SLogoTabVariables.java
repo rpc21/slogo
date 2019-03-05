@@ -23,12 +23,13 @@ public class SLogoTabVariables extends SLogoTab {
             //System.out.println("variablestab");
             TextInputDialog dialog = new TextInputDialog();
             dialog.setTitle("Variable Editor");
-            dialog.setHeaderText(contents.getText());
+            dialog.setHeaderText(contents.getText().substring(1));
             dialog.setContentText("Enter new value:");
             Optional<String> result = dialog.showAndWait();
             result.ifPresent(value -> {
-                System.out.println("Your value: " + value);
-                guiData.setMyCommandToRun(contents.getText() + " " + value);
+                String s = contents.getText() + " " + value;
+                System.out.println(s);
+                guiData.setMyCommandToRun(s);
             });
         });
         myVBoxOfStrings.getChildren().add(0, contents);

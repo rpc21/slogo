@@ -55,6 +55,7 @@ public class GUIDisplay implements VisualUpdateAPI {
     private ColorPalette myColorPalette;
     private TurtlePalette myTurtlePalette;
     private ContextMenu myContextMenu;
+    private GUIExecute myGUIExecute;
 
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
@@ -120,8 +121,8 @@ public class GUIDisplay implements VisualUpdateAPI {
         myMethods = makeTab(METHODS, dataTracker, myResources, myTextBox);
         myCommands = makeTab(COMMANDS, dataTracker, myResources, myTextBox);
 
-        myVariables.addContents("Sample variable one");
-        myVariables.addContents("practice variable two");
+        myVariables.addContents(":var1");
+        myVariables.addContents(":var2");
         myCommands.addContents("sample commmand");
         myMethods.addContents("sample method");
         myTabExplorer.getTabs().addAll(myVariables, myMethods, myCommands);
@@ -130,7 +131,11 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     private SLogoTab makeVariablesTab(String variables, GUIdata dataTracker, ResourceBundle myResources, TextArea myTextBox) {
         SLogoTabVariables tab = new SLogoTabVariables(myResources.getString(variables), dataTracker);
-
+        tab.getContent().setOnMouseClicked(event -> {
+            //(dataTracker.getMyCommandToRun());
+            System.out.println("!!! " + dataTracker.getMyCommandToRun() + "!!!");
+            executeCommand(dataTracker.getMyCommandToRun(), myGUIExecute);
+        });
         return tab;
     }
 
@@ -198,6 +203,7 @@ public class GUIDisplay implements VisualUpdateAPI {
     }
 
     public void setUpRunButton(GUIExecute ref){
+        myGUIExecute = ref;
         myRunButton = runButton(ref);
         myCurrentGUIGrid.add(myRunButton, 2, 7);
     }
@@ -206,19 +212,33 @@ public class GUIDisplay implements VisualUpdateAPI {
         Button button = new Button(myResources.getString("Run"));
         button.setOnMouseClicked(event -> {
             commandToExecute = myTextBox.getText();
-            myError.setText("");
-            try {
-                ref.executeCurrentCommand(commandToExecute, myLanguage);
-            } catch(exceptions.InvalidCommandException e) {
-                myError.setText("Invalid Command: " + e.getReason());
-            } catch(exceptions.NothingToRunException e){
-                myError.setText("There is nothing here to run");
-            } catch (InvalidVariableException e) {
-                //TODO: ADD ERROR MESSAGE!!!!
-            }
-            addToCommandHistory(commandToExecute);
+           // myError.setText("");
+            executeCommand(commandToExecute, ref);
+//            try {
+//                ref.executeCurrentCommand(commandToExecute, myLanguage);
+//            } catch(exceptions.InvalidCommandException e) {
+//                myError.setText("Invalid Command: " + e.getReason());
+//            } catch(exceptions.NothingToRunException e){
+//                myError.setText("There is nothing here to run");
+//            } catch (InvalidVariableException e) {
+//                //TODO: ADD ERROR MESSAGE!!!!
+//            }
+//            addToCommandHistory(commandToExecute);
         });
         return button;
+    }
+
+    private void executeCommand(String command, GUIExecute ref){
+        myError.setText("");
+        try {
+            ref.executeCurrentCommand(commandToExecute, myLanguage);
+        } catch(exceptions.InvalidCommandException e) {
+            myError.setText("Invalid Command: " + e.getReason());
+        } catch(exceptions.NothingToRunException e){
+            myError.setText("There is nothing here to run");
+        } catch (InvalidVariableException e) {
+            //TODO: ADD ERROR MESSAGE!!!!
+        }
     }
 
     private void addToCommandHistory(String command){
