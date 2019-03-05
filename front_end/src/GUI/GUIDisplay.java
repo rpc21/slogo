@@ -115,20 +115,23 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     private void createTabExplorer(GridPane grid) {
         myTabExplorer = new TabExplorer();
-        myTabExplorer.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        myVariables = makeTab(VARIABLES, dataTracker, myResources, myTextBox);
+       // myTabExplorer.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+        myVariables = makeVariablesTab(VARIABLES, dataTracker, myResources, myTextBox);
         myMethods = makeTab(METHODS, dataTracker, myResources, myTextBox);
         myCommands = makeTab(COMMANDS, dataTracker, myResources, myTextBox);
 
-        for(int i = 0; i< 100; i++){
-            myVariables.addContents("Blank line");
-        }
         myVariables.addContents("Sample variable one");
         myVariables.addContents("practice variable two");
         myCommands.addContents("sample commmand");
         myMethods.addContents("sample method");
         myTabExplorer.getTabs().addAll(myVariables, myMethods, myCommands);
         grid.add(myTabExplorer, 2, 1, 2, 2);
+    }
+
+    private SLogoTab makeVariablesTab(String variables, GUIdata dataTracker, ResourceBundle myResources, TextArea myTextBox) {
+        SLogoTabVariables tab = new SLogoTabVariables(myResources.getString(variables), dataTracker);
+
+        return tab;
     }
 
     private SLogoTab makeTab(String tabType, GUIdata data, ResourceBundle resources, TextArea commandLine){
@@ -211,7 +214,7 @@ public class GUIDisplay implements VisualUpdateAPI {
             } catch(exceptions.NothingToRunException e){
                 myError.setText("There is nothing here to run");
             } catch (InvalidVariableException e) {
-                //todo: ADD ERROR MESSAGE!!!!
+                //TODO: ADD ERROR MESSAGE!!!!
             }
             addToCommandHistory(commandToExecute);
         });
