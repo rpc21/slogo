@@ -74,10 +74,18 @@ public abstract class DisplayView extends ImageView {
         myContext = myCanvas.getGraphicsContext2D();
     }
 
+    public DisplayView(DisplayView displayView, Canvas canvas){
+        this(displayView.getImage(), canvas);
+    }
+
     public DisplayView(Image image, Canvas canvas){
         this(image);
         myCanvas = canvas;
         myContext = myCanvas.getGraphicsContext2D();
+    }
+
+    public DisplayView(DisplayView displayView){
+        this(displayView, displayView.getImage());
     }
 
     public DisplayView(DisplayView displayView, Image image){

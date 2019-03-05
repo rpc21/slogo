@@ -218,6 +218,10 @@ public class GUIDisplay implements VisualUpdateAPI {
             } catch(exceptions.InvalidCommandException e) {
                 myError.setText("Invalid Command: " + e.getReason());
             } catch(exceptions.NothingToRunException e){
+                String[] test = commandToExecute.split(" ");
+                if (test[0].equals("setshape")){
+                    setShape(0, Integer.parseInt(test[1]));
+                }
                 myError.setText("There is nothing here to run");
             } catch (InvalidVariableException e) {
                 //todo: ADD ERROR MESSAGE!!!!

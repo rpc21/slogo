@@ -31,11 +31,11 @@ public class TurtlePalette<T extends Node> extends ScrollPane {
         myPaletteElements.remove(element.getMyIndex());
     }
 
-    public DisplayView getContent(int index) {
-        return myPaletteElements.get(index).getMyTurtle();
+    public String getContent(int index) {
+        return myPaletteElements.get(index).getMyTurtleType();
     }
 
-    public Function<Integer, DisplayView> turtleLookupAccess(){
+    public Function<Integer, String> turtleLookupAccess(){
         return (x) -> getContent(x);
     }
 }

@@ -1,5 +1,6 @@
 package GUI;
 
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -20,7 +21,7 @@ public class StackedCanvasPane extends StackPane {
     private DisplayView myCurrentDisplayView;
     private List<DisplayView> myTurtles;
     public Function<Integer, Color> colorPaletteLookup;
-    private Function<Integer, DisplayView> turtlePaletteLookup;
+    private Function<Integer, String> turtlePaletteLookup;
 //    private boolean penDown;
 
     public StackedCanvasPane(){
@@ -153,16 +154,29 @@ public class StackedCanvasPane extends StackPane {
         myTurtles.get(id).getMyPen().setMyWidth(pixels);
     }
 
-    public void setTurtleShape(int id, DisplayView content) {
-//        DisplayView newTurtle = new
+    public void setTurtleShape(int id, String content) {
+        DisplayView turtle;
+        DisplayView turtleToRemove = myTurtles.get(id);
+        try {
+            var clazz = Class.forName("GUI."+content);
+            turtle = (DisplayView) clazz.getDeclaredConstructor(DisplayView.class).newInstance(myTurtles.get(id));
+        }
+        catch (Exception e) {
+            turtle = new BasicTurtleView();
+        }
+        this.getChildren().remove(turtleToRemove);
+        this.getChildren().add(turtle);
+        myTurtles.remove(id);
+        myTurtles.add(id, turtle);
         //TODO: Do this later when you are smarter
     }
 
-    public void setColorPaletteLookupAccess(Function colorLookupAccess) {
+
+    public void setColorPaletteLookupAccess(Function<Integer, Color> colorLookupAccess) {
         colorPaletteLookup = colorLookupAccess;
     }
 
-    public void setTurtleLookupAccess(Function turtleLookupAccess) {
+    public void setTurtleLookupAccess(Function<Integer, String> turtleLookupAccess) {
         turtlePaletteLookup = turtleLookupAccess;
     }
 }
