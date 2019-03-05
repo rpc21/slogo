@@ -38,10 +38,8 @@ public class CommandController {
         CommandNode myNode;
         double ret = 0;
         myVisualCommands.clear();
-        System.out.println("wat1");
         try {
             for (CommandNode a: myParser.parse(command)) {
-                System.out.println("EXECUTING");
                 ret = a.evaluate(myVisualCommands,myTurtles);
             }
             //myNode = myParser.parse(command).get(0); // note of change! This is changed now because their could be many commands in a list that come from a parser.
