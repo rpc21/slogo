@@ -7,6 +7,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class TurtleContextMenu extends Menu implements LanguageChangeable{
@@ -32,10 +33,16 @@ public class TurtleContextMenu extends Menu implements LanguageChangeable{
         for (String command : TURTLE_COMMANDS) {
             MenuItem item = new MenuItem(myLanguage.getTranslatedWord(command));
             item.setOnAction(e -> {
-                myCommandAccess.accept(myLanguage.getTranslatedWord(command) + " 50");
+                promptForFurtherInput(command);
             });
             this.getItems().add(item);
         }
+    }
+
+    private void promptForFurtherInput(String text) {
+        IntegerCommandInputDialog dialog = new IntegerCommandInputDialog();
+        Optional<String> input = dialog.showAndWait();
+        input.ifPresent(argument -> myCommandAccess.accept(myLanguage.getTranslatedWord(text) + " " + argument));
     }
 
     @Override
