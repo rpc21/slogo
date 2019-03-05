@@ -39,14 +39,12 @@ public class Parser {
         addPatterns(myGeneralSyntax, mySyntaxProperties);
     }
 
-    public List<CommandNode> parse(String input) throws InvalidCommandException, InvalidVariableException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException { // todo: throw invalidcommandexception and invalidnumberinputs exception
+    public List<CommandNode> parse(String input) throws NoSuchMethodException, InvocationTargetException, InvalidCommandException, InstantiationException, IllegalAccessException, InvalidVariableException, ClassNotFoundException { // todo: throw invalidcommandexception and invalidnumberinputs exception
         myCurrentCommand = input;
         removeComments();
         List<CommandNode> topLevelCommands = new ArrayList<>();
         while(myCurrentCommand.length() > 0) {
-            System.out.println("TOP LEVEL COMMAND");
             topLevelCommands.add(makeNodeTree());
-            System.out.println("Size: " + topLevelCommands.size());
         }
         return topLevelCommands;
     }
@@ -55,11 +53,18 @@ public class Parser {
         String[] commandSplit = myCurrentCommand.trim().split("\\s+");
         String currentValue = commandSplit[0];
         String currentCommandKey = getCommandKey(currentValue);
+        int start = 1;
         int expectedNumberOfParameters = Integer.parseInt(myParameterProperties.getString(currentCommandKey));
-        updateMyCurrentCommand();
         CommandNode currentNode = myCommandFactory.makeCommand(currentCommandKey);
-        System.out.println(currentCommandKey);
-        for(int i = 1; i <= expectedNumberOfParameters; i++) {
+        updateMyCurrentCommand();
+        if(currentNode.needsName()) {
+            currentNode = myCommandFactory.makeCommand(currentCommandKey, myUserCreated.getMyAddVarFunction());
+            validateVariableName(commandSplit[1]);
+            currentNode.addChild(myCommandFactory.makeNameNode(commandSplit[1]));
+            updateMyCurrentCommand();
+            start = 2;
+        }
+        for(int i = start; i <= expectedNumberOfParameters; i++) {
             addChild(currentNode, commandSplit[i]);
         }
         return currentNode;
@@ -67,17 +72,12 @@ public class Parser {
 
     private void validateVariableName(String variable) throws InvalidVariableException {
         if(!isSpecificFormat(variable, VARIABLE_KEY)) {
-            System.out.println(VARIABLE_KEY);
-            System.out.println(variable);
             throw new InvalidVariableException(variable);
         }
     }
 
     private void addChild(CommandNode currentNode, String child) throws InvalidCommandException, InvalidVariableException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        if(currentNode.needsName()) {
-            validateVariableName(child);
-            currentNode.addChild(myCommandFactory.makeCommand(child, myUserCreated.getMyAddVarFunction()));
-        } else if(isDouble(child)) {
+        if(isDouble(child)) {
             currentNode.addChild(myCommandFactory.makeCommand(Double.parseDouble(child)));
         } else {
             currentNode.addChild(makeNodeTree());
