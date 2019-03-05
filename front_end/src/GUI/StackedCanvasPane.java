@@ -57,9 +57,7 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
         newTurtle.giveAbilityToRunCommands(myCommandAccess);
         getChildren().add(newTurtle);
         newTurtle.setTurtleId(myTurtles.size());
-        if (myTabAccess != null){
-            newTurtle.giveTabAccess(myTabAccess);
-        }
+        newTurtle.giveTabAccess(myTabAccess);
         myTurtles.add(newTurtle);
     }
 
@@ -76,12 +74,11 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
     }
 
     public Consumer<String> getIconAccess(){
-        Consumer<String> changeIcon = (x) -> {
+        return (x) -> {
             this.getChildren().remove(myCurrentDisplayView);
             myCurrentDisplayView = new DisplayViewFactory().generateDislplayView(x, myCurrentDisplayView);
             this.getChildren().add(myCurrentDisplayView);
         };
-        return changeIcon;
     }
 
 //    public void addMove(Move move){
@@ -121,11 +118,11 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
 //    }
 
     public void setPenUp(int id){
-        myTurtles.get(id).getMyPen().setDown(false);
+        myTurtles.get(id).setPenDown(false);
     }
 
     public void setPenDown(int id){
-        myTurtles.get(id).getMyPen().setDown(true);
+        myTurtles.get(id).setPenDown(true);
     }
 
     public void showTurtle(int id) {
@@ -160,12 +157,11 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
     }
 
     public void setPenColor(int id, Color color) {
-        //TODO: Do this later when palettes are working
-        myTurtles.get(id).getMyPen().setMyColor(color);
+        myTurtles.get(id).setPenColor(color);
     }
 
     public void setPenSize(int id, double pixels) {
-        myTurtles.get(id).getMyPen().setMyWidth(pixels);
+        myTurtles.get(id).setPenWidth(pixels);
     }
 
     public void setTurtleShape(int id, String content) {
@@ -182,7 +178,6 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
         this.getChildren().add(turtle);
         myTurtles.remove(id);
         myTurtles.add(id, turtle);
-        //TODO: Do this later when you are smarter
     }
 
 

@@ -89,19 +89,19 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
     public void addMove(Move turtleMove){
         myMoveHistory.add(turtleMove);
     }
-
-    public void addAllMoves(List<Move> turtleMoves){
-        myMoveHistory.addAll(turtleMoves);
-    }
-
-    public void clearMoves(){
-        myMoveHistory.clear();
-    }
-
-    public void makeMove(Move move){
-        updatePen(move);
-        drawPath(move);
-    }
+//
+//    public void addAllMoves(List<Move> turtleMoves){
+//        myMoveHistory.addAll(turtleMoves);
+//    }
+//
+//    public void clearMoves(){
+//        myMoveHistory.clear();
+//    }
+//
+//    public void makeMove(Move move){
+//        updatePen(move);
+//        drawPath(move);
+//    }
 
     private void updatePosition(Move move) {
         setTranslateX(move.getDisplacement().getX());
@@ -119,20 +119,21 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
             myContext.stroke();
         }
         myContext.closePath();
+//        updateTab();
     }
 
-    public void drawPath(){
-        for (Move move : myMoveHistory){
-            makeMove(move);
-        }
-    }
+//    public void drawPath(){
+//        for (Move move : myMoveHistory){
+//            makeMove(move);
+//        }
+//    }
 
-    private void updatePen(Move move) {
-        myPen.setDown(move.isPenDown());
-        myPen.setMyColor(move.getPenColor());
-        myPen.setMyStyle(move.getPathStyle());
-        myPen.setMyWidth(move.getPenWidth());
-    }
+//    private void updatePen(Move move) {
+//        myPen.setDown(move.isPenDown());
+//        myPen.setMyColor(move.getPenColor());
+//        myPen.setMyStyle(move.getPathStyle());
+//        myPen.setMyWidth(move.getPenWidth());
+//    }
 
     public List<String> getPossibleImages() {
         return possibleImages;
@@ -146,6 +147,7 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
         System.out.println(getTranslateX() + " " + deltaX + "");
         moveTo(new Point2D(getTranslateX() + deltaX, getTranslateY() + deltaY));
         System.out.println(getTranslateY());
+        updateTab();
     }
 
     private void moveTo(Point2D newLocation){
@@ -171,6 +173,7 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
 
     public void turn(double degrees) {
         setRotate(getRotate() + degrees);
+        updateTab();
     }
 
     @Override
@@ -212,4 +215,19 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
     private void updateTab(){
         myTabAccess.accept(this);
     }
+
+    public void setPenColor(Color color){
+        myPen.setMyColor(color);
+        updateTab();
+    };
+
+    public void setPenWidth(double pixels){
+        myPen.setMyWidth(pixels);
+        updateTab();
+    };
+
+    public void setPenDown(boolean isDown){
+        myPen.setDown(isDown);
+        updateTab();
+    };
 }

@@ -10,7 +10,7 @@ public class TabExplorer extends TabPane implements GUIComponent, CommandExecuta
 
     public TabExplorer(){
         super();
-        setPrefSize(GUIDisplay.SCENE_WIDTH, GUIDisplay.SCENE_HEIGHT);
+        setPrefSize(GUIDisplay.SCENE_WIDTH * 1.0 / 4, GUIDisplay.SCENE_HEIGHT * 1.0/2);
     }
 
     @Override

@@ -78,7 +78,7 @@ public class GUIDisplay implements VisualUpdateAPI {
         myRoot = createGridPane();
         myTurtleViewTabExplorer = new TurtleViewTabExplorer();
         myStackedCanvasPane.grantTabAccess(myTurtleViewTabExplorer.getTabAccess());
-        myRoot.add(myTurtleViewTabExplorer, 2, 4, 1, 1);
+        myRoot.add(myTurtleViewTabExplorer, 2, 4, 2, 1);
 //        myStackedCanvasPane.setColorPaletteLookupAccess(myColorPalette.colorLookupAccess());
 //        myStackedCanvasPane.setTurtleLookupAccess(myTurtlePalette.turtleLookupAccess());
 
@@ -147,7 +147,7 @@ public class GUIDisplay implements VisualUpdateAPI {
         myTabExplorer.getTabs().addAll(myVariables, myMethods, myCommands);
 //        languageChangeableComponents.add(myTabExplorer);
 //        commandExecutableComponents.add(myTabExplorer);
-        grid.add(myTabExplorer, 2, 1, 2, 2);
+        grid.add(myTabExplorer, 2, 1, 2, 1);
     }
 
     private SLogoTab makeTab(String tabType, GUIdata data, ResourceBundle resources, TextArea commandLine){

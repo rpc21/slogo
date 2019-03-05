@@ -26,10 +26,10 @@ public class TurtleViewTabExplorer extends TabExplorer {
 
     private void updateTurtleProperties(DisplayView x) {
         myTurtleProperties.clearContents();
-        myTurtleProperties.addContents("Showing turtle properties for turtle " + x.getTurtleId());
-        myTurtleProperties.addContents("X Coordinate: " + x.getTranslateX());
-        myTurtleProperties.addContents("Y Coordinate: " + x.getTranslateY());
         myTurtleProperties.addContents("Heading: " + x.getRotate());
+        myTurtleProperties.addContents("Y Coordinate: " + x.getTranslateY());
+        myTurtleProperties.addContents("X Coordinate: " + x.getTranslateX());
+        myTurtleProperties.addContents("Showing turtle properties for turtle " + x.getTurtleId());
     }
 
     private void updatePenPropertiesTab(DisplayView x) {
