@@ -15,8 +15,9 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
-public abstract class DisplayView extends ImageView {
+public abstract class DisplayView extends ImageView implements CommandExecutable, LanguageChangeable{
 
     public static final String BASIC_TURTLE_NAME = "Basic Turtle Image";
     public static final String ADVANCED_TURTLE_NAME = "Advanced Turtle Image";
@@ -30,8 +31,10 @@ public abstract class DisplayView extends ImageView {
     private Pen myPen;
     private GraphicsContext myContext;
     protected List<Move> myMoveHistory;
-    private ContextMenu myContextMenu;
-    private int myIndex;
+    private Consumer<String> myCommandAccess;
+    private TurtleContextMenu myTurtleContextMenu;
+    private Language myLanguage;
+//    private int myIndex;
 
     public DisplayView(){
         this(new Image(TURTLE_IMAGE));
@@ -41,31 +44,11 @@ public abstract class DisplayView extends ImageView {
         super(image);
         setFitHeight(IMAGE_HEIGHT);
         setFitWidth(IMAGE_WIDTH);
-        myIndex = 0;
+//        myIndex = 0;
         myPen = new Pen(true, Color.BLACK, PenStyle.DASHED, 2.0);
         myMoveHistory = new ArrayList<>();
         this.managedProperty().bind(this.visibleProperty());
         setRotate(0);
-        initalizeContextMenu();
-        this.setOnMouseClicked(e -> myContextMenu.show(this, e.getSceneX(),e.getSceneY()));
-    }
-
-    private void initalizeContextMenu(){
-        myContextMenu = new ContextMenu();
-        MenuItem item1 = new MenuItem("s");
-        item1.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                System.out.println("About");
-            }
-        });
-        MenuItem item2 = new MenuItem("Preferences");
-        item2.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                System.out.println("Preferences");
-            }
-        });
-        myContextMenu.getItems().addAll(item1, item2);
-
     }
 
     public DisplayView(Canvas canvas){
@@ -92,7 +75,7 @@ public abstract class DisplayView extends ImageView {
         this(image, displayView.myCanvas);
         copyMoveHistoryAndPen(displayView);
         copyPositionAndOrientation(displayView);
-        myIndex = displayView.myIndex;
+//        myIndex = displayView.myIndex;
     }
 
     private void copyPositionAndOrientation(DisplayView displayView) {
@@ -191,5 +174,30 @@ public abstract class DisplayView extends ImageView {
 
     public void turn(double degrees) {
         setRotate(getRotate() + degrees);
+    }
+
+    @Override
+    public void giveAbilityToRunCommands(Consumer<String> commandAccess) {
+        myCommandAccess = commandAccess;
+        if (myLanguage == null){
+            myLanguage = Language.ENGLISH;
+        }
+        myTurtleContextMenu = new TurtleContextMenu(myLanguage, commandAccess);
+        setOnMouseClicked(e -> {
+            myTurtleContextMenu.show(this, e.getSceneX(), e.getSceneY());
+        });
+    }
+
+    @Override
+    public void runCommand(String command) {
+        myCommandAccess.accept(command);
+    }
+
+    @Override
+    public void setLanguage(Language language){
+        myLanguage = language;
+        if (myTurtleContextMenu != null) {
+            myTurtleContextMenu.setLanguage(language);
+        }
     }
 }

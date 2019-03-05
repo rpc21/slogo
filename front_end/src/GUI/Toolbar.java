@@ -7,7 +7,7 @@ import javafx.scene.paint.Paint;
 
 import java.util.function.Consumer;
 
-public class Toolbar extends HBox implements GUIComponent {
+public class Toolbar extends HBox implements GUIComponent, LanguageChangeable {
 
     private ImageChooser<String> myImageChooser;
     private PenColorChooser myPenColorChooser;
@@ -43,6 +43,11 @@ public class Toolbar extends HBox implements GUIComponent {
 
     public LanguageChooser getMyLanguageChooser(){
         return myLanguageChooser;
+    }
+
+    @Override
+    public void setLanguage(Language newLanguage) {
+        //TODO: Implement later
     }
 
 //    private LanguageChooser createLanguageChooser() {

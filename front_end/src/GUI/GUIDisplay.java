@@ -5,17 +5,15 @@ import apis.ImmutableVisualCommand;
 import apis.VisualUpdateAPI;
 import exceptions.InvalidVariableException;
 import javafx.geometry.Insets;
-import javafx.geometry.Side;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
@@ -62,18 +60,23 @@ public class GUIDisplay implements VisualUpdateAPI {
     private ColorPalette myColorPalette;
     private TurtlePalette myTurtlePalette;
     private ContextMenu myContextMenu;
+    private GUIExecute guiExecute;
+    private List<CommandExecutable> commandExecutableComponents;
+    private List<LanguageChangeable> languageChangeableComponents;
 
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
 //        myResources = ResourceBundle.getBundle(myLanguage);
         myStage = stage;
+        commandExecutableComponents = new ArrayList<>();
+        languageChangeableComponents = new ArrayList<>();
         myLanguageConsumer = (x) -> {
             myLanguage = x;
             updateLanguage(x);
         };
         myRoot = createGridPane();
-        myStackedCanvasPane.setColorPaletteLookupAccess(myColorPalette.colorLookupAccess());
-        myStackedCanvasPane.setTurtleLookupAccess(myTurtlePalette.turtleLookupAccess());
+//        myStackedCanvasPane.setColorPaletteLookupAccess(myColorPalette.colorLookupAccess());
+//        myStackedCanvasPane.setTurtleLookupAccess(myTurtlePalette.turtleLookupAccess());
         myRoot.setGridLinesVisible(false);
         myScene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.LIGHTGRAY);
         myStage.setScene(myScene);
@@ -137,6 +140,8 @@ public class GUIDisplay implements VisualUpdateAPI {
         myCommands.addContents("sample commmand");
         myMethods.addContents("sample method");
         myTabExplorer.getTabs().addAll(myVariables, myMethods, myCommands);
+//        languageChangeableComponents.add(myTabExplorer);
+//        commandExecutableComponents.add(myTabExplorer);
         grid.add(myTabExplorer, 2, 1, 2, 2);
     }
 
@@ -150,6 +155,8 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     private void createCanvas(GridPane grid) {
         myStackedCanvasPane = new StackedCanvasPane();
+        languageChangeableComponents.add(myStackedCanvasPane);
+        commandExecutableComponents.add(myStackedCanvasPane);
         grid.add(myStackedCanvasPane, 0, 1, 2, 4);
     }
 
@@ -167,11 +174,15 @@ public class GUIDisplay implements VisualUpdateAPI {
         myTurtleIconChooser = myToolbar.getMyImageChooser();
         myLanguageChooser = new LanguageChooser(myLanguageConsumer);
         myToolbar.getChildren().add(myLanguageChooser);
+        languageChangeableComponents.add(myToolbar);
         grid.add(myToolbar, 1, 0, 1, 1);
     }
 
     private void updateLanguage(Language language){
         myLanguage = language;
+        for (LanguageChangeable component : languageChangeableComponents){
+            component.setLanguage(language);
+        }
 //        myResources = ResourceBundle.getBundle(myLanguage);
         myRunButton.setText(myLanguage.getTranslatedWord(RUN));
         myClearButton.setText(myLanguage.getTranslatedWord(CLEAR));
@@ -204,6 +215,13 @@ public class GUIDisplay implements VisualUpdateAPI {
     }
 
     public void setUpRunButton(GUIExecute ref){
+        guiExecute = ref;
+        for (LanguageChangeable componenet: languageChangeableComponents){
+            componenet.setLanguage(Language.ENGLISH);
+        }
+        for (CommandExecutable component : commandExecutableComponents){
+            component.giveAbilityToRunCommands((x) -> runCommand(guiExecute, x));
+        }
         myRunButton = runButton(ref);
         myCurrentGUIGrid.add(myRunButton, 2, 7);
     }
@@ -213,22 +231,26 @@ public class GUIDisplay implements VisualUpdateAPI {
         button.setOnMouseClicked(event -> {
             commandToExecute = myTextBox.getText();
             myError.setText("");
-            try {
-                ref.executeCurrentCommand(commandToExecute, myLanguage.getLanguageString());
-            } catch(exceptions.InvalidCommandException e) {
-                myError.setText("Invalid Command: " + e.getReason());
-            } catch(exceptions.NothingToRunException e){
-                String[] test = commandToExecute.split(" ");
-                if (test[0].equals("setshape")){
-                    setShape(0, Integer.parseInt(test[1]));
-                }
-                myError.setText("There is nothing here to run");
-            } catch (InvalidVariableException e) {
-                //todo: ADD ERROR MESSAGE!!!!
-            }
-            addToCommandHistory(commandToExecute);
+            runCommand(ref, commandToExecute);
         });
         return button;
+    }
+
+    private void runCommand(GUIExecute ref, String commandToExecute) {
+        try {
+            ref.executeCurrentCommand(commandToExecute, myLanguage.getLanguageString());
+        } catch(exceptions.InvalidCommandException e) {
+            myError.setText("Invalid Command: " + e.getReason());
+        } catch(exceptions.NothingToRunException e){
+            String[] test = commandToExecute.split(" ");
+            if (test[0].equals("setshape")){
+                setShape(0, Integer.parseInt(test[1]));
+            }
+            myError.setText("There is nothing here to run");
+        } catch (InvalidVariableException e) {
+            //todo: ADD ERROR MESSAGE!!!!
+        }
+        addToCommandHistory(commandToExecute);
     }
 
     private void addToCommandHistory(String command){
@@ -314,7 +336,7 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     @Override
     public void setPenColor(int id, int index) {
-        myStackedCanvasPane.setPenColor(id, index);
+        myStackedCanvasPane.setPenColor(id, myColorPalette.getContent(index));
     }
 
     @Override

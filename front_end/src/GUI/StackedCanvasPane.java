@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class StackedCanvasPane extends StackPane {
+public class StackedCanvasPane extends StackPane implements CommandExecutable, LanguageChangeable{
 
     public static final double DEFAULT_CANVAS_WIDTH = 800;
     public static final double DEFAULT_CANVAS_HEIGHT = 450;
@@ -22,6 +22,8 @@ public class StackedCanvasPane extends StackPane {
     private List<DisplayView> myTurtles;
     public Function<Integer, Color> colorPaletteLookup;
     private Function<Integer, String> turtlePaletteLookup;
+    private Consumer<String> myCommandAccess;
+    private Language myLanguage;
 //    private boolean penDown;
 
     public StackedCanvasPane(){
@@ -30,10 +32,11 @@ public class StackedCanvasPane extends StackPane {
         myBackgroundCanvas = createBackgroundCanvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
         myDrawingCanvas = new TurtleCanvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
 //        myCurrentDisplayView = new BasicTurtleView(myDrawingCanvas);
-        makeTurtle();
-        myCurrentDisplayView = myTurtles.get(0);
+//        makeTurtle();
+//        myCurrentDisplayView = myTurtles.get(0);
 //        penDown = true;
-        getChildren().addAll(myBackgroundCanvas, myDrawingCanvas, myCurrentDisplayView);
+        getChildren().addAll(myBackgroundCanvas, myDrawingCanvas);
+        makeTurtle();
         this.setLayoutX(DEFAULT_CANVAS_WIDTH);
         this.setLayoutY(DEFAULT_CANVAS_HEIGHT);
     }
@@ -49,6 +52,9 @@ public class StackedCanvasPane extends StackPane {
 
     public void makeTurtle(){
         DisplayView newTurtle = new BasicTurtleView(myDrawingCanvas);
+        newTurtle.setLanguage(myLanguage);
+        newTurtle.giveAbilityToRunCommands(myCommandAccess);
+        getChildren().add(newTurtle);
         myTurtles.add(newTurtle);
     }
 
@@ -57,7 +63,11 @@ public class StackedCanvasPane extends StackPane {
     }
 
     public Consumer<Paint> getPenPropertiesAccess(){
-        return (x) -> myCurrentDisplayView.getMyPen().setMyColor(x);
+        return (x) -> {
+            for (DisplayView turtle : myTurtles) {
+                turtle.getMyPen().setMyColor(x);
+            }
+        };
     }
 
     public Consumer<String> getIconAccess(){
@@ -138,16 +148,15 @@ public class StackedCanvasPane extends StackPane {
     }
 
     public void clearScreen() {
-        for (int i = 0; i < myTurtles.size(); i++) {
-            goHome(i);
-        }
         myBackgroundCanvas.setColor(Color.WHITE);
         myDrawingCanvas.clearCanvas();
+        myTurtles.clear();
+        makeTurtle();
     }
 
-    public void setPenColor(int id, int index) {
+    public void setPenColor(int id, Color color) {
         //TODO: Do this later when palettes are working
-        myTurtles.get(id).getMyPen().setMyColor(colorPaletteLookup.apply(index));
+        myTurtles.get(id).getMyPen().setMyColor(color);
     }
 
     public void setPenSize(int id, double pixels) {
@@ -172,11 +181,32 @@ public class StackedCanvasPane extends StackPane {
     }
 
 
-    public void setColorPaletteLookupAccess(Function<Integer, Color> colorLookupAccess) {
-        colorPaletteLookup = colorLookupAccess;
+//    public void setColorPaletteLookupAccess(Function<Integer, Color> colorLookupAccess) {
+//        colorPaletteLookup = colorLookupAccess;
+//    }
+//
+//    public void setTurtleLookupAccess(Function<Integer, String> turtleLookupAccess) {
+//        turtlePaletteLookup = turtleLookupAccess;
+//    }
+
+    @Override
+    public void giveAbilityToRunCommands(Consumer<String> commandAccess) {
+        myCommandAccess = commandAccess;
+        for (DisplayView turtle: myTurtles){
+            turtle.giveAbilityToRunCommands(commandAccess);
+        }
     }
 
-    public void setTurtleLookupAccess(Function<Integer, String> turtleLookupAccess) {
-        turtlePaletteLookup = turtleLookupAccess;
+    @Override
+    public void runCommand(String command) {
+        myCommandAccess.accept(command);
+    }
+
+    @Override
+    public void setLanguage(Language newLanguage) {
+        myLanguage = newLanguage;
+        for (DisplayView turtle : myTurtles){
+            turtle.setLanguage(newLanguage);
+        }
     }
 }
