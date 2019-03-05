@@ -63,6 +63,7 @@ public class GUIDisplay implements VisualUpdateAPI {
     private GUIExecute guiExecute;
     private List<CommandExecutable> commandExecutableComponents;
     private List<LanguageChangeable> languageChangeableComponents;
+    private TurtleViewTabExplorer myTurtleViewTabExplorer;
 
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
@@ -75,8 +76,12 @@ public class GUIDisplay implements VisualUpdateAPI {
             updateLanguage(x);
         };
         myRoot = createGridPane();
+        myTurtleViewTabExplorer = new TurtleViewTabExplorer();
+        myStackedCanvasPane.grantTabAccess(myTurtleViewTabExplorer.getTabAccess());
+        myRoot.add(myTurtleViewTabExplorer, 2, 4, 1, 1);
 //        myStackedCanvasPane.setColorPaletteLookupAccess(myColorPalette.colorLookupAccess());
 //        myStackedCanvasPane.setTurtleLookupAccess(myTurtlePalette.turtleLookupAccess());
+
         myRoot.setGridLinesVisible(false);
         myScene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.LIGHTGRAY);
         myStage.setScene(myScene);

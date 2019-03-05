@@ -27,8 +27,10 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
     private GraphicsContext myContext;
     protected List<Move> myMoveHistory;
     private Consumer<String> myCommandAccess;
+    private Consumer<DisplayView> myTabAccess;
     private DisplayViewContextMenu myDisplayViewContextMenu;
     private Language myLanguage;
+    private int myTurtleId;
 //    private int myIndex;
 
     public DisplayView(){
@@ -181,6 +183,11 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
         setOnContextMenuRequested(e -> myDisplayViewContextMenu.show(this, e.getSceneX(), e.getSceneY()));
     }
 
+    public void giveTabAccess(Consumer<DisplayView> tabAccess){
+        myTabAccess = tabAccess;
+        setOnMouseClicked(e -> updateTab());
+    }
+
     @Override
     public void runCommand(String command) {
         myCommandAccess.accept(command);
@@ -192,5 +199,17 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
         if (myDisplayViewContextMenu != null) {
             myDisplayViewContextMenu.setLanguage(language);
         }
+    }
+
+    public void setTurtleId(int id){
+        myTurtleId = id;
+    }
+
+    public int getTurtleId(){
+        return myTurtleId;
+    }
+
+    private void updateTab(){
+        myTabAccess.accept(this);
     }
 }

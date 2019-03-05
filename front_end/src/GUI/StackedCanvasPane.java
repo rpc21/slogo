@@ -24,6 +24,7 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
     private Function<Integer, String> turtlePaletteLookup;
     private Consumer<String> myCommandAccess;
     private Language myLanguage;
+    private Consumer<DisplayView> myTabAccess;
 //    private boolean penDown;
 
     public StackedCanvasPane(){
@@ -55,6 +56,10 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
         newTurtle.setLanguage(myLanguage);
         newTurtle.giveAbilityToRunCommands(myCommandAccess);
         getChildren().add(newTurtle);
+        newTurtle.setTurtleId(myTurtles.size());
+        if (myTabAccess != null){
+            newTurtle.giveTabAccess(myTabAccess);
+        }
         myTurtles.add(newTurtle);
     }
 
@@ -207,6 +212,13 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
         myLanguage = newLanguage;
         for (DisplayView turtle : myTurtles){
             turtle.setLanguage(newLanguage);
+        }
+    }
+
+    public void grantTabAccess(Consumer<DisplayView> tabAccess){
+        myTabAccess = tabAccess;
+        for (DisplayView turtle : myTurtles){
+            turtle.giveTabAccess(tabAccess);
         }
     }
 }
