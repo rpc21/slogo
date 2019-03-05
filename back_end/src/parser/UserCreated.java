@@ -26,11 +26,7 @@ public class UserCreated {
     }
 
     public void addVariable(String variableName, double variableValue) {
-        System.out.println("REFERENCED ADD VAR FUNCTION");
         myVariables.put(variableName, variableValue);
-        for (String a: myVariables.keySet())
-            System.out.println(a + ": "+  myVariables.get(a));
-
     }
 
     public Map<String, Double> getVariableMap() {

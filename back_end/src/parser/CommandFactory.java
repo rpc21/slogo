@@ -23,7 +23,6 @@ public class CommandFactory {
     }
 
     public CommandNode makeCommand(String c, AddVariable av) {
-        System.out.println("in make command");
         return new MakeVariable(c, av);
     }
 

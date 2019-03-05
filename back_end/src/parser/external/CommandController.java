@@ -38,9 +38,7 @@ public class CommandController {
         CommandNode myNode;
         double ret = 0;
         myVisualCommands.clear();
-        System.out.println("wat1");
         for (CommandNode a : myParser.parse(command)) {
-            System.out.println("EXECUTING");
             ret = a.evaluate(myVisualCommands, myTurtles);
         }
         return ret;

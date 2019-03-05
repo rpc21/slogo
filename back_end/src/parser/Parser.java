@@ -44,9 +44,7 @@ public class Parser {
         removeComments();
         List<CommandNode> topLevelCommands = new ArrayList<>();
         while(myCurrentCommand.length() > 0) {
-            System.out.println("TOP LEVEL COMMAND");
             topLevelCommands.add(makeNodeTree());
-            System.out.println("Size: " + topLevelCommands.size());
         }
         return topLevelCommands;
     }
@@ -66,7 +64,6 @@ public class Parser {
             updateMyCurrentCommand();
             start = 2;
         }
-        System.out.println(currentCommandKey);
         for(int i = start; i <= expectedNumberOfParameters; i++) {
             addChild(currentNode, commandSplit[i]);
         }
@@ -75,15 +72,11 @@ public class Parser {
 
     private void validateVariableName(String variable) throws InvalidVariableException {
         if(!isSpecificFormat(variable, VARIABLE_KEY)) {
-            System.out.println(VARIABLE_KEY);
-            System.out.println("INVALID" + variable);
             throw new InvalidVariableException(variable);
         }
     }
 
     private void addChild(CommandNode currentNode, String child) throws InvalidCommandException, InvalidVariableException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        System.out.println("Child: " + child);
-        System.out.println(child + isDouble(child));
         if(isDouble(child)) {
             currentNode.addChild(myCommandFactory.makeCommand(Double.parseDouble(child)));
         } else {
