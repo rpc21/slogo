@@ -231,7 +231,7 @@ public class GUIDisplay implements VisualUpdateAPI {
     private void executeCommand(String command, GUIExecute ref){
         myError.setText("");
         try {
-            ref.executeCurrentCommand(commandToExecute, myLanguage);
+            ref.executeCurrentCommand(command, myLanguage);
         } catch(exceptions.InvalidCommandException e) {
             myError.setText("Invalid Command: " + e.getReason());
         } catch(exceptions.NothingToRunException e){
