@@ -35,7 +35,7 @@ public class GUIDisplay implements VisualUpdateAPI {
     private LanguageChooser myLanguageChooser;
     private ImageChooser<String> myTurtleIconChooser;
     private Button myRunButton;
-    private Button myClearButton;
+    private ClearButton myClearButton;
     private Button myHelpButton;
     private ResourceBundle myResources;
     private Language myLanguage;
@@ -211,7 +211,9 @@ public class GUIDisplay implements VisualUpdateAPI {
     }
 
     private void initializeButtons(GridPane grid){
-        myClearButton = new ClearButton(myLanguage.getTranslatedWord(CLEAR), myTextBox);
+        myClearButton = new ClearButton(myTextBox);
+        languageChangeableComponents.add(myClearButton);
+        commandExecutableComponents.add(myClearButton);
         grid.add(myClearButton, 2, 5);
         myHelpButton = new HelpButton(myLanguage.getTranslatedWord(HELP), myResources, helpMenuConsumer);
         grid.add(myHelpButton, 2, 6);
@@ -330,6 +332,10 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     @Override
     public void clearScreen() {
+//        myStackedCanvasPane = new StackedCanvasPane();
+//        myStackedCanvasPane.setLanguage(myLanguage);
+//        myStackedCanvasPane.giveAbilityToRunCommands((x) -> runCommand(guiExecute, x));
+//        myStackedCanvasPane.grantTabAccess(myTurtleViewTabExplorer.getTabAccess());
         myStackedCanvasPane.clearScreen();
     }
 

@@ -4,11 +4,10 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
+//TODO: Combine into some kind of hierarchy with the TurtlePalette
 public class ColorPalette<T extends Node> extends ScrollPane {
 
     VBox myVBox;
