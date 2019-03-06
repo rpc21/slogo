@@ -16,16 +16,14 @@ public class SetPalette extends CommandNode {
     }
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
-        double currIndex = super.getChildren().get(INDEX).evaluate(myVisCommands, myTurtles);
-        double red = super.getChildren().get(RED_VAL).evaluate(myVisCommands, myTurtles);
-        double green = super.getChildren().get(BLUE_VAL).evaluate(myVisCommands, myTurtles);
-        double blue = super.getChildren().get(GREEN_VAL).evaluate(myVisCommands, myTurtles);
-        if (checkRGBValue(red) & checkRGBValue(red) & checkRGBValue(red)) {
-
-        }
-        else {
+        int currIndex = (int)super.getChildren().get(INDEX).evaluate(myVisCommands, myTurtles);
+        int red = (int)super.getChildren().get(RED_VAL).evaluate(myVisCommands, myTurtles);
+        int green = (int)super.getChildren().get(BLUE_VAL).evaluate(myVisCommands, myTurtles);
+        int blue = (int)super.getChildren().get(GREEN_VAL).evaluate(myVisCommands, myTurtles);
+        if (!(checkRGBValue(red) & checkRGBValue(green) & checkRGBValue(blue))) {
             throw new IllegalArgumentException();
         }
+        myVisCommands.add(new VisualPalette(currIndex,red,green,blue));
         return currIndex;
     }
     @Override

@@ -31,14 +31,13 @@ public class Turtle {
     }
 
     public ImmutableVisualCommand turtleAction(String actionName,  Object[] myParams){
-        System.out.println("hi");
         try {
 
             Class<?>[] typeOfParams = new Class<?>[myParams.length];
             for (int i = 0; i < myParams.length; i++)
                 typeOfParams[i] = myParams[i].getClass();
             Method m = getClass().getDeclaredMethod(actionName,typeOfParams);
-            Object ret = m.invoke(this, typeOfParams, myParams);
+            Object ret = m.invoke(this, myParams);
             ImmutableVisualCommand v = (ImmutableVisualCommand)ret;
             return v;
         }
@@ -60,21 +59,31 @@ public class Turtle {
     }
     public boolean isActive(){ return isActive;}
 
-    public ImmutableVisualCommand setPenSize(double pixels){
+    private ImmutableVisualCommand setPenSize(double pixels){
         myPenSize = pixels;
         return new VisualPenSize((int)myID,pixels);
     }
+
     public void setActive(boolean a ){isActive = a;}
 
-    public ImmutableVisualCommand setShape(Double index){
+    private ImmutableVisualCommand goHome(){
+        setHeading(0.0);
+        setXCoor(0.0);
+        setYCoor(0.0);
+        return new VisualHomeTurtle((int)myID);
+    }
+
+    private ImmutableVisualCommand setShape(Double index){
         myShape = index;
         return new VisualTurtleShape((int)myID,(int)(double)index);
     }
-    public ImmutableVisualCommand setPenColor(Double index){
+
+    private ImmutableVisualCommand setPenColor(Double index){
         myPenColor = index;
         return new VisualPenColor((int)myID,(int)(double)index);
     }
-    public ImmutableVisualCommand moveTurtle(Double pixels) {
+
+    private ImmutableVisualCommand move(Double pixels) {
         double orientation = Math.toRadians(myHeading);
         double deltaX = pixels * Math.sin(orientation);
         double deltaY = 1.0 *  pixels * Math.cos(orientation);
@@ -83,27 +92,34 @@ public class Turtle {
         return new VisualTurtlePosition((int)myID , myXCoor, -1.0 * myYCoor);
     }
 
+
     public void setXCoor(double x){ myXCoor = x; }
     public void setYCoor(double y){
         myYCoor = y;
     }
-    public ImmutableVisualCommand turn(double degrees){
+    private ImmutableVisualCommand setPosition(Double x, Double y){
+        myXCoor = x;
+        myYCoor = y;
+        return new VisualTurtlePosition((int)myID , myXCoor, -1.0 * myYCoor);
+    }
+    private ImmutableVisualCommand turn(double degrees){
         myHeading += degrees;
         checkHeading();
         return new VisualTurtleTurn((int)myID, degrees);
     }
-    public void setHeading(Double degrees){
+    private ImmutableVisualCommand setHeading(Double degrees){
         myHeading = degrees;
         checkHeading();
+        return new VisualTurtleHeading((int)myID,degrees);
     }
-    public ImmutableVisualCommand setVisibility(Double isVisible){
+    private ImmutableVisualCommand setVisibility(Integer isVisible){
         myVisibility = isVisible;
         if (isVisible == 0.0)
             return new VisualHideTurtle((int)myID);
         else
             return new VisualShowTurtle((int)myID);
     }
-    public ImmutableVisualCommand setPen(Double isDown){
+    private ImmutableVisualCommand setPen(Integer isDown){
         myPenState = isDown;
         if (isDown == 0.0)
             return new VisualPenUp((int)myID);

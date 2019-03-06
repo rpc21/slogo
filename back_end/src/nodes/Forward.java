@@ -10,7 +10,7 @@ public class Forward extends TurtleCommand {
     public Forward(String name){
         super(name);
     }
-    private static final String methodName = "moveTurtle";
+    private static final String methodName = "move";
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
         double pixels = myChildren.get(0).evaluate(myVisCommands, myTurtles);
