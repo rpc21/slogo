@@ -7,19 +7,15 @@ import java.util.Collections;
 import java.util.List;
 
 public class ListNode extends CommandNode {
-    private List<Double> myList = new ArrayList<>();
     public ListNode(String a){
         super(a);
     }
     @Override
     public double evaluate(java.util.List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
-        if (super.getChildren().size() == 0)
-            return 0;
-        else {
-            int numChildren = super.getChildren().size();
-            return super.getChildren().get(numChildren - 1).evaluate(myVisCommands,myTurtles);
-        }
-
+        double ret = 0;
+        for (CommandNode c: super.getChildren())
+            ret = c.evaluate(myVisCommands,myTurtles);
+       return ret;
     }
     /*
       * ListNode can have an unlimited number of children
