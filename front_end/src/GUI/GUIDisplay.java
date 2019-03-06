@@ -77,18 +77,8 @@ public class GUIDisplay implements VisualUpdateAPI {
         myStage = stage;
         commandExecutableComponents = new ArrayList<>();
         languageChangeableComponents = new ArrayList<>();
-//        myLanguageConsumer = (x) -> {
-//            myLanguage = x;
-//            updateLanguage(x);
-//        };
         myListOfCommands = new ArrayList<>();
         myRoot = createGridPane();
-//        myTurtleViewTabExplorer = new TurtleViewTabExplorer();
-//        myStackedCanvasPane.grantTabAccess(myTurtleViewTabExplorer.getTabAccess());
-//        myRoot.add(myTurtleViewTabExplorer, 2, 4, 2, 1);
-//        myStackedCanvasPane.setColorPaletteLookupAccess(myColorPalette.colorLookupAccess());
-//        myStackedCanvasPane.setTurtleLookupAccess(myTurtlePalette.turtleLookupAccess());
-
         myRoot.setGridLinesVisible(false);
         myScene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.LIGHTGRAY);
         myStage.setScene(myScene);
@@ -113,11 +103,6 @@ public class GUIDisplay implements VisualUpdateAPI {
         makeCommandLine(grid);
         initializeButtons(grid);
         createRightSidePane(grid);
-        createTabExplorers(grid);
-        createColorPalette(grid);
-        createTurtlePalette(grid);
-        makeNewWindowButton(grid);
-        makeUndoButton(grid);
         grid.setPrefSize(SCENE_WIDTH, SCENE_HEIGHT);
         myCurrentGUIGrid = grid;
         return grid;
@@ -163,57 +148,20 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     private void createTurtlePalette(GridPane grid){
         myTurtlePalette = new TurtlePalette();
-        myTurtlePalette.addPaletteElement(new TurtlePaletteElement(1, "BasicTurtleView"));
-        myTurtlePalette.addPaletteElement(new TurtlePaletteElement(2, "AdvancedTurtleView"));
-        myTurtlePalette.addPaletteElement(new TurtlePaletteElement(4, "BasicTurtleView"));
-        myTurtlePalette.addPaletteElement(new TurtlePaletteElement(3, "AdvancedTurtleView"));
         grid.add(myTurtlePalette, 2,3,1,1);
     }
 
     private void createColorPalette(GridPane grid) {
         myColorPalette = new ColorPalette();
-        myColorPalette.addPaletteElement(new ColorPaletteElement(1, Color.BLACK));
-        myColorPalette.addPaletteElement(new ColorPaletteElement(2, Color.RED));
-        myColorPalette.addPaletteElement(new ColorPaletteElement(3, Color.GREEN));
         grid.add(myColorPalette, 3, 3, 1, 1);
     }
 
     private void createMethodsAndVariablesTabExplorer(GridPane grid) {
         myTabExplorer = new TabExplorer(dataTracker, myLanguage, myTextBox);
-       // myTabExplorer.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-//        myVariables = makeVariablesTab(VARIABLES, dataTracker, myResources, myTextBox);
-//        myMethods = makeTab(METHODS, dataTracker, myResources, myTextBox);
-//        myCommands = makeTab(COMMANDS, dataTracker, myResources, myTextBox);
-//
-//        myVariables.addContents(":var1");
-//        myVariables.addContents(":var2");
-//        myCommands.addContents("sample commmand");
-//        myMethods.addContents("sample method");
-//        myTabExplorer.getTabs().addAll(myVariables, myMethods, myCommands);
-//        languageChangeableComponents.add(myTabExplorer);
-//        commandExecutableComponents.add(myTabExplorer);
         commandExecutableComponents.add(myTabExplorer);
         languageChangeableComponents.add(myTabExplorer);
         grid.add(myTabExplorer, 2, 1, 2, 1);
     }
-
-//    private SLogoTab makeVariablesTab(String variables, GUIdata dataTracker, ResourceBundle myResources, TextArea myTextBox) {
-//        SLogoTabVariables tab = new SLogoTabVariables(myResources.getString(variables), dataTracker);
-//        tab.getContent().setOnMouseClicked(event -> {
-//            //(dataTracker.getMyCommandToRun());
-//            System.out.println("!!! " + dataTracker.getMyCommandToRun() + "!!!");
-//            runCommand(myGUIExecute, dataTracker.getMyCommandToRun());
-//        });
-//        return tab;
-//    }
-
-//    private SLogoTab makeTab(String tabType, GUIdata data, TextArea commandLine){
-//        SLogoTab tab = new SLogoTab(myLanguage.getTranslatedWord(tabType), data);
-//        tab.getContent().setOnMouseClicked(event -> {
-//            commandLine.setText(data.getMyTextToUpdate());
-//        });
-//        return tab;
-//    }
 
     private void createCanvas(GridPane grid) {
         myStackedCanvasPane = new StackedCanvasPane();
@@ -231,9 +179,6 @@ public class GUIDisplay implements VisualUpdateAPI {
         myToolbar = new Toolbar(myStackedCanvasPane.getBackgroundColorAccess(),
                 myStackedCanvasPane.getPenPropertiesAccess(), myStackedCanvasPane.getIconAccess(),
                 this::updateLanguage);
-//        myTurtleIconChooser = myToolbar.getMyImageChooser();
-//        myLanguageChooser = new LanguageChooser(myLanguageConsumer);
-//        myToolbar.getChildren().add(myLanguageChooser);
         languageChangeableComponents.add(myToolbar);
         grid.add(myToolbar, 1, 0, 1, 1);
     }
@@ -262,6 +207,8 @@ public class GUIDisplay implements VisualUpdateAPI {
     }
 
     private void initializeButtons(GridPane grid){
+        makeNewWindowButton(grid);
+        makeUndoButton(grid);
         myClearButton = new ClearButton(myTextBox);
         languageChangeableComponents.add(myClearButton);
         commandExecutableComponents.add(myClearButton);

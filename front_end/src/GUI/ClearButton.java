@@ -36,4 +36,8 @@ public class ClearButton extends Button implements CommandExecutable, LanguageCh
     public void setLanguage(Language newLanguage) {
         setText(newLanguage.getTranslatedWord(CLEAR_BUTTON_NAME));
     }
+
+    public String getMyName(){
+        return CLEAR_BUTTON_NAME;
+    }
 }
