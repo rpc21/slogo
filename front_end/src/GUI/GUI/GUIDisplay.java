@@ -362,6 +362,11 @@ public class GUIDisplay implements VisualUpdateAPI {
     }
 
     @Override
+    public void addVariable(String name, Double val) {
+        myTabExplorer.addVariable(name, val);
+    }
+
+    @Override
     public void turtleMove(int id, double x, double y) {
         myStackedCanvasPane.turtleMove(id, x, y);
     }
