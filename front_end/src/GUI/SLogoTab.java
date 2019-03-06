@@ -55,4 +55,5 @@ public class SLogoTab extends Tab implements GUIComponent{
     public void clearContents(){
         myVBoxOfStrings.getChildren().clear();
     }
+
 }

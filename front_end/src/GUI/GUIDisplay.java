@@ -71,6 +71,7 @@ public class GUIDisplay implements VisualUpdateAPI {
     private List<String> myListOfCommands;
     private UndoButton myUndoButton;
 
+
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
 //        myResources = ResourceBundle.getBundle(myLanguage);
@@ -310,10 +311,8 @@ public class GUIDisplay implements VisualUpdateAPI {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-//        myTabExplorer.addToCommandHistory(commandToExecute);
         addToCommandHistory(commandToExecute);
     }
-
 
     private void addToCommandHistory(String command){
         myTabExplorer.addToCommandHistory(command);
@@ -326,15 +325,17 @@ public class GUIDisplay implements VisualUpdateAPI {
     };
 
     private void undoCommand(){
+        List<String> copyOfCommandHistory = new ArrayList<>(myListOfCommands);
         try {
-            myListOfCommands.remove(myListOfCommands.size() - 1);
+            copyOfCommandHistory.remove(copyOfCommandHistory.size() - 1);
             runCommand(myGUIExecute, myLanguage.getTranslatedWord(CLEAR_SCREEN));
-            for(String command : myListOfCommands){
+            for(String command : copyOfCommandHistory){
                 runCommand(myGUIExecute, command);
             }
         } catch (Exception e) {
             myError.setText("Nothing to undo");
         }
+        myListOfCommands = copyOfCommandHistory;
     }
 
     private Alert showHelpMenu(){
@@ -405,6 +406,7 @@ public class GUIDisplay implements VisualUpdateAPI {
 //        myStackedCanvasPane.giveAbilityToRunCommands((x) -> runCommand(guiExecute, x));
 //        myStackedCanvasPane.grantTabAccess(myTurtleViewTabExplorer.getTabAccess());
         myStackedCanvasPane.clearScreen();
+        myTabExplorer.clearCommandHistory();
     }
 
     @Override
