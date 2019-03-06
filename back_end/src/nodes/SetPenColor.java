@@ -5,17 +5,17 @@ import turtle.Bale;
 
 import java.util.List;
 
-public class SetPenColor extends CommandNode {
+public class SetPenColor extends TurtleCommand {
+    private static final String methodName = "setPenColor";
     public SetPenColor(String n){
         super(n);
     }
+
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
-        int index = (int)super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
-        for (Integer id: myTurtles.getActiveTurtlesIDs()) {
-            myTurtles.get(id).setPenColor(index);
-            myVisCommands.add(new VisualPenColor(id,index));
-        }
+        double index = super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
+        super.setMyTurtleCommands(methodName);
+        myVisCommands.addAll(super.invokeTurtles(new Object[]{index},myTurtles));
         return index;
     }
     @Override

@@ -1,7 +1,9 @@
 package turtle;
 
+import apis.ImmutableVisualCommand;
 import nodes.CommandNode;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +42,22 @@ public class Bale extends ArrayList<Turtle> {
     public void setAllInactive(){
         for (Turtle t: this)
             t.setActive(false);
+    }
+
+    public List<ImmutableVisualCommand> act(List<String> myTurtleMethods,  Object[] actualParams){
+        List<ImmutableVisualCommand> myVisCommands = new ArrayList<ImmutableVisualCommand>();
+        for (Turtle t: this.getActiveTurtles()) {
+            setActiveID(t.getID());
+            for (String m: myTurtleMethods) {
+                ImmutableVisualCommand vis = t.turtleAction(m, actualParams);
+                myVisCommands.add(vis);
+            }
+        }
+        return myVisCommands;
+    }
+
+    public Turtle getLastActiveTurtle(){
+        return this.get(size() - 1);
     }
 
     public void setActiveID(int id){

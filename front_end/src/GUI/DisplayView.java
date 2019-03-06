@@ -163,6 +163,7 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
     }
 
     public void setLocation(double x, double y) {
+        System.out.println("**" + x + " " + y);
         moveTo(new Point2D(x, y));
     }
 

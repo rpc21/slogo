@@ -1,6 +1,7 @@
 package parser;
 
 import apis.AddVariable;
+import apis.GetVariableValue;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,6 +17,10 @@ public class UserCreated {
             addVariable(s,d);
         }
     };
+    GetVariableValue myGetVarValFunction = new GetVariableValue() {
+        @Override
+        public double getUserVariableValue(String s) {return getVariableValue(s);}
+    };
     public UserCreated() {
         myVariables = new HashMap<>();
         myCommands = new HashMap<>();
@@ -24,6 +29,7 @@ public class UserCreated {
     public AddVariable getMyAddVarFunction(){
         return myAddVarFunction;
     }
+    public GetVariableValue getMyGetVarFunction() {return myGetVarValFunction;}
 
     public void addVariable(String variableName, double variableValue) {
         myVariables.put(variableName, variableValue);

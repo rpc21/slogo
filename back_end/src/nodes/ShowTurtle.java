@@ -4,16 +4,15 @@ import turtle.Bale;
 
 import java.util.List;
 
-public class ShowTurtle extends CommandNode {
+public class ShowTurtle extends TurtleCommand {
+    private static final String methodName = "setVisibility";
     public ShowTurtle(String name){
         super(name);
     }
     @Override public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
-        for (Integer id: myTurtles.getActiveTurtlesIDs()) {
-            myVisCommands.add(new VisualShowTurtle(id));
-            myTurtles.get(id).setVisibility(false);
-        }
-        return 0;
+        super.setMyTurtleCommands(methodName);
+        myVisCommands.addAll(super.invokeTurtles(new Object[]{1},myTurtles));
+        return 1;
     }
     @Override
     public void addChild(CommandNode c){
