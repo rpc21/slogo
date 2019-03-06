@@ -8,6 +8,7 @@ import java.util.List;
 
 import apis.ImmutableVisualCommand;
 import exceptions.InvalidCommandException;
+import exceptions.InvalidListException;
 import exceptions.InvalidVariableException;
 import exceptions.NothingToRunException;
 import nodes.CommandNode;
@@ -33,7 +34,7 @@ public class CommandController {
         myVisualCommands = new ArrayList<>();
     }
 
-    public double execute(String command, String language) throws InvalidCommandException, NothingToRunException, InvalidVariableException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    public double execute(String command, String language) throws InvalidCommandException, NothingToRunException, InvalidVariableException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, InvalidListException {
         updateLanguage(language);
         CommandNode myNode;
         double ret = 0;

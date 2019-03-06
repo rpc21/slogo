@@ -15,8 +15,10 @@ public class ListNode extends CommandNode {
     public double evaluate(java.util.List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
         if (super.getChildren().size() == 0)
             return 0;
-        else
-            return myList.get(myList.size()-1);
+        else {
+            int numChildren = super.getChildren().size();
+            return super.getChildren().get(numChildren - 1).evaluate(myVisCommands,myTurtles);
+        }
 
     }
     /*

@@ -22,6 +22,8 @@ public class Validator {
     private static final String SYNTAX_PROPERTIES_LOCATION = "languages/Syntax";
     private static final String COMMENT_KEY = "Comment";
     private static final String VARIABLE_KEY = "Variable";
+    private static final String LIST_START_KEY = "ListStart";
+    private static final String LIST_END_KEY = "ListEnd";
 
     public Validator() {
         myParameterProperties = ResourceBundle.getBundle(PARAMETER_PROPERTIES_LOCATION);
@@ -38,7 +40,6 @@ public class Validator {
     private void addPatterns(Map<String, Pattern> patternMap, ResourceBundle bundle) {
         patternMap.clear();
         for (var key : Collections.list(bundle.getKeys())) {
-            System.out.println(key);
             var regex = bundle.getString(key).trim();
             patternMap.put(key, Pattern.compile(regex, Pattern.CASE_INSENSITIVE));
         }
@@ -64,8 +65,7 @@ public class Validator {
 
     public String getCommandKey(String input) throws InvalidCommandException {
         for(var key : myCommandSyntax.keySet()) {
-            System.out.println("Checking " + key);
-                if(match(myCommandSyntax, input, key)) {
+            if(match(myCommandSyntax, input, key)) {
                 return key;
             }
         }
@@ -95,5 +95,17 @@ public class Validator {
     public void updateLanguage(String newLanguage) {
         myCommandProperties = ResourceBundle.getBundle(COMMAND_PROPERTIES_LOCATION + newLanguage);
         addPatterns(myCommandSyntax, myCommandProperties);
+    }
+
+    public boolean isListStart(String child) {
+        return match(myGeneralSyntax, child, LIST_START_KEY);
+    }
+
+    public boolean isListEnd(String child) {
+        return match(myGeneralSyntax, child, LIST_END_KEY);
+    }
+
+    public boolean hasListEnd(String content) {
+        return content.indexOf(mySyntaxProperties.getString(LIST_END_KEY)) != -1;
     }
 }
