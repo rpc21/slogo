@@ -7,17 +7,15 @@ import exceptions.InvalidCommandException;
 import exceptions.InvalidListException;
 import exceptions.InvalidVariableException;
 import javafx.geometry.Insets;
-import javafx.geometry.Side;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -25,49 +23,72 @@ import java.util.function.Consumer;
 
 public class GUIDisplay implements VisualUpdateAPI {
 
-    public static final String DEFAULT_LANGUAGE = "English";
+    public static final Language DEFAULT_LANGUAGE = Language.ENGLISH;
+    public static final String CLEAR = "Clear";
+    public static final String HELP = "Help";
+    public static final String RUN = "Run";
+    public static final String CLEAR_SCREEN = "ClearScreen";
+    //    public static final String DEFAULT_LANGUAGE = "English";
     private Stage myStage;
     private Scene myScene;
-    private String myTitle = "SLogo";
+//    private String myTitle = "SLogo";
     private GridPane myRoot;
-    private TextArea myTextBox;
+    private CommandLine myTextBox;
     private String commandToExecute;
-    private LanguageChooser myLanguageChooser;
-    private ImageChooser<String> myTurtleIconChooser;
+//    private LanguageChooser myLanguageChooser;
+//    private ImageChooser<String> myTurtleIconChooser;
     private Button myRunButton;
-    private Button myClearButton;
+    private ClearButton myClearButton;
     private Button myHelpButton;
     private ResourceBundle myResources;
-    private String myLanguage;
+    private Language myLanguage;
+//    private String myLanguage;
     private Toolbar myToolbar;
     private StackedCanvasPane myStackedCanvasPane;
-    private static final String LANGUAGE_LOCATION = "languages/";
-    private final String VARIABLES = "Variables";
-    private final String METHODS = "Methods";
-    private final String COMMANDS = "CommandHistory";
+//    private static final String LANGUAGE_LOCATION = "languages/";
+//    private final String VARIABLES = "Variables";
+//    private final String METHODS = "Methods";
+//    private final String COMMANDS = "CommandHistory";
     private TabExplorer myTabExplorer;
-    private SLogoTab myVariables;
-    private SLogoTab myCommands;
-    private SLogoTab myMethods;
+//    private SLogoTab myVariables;
+//    private SLogoTab myCommands;
+//    private SLogoTab myMethods;
     private GridPane myCurrentGUIGrid;
-    private Consumer<String> myLanguageConsumer;
+//    private Consumer<Language> myLanguageConsumer;
+//    private Consumer<String> myLanguageConsumer;
     public static final int SCENE_WIDTH = 1200;
     public static final int SCENE_HEIGHT = 650;
     public GUIdata dataTracker = new GUIdata();
     private ErrorDisplay myError;
     private ColorPalette myColorPalette;
     private TurtlePalette myTurtlePalette;
-    private ContextMenu myContextMenu;
+//    private ContextMenu myContextMenu;
+    private List<CommandExecutable> commandExecutableComponents;
+    private List<LanguageChangeable> languageChangeableComponents;
+    private TurtleViewTabExplorer myTurtleViewTabExplorer;
+    private GUIExecute myGUIExecute;
+    private NewWindowButton myNewWindowButton;
+    private List<String> myListOfCommands;
+    private UndoButton myUndoButton;
 
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
-        myResources = ResourceBundle.getBundle(myLanguage);
+//        myResources = ResourceBundle.getBundle(myLanguage);
         myStage = stage;
-        myLanguageConsumer = (x) -> {
-            myLanguage = x;
-            updateLanguage(x);
-        };
+        commandExecutableComponents = new ArrayList<>();
+        languageChangeableComponents = new ArrayList<>();
+//        myLanguageConsumer = (x) -> {
+//            myLanguage = x;
+//            updateLanguage(x);
+//        };
+        myListOfCommands = new ArrayList<>();
         myRoot = createGridPane();
+//        myTurtleViewTabExplorer = new TurtleViewTabExplorer();
+//        myStackedCanvasPane.grantTabAccess(myTurtleViewTabExplorer.getTabAccess());
+//        myRoot.add(myTurtleViewTabExplorer, 2, 4, 2, 1);
+//        myStackedCanvasPane.setColorPaletteLookupAccess(myColorPalette.colorLookupAccess());
+//        myStackedCanvasPane.setTurtleLookupAccess(myTurtlePalette.turtleLookupAccess());
+
         myRoot.setGridLinesVisible(false);
         myScene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.LIGHTGRAY);
         myStage.setScene(myScene);
@@ -89,16 +110,57 @@ public class GUIDisplay implements VisualUpdateAPI {
         setTitle(grid);
         createCanvas(grid);
         setToolbar(grid);
-        makeTextBox(grid);
+        makeCommandLine(grid);
         initializeButtons(grid);
-        createTabExplorer(grid);
+        createRightSidePane(grid);
+        createTabExplorers(grid);
         createColorPalette(grid);
         createTurtlePalette(grid);
+        makeNewWindowButton(grid);
+        makeUndoButton(grid);
         grid.setPrefSize(SCENE_WIDTH, SCENE_HEIGHT);
         myCurrentGUIGrid = grid;
         return grid;
     }
-    
+
+    private void createRightSidePane(GridPane grid) {
+        createTabExplorers(grid);
+        createPalettes(grid);
+    }
+
+    private void createTabExplorers(GridPane grid) {
+        createMethodsAndVariablesTabExplorer(grid);
+        createTurtleViewTabExplorer(grid);
+    }
+
+    private void createTurtleViewTabExplorer(GridPane grid) {
+        myTurtleViewTabExplorer = new TurtleViewTabExplorer();
+        grid.add(myTurtleViewTabExplorer, 2, 4, 2, 1);
+        myStackedCanvasPane.grantTabAccess(myTurtleViewTabExplorer.getTabAccess());
+    }
+
+    private void createPalettes(GridPane grid) {
+        createColorPalette(grid);
+        createTurtlePalette(grid);
+    }
+
+    private void makeUndoButton(GridPane grid){
+        myUndoButton = new UndoButton("Undo");
+        myUndoButton.setOnMouseClicked(event ->{
+            undoCommand();
+        });
+        grid.add(myUndoButton, 3, 0);
+    }
+
+    private void makeNewWindowButton(GridPane grid){
+        myNewWindowButton = new NewWindowButton("+");
+        grid.add(myNewWindowButton, 2,0);
+    }
+
+    public Button getNewWindowButton(){
+        return myNewWindowButton;
+    }
+
     private void createTurtlePalette(GridPane grid){
         myTurtlePalette = new TurtlePalette();
         myTurtlePalette.addPaletteElement(new TurtlePaletteElement(1, "BasicTurtleView"));
@@ -116,64 +178,75 @@ public class GUIDisplay implements VisualUpdateAPI {
         grid.add(myColorPalette, 3, 3, 1, 1);
     }
 
-    private void createTabExplorer(GridPane grid) {
-        myTabExplorer = new TabExplorer();
-        myTabExplorer.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        myVariables = makeTab(VARIABLES, dataTracker, myResources, myTextBox);
-        myMethods = makeTab(METHODS, dataTracker, myResources, myTextBox);
-        myCommands = makeTab(COMMANDS, dataTracker, myResources, myTextBox);
-
-        for(int i = 0; i< 100; i++){
-            myVariables.addContents("Blank line");
-        }
-        myVariables.addContents("Sample variable one");
-        myVariables.addContents("practice variable two");
-        myCommands.addContents("sample commmand");
-        myMethods.addContents("sample method");
-        myTabExplorer.getTabs().addAll(myVariables, myMethods, myCommands);
-        grid.add(myTabExplorer, 2, 1, 2, 2);
+    private void createMethodsAndVariablesTabExplorer(GridPane grid) {
+        myTabExplorer = new TabExplorer(dataTracker, myLanguage, myTextBox);
+       // myTabExplorer.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+//        myVariables = makeVariablesTab(VARIABLES, dataTracker, myResources, myTextBox);
+//        myMethods = makeTab(METHODS, dataTracker, myResources, myTextBox);
+//        myCommands = makeTab(COMMANDS, dataTracker, myResources, myTextBox);
+//
+//        myVariables.addContents(":var1");
+//        myVariables.addContents(":var2");
+//        myCommands.addContents("sample commmand");
+//        myMethods.addContents("sample method");
+//        myTabExplorer.getTabs().addAll(myVariables, myMethods, myCommands);
+//        languageChangeableComponents.add(myTabExplorer);
+//        commandExecutableComponents.add(myTabExplorer);
+        commandExecutableComponents.add(myTabExplorer);
+        languageChangeableComponents.add(myTabExplorer);
+        grid.add(myTabExplorer, 2, 1, 2, 1);
     }
 
-    private SLogoTab makeTab(String tabType, GUIdata data, ResourceBundle resources, TextArea commandLine){
-        SLogoTab tab = new SLogoTab(resources.getString(tabType), data);
-        tab.getContent().setOnMouseClicked(event -> {
-            commandLine.setText(data.getMyTextToUpdate());
-        });
-        return tab;
-    }
+//    private SLogoTab makeVariablesTab(String variables, GUIdata dataTracker, ResourceBundle myResources, TextArea myTextBox) {
+//        SLogoTabVariables tab = new SLogoTabVariables(myResources.getString(variables), dataTracker);
+//        tab.getContent().setOnMouseClicked(event -> {
+//            //(dataTracker.getMyCommandToRun());
+//            System.out.println("!!! " + dataTracker.getMyCommandToRun() + "!!!");
+//            runCommand(myGUIExecute, dataTracker.getMyCommandToRun());
+//        });
+//        return tab;
+//    }
+
+//    private SLogoTab makeTab(String tabType, GUIdata data, TextArea commandLine){
+//        SLogoTab tab = new SLogoTab(myLanguage.getTranslatedWord(tabType), data);
+//        tab.getContent().setOnMouseClicked(event -> {
+//            commandLine.setText(data.getMyTextToUpdate());
+//        });
+//        return tab;
+//    }
 
     private void createCanvas(GridPane grid) {
         myStackedCanvasPane = new StackedCanvasPane();
+        languageChangeableComponents.add(myStackedCanvasPane);
+        commandExecutableComponents.add(myStackedCanvasPane);
         grid.add(myStackedCanvasPane, 0, 1, 2, 4);
     }
 
-    private void makeTextBox(GridPane grid){
-        myTextBox = new TextArea();
-        myTextBox.setPrefRowCount(4);
-        myTextBox.setPrefColumnCount(10);
-        myTextBox.setWrapText(true);
+    private void makeCommandLine(GridPane grid){
+        myTextBox = new CommandLine();
         grid.add(myTextBox, 0, 5, 2, 4);
     }
 
     private void setToolbar(GridPane grid) {
         myToolbar = new Toolbar(myStackedCanvasPane.getBackgroundColorAccess(),
-                myStackedCanvasPane.getPenPropertiesAccess(), myStackedCanvasPane.getIconAccess());
-        myTurtleIconChooser = myToolbar.getMyImageChooser();
-        myLanguageChooser = new LanguageChooser(myLanguageConsumer);
-        myToolbar.getChildren().add(myLanguageChooser);
+                myStackedCanvasPane.getPenPropertiesAccess(), myStackedCanvasPane.getIconAccess(),
+                this::updateLanguage);
+//        myTurtleIconChooser = myToolbar.getMyImageChooser();
+//        myLanguageChooser = new LanguageChooser(myLanguageConsumer);
+//        myToolbar.getChildren().add(myLanguageChooser);
+        languageChangeableComponents.add(myToolbar);
         grid.add(myToolbar, 1, 0, 1, 1);
     }
 
-    private void updateLanguage(String language){
+    private void updateLanguage(Language language){
         myLanguage = language;
-        myResources = ResourceBundle.getBundle(myLanguage);
-        myRunButton.setText(myResources.getString("Run"));
-        myClearButton.setText(myResources.getString("Clear"));
-        myHelpButton.setText(myResources.getString("Help"));
-        myVariables.setText(myResources.getString("Variables"));
-        myCommands.setText(myResources.getString("CommandHistory"));
-        myMethods.setText(myResources.getString("Methods"));
-        myTurtleIconChooser.setPromptText(myResources.getString("TurtleIcon"));
+        for (LanguageChangeable component : languageChangeableComponents){
+            component.setLanguage(language);
+        }
+//        myResources = ResourceBundle.getBundle(myLanguage);
+        myRunButton.setText(myLanguage.getTranslatedWord(RUN));
+        myClearButton.setText(myLanguage.getTranslatedWord(CLEAR));
+        myHelpButton.setText(myLanguage.getTranslatedWord(HELP));
     }
 
     private void setTitle(GridPane grid) {
@@ -189,46 +262,62 @@ public class GUIDisplay implements VisualUpdateAPI {
     }
 
     private void initializeButtons(GridPane grid){
-        myClearButton = new ClearButton(myResources.getString("Clear"), myTextBox);
+        myClearButton = new ClearButton(myTextBox);
+        languageChangeableComponents.add(myClearButton);
+        commandExecutableComponents.add(myClearButton);
         grid.add(myClearButton, 2, 5);
-        myHelpButton = new HelpButton(myResources.getString("Help"), myResources, helpMenuConsumer);
+        myHelpButton = new HelpButton(myLanguage.getTranslatedWord(HELP), myResources, helpMenuConsumer);
         grid.add(myHelpButton, 2, 6);
         myError = new ErrorDisplay();
         grid.add(myError, 0, 6);
     }
 
     public void setUpRunButton(GUIExecute ref){
+        for (LanguageChangeable component: languageChangeableComponents){
+            component.setLanguage(Language.ENGLISH);
+        }
+        for (CommandExecutable component : commandExecutableComponents){
+            component.giveAbilityToRunCommands((x) -> runCommand(myGUIExecute, x));
+        }
+        myGUIExecute = ref;
         myRunButton = runButton(ref);
         myCurrentGUIGrid.add(myRunButton, 2, 7);
     }
 
     private Button runButton(GUIExecute ref){
-        Button button = new Button(myResources.getString("Run"));
+        Button button = new Button(myLanguage.getTranslatedWord(RUN));
         button.setOnMouseClicked(event -> {
             commandToExecute = myTextBox.getText();
             myError.setText("");
-            try {
-                ref.executeCurrentCommand(commandToExecute, myLanguage);
-            } catch(exceptions.InvalidInputException e) {
-                myError.setText(e.getReason());
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-            addToCommandHistory(commandToExecute);
+            runCommand(ref, commandToExecute);
         });
         return button;
     }
 
+    private void runCommand(GUIExecute ref, String commandToExecute) {
+        try {
+            ref.executeCurrentCommand(commandToExecute, myLanguage.getLanguageString());
+        } catch(exceptions.InvalidInputException e) {
+            myError.setText(e.getReason());
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+//        myTabExplorer.addToCommandHistory(commandToExecute);
+        addToCommandHistory(commandToExecute);
+    }
+
+
     private void addToCommandHistory(String command){
-        myCommands.addContents(command);
+        myTabExplorer.addToCommandHistory(command);
+        myListOfCommands.add(command);
     }
 
     private Consumer<Void> helpMenuConsumer =  (x) -> {
@@ -236,13 +325,25 @@ public class GUIDisplay implements VisualUpdateAPI {
         help.show();
     };
 
+    private void undoCommand(){
+        try {
+            myListOfCommands.remove(myListOfCommands.size() - 1);
+            runCommand(myGUIExecute, myLanguage.getTranslatedWord(CLEAR_SCREEN));
+            for(String command : myListOfCommands){
+                runCommand(myGUIExecute, command);
+            }
+        } catch (Exception e) {
+            myError.setText("Nothing to undo");
+        }
+    }
+
     private Alert showHelpMenu(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(myResources.getString("Help"));
-        alert.setHeaderText(myResources.getString("HelpHeader"));
+        alert.setTitle(myLanguage.getTranslatedWord("Help"));
+        alert.setHeaderText(myLanguage.getTranslatedWord("HelpHeader"));
        // alert.setContentText(myResources.getString("HelpInfo"));
         ScrollPane pane = new ScrollPane();
-        pane.setContent(new Label(myResources.getString("HelpInfo")));
+        pane.setContent(new Label(myLanguage.getTranslatedWord("HelpInfo")));
         alert.getDialogPane().setExpandableContent(pane);
         return alert;
     }
@@ -299,6 +400,10 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     @Override
     public void clearScreen() {
+//        myStackedCanvasPane = new StackedCanvasPane();
+//        myStackedCanvasPane.setLanguage(myLanguage);
+//        myStackedCanvasPane.giveAbilityToRunCommands((x) -> runCommand(guiExecute, x));
+//        myStackedCanvasPane.grantTabAccess(myTurtleViewTabExplorer.getTabAccess());
         myStackedCanvasPane.clearScreen();
     }
 
@@ -310,7 +415,7 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     @Override
     public void setPenColor(int id, int index) {
-        myStackedCanvasPane.setPenColor(id, index);
+        myStackedCanvasPane.setPenColor(id, myColorPalette.getContent(index));
     }
 
     @Override

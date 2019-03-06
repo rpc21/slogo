@@ -12,9 +12,11 @@ public class TurtlePaletteElement extends GridPane implements Comparator<TurtleP
 
     private int myIndex;
     private DisplayView myTurtle;
+    private String myTurtleType;
 
     public TurtlePaletteElement(int index, String turtleType){
         myIndex = index;
+        myTurtleType = turtleType;
         try {
             var clazz = Class.forName("GUI."+turtleType);
             myTurtle = (DisplayView) clazz.getDeclaredConstructor().newInstance();
@@ -34,6 +36,9 @@ public class TurtlePaletteElement extends GridPane implements Comparator<TurtleP
         return myTurtle;
     }
 
+    public String getMyTurtleType(){
+        return myTurtleType;
+    }
     @Override
     public int compare(TurtlePaletteElement o1, TurtlePaletteElement o2) {
         return Integer.compare(o1.myIndex, o2.myIndex);

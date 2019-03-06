@@ -4,9 +4,10 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-
 import java.util.*;
+import java.util.function.Function;
 
+//TODO: Combine into some kind of hierarchy with the TurtlePalette
 public class ColorPalette<T extends Node> extends ScrollPane {
 
     VBox myVBox;
@@ -31,5 +32,9 @@ public class ColorPalette<T extends Node> extends ScrollPane {
 
     public Color getContent(int index) {
         return myPaletteElements.get(index).getMyColor();
+    }
+
+    public Function<Integer, Color> colorLookupAccess(){
+        return (x) -> getContent(x);
     }
 }

@@ -1,5 +1,6 @@
 package GUI;
 
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -8,8 +9,9 @@ import javafx.scene.paint.Paint;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
-public class StackedCanvasPane extends StackPane {
+public class StackedCanvasPane extends StackPane implements CommandExecutable, LanguageChangeable{
 
     public static final double DEFAULT_CANVAS_WIDTH = 800;
     public static final double DEFAULT_CANVAS_HEIGHT = 450;
@@ -18,7 +20,12 @@ public class StackedCanvasPane extends StackPane {
     private TurtleCanvas myDrawingCanvas;
     private DisplayView myCurrentDisplayView;
     private List<DisplayView> myTurtles;
-    private boolean penDown;
+    public Function<Integer, Color> colorPaletteLookup;
+    private Function<Integer, String> turtlePaletteLookup;
+    private Consumer<String> myCommandAccess;
+    private Language myLanguage;
+    private Consumer<DisplayView> myTabAccess;
+//    private boolean penDown;
 
     public StackedCanvasPane(){
         super();
@@ -26,10 +33,11 @@ public class StackedCanvasPane extends StackPane {
         myBackgroundCanvas = createBackgroundCanvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
         myDrawingCanvas = new TurtleCanvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
 //        myCurrentDisplayView = new BasicTurtleView(myDrawingCanvas);
+//        makeTurtle();
+//        myCurrentDisplayView = myTurtles.get(0);
+//        penDown = true;
+        getChildren().addAll(myBackgroundCanvas, myDrawingCanvas);
         makeTurtle();
-        myCurrentDisplayView = myTurtles.get(0);
-        penDown = true;
-        getChildren().addAll(myBackgroundCanvas, myDrawingCanvas, myCurrentDisplayView);
         this.setLayoutX(DEFAULT_CANVAS_WIDTH);
         this.setLayoutY(DEFAULT_CANVAS_HEIGHT);
     }
@@ -45,6 +53,11 @@ public class StackedCanvasPane extends StackPane {
 
     public void makeTurtle(){
         DisplayView newTurtle = new BasicTurtleView(myDrawingCanvas);
+        newTurtle.setLanguage(myLanguage);
+        newTurtle.giveAbilityToRunCommands(myCommandAccess);
+        getChildren().add(newTurtle);
+        newTurtle.setTurtleId(myTurtles.size());
+        newTurtle.giveTabAccess(myTabAccess);
         myTurtles.add(newTurtle);
     }
 
@@ -53,16 +66,19 @@ public class StackedCanvasPane extends StackPane {
     }
 
     public Consumer<Paint> getPenPropertiesAccess(){
-        return (x) -> myCurrentDisplayView.getMyPen().setMyColor(x);
+        return (x) -> {
+            for (DisplayView turtle : myTurtles) {
+                turtle.getMyPen().setMyColor(x);
+            }
+        };
     }
 
     public Consumer<String> getIconAccess(){
-        Consumer<String> changeIcon = (x) -> {
+        return (x) -> {
             this.getChildren().remove(myCurrentDisplayView);
             myCurrentDisplayView = new DisplayViewFactory().generateDislplayView(x, myCurrentDisplayView);
             this.getChildren().add(myCurrentDisplayView);
         };
-        return changeIcon;
     }
 
 //    public void addMove(Move move){
@@ -102,11 +118,11 @@ public class StackedCanvasPane extends StackPane {
 //    }
 
     public void setPenUp(int id){
-        myTurtles.get(id).getMyPen().setDown(false);
+        myTurtles.get(id).setPenDown(false);
     }
 
     public void setPenDown(int id){
-        myTurtles.get(id).getMyPen().setDown(true);
+        myTurtles.get(id).setPenDown(true);
     }
 
     public void showTurtle(int id) {
@@ -134,23 +150,73 @@ public class StackedCanvasPane extends StackPane {
     }
 
     public void clearScreen() {
-        for (int i = 0; i < myTurtles.size(); i++) {
-            goHome(i);
-        }
         myBackgroundCanvas.setColor(Color.WHITE);
         myDrawingCanvas.clearCanvas();
+        for (DisplayView turtle: myTurtles){
+            getChildren().remove(turtle);
+        }
+        myTurtles.clear();
+        makeTurtle();
     }
 
-    public void setPenColor(int id, int index) {
-        //TODO: Do this later when palettes are working
+    public void setPenColor(int id, Color color) {
+        myTurtles.get(id).setPenColor(color);
     }
 
     public void setPenSize(int id, double pixels) {
-        myTurtles.get(id).getMyPen().setMyWidth(pixels);
+        myTurtles.get(id).setPenWidth(pixels);
     }
 
-    public void setTurtleShape(int id, DisplayView content) {
-//        DisplayView newTurtle = new
-        //TODO: Do this later when you are smarter
+    public void setTurtleShape(int id, String content) {
+        DisplayView turtle;
+        DisplayView turtleToRemove = myTurtles.get(id);
+        try {
+            var clazz = Class.forName("GUI."+content);
+            turtle = (DisplayView) clazz.getDeclaredConstructor(DisplayView.class).newInstance(myTurtles.get(id));
+        }
+        catch (Exception e) {
+            turtle = new BasicTurtleView();
+        }
+        this.getChildren().remove(turtleToRemove);
+        this.getChildren().add(turtle);
+        myTurtles.remove(id);
+        myTurtles.add(id, turtle);
+    }
+
+
+//    public void setColorPaletteLookupAccess(Function<Integer, Color> colorLookupAccess) {
+//        colorPaletteLookup = colorLookupAccess;
+//    }
+//
+//    public void setTurtleLookupAccess(Function<Integer, String> turtleLookupAccess) {
+//        turtlePaletteLookup = turtleLookupAccess;
+//    }
+
+    @Override
+    public void giveAbilityToRunCommands(Consumer<String> commandAccess) {
+        myCommandAccess = commandAccess;
+        for (DisplayView turtle: myTurtles){
+            turtle.giveAbilityToRunCommands(commandAccess);
+        }
+    }
+
+    @Override
+    public void runCommand(String command) {
+        myCommandAccess.accept(command);
+    }
+
+    @Override
+    public void setLanguage(Language newLanguage) {
+        myLanguage = newLanguage;
+        for (DisplayView turtle : myTurtles){
+            turtle.setLanguage(newLanguage);
+        }
+    }
+
+    public void grantTabAccess(Consumer<DisplayView> tabAccess){
+        myTabAccess = tabAccess;
+        for (DisplayView turtle : myTurtles){
+            turtle.giveTabAccess(tabAccess);
+        }
     }
 }

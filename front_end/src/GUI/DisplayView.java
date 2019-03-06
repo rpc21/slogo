@@ -1,22 +1,18 @@
 package GUI;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
-import javafx.geometry.Side;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
-public abstract class DisplayView extends ImageView {
+public abstract class DisplayView extends ImageView implements CommandExecutable, LanguageChangeable{
 
     public static final String BASIC_TURTLE_NAME = "Basic Turtle Image";
     public static final String ADVANCED_TURTLE_NAME = "Advanced Turtle Image";
@@ -30,8 +26,12 @@ public abstract class DisplayView extends ImageView {
     private Pen myPen;
     private GraphicsContext myContext;
     protected List<Move> myMoveHistory;
-    private ContextMenu myContextMenu;
-    private int myIndex;
+    private Consumer<String> myCommandAccess;
+    private Consumer<DisplayView> myTabAccess;
+    private DisplayViewContextMenu myDisplayViewContextMenu;
+    private Language myLanguage;
+    private int myTurtleId;
+//    private int myIndex;
 
     public DisplayView(){
         this(new Image(TURTLE_IMAGE));
@@ -41,31 +41,11 @@ public abstract class DisplayView extends ImageView {
         super(image);
         setFitHeight(IMAGE_HEIGHT);
         setFitWidth(IMAGE_WIDTH);
-        myIndex = 0;
+//        myIndex = 0;
         myPen = new Pen(true, Color.BLACK, PenStyle.DASHED, 2.0);
         myMoveHistory = new ArrayList<>();
         this.managedProperty().bind(this.visibleProperty());
         setRotate(0);
-        initalizeContextMenu();
-        this.setOnMouseClicked(e -> myContextMenu.show(this, e.getSceneX(),e.getSceneY()));
-    }
-
-    private void initalizeContextMenu(){
-        myContextMenu = new ContextMenu();
-        MenuItem item1 = new MenuItem("About");
-        item1.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                System.out.println("About");
-            }
-        });
-        MenuItem item2 = new MenuItem("Preferences");
-        item2.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                System.out.println("Preferences");
-            }
-        });
-        myContextMenu.getItems().addAll(item1, item2);
-
     }
 
     public DisplayView(Canvas canvas){
@@ -74,17 +54,25 @@ public abstract class DisplayView extends ImageView {
         myContext = myCanvas.getGraphicsContext2D();
     }
 
+    public DisplayView(DisplayView displayView, Canvas canvas){
+        this(displayView.getImage(), canvas);
+    }
+
     public DisplayView(Image image, Canvas canvas){
         this(image);
         myCanvas = canvas;
         myContext = myCanvas.getGraphicsContext2D();
     }
 
+    public DisplayView(DisplayView displayView){
+        this(displayView, displayView.getImage());
+    }
+
     public DisplayView(DisplayView displayView, Image image){
         this(image, displayView.myCanvas);
         copyMoveHistoryAndPen(displayView);
         copyPositionAndOrientation(displayView);
-        myIndex = displayView.myIndex;
+//        myIndex = displayView.myIndex;
     }
 
     private void copyPositionAndOrientation(DisplayView displayView) {
@@ -101,19 +89,19 @@ public abstract class DisplayView extends ImageView {
     public void addMove(Move turtleMove){
         myMoveHistory.add(turtleMove);
     }
-
-    public void addAllMoves(List<Move> turtleMoves){
-        myMoveHistory.addAll(turtleMoves);
-    }
-
-    public void clearMoves(){
-        myMoveHistory.clear();
-    }
-
-    public void makeMove(Move move){
-        updatePen(move);
-        drawPath(move);
-    }
+//
+//    public void addAllMoves(List<Move> turtleMoves){
+//        myMoveHistory.addAll(turtleMoves);
+//    }
+//
+//    public void clearMoves(){
+//        myMoveHistory.clear();
+//    }
+//
+//    public void makeMove(Move move){
+//        updatePen(move);
+//        drawPath(move);
+//    }
 
     private void updatePosition(Move move) {
         setTranslateX(move.getDisplacement().getX());
@@ -131,20 +119,21 @@ public abstract class DisplayView extends ImageView {
             myContext.stroke();
         }
         myContext.closePath();
+//        updateTab();
     }
 
-    public void drawPath(){
-        for (Move move : myMoveHistory){
-            makeMove(move);
-        }
-    }
+//    public void drawPath(){
+//        for (Move move : myMoveHistory){
+//            makeMove(move);
+//        }
+//    }
 
-    private void updatePen(Move move) {
-        myPen.setDown(move.isPenDown());
-        myPen.setMyColor(move.getPenColor());
-        myPen.setMyStyle(move.getPathStyle());
-        myPen.setMyWidth(move.getPenWidth());
-    }
+//    private void updatePen(Move move) {
+//        myPen.setDown(move.isPenDown());
+//        myPen.setMyColor(move.getPenColor());
+//        myPen.setMyStyle(move.getPathStyle());
+//        myPen.setMyWidth(move.getPenWidth());
+//    }
 
     public List<String> getPossibleImages() {
         return possibleImages;
@@ -155,13 +144,10 @@ public abstract class DisplayView extends ImageView {
     }
 
     public void turtleMove(double deltaX, double deltaY) {
-//        System.out.println(pixels);;
-//        double orientation = Math.toRadians(getRotate());
-//        double deltaX = pixels * Math.sin(orientation);
-//        double deltaY = - pixels * Math.cos(orientation);
         System.out.println(getTranslateX() + " " + deltaX + "");
         moveTo(new Point2D(getTranslateX() + deltaX, getTranslateY() + deltaY));
         System.out.println(getTranslateY());
+        updateTab();
     }
 
     private void moveTo(Point2D newLocation){
@@ -183,10 +169,66 @@ public abstract class DisplayView extends ImageView {
 
     public void goHome() {
         moveTo(new Point2D(0,0));
-        setRotate(0);
+//        setRotate(0);
     }
 
     public void turn(double degrees) {
         setRotate(getRotate() + degrees);
+        updateTab();
     }
+
+    @Override
+    public void giveAbilityToRunCommands(Consumer<String> commandAccess) {
+        myCommandAccess = commandAccess;
+        if (myLanguage == null){
+            myLanguage = Language.ENGLISH;
+        }
+        myDisplayViewContextMenu = new DisplayViewContextMenu(myLanguage, commandAccess);
+        setOnContextMenuRequested(e -> myDisplayViewContextMenu.show(this, e.getSceneX(), e.getSceneY()));
+    }
+
+    public void giveTabAccess(Consumer<DisplayView> tabAccess){
+        myTabAccess = tabAccess;
+        setOnMouseClicked(e -> updateTab());
+    }
+
+    @Override
+    public void runCommand(String command) {
+        myCommandAccess.accept(command);
+    }
+
+    @Override
+    public void setLanguage(Language language){
+        myLanguage = language;
+        if (myDisplayViewContextMenu != null) {
+            myDisplayViewContextMenu.setLanguage(language);
+        }
+    }
+
+    public void setTurtleId(int id){
+        myTurtleId = id;
+    }
+
+    public int getTurtleId(){
+        return myTurtleId;
+    }
+
+    private void updateTab(){
+        myTabAccess.accept(this);
+    }
+
+    public void setPenColor(Color color){
+        myPen.setMyColor(color);
+        updateTab();
+    };
+
+    public void setPenWidth(double pixels){
+        myPen.setMyWidth(pixels);
+        updateTab();
+    };
+
+    public void setPenDown(boolean isDown){
+        myPen.setDown(isDown);
+        updateTab();
+    };
 }

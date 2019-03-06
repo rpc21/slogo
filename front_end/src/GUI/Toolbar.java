@@ -7,26 +7,31 @@ import javafx.scene.paint.Paint;
 
 import java.util.function.Consumer;
 
-public class Toolbar extends HBox implements GUIComponent {
+public class Toolbar extends HBox implements GUIComponent, LanguageChangeable {
 
+    private static final String TURTLE_ICON = "TurtleIcon";
     private ImageChooser<String> myImageChooser;
     private PenColorChooser myPenColorChooser;
     private BackgroundColorChooser myBackgroundColorChooser;
     private LanguageChooser myLanguageChooser;
+    private Language myLanguage;
 
     public Toolbar(){
         super();
+        myLanguage = Language.ENGLISH;
         setPadding(new Insets(10, 10, 10, 10));
         setSpacing(10);
     }
 
-    public Toolbar(Consumer<Color> backgroundColorAccess, Consumer<Paint> penColorAccess, Consumer<String> iconAccess){
+    public Toolbar(Consumer<Color> backgroundColorAccess, Consumer<Paint> penColorAccess, Consumer<String> iconAccess
+            , Consumer<Language> languageAccess){
         this();
       //  myLanguageChooser = createLanguageChooser();
         myBackgroundColorChooser = new BackgroundColorChooser(backgroundColorAccess);
         myPenColorChooser = new PenColorChooser(penColorAccess);
         myImageChooser = createImageChooser(iconAccess);
-        getChildren().addAll(myBackgroundColorChooser, myPenColorChooser, myImageChooser);
+        myLanguageChooser = new LanguageChooser(languageAccess);
+        getChildren().addAll(myBackgroundColorChooser, myPenColorChooser, myImageChooser, myLanguageChooser);
     }
 
     private ImageChooser<String> createImageChooser(Consumer<String> iconAccess) {
@@ -43,6 +48,12 @@ public class Toolbar extends HBox implements GUIComponent {
 
     public LanguageChooser getMyLanguageChooser(){
         return myLanguageChooser;
+    }
+
+    @Override
+    public void setLanguage(Language newLanguage) {
+        myLanguage = newLanguage;
+        myImageChooser.setPromptText(myLanguage.getTranslatedWord(TURTLE_ICON));
     }
 
 //    private LanguageChooser createLanguageChooser() {
