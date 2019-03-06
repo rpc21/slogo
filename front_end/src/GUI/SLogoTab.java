@@ -7,7 +7,7 @@ import javafx.scene.layout.VBox;
 
 public class SLogoTab extends Tab implements GUIComponent{
 
-    private GUIdata guIdata;
+    protected GUIdata guiData;
     private String myClickedCommand;
     VBox myVBoxOfStrings;
     ScrollPane myScrollPane;
@@ -18,11 +18,14 @@ public class SLogoTab extends Tab implements GUIComponent{
         setContent(myScrollPane);
     }
 
+    public SLogoTab(String tabTitle){
+        this();
+        setText(tabTitle);
+    }
+
     public SLogoTab(String tabTitle, GUIdata data){
-        super(tabTitle);
-        guIdata = data;
-        initializeScrollPane();
-        setContent(myScrollPane);
+        this(tabTitle);
+        guiData = data;
     }
 
     private void initializeScrollPane() {
@@ -38,7 +41,7 @@ public class SLogoTab extends Tab implements GUIComponent{
         contents.setOnMouseClicked(event -> {
             System.out.println(contents.getText());
             myClickedCommand = contents.getText();
-            guIdata.setMyTextToUpdate(contents.getText());
+            guiData.setMyTextToUpdate(contents.getText());
         });
         myVBoxOfStrings.getChildren().add(0, contents);
 //        addContents(new Label(newContents));
@@ -47,5 +50,9 @@ public class SLogoTab extends Tab implements GUIComponent{
     public void addContents(Label newContents){
         newContents.setWrapText(true);
         myVBoxOfStrings.getChildren().add(0, newContents);
+    }
+
+    public void clearContents(){
+        myVBoxOfStrings.getChildren().clear();
     }
 }

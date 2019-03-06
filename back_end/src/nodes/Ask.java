@@ -3,7 +3,6 @@ package nodes;
 import apis.ImmutableVisualCommand;
 import turtle.Bale;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Ask extends MultipleTurtle{

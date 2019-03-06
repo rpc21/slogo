@@ -1,14 +1,16 @@
 package nodes;
 
-import apis.CanvasAPI;
+import apis.VisualUpdateAPI;
 
 public class VisualTurtleShape extends VisualCommand {
-    double myIndex;
-    public VisualTurtleShape(int index){
+    private int myID;
+    private int myIndex;
+    public VisualTurtleShape(int id, int index){
+        myID = id;
         myIndex = index;
     }
     @Override
-    public void execute(CanvasAPI myCanvas) {
-
+    public void execute(VisualUpdateAPI myCanvas) {
+        myCanvas.setShape(myID,myIndex);
     }
 }

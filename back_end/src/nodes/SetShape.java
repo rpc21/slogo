@@ -13,9 +13,11 @@ public class SetShape extends CommandNode {
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
         int index = (int)super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
-        for (Turtle t: myTurtles.getActiveTurtles())
-            t.setShape(index);
-        myVisCommands.add(new VisualBackgroundColor(index));
+
+        for (Integer id: myTurtles.getActiveTurtlesIDs()) {
+            myVisCommands.add(new VisualTurtleShape(id,index));
+            myTurtles.get(id).setShape(index);
+        }
         return index;
     }
     @Override

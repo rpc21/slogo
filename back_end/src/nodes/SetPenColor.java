@@ -12,8 +12,10 @@ public class SetPenColor extends CommandNode {
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
         int index = (int)super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
-        myTurtles.get(0).setPenColor(index);
-        myVisCommands.add(new VisualBackgroundColor(index));
+        for (Integer id: myTurtles.getActiveTurtlesIDs()) {
+            myTurtles.get(id).setPenColor(index);
+            myVisCommands.add(new VisualPenColor(id,index));
+        }
         return index;
     }
     @Override

@@ -13,9 +13,11 @@ public class Home extends CommandNode {
      */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
-        myTurtles.get(0).setXCoor(0);
-        myTurtles.get(0).setYCoor(0);
-        myVisCommands.add(new VisualHomeTurtle());
+        for (Integer id: myTurtles.getActiveTurtlesIDs()) {
+            myTurtles.get(id).setXCoor(0);
+            myTurtles.get(id).setYCoor(0);
+            myVisCommands.add(new VisualHomeTurtle(id));
+        }
         return 0;
     }
     @Override

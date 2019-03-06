@@ -22,7 +22,9 @@ public class GUIController {
         myDisplay = display;
         myDisplay.setUpRunButton(myExecuteFunction);
     }
+
     public void execute(String command, String language) throws InvalidCommandException, InvalidVariableException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, InvalidListException, NothingToRunException {
+
         double answer = myController.execute(command, language);
 
         myDisplay.executeVisualCommands(myController.getMyVisualCommands());

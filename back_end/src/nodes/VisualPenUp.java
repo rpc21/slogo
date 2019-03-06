@@ -1,9 +1,14 @@
 package nodes;
-import apis.CanvasAPI;
+
+import apis.VisualUpdateAPI;
 
 public class VisualPenUp extends VisualCommand {
+    private int myID;
+    public VisualPenUp(int id){
+        myID = id;
+    }
     @Override
-    public void execute(CanvasAPI myCanvas) {
-        myCanvas.setPenUp();
+    public void execute(VisualUpdateAPI myCanvas) {
+        myCanvas.setPenUp(myID);
     }
 }

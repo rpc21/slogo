@@ -1,14 +1,14 @@
 package nodes;
 
-import apis.CanvasAPI;
+import apis.VisualUpdateAPI;
 
 public class VisualBackgroundColor extends VisualCommand {
-    double myIndex;
+    int myIndex;
     public VisualBackgroundColor(int index){
         myIndex = index;
     }
     @Override
-    public void execute(CanvasAPI myCanvas) {
-
+    public void execute(VisualUpdateAPI myCanvas) {
+        myCanvas.setBackgroundColor(myIndex);
     }
 }
