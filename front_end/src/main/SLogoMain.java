@@ -1,8 +1,8 @@
 package main;
 
 
-import GUI.GUIController;
-import GUI.GUIDisplay;
+import GUI.GUI.GUIController;
+import GUI.GUI.GUIDisplay;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
