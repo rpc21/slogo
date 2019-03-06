@@ -12,6 +12,6 @@ public class VisualAddVariable extends VisualCommand {
 
     @Override
     public void execute(VisualUpdateAPI myCanvas) {
-        //myCanvas.addVariable(myName,myValue);
+        myCanvas.addVariable(myName,myValue);
     }
 }
