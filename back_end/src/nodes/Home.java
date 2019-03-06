@@ -16,7 +16,7 @@ public class Home extends CommandNode {
         for (Integer id: myTurtles.getActiveTurtlesIDs()) {
             myTurtles.get(id).setXCoor(0);
             myTurtles.get(id).setYCoor(0);
-            myTurtles.get(id).setHeading(0);
+            myTurtles.get(id).setHeading(0.0);
             myVisCommands.add(new VisualTurtlePosition(id,0,0));
             myVisCommands.add(new VisualTurtleHeading(id,0));
         }

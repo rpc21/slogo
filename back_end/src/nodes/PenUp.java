@@ -5,17 +5,16 @@ import turtle.Bale;
 
 import java.util.List;
 
-public class PenUp extends CommandNode {
+public class PenUp extends TurtleCommand {
+    private static final String methodName = "setPen";
     public PenUp(String name){
         super(name);
     }
 
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
-        for (Integer id: myTurtles.getActiveTurtlesIDs()) {
-            myTurtles.get(id).setPenState(true);
-            myVisCommands.add(new VisualPenUp(id));
-        }
-        return 1;
+        super.setMyTurtleCommands(methodName);
+        myVisCommands.addAll(super.invokeTurtles(new Object[]{0},myTurtles));
+        return 0;
     }
 }

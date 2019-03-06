@@ -17,13 +17,11 @@ public class SetPosition extends CommandNode {
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
         double newXCoor = super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
         double newYCoor = super.getChildren().get(1).evaluate(myVisCommands, myTurtles);
-        double distance = 0;
-        for (Integer id: myTurtles.getActiveTurtlesIDs()) {
-            myVisCommands.add(new VisualTurtlePosition(id,newXCoor,newYCoor));
-            distance = Math.pow(Math.abs(myTurtles.get(0).getXCoor() - newXCoor),2)  + Math.pow(Math.abs(myTurtles.get(0).getYCoor() - newYCoor),2);
-            myTurtles.get(id).setXCoor(newXCoor);
-            myTurtles.get(id).setYCoor(newYCoor);
-        }
+        double oldXCoor = myTurtles.getLastActiveTurtle().getXCoor();
+        double oldYCoor = myTurtles.getLastActiveTurtle().getYCoor();
+
+        double distance = Math.pow(Math.abs(oldXCoor - newXCoor),2)  +
+                Math.pow(Math.abs(oldYCoor - newYCoor),2);
         return distance;
     }
     @Override

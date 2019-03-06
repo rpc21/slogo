@@ -11,6 +11,6 @@ public class GetPenColor extends CommandNode{
     }
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
-        return myTurtles.get(0).getPenColor();
+        return myTurtles.get(myTurtles.getActiveID()).getPenColor();
     }
 }

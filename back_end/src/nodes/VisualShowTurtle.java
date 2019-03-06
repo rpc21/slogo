@@ -7,6 +7,6 @@ public class VisualShowTurtle extends VisualCommand {
         myID = id;
     }
     public void execute(VisualUpdateAPI myCanvas){
-        myCanvas.hideTurtle(myID);
+        myCanvas.showTurtle(myID);
     }
 }
