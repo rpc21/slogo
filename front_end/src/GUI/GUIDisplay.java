@@ -3,6 +3,8 @@ package GUI;
 import apis.ImmutableVisualCommand;
 
 import apis.VisualUpdateAPI;
+import exceptions.InvalidCommandException;
+import exceptions.InvalidListException;
 import exceptions.InvalidVariableException;
 import javafx.geometry.Insets;
 import javafx.geometry.Side;
@@ -207,12 +209,8 @@ public class GUIDisplay implements VisualUpdateAPI {
             myError.setText("");
             try {
                 ref.executeCurrentCommand(commandToExecute, myLanguage);
-            } catch(exceptions.InvalidCommandException e) {
-                myError.setText("Invalid Command: " + e.getReason());
-            } catch(exceptions.NothingToRunException e){
-                myError.setText("There is nothing here to run");
-            } catch (InvalidVariableException e) {
-                //todo: ADD ERROR MESSAGE!!!!
+            } catch(exceptions.InvalidInputException e) {
+                myError.setText(e.getReason());
             } catch (InstantiationException e) {
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
