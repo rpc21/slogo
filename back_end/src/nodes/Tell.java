@@ -3,22 +3,35 @@ package nodes;
 import turtle.Bale;
 import apis.ImmutableVisualCommand;
 import turtle.Turtle;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class Tell extends MultipleTurtle {
+public class Tell extends CommandNode {
     public Tell(String a){
         super(a);
     }
 
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles){
         CommandNode myListNode = myChildren.get(0);
-        List<Integer> myTurtleIDs = super.getSortedTurtleIDs(myListNode,myVisCommands,myTurtles);
-        int maxTurtleID = myTurtleIDs.get(myTurtleIDs.size() - 1);
-        int currMaxTurtleID = myTurtles.size() -1;
-        myVisCommands.add(new VisualMakeTurtles(maxTurtleID - myTurtles.size() + 1));
-        for (int iter = myTurtles.size() -1; iter < maxTurtleID; iter++)
-            myTurtles.add(new Turtle(iter));
-        return currMaxTurtleID;
+        List<Integer> myTurtleIDs = new ArrayList<>();
+        double ret = 0.0;
+        int maxID = -1;
+
+        for (CommandNode c: myListNode.getChildren()) {
+            ret = c.evaluate(myVisCommands, myTurtles);
+            myTurtleIDs.add((int)ret);
+            if (((int)ret) > maxID)
+                maxID = (int)ret;
+        }
+
+        int currentTurtleCount = myTurtles.size();
+        myTurtles.makeTurtlesUpTo(maxID);
+        myTurtles.setActiveTurtles(myTurtleIDs);
+
+        if (currentTurtleCount != myTurtles.size())
+            myVisCommands.add(new VisualTurtleTell(myTurtles.size()-currentTurtleCount));
+        return ret;
     }
 
     public void addChild(CommandNode c){
