@@ -21,7 +21,7 @@ public class Tell extends CommandNode {
 
         for (CommandNode c: myListNode.getChildren()) {
             ret = c.evaluate(myVisCommands, myTurtles);
-            myTurtleIDs.add((int)ret);
+            myTurtleIDs.add((int)ret - 1);
             if (((int)ret) > maxID)
                 maxID = (int)ret;
         }
