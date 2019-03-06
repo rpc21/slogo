@@ -22,6 +22,7 @@ public class MakeVariable extends CommandNode{
         String varName = super.getChildren().get(0).getName();
         double varValue = super.getChildren().get(1).evaluate(myVisCommands, myTurtles);
         myAddVarFunction.addNewVariable(varName,varValue);
+        myVisCommands.add(new VisualAddVariable(varName,varValue));
         return varValue;
     }
 
