@@ -24,6 +24,7 @@ public class GUIDisplay implements VisualUpdateAPI {
     public static final String CLEAR = "Clear";
     public static final String HELP = "Help";
     public static final String RUN = "Run";
+    public static final String CLEAR_SCREEN = "ClearScreen";
     //    public static final String DEFAULT_LANGUAGE = "English";
     private Stage myStage;
     private Scene myScene;
@@ -63,6 +64,9 @@ public class GUIDisplay implements VisualUpdateAPI {
     private List<LanguageChangeable> languageChangeableComponents;
     private TurtleViewTabExplorer myTurtleViewTabExplorer;
     private GUIExecute myGUIExecute;
+    private NewWindowButton myNewWindowButton;
+    private List<String> myListOfCommands;
+    private UndoButton myUndoButton;
 
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
@@ -74,6 +78,7 @@ public class GUIDisplay implements VisualUpdateAPI {
 //            myLanguage = x;
 //            updateLanguage(x);
 //        };
+        myListOfCommands = new ArrayList<>();
         myRoot = createGridPane();
 //        myTurtleViewTabExplorer = new TurtleViewTabExplorer();
 //        myStackedCanvasPane.grantTabAccess(myTurtleViewTabExplorer.getTabAccess());
@@ -105,6 +110,11 @@ public class GUIDisplay implements VisualUpdateAPI {
         makeCommandLine(grid);
         initializeButtons(grid);
         createRightSidePane(grid);
+        createTabExplorers(grid);
+        createColorPalette(grid);
+        createTurtlePalette(grid);
+        makeNewWindowButton(grid);
+        makeUndoButton(grid);
         grid.setPrefSize(SCENE_WIDTH, SCENE_HEIGHT);
         myCurrentGUIGrid = grid;
         return grid;
@@ -129,6 +139,23 @@ public class GUIDisplay implements VisualUpdateAPI {
     private void createPalettes(GridPane grid) {
         createColorPalette(grid);
         createTurtlePalette(grid);
+    }
+
+    private void makeUndoButton(GridPane grid){
+        myUndoButton = new UndoButton("Undo");
+        myUndoButton.setOnMouseClicked(event ->{
+            undoCommand();
+        });
+        grid.add(myUndoButton, 3, 0);
+    }
+
+    private void makeNewWindowButton(GridPane grid){
+        myNewWindowButton = new NewWindowButton("+");
+        grid.add(myNewWindowButton, 2,0);
+    }
+
+    public Button getNewWindowButton(){
+        return myNewWindowButton;
     }
 
     private void createTurtlePalette(GridPane grid){
@@ -269,7 +296,7 @@ public class GUIDisplay implements VisualUpdateAPI {
 //            } catch (InvalidVariableException e) {
 //                //TODO: ADD ERROR MESSAGE!!!!
 //            }
-//            addToCommandHistory(commandToExecute);
+            addToCommandHistory(commandToExecute);
         });
         return button;
     }
@@ -288,17 +315,32 @@ public class GUIDisplay implements VisualUpdateAPI {
         } catch (InvalidVariableException e) {
             //todo: ADD ERROR MESSAGE!!!!
         }
-        myTabExplorer.addToCommandHistory(commandToExecute);
+//        myTabExplorer.addToCommandHistory(commandToExecute);
+        addToCommandHistory(commandToExecute);
     }
 
-//    private void addToCommandHistory(String command){
-//        myCommands.addContents(command);
-//    }
+
+    private void addToCommandHistory(String command){
+        myTabExplorer.addToCommandHistory(command);
+        myListOfCommands.add(command);
+    }
 
     private Consumer<Void> helpMenuConsumer =  (x) -> {
         Alert help = showHelpMenu();
         help.show();
     };
+
+    private void undoCommand(){
+        try {
+            myListOfCommands.remove(myListOfCommands.size() - 1);
+            runCommand(myGUIExecute, myLanguage.getTranslatedWord(CLEAR_SCREEN));
+            for(String command : myListOfCommands){
+                runCommand(myGUIExecute, command);
+            }
+        } catch (Exception e) {
+            myError.setText("Nothing to undo");
+        }
+    }
 
     private Alert showHelpMenu(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

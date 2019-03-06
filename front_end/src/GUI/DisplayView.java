@@ -168,7 +168,7 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
 
     public void goHome() {
         moveTo(new Point2D(0,0));
-        setRotate(0);
+//        setRotate(0);
     }
 
     public void turn(double degrees) {
