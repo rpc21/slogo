@@ -16,6 +16,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
@@ -57,11 +58,14 @@ public class GUIDisplay implements VisualUpdateAPI {
     private ContextMenu myContextMenu;
     private GUIExecute myGUIExecute;
     private NewWindowButton myNewWindowButton;
+    private List<String> myListOfCommands;
+    private UndoButton myUndoButton;
 
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
         myResources = ResourceBundle.getBundle(myLanguage);
         myStage = stage;
+        myListOfCommands = new ArrayList<>();
         myLanguageConsumer = (x) -> {
             myLanguage = x;
             updateLanguage(x);
@@ -94,9 +98,18 @@ public class GUIDisplay implements VisualUpdateAPI {
         createColorPalette(grid);
         createTurtlePalette(grid);
         makeNewWindowButton(grid);
+        makeUndoButton(grid);
         grid.setPrefSize(SCENE_WIDTH, SCENE_HEIGHT);
         myCurrentGUIGrid = grid;
         return grid;
+    }
+
+    private void makeUndoButton(GridPane grid){
+        myUndoButton = new UndoButton("Undo");
+        myUndoButton.setOnMouseClicked(event ->{
+            undoCommand();
+        });
+        grid.add(myUndoButton, 3, 0);
     }
 
     private void makeNewWindowButton(GridPane grid){
@@ -254,12 +267,25 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     private void addToCommandHistory(String command){
         myCommands.addContents(command);
+        myListOfCommands.add(command);
     }
 
     private Consumer<Void> helpMenuConsumer =  (x) -> {
         Alert help = showHelpMenu();
         help.show();
     };
+
+    private void undoCommand(){
+        try {
+            myListOfCommands.remove(myListOfCommands.size() - 1);
+            executeCommand("cs", myGUIExecute);
+            for(String command : myListOfCommands){
+                executeCommand(command, myGUIExecute);
+            }
+        } catch (Exception e) {
+            myError.setText("Nothing to undo");
+        }
+    }
 
     private Alert showHelpMenu(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
