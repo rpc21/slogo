@@ -2,11 +2,13 @@
 
 
 package parser.external;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 import apis.ImmutableVisualCommand;
 import exceptions.InvalidCommandException;
+import exceptions.InvalidListException;
 import exceptions.InvalidVariableException;
 import exceptions.NothingToRunException;
 import nodes.CommandNode;
@@ -32,18 +34,13 @@ public class CommandController {
         myVisualCommands = new ArrayList<>();
     }
 
-    public double execute(String command, String language) throws InvalidCommandException, NothingToRunException, InvalidVariableException {
+    public double execute(String command, String language) throws InvalidCommandException, NothingToRunException, InvalidVariableException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, InvalidListException {
         updateLanguage(language);
         CommandNode myNode;
         double ret = 0;
         myVisualCommands.clear();
-        try {
-            for (CommandNode a: myParser.parse(command)) {
-                ret = a.evaluate(myVisualCommands,myTurtles);
-            }
-            //myNode = myParser.parse(command).get(0); // note of change! This is changed now because their could be many commands in a list that come from a parser.
-        } catch (IndexOutOfBoundsException e) {
-            throw new NothingToRunException();
+        for (CommandNode a : myParser.parse(command)) {
+            ret = a.evaluate(myVisualCommands, myTurtles);
         }
         return ret;
     }

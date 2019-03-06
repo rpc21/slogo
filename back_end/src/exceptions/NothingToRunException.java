@@ -1,5 +1,5 @@
 package exceptions;
 
-public class NothingToRunException extends RuntimeException {
+public class NothingToRunException extends InvalidInputException {
 
 }
