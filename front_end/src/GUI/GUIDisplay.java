@@ -56,6 +56,7 @@ public class GUIDisplay implements VisualUpdateAPI {
     private TurtlePalette myTurtlePalette;
     private ContextMenu myContextMenu;
     private GUIExecute myGUIExecute;
+    private NewWindowButton myNewWindowButton;
 
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
@@ -92,11 +93,21 @@ public class GUIDisplay implements VisualUpdateAPI {
         createTabExplorer(grid);
         createColorPalette(grid);
         createTurtlePalette(grid);
+        makeNewWindowButton(grid);
         grid.setPrefSize(SCENE_WIDTH, SCENE_HEIGHT);
         myCurrentGUIGrid = grid;
         return grid;
     }
-    
+
+    private void makeNewWindowButton(GridPane grid){
+        myNewWindowButton = new NewWindowButton("+");
+        grid.add(myNewWindowButton, 2,0);
+    }
+
+    public Button getNewWindowButton(){
+        return myNewWindowButton;
+    }
+
     private void createTurtlePalette(GridPane grid){
         myTurtlePalette = new TurtlePalette();
         myTurtlePalette.addPaletteElement(new TurtlePaletteElement(1, "BasicTurtleView"));
@@ -223,7 +234,7 @@ public class GUIDisplay implements VisualUpdateAPI {
 //            } catch (InvalidVariableException e) {
 //                //TODO: ADD ERROR MESSAGE!!!!
 //            }
-//            addToCommandHistory(commandToExecute);
+            addToCommandHistory(commandToExecute);
         });
         return button;
     }
