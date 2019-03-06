@@ -107,4 +107,8 @@ public class TabExplorer extends TabPane implements GUIComponent, CommandExecuta
     public void clearCommandHistory() {
         myCommands.clearContents();
     }
+
+    public void addVariable(String name, Double val) {
+        myVariables.addContents(name + " " + val);
+    }
 }
