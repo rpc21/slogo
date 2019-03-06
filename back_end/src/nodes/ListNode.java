@@ -17,6 +17,7 @@ public class ListNode extends CommandNode {
             ret = c.evaluate(myVisCommands, myTurtles);
        return ret;
     }
+
     /*
       * ListNode can have an unlimited number of children
      */

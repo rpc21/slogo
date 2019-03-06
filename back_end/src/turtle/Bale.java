@@ -17,7 +17,7 @@ public class Bale extends ArrayList<Turtle> {
     public Bale(){
         myActiveID = 0;
     }
-    public List<Turtle> getActiveTurtles(){
+    private List<Turtle> getActiveTurtles(){
         List<Turtle> activeTurtles = new ArrayList<>();
         for (Turtle t: this) {
             if (t.isActive())
@@ -25,11 +25,10 @@ public class Bale extends ArrayList<Turtle> {
         }
         return activeTurtles;
     }
-    public List<Integer> getActiveTurtlesIDs(){
-        List<Integer> myActiveTurtleIDs = new ArrayList<>();
-        for (Turtle t: getActiveTurtles())
-            myActiveTurtleIDs.add(t.getID());
-        return myActiveTurtleIDs;
+
+    public void makeTurtlesUpTo(int maxID){
+        for (int k = size(); k < maxID; k++)
+            this.add(new Turtle(k));
     }
 
     public void setActiveTurtles(List<Integer> myTurtleIDs){
@@ -60,7 +59,7 @@ public class Bale extends ArrayList<Turtle> {
         return this.get(size() - 1);
     }
 
-    public void setActiveID(int id){
+    private void setActiveID(int id){
         myActiveID = id;
     }
 
