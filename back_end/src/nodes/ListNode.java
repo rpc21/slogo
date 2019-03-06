@@ -14,9 +14,10 @@ public class ListNode extends CommandNode {
     public double evaluate(java.util.List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
         double ret = 0;
         for (CommandNode c: super.getChildren())
-            ret = c.evaluate(myVisCommands,myTurtles);
+            ret = c.evaluate(myVisCommands, myTurtles);
        return ret;
     }
+
     /*
       * ListNode can have an unlimited number of children
      */

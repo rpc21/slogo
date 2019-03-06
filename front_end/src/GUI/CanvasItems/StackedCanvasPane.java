@@ -224,4 +224,10 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
             turtle.giveTabAccess(tabAccess);
         }
     }
+
+    public void addTurtles(int numTurtles) {
+        for (int i = 0; i < numTurtles; i++){
+            makeTurtle();
+        }
+    }
 }
