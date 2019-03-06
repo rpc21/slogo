@@ -13,6 +13,7 @@ public class Tell extends CommandNode {
     }
 
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles){
+        System.out.println("TELL COMMAND WAS CREATED AND EVALUATED");
         CommandNode myListNode = myChildren.get(0);
         List<Integer> myTurtleIDs = new ArrayList<>();
         double ret = 0.0;

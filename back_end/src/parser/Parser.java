@@ -59,6 +59,7 @@ public class Parser {
             currentNode.addChild(myCommandFactory.makeCommand(Double.parseDouble(child)));
         } else if(myValidator.isListStart(child)) {
             currentNode.addChild(makeListTree(child));
+            System.out.println("ADDED CHILDREN");
         } else {
             currentNode.addChild(makeNodeTree());
         }
@@ -70,12 +71,11 @@ public class Parser {
             throw new InvalidListException();
         }
         CommandNode parent = myCommandFactory.makeCommand("ListNode");
-        System.out.println(child);
         updateMyCurrentCommand();
         String[] splitCommand = myCurrentCommand.split("\\s");
         child = splitCommand[0];
         while(!myValidator.isListEnd(child)) {
-            System.out.println(child);
+            System.out.println("in while loop: " + child);
             addChild(parent, child);
             splitCommand = myCurrentCommand.split("\\s");
             child = splitCommand[0];
