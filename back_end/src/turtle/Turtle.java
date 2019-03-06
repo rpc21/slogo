@@ -102,7 +102,7 @@ public class Turtle {
         myYCoor = y;
         return new VisualTurtlePosition((int)myID , myXCoor, -1.0 * myYCoor);
     }
-    private ImmutableVisualCommand turn(double degrees){
+    private ImmutableVisualCommand turn(Double degrees){
         myHeading += degrees;
         checkHeading();
         return new VisualTurtleTurn((int)myID, degrees);

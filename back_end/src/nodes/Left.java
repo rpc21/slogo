@@ -10,7 +10,7 @@ public class Left extends TurtleCommand {
     public Left(String name){
         super(name);
     }
-    private static final String methodName = "setHeading";
+    private static final String methodName = "turn";
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
         double degrees = myChildren.get(0).evaluate(myVisCommands, myTurtles);

@@ -21,7 +21,7 @@ public class SetPosition extends TurtleCommand{
         double oldXCoor = myTurtles.getLastActiveTurtle().getXCoor();
         double oldYCoor = myTurtles.getLastActiveTurtle().getYCoor();
         super.setMyTurtleCommands(methodName);
-        super.invokeTurtles(new Object[]{newXCoor,newYCoor}, myTurtles);
+        myVisCommands.addAll(super.invokeTurtles(new Object[]{newXCoor,newYCoor}, myTurtles));
         double distance = Math.pow(Math.abs(oldXCoor - newXCoor),2)  +
                 Math.pow(Math.abs(oldYCoor - newYCoor),2);
         return distance;

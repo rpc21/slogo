@@ -17,7 +17,7 @@ public class SetHeading extends TurtleCommand {
         double degrees = super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
         double currHeading = myTurtles.getLastActiveTurtle().getHeading();
         super.setMyTurtleCommands(methodName);
-        super.invokeTurtles(new Object[]{degrees},myTurtles);
+        myVisCommands.addAll(super.invokeTurtles(new Object[]{degrees},myTurtles));
         return Math.abs(currHeading - degrees);
     }
     @Override

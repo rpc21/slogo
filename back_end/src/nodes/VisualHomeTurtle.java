@@ -8,5 +8,6 @@ public class VisualHomeTurtle extends VisualCommand {
     }
     public void execute(VisualUpdateAPI myCanvas){
         myCanvas.setLocation(myID, 0, 0);
+        myCanvas.setOrientation(myID, 0);
     }
 }

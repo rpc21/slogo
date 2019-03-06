@@ -17,7 +17,7 @@ public class Home extends TurtleCommand {
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
 
         super.setMyTurtleCommands(methodName);
-        super.invokeTurtles(new Object[]{},myTurtles);
+        myVisCommands.addAll(super.invokeTurtles(new Object[]{},myTurtles));
         return 0;
     }
     @Override
