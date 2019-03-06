@@ -3,6 +3,7 @@ package GUI;
 import apis.ImmutableVisualCommand;
 
 import exceptions.InvalidCommandException;
+import exceptions.InvalidListException;
 import exceptions.InvalidVariableException;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -13,6 +14,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
@@ -178,12 +180,18 @@ public class GUIDisplay {
             myError.setText("");
             try {
                 ref.executeCurrentCommand(commandToExecute, myLanguage);
-            } catch(exceptions.InvalidCommandException e) {
-                myError.setText("Invalid Command: " + e.getReason());
-            } catch(exceptions.NothingToRunException e){
-                myError.setText("There is nothing here to run");
-            } catch (InvalidVariableException e) {
-                //todo: ADD ERROR MESSAGE!!!!
+            } catch(exceptions.InvalidInputException e) {
+                myError.setText(e.getReason());
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
             }
             addToCommandHistory(commandToExecute);
         });
