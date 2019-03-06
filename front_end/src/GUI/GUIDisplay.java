@@ -60,10 +60,10 @@ public class GUIDisplay implements VisualUpdateAPI {
     private ColorPalette myColorPalette;
     private TurtlePalette myTurtlePalette;
     private ContextMenu myContextMenu;
-    private GUIExecute guiExecute;
     private List<CommandExecutable> commandExecutableComponents;
     private List<LanguageChangeable> languageChangeableComponents;
     private TurtleViewTabExplorer myTurtleViewTabExplorer;
+    private GUIExecute myGUIExecute;
 
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
@@ -132,22 +132,29 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     private void createTabExplorer(GridPane grid) {
         myTabExplorer = new TabExplorer();
-        myTabExplorer.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        myVariables = makeTab(VARIABLES, dataTracker, myResources, myTextBox);
+       // myTabExplorer.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+        myVariables = makeVariablesTab(VARIABLES, dataTracker, myResources, myTextBox);
         myMethods = makeTab(METHODS, dataTracker, myResources, myTextBox);
         myCommands = makeTab(COMMANDS, dataTracker, myResources, myTextBox);
 
-        for(int i = 0; i< 100; i++){
-            myVariables.addContents("Blank line");
-        }
-        myVariables.addContents("Sample variable one");
-        myVariables.addContents("practice variable two");
+        myVariables.addContents(":var1");
+        myVariables.addContents(":var2");
         myCommands.addContents("sample commmand");
         myMethods.addContents("sample method");
         myTabExplorer.getTabs().addAll(myVariables, myMethods, myCommands);
 //        languageChangeableComponents.add(myTabExplorer);
 //        commandExecutableComponents.add(myTabExplorer);
         grid.add(myTabExplorer, 2, 1, 2, 1);
+    }
+
+    private SLogoTab makeVariablesTab(String variables, GUIdata dataTracker, ResourceBundle myResources, TextArea myTextBox) {
+        SLogoTabVariables tab = new SLogoTabVariables(myResources.getString(variables), dataTracker);
+        tab.getContent().setOnMouseClicked(event -> {
+            //(dataTracker.getMyCommandToRun());
+            System.out.println("!!! " + dataTracker.getMyCommandToRun() + "!!!");
+            runCommand(myGUIExecute, dataTracker.getMyCommandToRun());
+        });
+        return tab;
     }
 
     private SLogoTab makeTab(String tabType, GUIdata data, ResourceBundle resources, TextArea commandLine){
@@ -222,13 +229,13 @@ public class GUIDisplay implements VisualUpdateAPI {
     }
 
     public void setUpRunButton(GUIExecute ref){
-        guiExecute = ref;
         for (LanguageChangeable component: languageChangeableComponents){
             component.setLanguage(Language.ENGLISH);
         }
         for (CommandExecutable component : commandExecutableComponents){
-            component.giveAbilityToRunCommands((x) -> runCommand(guiExecute, x));
+            component.giveAbilityToRunCommands((x) -> runCommand(myGUIExecute, x));
         }
+        myGUIExecute = ref;
         myRunButton = runButton(ref);
         myCurrentGUIGrid.add(myRunButton, 2, 7);
     }
@@ -239,6 +246,16 @@ public class GUIDisplay implements VisualUpdateAPI {
             commandToExecute = myTextBox.getText();
             myError.setText("");
             runCommand(ref, commandToExecute);
+//            try {
+//                ref.executeCurrentCommand(commandToExecute, myLanguage);
+//            } catch(exceptions.InvalidCommandException e) {
+//                myError.setText("Invalid Command: " + e.getReason());
+//            } catch(exceptions.NothingToRunException e){
+//                myError.setText("There is nothing here to run");
+//            } catch (InvalidVariableException e) {
+//                //TODO: ADD ERROR MESSAGE!!!!
+//            }
+//            addToCommandHistory(commandToExecute);
         });
         return button;
     }
@@ -246,11 +263,11 @@ public class GUIDisplay implements VisualUpdateAPI {
     private void runCommand(GUIExecute ref, String commandToExecute) {
         try {
             ref.executeCurrentCommand(commandToExecute, myLanguage.getLanguageString());
-        } catch(exceptions.InvalidCommandException e) {
+        } catch (exceptions.InvalidCommandException e) {
             myError.setText("Invalid Command: " + e.getReason());
-        } catch(exceptions.NothingToRunException e){
+        } catch (exceptions.NothingToRunException e) {
             String[] test = commandToExecute.split(" ");
-            if (test[0].equals("setshape")){
+            if (test[0].equals("setshape")) {
                 setShape(0, Integer.parseInt(test[1]));
             }
             myError.setText("There is nothing here to run");

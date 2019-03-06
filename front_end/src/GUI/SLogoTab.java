@@ -7,7 +7,7 @@ import javafx.scene.layout.VBox;
 
 public class SLogoTab extends Tab implements GUIComponent{
 
-    private GUIdata guiData;
+    protected GUIdata guiData;
     private String myClickedCommand;
     VBox myVBoxOfStrings;
     ScrollPane myScrollPane;

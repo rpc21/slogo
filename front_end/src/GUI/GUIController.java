@@ -10,6 +10,7 @@ public class GUIController {
     GUIExecute myExecuteFunction = new GUIExecute() {
         @Override
         public void executeCurrentCommand(String c, String language) throws InvalidCommandException, InvalidVariableException {
+
             execute(c, language);
         }
     };
@@ -19,6 +20,7 @@ public class GUIController {
         myDisplay.setUpRunButton(myExecuteFunction);
     }
     public void execute(String command, String language) throws InvalidCommandException, InvalidVariableException {
+
         double answer = myController.execute(command, language);
 
         myDisplay.executeVisualCommands(myController.getMyVisualCommands());
