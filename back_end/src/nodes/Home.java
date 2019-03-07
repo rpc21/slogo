@@ -2,7 +2,6 @@ package nodes;
 import apis.ImmutableVisualCommand;
 import turtle.Bale;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class Home extends TurtleCommand {

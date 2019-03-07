@@ -1,7 +1,10 @@
 package apis;
 
+import java.util.List;
+
 public interface VisualUpdateAPI {
     void addTurtles(int numTurtles);
+    void setActiveTurtles(List<Integer> activeTurtleIDs);
     void addVariable(String name, Double val);
     void turtleMove(int id, double x, double y);
     void turtleTurn(int id,double degrees);

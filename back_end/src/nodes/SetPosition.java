@@ -20,16 +20,18 @@ public class SetPosition extends TurtleCommand{
         double newYCoor = super.getChildren().get(1).evaluate(myVisCommands, myTurtles);
         double oldXCoor = myTurtles.getLastActiveTurtle().getXCoor();
         double oldYCoor = myTurtles.getLastActiveTurtle().getYCoor();
+
         super.setMyTurtleCommands(methodName);
         myVisCommands.addAll(super.invokeTurtles(new Object[]{newXCoor,newYCoor}, myTurtles));
-        double distance = Math.pow(Math.abs(oldXCoor - newXCoor),2)  +
+
+        return Math.pow(Math.abs(oldXCoor - newXCoor),2)  +
                 Math.pow(Math.abs(oldYCoor - newYCoor),2);
-        return distance;
     }
     @Override
     public void addChild(CommandNode c){
-        if (super.getChildren().size() == 2)
+        if (super.getChildren().size() == 2) {
             throw new IllegalArgumentException();
+        }
         super.addChild(c);
     }
 }

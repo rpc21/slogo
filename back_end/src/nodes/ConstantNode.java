@@ -22,5 +22,9 @@ public class ConstantNode extends CommandNode{
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles){
         return myValue;
     }
+    @Override
+    public void addChild(CommandNode c){
+        throw new IllegalArgumentException();
+    }
 
 }

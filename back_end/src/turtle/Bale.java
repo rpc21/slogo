@@ -1,9 +1,6 @@
 package turtle;
 
 import apis.ImmutableVisualCommand;
-import nodes.CommandNode;
-
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,36 +17,38 @@ public class Bale extends ArrayList<Turtle> {
     private List<Turtle> getActiveTurtles(){
         List<Turtle> activeTurtles = new ArrayList<>();
         for (Turtle t: this) {
-            if (t.isActive())
+            if (t.isActive()) {
                 activeTurtles.add(t);
+            }
         }
         return activeTurtles;
     }
 
     public void makeTurtlesUpTo(int maxID){
-        for (int k = size(); k < maxID; k++)
+        for (int k = size(); k < maxID; k++) {
             this.add(new Turtle(k));
+        }
     }
 
     public void setActiveTurtles(List<Integer> myTurtleIDs){
         for (Turtle t: this)
-            if (myTurtleIDs.contains(t.getID()))
+            if (myTurtleIDs.contains(t.getID())) {
                 t.setActive(true);
-            else
+            }
+            else {
                 t.setActive(false);
+            }
     }
-    public void setAllInactive(){
-        for (Turtle t: this)
-            t.setActive(false);
+    public void setMyActiveID(int id){
+        myActiveID = id;
     }
 
     public List<ImmutableVisualCommand> act(List<String> myTurtleMethods,  Object[] actualParams){
-        List<ImmutableVisualCommand> myVisCommands = new ArrayList<ImmutableVisualCommand>();
+        List<ImmutableVisualCommand> myVisCommands = new ArrayList<>();
         for (Turtle t: this.getActiveTurtles()) {
             setActiveID(t.getID());
             for (String m: myTurtleMethods) {
-                ImmutableVisualCommand vis = t.turtleAction(m, actualParams);
-                myVisCommands.add(vis);
+                myVisCommands.addAll(t.turtleAction(m, actualParams));
             }
         }
         return myVisCommands;
@@ -66,5 +65,6 @@ public class Bale extends ArrayList<Turtle> {
     public int getActiveID(){
         return myActiveID;
     }
+
 
 }
