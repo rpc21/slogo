@@ -1,10 +1,7 @@
 package parser.external;
 
 import apis.ImmutableVisualCommand;
-import exceptions.InvalidCommandException;
-import exceptions.InvalidListException;
-import exceptions.InvalidVariableException;
-import exceptions.NothingToRunException;
+import exceptions.*;
 import nodes.CommandNode;
 import parser.Parser;
 import parser.UserCreated;
@@ -31,7 +28,7 @@ public class CommandController {
         myVisualCommands = new ArrayList<>();
     }
 
-    public double execute(String command, String language) throws InvalidCommandException, NothingToRunException, InvalidVariableException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, InvalidListException {
+    public double execute(String command, String language) throws InvalidInputException {
         updateLanguage(language);
         CommandNode myNode;
         double ret = 0;

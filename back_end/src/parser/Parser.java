@@ -1,6 +1,7 @@
 package parser;
 
 import exceptions.InvalidCommandException;
+import exceptions.InvalidInputException;
 import exceptions.InvalidListException;
 import exceptions.InvalidVariableException;
 import nodes.CommandNode;
@@ -21,7 +22,7 @@ public class Parser {
         myValidator = new Validator();
     }
 
-    public List<CommandNode> parse(String input) throws NoSuchMethodException, InvocationTargetException, InvalidCommandException, InstantiationException, IllegalAccessException, InvalidVariableException, ClassNotFoundException, InvalidListException { // todo: throw invalidcommandexception and invalidnumberinputs exception
+    public List<CommandNode> parse(String input) throws InvalidInputException { // todo: throw invalidcommandexception and invalidnumberinputs exception
         myCurrentCommand = input;
         myCurrentCommand = myValidator.removeComments(input);
         List<CommandNode> topLevelCommands = new ArrayList<>();
@@ -31,7 +32,7 @@ public class Parser {
         return topLevelCommands;
     }
 
-    private CommandNode makeNodeTree() throws InvalidCommandException, InvalidVariableException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvalidListException { // todo: check for invalid number of inputs?
+    private CommandNode makeNodeTree() throws InvalidInputException { // todo: check for invalid number of inputs?
         String[] commandSplit = myCurrentCommand.trim().split("\\s+");
         String currentValue = commandSplit[0];
         String currentCommandKey = myValidator.getCommandKey(currentValue);
@@ -56,13 +57,13 @@ public class Parser {
         }
     }
 
-    private void addVariableChild(CommandNode currentNode, String child) throws InvalidVariableException {
+    private void addVariableChild(CommandNode currentNode, String child) throws InvalidInputException {
         myValidator.validateVariableName(child);
         currentNode.addChild(myCommandFactory.makeNameNode(child)); //
         updateMyCurrentCommand();
     }
 
-    private void addChild(CommandNode currentNode, String child) throws InvalidCommandException, InvalidVariableException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, InvalidListException {
+    private void addChild(CommandNode currentNode, String child) throws InvalidInputException {
         if (myValidator.isDouble(child)) {
             currentNode.addChild(myCommandFactory.makeCommand(Double.parseDouble(child)));
         } else if (myValidator.isListStart(child)) {
@@ -75,7 +76,7 @@ public class Parser {
         updateMyCurrentCommand();
     }
 
-    private CommandNode makeListTree() throws InvalidListException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvalidVariableException, InvalidCommandException {
+    private CommandNode makeListTree() throws InvalidInputException {
         if(myValidator.hasListEnd(myCurrentCommand)) {
             throw new InvalidListException();
         }

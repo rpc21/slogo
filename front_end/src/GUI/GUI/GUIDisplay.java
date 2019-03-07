@@ -231,8 +231,6 @@ public class GUIDisplay implements VisualUpdateAPI {
             ref.executeCurrentCommand(commandToExecute, myLanguage.getLanguageString());
         } catch(exceptions.InvalidInputException e) {
             myError.setText(e.getReason());
-        } catch (Exception e) {
-            myError.setText("Please Enter a Valid SLogo Command");
         }
         addToCommandHistory(commandToExecute);
     }
