@@ -66,7 +66,6 @@ public class GUIDisplay implements VisualUpdateAPI {
     private List<String> myListOfCommands;
     private UndoButton myUndoButton;
 
-
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
         myStage = stage;
@@ -106,7 +105,6 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     private void createRightSidePane(GridPane grid) {
         createTabExplorers(grid);
-//        createPalettes(grid);
     }
 
     private void createTabExplorers(GridPane grid) {
@@ -279,9 +277,7 @@ public class GUIDisplay implements VisualUpdateAPI {
     }
 
     @Override
-    public void setActiveTurtles(List<Integer> activeTurtleIDs) {
-
-    }
+    public void setActiveTurtles(List<Integer> activeTurtleIDs) { }
 
     @Override
     public void addVariable(String name, Double val) {
