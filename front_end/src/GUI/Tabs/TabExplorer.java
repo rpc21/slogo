@@ -81,8 +81,6 @@ public class TabExplorer extends TabPane implements GUIComponent, CommandExecuta
     private SLogoTab makeVariablesTab(GUIdata dataTracker, TextArea myTextBox) {
         SLogoTabVariables tab = new SLogoTabVariables(myLanguage.getTranslatedWord(VARIABLES), dataTracker);
         tab.getContent().setOnMouseClicked(event -> {
-            //(dataTracker.getMyCommandToRun());
-            System.out.println("!!! " + dataTracker.getMyCommandToRun() + "!!!");
             runCommand(dataTracker.getMyCommandToRun());
         });
         return tab;
@@ -99,7 +97,6 @@ public class TabExplorer extends TabPane implements GUIComponent, CommandExecuta
     public void addToCommandHistory(String command){
         myCommands.addContents(command);
     }
-
 
     public void clearCommandHistory() {
         myCommands.clearContents();

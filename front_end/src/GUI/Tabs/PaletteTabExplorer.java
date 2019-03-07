@@ -2,7 +2,11 @@ package GUI.Tabs;
 
 import GUI.Palettes.Palette;
 import GUI.Palettes.PaletteElement;
-import GUI.Turtle.*;
+import GUI.Turtle.DisplayView;
+import GUI.Turtle.BasicTurtleView;
+import GUI.Turtle.AdvancedTurtleView;
+import GUI.Turtle.CuteTurtleView;
+import GUI.Turtle.GitLabView;
 import javafx.scene.control.Tab;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
