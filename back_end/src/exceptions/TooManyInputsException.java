@@ -1,7 +1,7 @@
 package exceptions;
 
 public class TooManyInputsException extends InvalidInputException {
-    private static final String MANY_KEY = "Many";
+    private static final String MANY_KEY = "Many ";
 
     public TooManyInputsException() {
         super();

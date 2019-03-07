@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public abstract class InvalidInputException extends Exception {
-    private static final String START_OF_ERROR_MESSAGE = "Error: ";
+    private static final String START_OF_ERROR_MESSAGE = "Error: Invalid  ";
     private String myReason;
     protected Map<String, String> myErrorMessages;
     private static final String PROPERTIES_FILE_NAME = "parser/Exceptions";

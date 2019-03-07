@@ -1,7 +1,7 @@
 package exceptions;
 
 public class InvalidCommandException extends InvalidInputException {
-    private static final String COMMAND_KEY = "Command";
+    private static final String COMMAND_KEY = "Command ";
 
     public InvalidCommandException(String command) {
         super();
