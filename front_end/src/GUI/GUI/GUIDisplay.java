@@ -54,7 +54,7 @@ public class GUIDisplay implements VisualUpdateAPI {
     private GridPane myCurrentGUIGrid;
     public static final int SCENE_WIDTH = 1200;
     public static final int SCENE_HEIGHT = 650;
-    private GUIdata dataTracker = new GUIdata();
+    private GUIdata dataTracker;
     private ErrorDisplay myError;
     private ColorPalette myColorPalette;
     private TurtlePalette myTurtlePalette;
@@ -73,6 +73,7 @@ public class GUIDisplay implements VisualUpdateAPI {
         commandExecutableComponents = new ArrayList<>();
         languageChangeableComponents = new ArrayList<>();
         myListOfCommands = new ArrayList<>();
+        dataTracker = new GUIdata();
         myRoot = createGridPane();
         myRoot.setGridLinesVisible(false);
         myScene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.LIGHTGRAY);
