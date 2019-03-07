@@ -3,7 +3,7 @@ package turtle;
 import apis.ImmutableVisualCommand;
 import exceptions.InvalidCommandException;
 import exceptions.InvalidInputException;
-import nodes.*;
+import nodes.visuals.*;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
