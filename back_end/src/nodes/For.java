@@ -29,7 +29,6 @@ public class For extends CommandNode{
         double start = super.getChildren().get(START).evaluate(myVisCommands,myTurtles);
         myUserCreatedItems.addVariable(name,start);
 
-
         double end = super.getChildren().get(END).evaluate(myVisCommands,myTurtles);
         double increment = super.getChildren().get(INCREMENT).evaluate(myVisCommands,myTurtles);
 
