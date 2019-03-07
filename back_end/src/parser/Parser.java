@@ -54,13 +54,15 @@ public class Parser {
     }
 
     private void addChild(CommandNode currentNode, String child) throws InvalidCommandException, InvalidVariableException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, InvalidListException {
-        if(myValidator.isDouble(child)) {
-            System.out.println("Double Child: " +  child);
+        if (myValidator.isDouble(child)) {
+            System.out.println("Double Child: " + child);
             currentNode.addChild(myCommandFactory.makeCommand(Double.parseDouble(child)));
-        } else if(myValidator.isListStart(child)) {
-            System.out.println("List Child: " +  child);
+        } else if (myValidator.isListStart(child)) {
+            System.out.println("List Child: " + child);
             currentNode.addChild(makeListTree(child));
             System.out.println("ADDED CHILDREN");
+        } else if (myValidator.isVariable(child)){
+            currentNode.addChild(myCommandFactory.makeCommand("Variable"));
         } else {
             System.out.println("Node Child: " +  child);
             currentNode.addChild(makeNodeTree());
