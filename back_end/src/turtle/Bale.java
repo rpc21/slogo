@@ -38,9 +38,8 @@ public class Bale extends ArrayList<Turtle> {
             else
                 t.setActive(false);
     }
-    public void setAllInactive(){
-        for (Turtle t: this)
-            t.setActive(false);
+    public void setMyActiveID(int id){
+        myActiveID = id;
     }
 
     public List<ImmutableVisualCommand> act(List<String> myTurtleMethods,  Object[] actualParams){
@@ -65,5 +64,6 @@ public class Bale extends ArrayList<Turtle> {
     public int getActiveID(){
         return myActiveID;
     }
+
 
 }

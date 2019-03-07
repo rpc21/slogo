@@ -14,15 +14,14 @@ public class AskWith extends CommandNode{
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
         CommandNode conditional = super.getChildren().get(0);
-        List<Integer> myTrueTurtles = new ArrayList<Integer>();
-        myTurtles.setAllInactive();
-        for (Turtle t: myTurtles) {
-            t.setActive(true);
-            if (conditional.evaluate(myVisCommands, myTurtles) != 0)
-                myTrueTurtles.add(t.getID());
-            t.setActive(false);
+        List<Integer> myTurtleIDs = new ArrayList<>();
+        for (Turtle t: myTurtles){
+            myTurtles.setMyActiveID(t.getID());
+            if (conditional.evaluate(myVisCommands,myTurtles) != 0.0 )
+                myTurtleIDs.add(t.getID());
         }
-        myTurtles.setActiveTurtles(myTrueTurtles);
+        myTurtles.setActiveTurtles(myTurtleIDs);
+        myVisCommands.add(new VisualActiveTurtles(myTurtleIDs));
         double ret = 0;
         for (int command = 1; command < super.getChildren().size(); command++) {
             ret = super.getChildren().get(command).evaluate(myVisCommands, myTurtles);
