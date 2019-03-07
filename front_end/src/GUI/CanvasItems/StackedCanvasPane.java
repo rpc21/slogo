@@ -66,7 +66,7 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
         myTurtles.add(newTurtle);
     }
 
-    public Consumer<Color> getBackgroundColorAccess(){
+    public Consumer<Paint> getBackgroundColorAccess(){
         return myBackgroundCanvas.getBackgroundColorAccess();
     }
 
@@ -164,7 +164,7 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
         makeTurtle();
     }
 
-    public void setPenColor(int id, Color color) {
+    public void setPenColor(int id, Paint color) {
         myTurtles.get(id).setPenColor(color);
     }
 
@@ -173,11 +173,12 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
     }
 
     public void setTurtleShape(int id, String content) {
-        DisplayView turtle;
         DisplayView turtleToRemove = myTurtles.get(id);
+        System.out.println(content);
+        DisplayView turtle;
         try {
-            var clazz = Class.forName("GUI."+content);
-            turtle = (DisplayView) clazz.getDeclaredConstructor(DisplayView.class).newInstance(myTurtles.get(id));
+            var clazz = Class.forName(content);
+            turtle = (DisplayView) clazz.getDeclaredConstructor(DisplayView.class).newInstance(turtleToRemove);
         }
         catch (Exception e) {
             turtle = new BasicTurtleView();

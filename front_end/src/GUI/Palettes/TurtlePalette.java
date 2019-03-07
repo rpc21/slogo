@@ -1,5 +1,6 @@
 package GUI.Palettes;
 
+import GUI.Turtle.DisplayView;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
@@ -17,6 +18,14 @@ public class TurtlePalette<T extends Node> extends ScrollPane {
         myPaletteElements = new TreeMap<>();
         myVBox.getChildren().addAll(myPaletteElements.values());
         setContent(myVBox);
+        populateStartingElements();
+    }
+
+    private void populateStartingElements() {
+        this.addPaletteElement(new TurtlePaletteElement(1, "BasicTurtleView"));
+        this.addPaletteElement(new TurtlePaletteElement(2, "AdvancedTurtleView"));
+        this.addPaletteElement(new TurtlePaletteElement(4, "BasicTurtleView"));
+        this.addPaletteElement(new TurtlePaletteElement(3, "AdvancedTurtleView"));
     }
 
     public void addPaletteElement(TurtlePaletteElement element){

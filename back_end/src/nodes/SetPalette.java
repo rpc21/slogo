@@ -20,7 +20,7 @@ public class SetPalette extends CommandNode {
         int red = (int)super.getChildren().get(RED_VAL).evaluate(myVisCommands, myTurtles);
         int green = (int)super.getChildren().get(BLUE_VAL).evaluate(myVisCommands, myTurtles);
         int blue = (int)super.getChildren().get(GREEN_VAL).evaluate(myVisCommands, myTurtles);
-        if (!(checkRGBValue(red) & checkRGBValue(green) & checkRGBValue(blue))) {
+        if (!(checkRGBValue(red) && checkRGBValue(green) && checkRGBValue(blue))) {
             throw new IllegalArgumentException();
         }
         myVisCommands.add(new VisualPalette(currIndex,red,green,blue));
@@ -33,7 +33,7 @@ public class SetPalette extends CommandNode {
         super.addChild(c);
     }
     private boolean checkRGBValue(double val){
-        return !(val < 0) & !(val > MAX_VAL);
+        return !(val < 0) && !(val > MAX_VAL);
     }
 
 }

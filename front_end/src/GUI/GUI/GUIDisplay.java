@@ -3,12 +3,13 @@ package GUI.GUI;
 import GUI.Buttons.*;
 import GUI.CanvasItems.StackedCanvasPane;
 import GUI.Commands.*;
-import GUI.Palettes.ColorPalette;
-import GUI.Palettes.ColorPaletteElement;
-import GUI.Palettes.TurtlePalette;
-import GUI.Palettes.TurtlePaletteElement;
+import GUI.Palettes.*;
+import GUI.Tabs.PaletteTabExplorer;
 import GUI.Tabs.TabExplorer;
 import GUI.Tabs.TurtleViewTabExplorer;
+import GUI.Turtle.AdvancedTurtleView;
+import GUI.Turtle.BasicTurtleView;
+import GUI.Turtle.DisplayView;
 import apis.ImmutableVisualCommand;
 
 import apis.VisualUpdateAPI;
@@ -17,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -46,6 +48,8 @@ public class GUIDisplay implements VisualUpdateAPI {
     private Language myLanguage;
     private Toolbar myToolbar;
     private StackedCanvasPane myStackedCanvasPane;
+
+    private PaletteTabExplorer myPaletteTabExplorer;
     private TabExplorer myTabExplorer;
     private GridPane myCurrentGUIGrid;
     public static final int SCENE_WIDTH = 1200;
@@ -94,11 +98,6 @@ public class GUIDisplay implements VisualUpdateAPI {
         makeCommandLine(grid);
         initializeButtons(grid);
         createRightSidePane(grid);
-        createTabExplorers(grid);
-        createColorPalette(grid);
-        createTurtlePalette(grid);
-        makeNewWindowButton(grid);
-        makeUndoButton(grid);
         grid.setPrefSize(SCENE_WIDTH, SCENE_HEIGHT);
         myCurrentGUIGrid = grid;
         return grid;
@@ -106,23 +105,24 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     private void createRightSidePane(GridPane grid) {
         createTabExplorers(grid);
-        createPalettes(grid);
+//        createPalettes(grid);
     }
 
     private void createTabExplorers(GridPane grid) {
         createMethodsAndVariablesTabExplorer(grid);
         createTurtleViewTabExplorer(grid);
+        createPaletteTabExplorer(grid);
+    }
+
+    private void createPaletteTabExplorer(GridPane grid) {
+        myPaletteTabExplorer = new PaletteTabExplorer();
+        grid.add(myPaletteTabExplorer, 2, 3, 2, 1);
     }
 
     private void createTurtleViewTabExplorer(GridPane grid) {
         myTurtleViewTabExplorer = new TurtleViewTabExplorer();
         grid.add(myTurtleViewTabExplorer, 2, 4, 2, 1);
         myStackedCanvasPane.grantTabAccess(myTurtleViewTabExplorer.getTabAccess());
-    }
-
-    private void createPalettes(GridPane grid) {
-        createColorPalette(grid);
-        createTurtlePalette(grid);
     }
 
     private void makeUndoButton(GridPane grid){
@@ -140,23 +140,6 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     public Button getNewWindowButton(){
         return myNewWindowButton;
-    }
-
-    private void createTurtlePalette(GridPane grid){
-        myTurtlePalette = new TurtlePalette();
-        myTurtlePalette.addPaletteElement(new TurtlePaletteElement(1, "BasicTurtleView"));
-        myTurtlePalette.addPaletteElement(new TurtlePaletteElement(2, "AdvancedTurtleView"));
-        myTurtlePalette.addPaletteElement(new TurtlePaletteElement(4, "BasicTurtleView"));
-        myTurtlePalette.addPaletteElement(new TurtlePaletteElement(3, "AdvancedTurtleView"));
-        grid.add(myTurtlePalette, 2,3,1,1);
-    }
-
-    private void createColorPalette(GridPane grid) {
-        myColorPalette = new ColorPalette();
-        myColorPalette.addPaletteElement(new ColorPaletteElement(1, Color.BLACK));
-        myColorPalette.addPaletteElement(new ColorPaletteElement(2, Color.RED));
-        myColorPalette.addPaletteElement(new ColorPaletteElement(3, Color.GREEN));
-        grid.add(myColorPalette, 3, 3, 1, 1);
     }
 
     private void createMethodsAndVariablesTabExplorer(GridPane grid) {
@@ -209,6 +192,8 @@ public class GUIDisplay implements VisualUpdateAPI {
     }
 
     private void initializeButtons(GridPane grid){
+        makeNewWindowButton(grid);
+        makeUndoButton(grid);
         myClearButton = new ClearButton(myTextBox);
         languageChangeableComponents.add(myClearButton);
         commandExecutableComponents.add(myClearButton);
@@ -301,6 +286,11 @@ public class GUIDisplay implements VisualUpdateAPI {
     }
 
     @Override
+    public void setActiveTurtles(List<Integer> activeTurtleIDs) {
+
+    }
+
+    @Override
     public void addVariable(String name, Double val) {
         myTabExplorer.addVariable(name, val);
     }
@@ -364,12 +354,12 @@ public class GUIDisplay implements VisualUpdateAPI {
     @Override
     public void setBackgroundColor(int index) {
         //TODO: Refactor
-        myStackedCanvasPane.getBackgroundColorAccess().accept(myColorPalette.getContent(index));
+        myStackedCanvasPane.getBackgroundColorAccess().accept(myPaletteTabExplorer.getMyColorPalette().getContent(index).getFill());
     }
 
     @Override
     public void setPenColor(int id, int index) {
-        myStackedCanvasPane.setPenColor(id, myColorPalette.getContent(index));
+        myStackedCanvasPane.setPenColor(id, myPaletteTabExplorer.getMyColorPalette().getContent(index).getFill());
     }
 
     @Override
@@ -379,11 +369,13 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     @Override
     public void setShape(int id, int index) {
-        myStackedCanvasPane.setTurtleShape(id, myTurtlePalette.getContent(index));
+        myStackedCanvasPane.setTurtleShape(id,
+                myPaletteTabExplorer.getMyTurtlePalette().getContent(index).getClass().getName());
     }
 
     @Override
     public void setPalette(int index, int r, int b, int g) {
-        myColorPalette.addPaletteElement(new ColorPaletteElement(index, r, g, b));
+        myPaletteTabExplorer.getMyColorPalette().addPaletteElement(new PaletteElement<>(index, new Rectangle(50, 50,
+                Color.rgb(r, g, b))));
     }
 }

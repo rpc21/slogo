@@ -31,15 +31,15 @@ public class TurtleCanvas extends Canvas implements GUIComponent {
 //        setPreferredSize(width, height);
     }
 
-    public Consumer<Color> getBackgroundColorAccess(){
-        Consumer<Color> changeBackgroundColor = (x) -> {
+    public Consumer<Paint> getBackgroundColorAccess(){
+        Consumer<Paint> changeBackgroundColor = (x) -> {
             setColor(x);
         };
         return changeBackgroundColor;
     }
 
-    public Consumer<Color> getPenColorAccess(){
-        Consumer<Color> changePenColor = (x) -> {
+    public Consumer<Paint> getPenColorAccess(){
+        Consumer<Paint> changePenColor = (x) -> {
             this.getGraphicsContext2D().setStroke(x);
         };
         return changePenColor;

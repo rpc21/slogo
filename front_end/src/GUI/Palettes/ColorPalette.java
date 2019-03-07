@@ -18,6 +18,13 @@ public class ColorPalette<T extends Node> extends ScrollPane {
         myPaletteElements = new TreeMap<>();
         myVBox.getChildren().addAll(myPaletteElements.values());
         setContent(myVBox);
+        populateColorPalette();
+    }
+
+    private void populateColorPalette() {
+        this.addPaletteElement(new ColorPaletteElement(1, Color.BLACK));
+        this.addPaletteElement(new ColorPaletteElement(2, Color.RED));
+        this.addPaletteElement(new ColorPaletteElement(3, Color.GREEN));
     }
 
     public void addPaletteElement(ColorPaletteElement element){

@@ -33,8 +33,9 @@ public class For extends CommandNode{
         double increment = super.getChildren().get(INCREMENT).evaluate(myVisCommands,myTurtles);
 
         //need to verify that these values will not cause an infinite loop
-        if ( (start < end & increment <= 0) |  (start > end & increment >= 0))
+        if ( (start < end && increment <= 0) ||  (start > end && increment >= 0)) {
             throw new IllegalArgumentException();
+        }
 
         double ret = 0;
         while (start < end) {
@@ -44,4 +45,6 @@ public class For extends CommandNode{
         }
         return ret;
     }
+    @Override
+    public boolean needsToAddVariable(){ return true;}
 }

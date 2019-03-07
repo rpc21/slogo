@@ -24,27 +24,20 @@ public class SLogoTabVariables extends SLogoTab {
         Label contents = new Label(newContents);
         contents.setWrapText(true);
         contents.setOnMouseClicked(event -> {
-            showVariableEditor(contents);
+            displayDialogMenu(contents);
         });
         myVBoxOfStrings.getChildren().add(0, contents);
     }
 
-    private void showVariableEditor(Label contents){
+    private void displayDialogMenu(Label contents) {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Variable Editor");
         dialog.setHeaderText(contents.getText().substring(1));
         dialog.setContentText("Enter new value:");
         Optional<String> result = dialog.showAndWait();
         result.ifPresent(value -> {
-            updateVariableValue(contents, value);
+            runCommand(contents, value);
         });
-    }
-
-    private void updateVariableValue(Label contents, String value){
-        String[] s = contents.getText().split(" ");
-        String str = "make " + s[0] + " " + value;
-        System.out.println(str);
-        guiData.setMyCommandToRun(str);
     }
 
     private void isItAlreadyThere(String stringToAdd) {
@@ -59,4 +52,10 @@ public class SLogoTabVariables extends SLogoTab {
         myVBoxOfStrings.getChildren().remove(labelToRemove);
     }
 
+    private void runCommand(Label contents, String value) {
+        String[] s = contents.getText().split(" ");
+        String str = "make " + s[0] + " " +value;
+        System.out.println(str);
+        guiData.setMyCommandToRun(str);
+    }
 }

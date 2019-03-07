@@ -21,8 +21,9 @@ public class Cosine extends CommandNode {
      */
     @Override
     public void addChild(CommandNode c){
-        if (super.getChildren().size() == 1)
+        if (super.getChildren().size() == 1) {
             throw new IllegalArgumentException();
+        }
         super.addChild(c);
     }
 }

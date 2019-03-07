@@ -14,8 +14,10 @@ public class NotEqual extends BooleanNode{
 
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
-        if (super.getFirstExpression(myVisCommands, myTurtles) != super.getSecondExpression(myVisCommands, myTurtles))
+        if (super.getFirstExpression(myVisCommands, myTurtles) !=
+                super.getSecondExpression(myVisCommands, myTurtles)) {
             return ONE;
+        }
         return ZERO;
     }
 
@@ -26,8 +28,9 @@ public class NotEqual extends BooleanNode{
      */
     @Override
     public void addChild(CommandNode c) {
-        if (super.getChildren().size() == 2)
+        if (super.getChildren().size() == 2) {
             throw new IllegalArgumentException();
+        }
         super.addChild(c);
     }
 }
