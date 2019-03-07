@@ -14,9 +14,11 @@ import java.util.function.Consumer;
 
 public class TabExplorer extends TabPane implements GUIComponent, CommandExecutable, LanguageChangeable {
 
-    private final String VARIABLES = "Variables";
-    private final String METHODS = "Methods";
-    private final String COMMANDS = "CommandHistory";
+    private static final String VARIABLES = "Variables";
+    private static final String METHODS = "Methods";
+    private static final String COMMANDS = "CommandHistory";
+    private static final Double QUARTER = 1.0 / 4;
+    private static final Double HALF = 1.0 / 2;
     private Consumer<String> myCommandAccess;
     private SLogoTab myVariables;
     private SLogoTab myCommands;
@@ -28,7 +30,7 @@ public class TabExplorer extends TabPane implements GUIComponent, CommandExecuta
 
     public TabExplorer(){
         super();
-        setPrefSize(GUIDisplay.SCENE_WIDTH * 1.0 / 4, GUIDisplay.SCENE_HEIGHT * 1.0/2);
+        setPrefSize(GUIDisplay.SCENE_WIDTH * QUARTER, GUIDisplay.SCENE_HEIGHT * HALF);
     }
 
     public TabExplorer(GUIdata dataTracker, Language language, CommandLine textBox){
@@ -37,14 +39,13 @@ public class TabExplorer extends TabPane implements GUIComponent, CommandExecuta
         myDataTracker = dataTracker;
         myTextBox = textBox;
         initializeTabs();
-        setPrefSize(GUIDisplay.SCENE_WIDTH * 1.0 / 4, GUIDisplay.SCENE_HEIGHT * 1.0/2);
+        setPrefSize(GUIDisplay.SCENE_WIDTH * QUARTER, GUIDisplay.SCENE_HEIGHT * HALF);
     }
 
     private void initializeTabs() {
         myVariables = makeVariablesTab(myDataTracker, myTextBox);
         myMethods = makeTab(METHODS, myDataTracker, myTextBox);
         myCommands = makeTab(COMMANDS, myDataTracker, myTextBox);
-        myCommands.addContents("sample commmand");
         myMethods.addContents("sample method");
         getTabs().addAll(myVariables, myMethods, myCommands);
     }

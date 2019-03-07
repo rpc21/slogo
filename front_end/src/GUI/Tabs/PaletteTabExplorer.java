@@ -15,12 +15,12 @@ public class PaletteTabExplorer extends TabExplorer {
 
     private Palette<PaletteElement<Rectangle>, Rectangle> myColorPalette;
     private Palette<PaletteElement<DisplayView>, DisplayView> myTurtlePalette;
-    private final int FIRST_INDEX = 1;
-    private final int SECOND_INDEX = 2;
-    private final int THIRD_INDEX = 3;
-    private final int FOURTH_INDEX = 4;
-    private final int COLOR_PALETTE_WIDTH = 20;
-    private final int COLOR_PALETTE_HEIGHT = 25;
+    private static final int FIRST_INDEX = 1;
+    private static final int SECOND_INDEX = 2;
+    private static final int THIRD_INDEX = 3;
+    private static final int FOURTH_INDEX = 4;
+    private static final int COLOR_PALETTE_WIDTH = 20;
+    private static final int COLOR_PALETTE_HEIGHT = 25;
 
     public PaletteTabExplorer(){
         createColorPalette();
