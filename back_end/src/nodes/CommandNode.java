@@ -2,6 +2,7 @@ package nodes;
 
 import apis.AddVariable;
 import apis.ImmutableVisualCommand;
+import exceptions.InvalidInputException;
 import turtle.Bale;
 
 import java.util.ArrayList;
@@ -22,11 +23,11 @@ public abstract class CommandNode {
     /**
      * evaluates this node's value based upon its particular implementation
      */
-    public abstract double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles);
+    public abstract double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException;
     /**
      * returns list of this Node's children - these will be used as arguments to evaluate a nodes.CommandNode
      */
-    protected List<CommandNode> getChildren(){
+    public List<CommandNode> getChildren(){
         return myChildren;
     }
 
@@ -43,7 +44,7 @@ public abstract class CommandNode {
 
     public boolean needsUserCreated(){ return false;}
     public boolean isMethodDeclaration() {return false;}
-    protected String getName(){
+    public String getName(){
         return myName;
     }
 

@@ -1,6 +1,7 @@
 package turtle;
 
 import apis.ImmutableVisualCommand;
+import exceptions.InvalidInputException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,13 +55,14 @@ public class Bale extends ArrayList<Turtle> {
         myActiveID = id;
     }
 
-    public List<ImmutableVisualCommand> act(List<String> myTurtleMethods,  Object[] actualParams){
+    public List<ImmutableVisualCommand> act(List<String> myTurtleMethods,  Object[] actualParams) throws InvalidInputException {
         List<ImmutableVisualCommand> myVisCommands = new ArrayList<>();
         for (Turtle t: this.getActiveTurtles()) {
             setActiveID(t.getID());
             for (String m: myTurtleMethods) {
                 myVisCommands.addAll(t.turtleAction(m, actualParams));
             }
+
         }
         return myVisCommands;
     }

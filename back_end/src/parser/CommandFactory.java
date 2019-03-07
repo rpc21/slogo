@@ -4,8 +4,8 @@ import apis.AddVariable;
 import exceptions.InvalidCommandException;
 import exceptions.InvalidInputException;
 import nodes.CommandNode;
-import nodes.ConstantNode;
-import nodes.Name;
+import nodes.variables.ConstantNode;
+import nodes.structures.Name;
 
 import java.lang.reflect.Constructor;
 
