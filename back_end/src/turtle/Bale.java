@@ -48,8 +48,7 @@ public class Bale extends ArrayList<Turtle> {
         for (Turtle t: this.getActiveTurtles()) {
             setActiveID(t.getID());
             for (String m: myTurtleMethods) {
-                ImmutableVisualCommand vis = t.turtleAction(m, actualParams);
-                myVisCommands.add(vis);
+                myVisCommands.addAll(t.turtleAction(m, actualParams));
             }
         }
         return myVisCommands;
