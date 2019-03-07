@@ -15,6 +15,12 @@ public class PaletteTabExplorer extends TabExplorer {
 
     private Palette<PaletteElement<Rectangle>, Rectangle> myColorPalette;
     private Palette<PaletteElement<DisplayView>, DisplayView> myTurtlePalette;
+    private final int FIRST_INDEX = 1;
+    private final int SECOND_INDEX = 2;
+    private final int THIRD_INDEX = 3;
+    private final int FOURTH_INDEX = 4;
+    private final int COLOR_PALETTE_WIDTH = 20;
+    private final int COLOR_PALETTE_HEIGHT = 25;
 
     public PaletteTabExplorer(){
         createColorPalette();
@@ -26,18 +32,18 @@ public class PaletteTabExplorer extends TabExplorer {
 
     private void createTurtlePalette(){
         myTurtlePalette = new Palette<>();
-        myTurtlePalette.addPaletteElement(new PaletteElement<>(1, new BasicTurtleView()));
-        myTurtlePalette.addPaletteElement(new PaletteElement<>(4, new GitLabView()));
-        myTurtlePalette.addPaletteElement(new PaletteElement<>(3, new CuteTurtleView()));
-        myTurtlePalette.addPaletteElement(new PaletteElement<>(2, new AdvancedTurtleView()));
+        myTurtlePalette.addPaletteElement(new PaletteElement<>(FIRST_INDEX, new BasicTurtleView()));
+        myTurtlePalette.addPaletteElement(new PaletteElement<>(FOURTH_INDEX, new GitLabView()));
+        myTurtlePalette.addPaletteElement(new PaletteElement<>(THIRD_INDEX, new CuteTurtleView()));
+        myTurtlePalette.addPaletteElement(new PaletteElement<>(SECOND_INDEX, new AdvancedTurtleView()));
     }
 
     private void createColorPalette() {
         myColorPalette = new Palette<>();
-        myColorPalette.addPaletteElement(new PaletteElement<>(1, new Rectangle(20, 25, Color.BLUE)));
-        myColorPalette.addPaletteElement(new PaletteElement<>(4, new Rectangle(20, 25, Color.ORANGE)));
-        myColorPalette.addPaletteElement(new PaletteElement<>(2, new Rectangle(20, 25, Color.GREEN)));
-        myColorPalette.addPaletteElement(new PaletteElement<>(3, new Rectangle(20, 25, Color.PINK)));
+        myColorPalette.addPaletteElement(new PaletteElement<>(FIRST_INDEX, new Rectangle(COLOR_PALETTE_WIDTH, COLOR_PALETTE_HEIGHT, Color.BLUE)));
+        myColorPalette.addPaletteElement(new PaletteElement<>(FOURTH_INDEX, new Rectangle(COLOR_PALETTE_WIDTH, COLOR_PALETTE_HEIGHT, Color.ORANGE)));
+        myColorPalette.addPaletteElement(new PaletteElement<>(SECOND_INDEX, new Rectangle(COLOR_PALETTE_WIDTH, COLOR_PALETTE_HEIGHT, Color.GREEN)));
+        myColorPalette.addPaletteElement(new PaletteElement<>(THIRD_INDEX, new Rectangle(COLOR_PALETTE_WIDTH, COLOR_PALETTE_HEIGHT, Color.PINK)));
     }
 
     public Palette<PaletteElement<Rectangle>, Rectangle> getMyColorPalette() {

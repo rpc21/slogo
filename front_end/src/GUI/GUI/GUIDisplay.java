@@ -54,7 +54,7 @@ public class GUIDisplay implements VisualUpdateAPI {
     private GridPane myCurrentGUIGrid;
     public static final int SCENE_WIDTH = 1200;
     public static final int SCENE_HEIGHT = 650;
-    public GUIdata dataTracker = new GUIdata();
+    private GUIdata dataTracker = new GUIdata();
     private ErrorDisplay myError;
     private ColorPalette myColorPalette;
     private TurtlePalette myTurtlePalette;
