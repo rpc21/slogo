@@ -17,13 +17,11 @@ public class Repeat extends CommandNode{
         super(a);
         myAddVarFunction = add;
     }
-    /**
-     * TODO - Initalize repcount and update with each iteration
-     */
+
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
         double ret = 0;
-        double iter = 1.0;
+        double iter = 1;
 
         myAddVarFunction.addNewVariable(repeatVariable,iter);
         int numIterations = (int)super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
@@ -31,6 +29,7 @@ public class Repeat extends CommandNode{
 
         for (int i = 0; i < numIterations; i++){
             ret = myListNode.evaluate(myVisCommands,myTurtles);
+            iter += 1;
             myAddVarFunction.addNewVariable(repeatVariable,iter ++);
         }
         return ret;

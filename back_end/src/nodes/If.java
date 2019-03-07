@@ -32,8 +32,9 @@ public class If extends CommandNode{
      */
     @Override
     public void addChild(CommandNode c) {
-        if (super.getChildren().size() == 3)
+        if (super.getChildren().size() == 3) {
             throw new IllegalArgumentException();
+        }
         super.addChild(c);
     }
 }

@@ -108,10 +108,12 @@ public class Turtle {
     }
 
     private ImmutableVisualCommand getPenCommand(){
-        if (myPenState == 1.0)
+        if (myPenState == 1.0) {
             return new VisualPenDown(myID);
-        else
+        }
+        else {
             return new VisualPenUp(myID);
+        }
     }
 
     private double[] offBoundsPoints(double currentValue, double shift, double boundary){
@@ -169,22 +171,27 @@ public class Turtle {
     }
     private List<ImmutableVisualCommand> setVisibility(Integer isVisible){
         myVisibility = isVisible;
-        if (isVisible == 0.0)
+        if (isVisible == 0.0) {
             return Arrays.asList(new VisualHideTurtle(myID));
-        else
+        }
+        else {
             return Arrays.asList(new VisualShowTurtle(myID));
+        }
     }
     private List<ImmutableVisualCommand> setPen(Integer isDown){
         myPenState = isDown;
-        if (isDown == 0.0)
+        if (isDown == 0.0) {
             return Arrays.asList(new VisualPenUp(myID));
-        else
+        }
+        else {
             return Arrays.asList(new VisualPenDown(myID));
+        }
     }
 
     private void checkHeading(){
-        if (myHeading > FULL_CIRCLE)
+        if (myHeading > FULL_CIRCLE) {
             myHeading = myHeading % FULL_CIRCLE;
+        }
         if (myHeading < 0) {
             myHeading = myHeading % FULL_CIRCLE;
             myHeading = myHeading + FULL_CIRCLE;
