@@ -2,7 +2,6 @@ package nodes;
 
 import apis.ImmutableVisualCommand;
 import turtle.Bale;
-import turtle.Turtle;
 
 import java.util.List;
 

@@ -1,7 +1,4 @@
 package parser.external;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
 
 import apis.ImmutableVisualCommand;
 import exceptions.InvalidCommandException;
@@ -14,6 +11,10 @@ import parser.UserCreated;
 import turtle.Bale;
 import turtle.ImmutableTurtleState;
 import turtle.Turtle;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CommandController {
     private Parser myParser;
