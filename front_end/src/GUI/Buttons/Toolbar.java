@@ -27,7 +27,7 @@ public class Toolbar extends HBox implements GUIComponent, LanguageChangeable {
         setSpacing(10);
     }
 
-    public Toolbar(Consumer<Color> backgroundColorAccess, Consumer<Paint> penColorAccess, Consumer<String> iconAccess
+    public Toolbar(Consumer<Paint> backgroundColorAccess, Consumer<Paint> penColorAccess, Consumer<String> iconAccess
             , Consumer<Language> languageAccess){
         this();
       //  myLanguageChooser = createLanguageChooser();

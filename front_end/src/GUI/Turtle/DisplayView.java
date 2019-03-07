@@ -12,6 +12,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +78,13 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
         this(image, displayView.myCanvas);
         copyMoveHistoryAndPen(displayView);
         copyPositionAndOrientation(displayView);
-//        myIndex = displayView.myIndex;
+        copyAccess(displayView);
+        myTurtleId = displayView.myTurtleId;
+    }
+
+    private void copyAccess(DisplayView displayView) {
+        giveTabAccess(displayView.myTabAccess);
+        giveAbilityToRunCommands(displayView.myCommandAccess);
     }
 
     private void copyPositionAndOrientation(DisplayView displayView) {
@@ -152,7 +159,6 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
         System.out.println(getTranslateX() + " " + deltaX + "");
         moveTo(new Point2D(getTranslateX() + deltaX, getTranslateY() + deltaY));
         System.out.println(getTranslateY());
-        updateTab();
     }
 
     private void moveTo(Point2D newLocation){
@@ -160,6 +166,7 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
         Move move = new Move(new Pen(getMyPen()), newLocation);
         addMove(move);
         drawPath(move);
+        updateTab();
     }
 
     public void towards(double degrees) {
@@ -222,7 +229,7 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
         myTabAccess.accept(this);
     }
 
-    public void setPenColor(Color color){
+    public void setPenColor(Paint color){
         myPen.setMyColor(color);
         updateTab();
     };

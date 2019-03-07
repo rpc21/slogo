@@ -1,5 +1,6 @@
 package GUI.Palettes;
 
+import GUI.Turtle.DisplayView;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
