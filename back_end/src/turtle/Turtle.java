@@ -88,12 +88,12 @@ public class Turtle {
     }
 
     private boolean turtleStaysInBounds(double deltaX, double deltaY){
-        return ((Math.abs(myXCoor + deltaX) < XBOUNDARY) &
+        return ((Math.abs(myXCoor + deltaX) < XBOUNDARY) &&
                 (Math.abs(myYCoor + deltaY) < YBOUNDARY));
     }
 
     private List<ImmutableVisualCommand> turtleOffBounds(double deltaX,double deltaY){
-        List<ImmutableVisualCommand> myOffBoundsVisuals = new ArrayList<ImmutableVisualCommand>();
+        List<ImmutableVisualCommand> myOffBoundsVisuals = new ArrayList<>();
 
         ImmutableVisualCommand myCurrentPenState = getPenCommand();
 
