@@ -1,5 +1,8 @@
 package parser;
 
+import exceptions.InvalidInputException;
+import exceptions.InvalidVariableException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,13 +23,12 @@ public class UserCreated {
         return myVariables.get(key);
     }
 
-    public double getValue(String key){
+    public double getValue(String key) throws InvalidInputException {
         try {
             return myVariables.get(key);
         }
         catch (Exception e){
-            System.out.println("Invalid Variable name");
-            return 0;
+            throw new InvalidVariableException(key);
         }
     }
 }

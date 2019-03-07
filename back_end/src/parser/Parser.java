@@ -22,7 +22,7 @@ public class Parser {
         myValidator = new Validator();
     }
 
-    public List<CommandNode> parse(String input) throws InvalidInputException { // todo: throw invalidcommandexception and invalidnumberinputs exception
+    public List<CommandNode> parse(String input) throws InvalidInputException {
         myCurrentCommand = input;
         myCurrentCommand = myValidator.removeComments(input);
         List<CommandNode> topLevelCommands = new ArrayList<>();

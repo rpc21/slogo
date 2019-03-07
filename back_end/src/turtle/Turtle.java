@@ -1,6 +1,8 @@
 package turtle;
 
 import apis.ImmutableVisualCommand;
+import exceptions.InvalidCommandException;
+import exceptions.InvalidInputException;
 import nodes.*;
 
 import java.lang.reflect.Method;
@@ -35,7 +37,7 @@ public class Turtle {
 
     }
 
-    public List<ImmutableVisualCommand> turtleAction(String actionName,  Object[] myParams){
+    public List<ImmutableVisualCommand> turtleAction(String actionName,  Object[] myParams) throws InvalidInputException {
         try {
 
             Class<?>[] typeOfParams = new Class<?>[myParams.length];
@@ -48,9 +50,8 @@ public class Turtle {
             return v;
         }
         catch (Exception e){
-            System.out.println("Invalid Turtle Action");
+            throw new InvalidCommandException(actionName);
         }
-        return new ArrayList<>(); //doNothing
     }
 
     public double getXCoor(){ return myXCoor; }
