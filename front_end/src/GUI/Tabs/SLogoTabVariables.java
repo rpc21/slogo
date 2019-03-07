@@ -28,9 +28,11 @@ public class SLogoTabVariables extends SLogoTab {
             dialog.setContentText("Enter new value:");
             Optional<String> result = dialog.showAndWait();
             result.ifPresent(value -> {
-                String s = contents.getText() + " " + value;
-                System.out.println(s);
-                guiData.setMyCommandToRun(s);
+               // String s = contents.getText() + " " + value;
+                String[] s = contents.getText().split(" ");
+                String str = "make " + s[0] + " " +value;
+                System.out.println(str);
+                guiData.setMyCommandToRun(str);
             });
         });
         myVBoxOfStrings.getChildren().add(0, contents);
