@@ -2,6 +2,7 @@ package nodes;
 
 import apis.GetVariableValue;
 import apis.ImmutableVisualCommand;
+import parser.UserCreated;
 import turtle.Bale;
 
 import java.util.List;
@@ -17,11 +18,11 @@ public class Variable extends CommandNode {
         myValue = NOT_ASSIGNED;
         System.out.println(NOT_ASSIGNED_ERROR);
     }
-    public Variable(String variableName, GetVariableValue myGetFunction){
+    public Variable(String variableName, UserCreated myUserCreated){
         super(variableName);
         myVarName = variableName;
         try {
-            myValue = myGetFunction.getUserVariableValue(myVarName);
+            myValue = myUserCreated.getValue(myVarName);
         }
         catch(Exception e) {
             System.out.println(NOT_ASSIGNED_ERROR);
@@ -31,4 +32,6 @@ public class Variable extends CommandNode {
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
         return myValue;
     }
+
+//    @Override
 }

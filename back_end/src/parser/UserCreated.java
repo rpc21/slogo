@@ -50,4 +50,13 @@ public class UserCreated {
     public void loadState(String fileLocation) {
 
     }
+    public double getValue(String key){
+        try {
+            return myVariables.get(key);
+        }
+        catch (Exception e){
+            System.out.println("Invalid Variable name");
+            return 0;
+        }
+    }
 }
