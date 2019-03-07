@@ -357,10 +357,6 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     @Override
     public void clearScreen() {
-//        myStackedCanvasPane = new StackedCanvasPane();
-//        myStackedCanvasPane.setLanguage(myLanguage);
-//        myStackedCanvasPane.giveAbilityToRunCommands((x) -> runCommand(guiExecute, x));
-//        myStackedCanvasPane.grantTabAccess(myTurtleViewTabExplorer.getTabAccess());
         myStackedCanvasPane.clearScreen();
         myTabExplorer.clearCommandHistory();
     }
