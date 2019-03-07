@@ -18,7 +18,6 @@ import turtle.Turtle;
 public class CommandController {
     private Parser myParser;
     private Bale myTurtles;
-    private static final int INVALID_COMMAND = 0;
     List<ImmutableVisualCommand> myVisualCommands;
     private UserCreated myUserCreated;
 

@@ -6,7 +6,8 @@ import exceptions.InvalidVariableException;
 import nodes.CommandNode;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Parser {
     private CommandFactory myCommandFactory;
@@ -34,23 +35,32 @@ public class Parser {
         String[] commandSplit = myCurrentCommand.trim().split("\\s+");
         String currentValue = commandSplit[0];
         String currentCommandKey = myValidator.getCommandKey(currentValue);
-        // todo: refactor this
-            int start = 1;
-            int expectedNumberOfParameters = myValidator.getExpectedNumberOfParameters(currentCommandKey);
-            CommandNode currentNode = myCommandFactory.makeCommand(currentCommandKey);
-            updateMyCurrentCommand();
-            if(currentNode.needsName()) {
-                currentNode = myCommandFactory.makeCommand(currentCommandKey, myUserCreated.getMyAddVarFunction());
-                myValidator.validateVariableName(commandSplit[1]);
-                currentNode.addChild(myCommandFactory.makeNameNode(commandSplit[1]));
-                updateMyCurrentCommand();
-                start = 2;
-            }
-        // todo end of refactor
-        for(int i = start; i <= expectedNumberOfParameters; i++) {
+        int expectedNumberOfParameters = myValidator.getExpectedNumberOfParameters(currentCommandKey);
+        // todo: check for too few parameters
+        CommandNode currentNode = myCommandFactory.makeCommand(currentCommandKey);
+        updateMyCurrentCommand();
+        if(currentNode.needsName()) { // this means the current node is looking for a variable
+            // todo: move this to command factory:  currentNode = myCommandFactory.makeCommand(currentCommandKey, myUserCreated.getMyAddVarFunction());
+            addVariableChild(currentNode, commandSplit[1]);
+        }
+        for(int i = getStartIndex(currentNode); i <= expectedNumberOfParameters; i++) {
             addChild(currentNode, commandSplit[i]);
         }
         return currentNode;
+    }
+
+    private int getStartIndex(CommandNode currentNode) {
+        if(currentNode.needsName()) {
+            return 2;
+        } else {
+            return 1;
+        }
+    }
+
+    private void addVariableChild(CommandNode currentNode, String child) throws InvalidVariableException {
+        myValidator.validateVariableName(child);
+        currentNode.addChild(myCommandFactory.makeNameNode(child)); //
+        updateMyCurrentCommand();
     }
 
     private void addChild(CommandNode currentNode, String child) throws InvalidCommandException, InvalidVariableException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, InvalidListException {

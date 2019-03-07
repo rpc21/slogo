@@ -4,7 +4,6 @@ import apis.AddVariable;
 import apis.GetVariableValue;
 import nodes.CommandNode;
 import nodes.ConstantNode;
-import nodes.MakeVariable;
 import nodes.Name;
 
 import java.lang.reflect.Constructor;
@@ -27,8 +26,7 @@ public class CommandFactory {
     public CommandNode makeCommand(String c, AddVariable av) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Class myCommandClass = Class.forName("nodes." + c);
         Constructor myConstructor = myCommandClass.getConstructor(String.class, AddVariable.class);
-        CommandNode myCommandNode = (CommandNode) myConstructor.newInstance(c, av);
-        return myCommandNode;
+        return (CommandNode) myConstructor.newInstance(c, av);
     }
 
     public CommandNode makeCommand(String c, GetVariableValue gv) {
