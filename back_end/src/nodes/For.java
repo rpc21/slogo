@@ -44,4 +44,6 @@ public class For extends CommandNode{
         }
         return ret;
     }
+    @Override
+    public boolean needsToAddVariable(){ return true;}
 }

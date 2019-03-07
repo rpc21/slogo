@@ -36,5 +36,8 @@ public class MakeVariable extends CommandNode{
     public boolean needsName(){
         return true;
     }
+    
+    @Override
+    public boolean needsToAddVariable(){ return true;}
 
 }

@@ -363,7 +363,7 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     @Override
     public void setActiveTurtles(List<Integer> activeTurtleIDs) {
-        
+
     }
 
     @Override

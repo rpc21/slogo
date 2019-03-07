@@ -32,4 +32,7 @@ public class DoTimes extends CommandNode{
     public void addChild(CommandNode c) {
         super.addChild(c);
     }
+
+    @Override
+    public boolean needsToAddVariable(){ return true;}
 }
