@@ -21,15 +21,17 @@ public class Tell extends CommandNode {
 
         for (CommandNode c: myListNode.getChildren()) {
             ret = c.evaluate(myVisCommands, myTurtles);
-            myTurtleIDs.add((int)ret - 1);
-            if (((int)ret) > maxID)
-                maxID = (int)ret;
+            if ((int)ret > 0) {
+                myTurtleIDs.add((int) ret - 1);
+                if (((int) ret) > maxID)
+                    maxID = (int) ret;
+            }
         }
 
         int currentTurtleCount = myTurtles.size();
         myTurtles.makeTurtlesUpTo(maxID);
         myTurtles.setActiveTurtles(myTurtleIDs);
-
+        myVisCommands.add(new VisualActiveTurtles(myTurtleIDs));
         if (currentTurtleCount != myTurtles.size())
             myVisCommands.add(new VisualTurtleTell(myTurtles.size()-currentTurtleCount));
         return ret;
