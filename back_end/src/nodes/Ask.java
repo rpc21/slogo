@@ -17,9 +17,11 @@ public class Ask extends CommandNode{
         double ret = 0.0;
         for (CommandNode c: myListNode.getChildren()) {
             ret = c.evaluate(myVisCommands, myTurtles);
-            myTurtleIDs.add((int)ret);
+            if ((int)ret > 0 & (int)ret < myTurtles.size())
+                myTurtleIDs.add((int)ret);
         }
         myTurtles.setActiveTurtles(myTurtleIDs);
+        myVisCommands.add(new VisualActiveTurtles(myTurtleIDs));
         return ret;
     }
     /*

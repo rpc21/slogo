@@ -14,8 +14,9 @@ public class Not extends BooleanNode{
 
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
-        if (super.getFirstExpression(myVisCommands, myTurtles) == ZERO)
+        if (super.getFirstExpression(myVisCommands, myTurtles) == ZERO) {
             return ONE;
+        }
         return ZERO;
     }
 
@@ -26,8 +27,9 @@ public class Not extends BooleanNode{
      */
     @Override
     public void addChild(CommandNode c) {
-        if (super.getChildren().size() == 1)
+        if (super.getChildren().size() == 1) {
             throw new IllegalArgumentException();
+        }
         super.addChild(c);
     }
 }

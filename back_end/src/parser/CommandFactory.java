@@ -1,6 +1,7 @@
 package parser;
 
 import apis.AddVariable;
+import apis.GetVariableValue;
 import nodes.CommandNode;
 import nodes.ConstantNode;
 import nodes.MakeVariable;
@@ -22,8 +23,16 @@ public class CommandFactory {
         return myCommandNode;
     }
 
-    public CommandNode makeCommand(String c, AddVariable av) {
-        return new MakeVariable(c, av);
+    // todo: ask anna if we can change this
+    public CommandNode makeCommand(String c, AddVariable av) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        Class myCommandClass = Class.forName("nodes." + c);
+        Constructor myConstructor = myCommandClass.getConstructor(String.class, AddVariable.class);
+        CommandNode myCommandNode = (CommandNode) myConstructor.newInstance(c, av);
+        return myCommandNode;
+    }
+
+    public CommandNode makeCommand(String c, GetVariableValue gv) {
+        return null;
     }
 
     public CommandNode makeNameNode(String s) {

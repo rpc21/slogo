@@ -1,5 +1,6 @@
 package nodes;
 
+import apis.AddVariable;
 import apis.ImmutableVisualCommand;
 import turtle.Bale;
 
@@ -9,6 +10,7 @@ import java.util.List;
 public abstract class CommandNode {
     public static final int ONE = 1;
     public static final int ZERO = 0;
+    private AddVariable myAddVarFunction;
     List<CommandNode> myChildren = new ArrayList<>();
     String myName;
     /**
@@ -27,6 +29,7 @@ public abstract class CommandNode {
     protected List<CommandNode> getChildren(){
         return myChildren;
     }
+
     /**
      * adds a nodes.CommandNode to this nodes.CommandNode's list of children
      */
@@ -37,6 +40,8 @@ public abstract class CommandNode {
     public boolean needsName(){
         return false;
     }
+
+    public boolean needsToAddVariable(){ return false;}
     public boolean isMethodDeclaration() {return false;}
     protected String getName(){
         return myName;
