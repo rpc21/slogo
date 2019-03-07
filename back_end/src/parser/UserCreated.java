@@ -42,4 +42,14 @@ public class UserCreated {
     public double getVariableValue(String key) {
         return myVariables.get(key);
     }
+
+    public double getValue(String key){
+        try {
+            return myVariables.get(key);
+        }
+        catch (Exception e){
+            System.out.println("Invalid Variable name");
+            return 0;
+        }
+    }
 }
