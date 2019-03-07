@@ -24,21 +24,27 @@ public class SLogoTabVariables extends SLogoTab {
         Label contents = new Label(newContents);
         contents.setWrapText(true);
         contents.setOnMouseClicked(event -> {
-            //System.out.println("variablestab");
-            TextInputDialog dialog = new TextInputDialog();
-            dialog.setTitle("Variable Editor");
-            dialog.setHeaderText(contents.getText().substring(1));
-            dialog.setContentText("Enter new value:");
-            Optional<String> result = dialog.showAndWait();
-            result.ifPresent(value -> {
-                // String s = contents.getText() + " " + value;
-                String[] s = contents.getText().split(" ");
-                String str = "make " + s[0] + " " + value;
-                System.out.println(str);
-                guiData.setMyCommandToRun(str);
-            });
+            showVariableEditor(contents);
         });
         myVBoxOfStrings.getChildren().add(0, contents);
+    }
+
+    private void showVariableEditor(Label contents){
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Variable Editor");
+        dialog.setHeaderText(contents.getText().substring(1));
+        dialog.setContentText("Enter new value:");
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(value -> {
+            updateVariableValue(contents, value);
+        });
+    }
+
+    private void updateVariableValue(Label contents, String value){
+        String[] s = contents.getText().split(" ");
+        String str = "make " + s[0] + " " + value;
+        System.out.println(str);
+        guiData.setMyCommandToRun(str);
     }
 
     private void isItAlreadyThere(String stringToAdd) {
