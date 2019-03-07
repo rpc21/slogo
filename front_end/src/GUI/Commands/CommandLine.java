@@ -7,7 +7,7 @@ public class CommandLine extends TextArea implements GUIComponent {
 
     private static final int ROWS = 4;
     private static final int COLUMNS = 10;
-    
+
     public CommandLine(){
         super();
         setPrefRowCount(ROWS);
