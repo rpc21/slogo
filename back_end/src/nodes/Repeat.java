@@ -1,6 +1,5 @@
 package nodes;
 
-import apis.AddVariable;
 import apis.ImmutableVisualCommand;
 import parser.UserCreated;
 import turtle.Bale;

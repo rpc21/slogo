@@ -1,7 +1,9 @@
 package nodes;
 
-import apis.GetVariableValue;
 import apis.ImmutableVisualCommand;
+import exceptions.InvalidCommandException;
+import exceptions.InvalidInputException;
+import exceptions.InvalidVariableException;
 import parser.UserCreated;
 import turtle.Bale;
 
@@ -18,14 +20,14 @@ public class Variable extends CommandNode {
         myValue = NOT_ASSIGNED;
         System.out.println(NOT_ASSIGNED_ERROR);
     }
-    public Variable(String variableName, UserCreated myUserCreated){
+    public Variable(String variableName, UserCreated myUserCreated) throws InvalidInputException {
         super(variableName);
         myVarName = variableName;
         try {
             myValue = myUserCreated.getValue(myVarName);
         }
         catch(Exception e) {
-            System.out.println(NOT_ASSIGNED_ERROR);
+            throw new InvalidVariableException(variableName);
         }
     }
     @Override

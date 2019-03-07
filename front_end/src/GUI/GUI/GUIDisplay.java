@@ -54,7 +54,7 @@ public class GUIDisplay implements VisualUpdateAPI {
     private GridPane myCurrentGUIGrid;
     public static final int SCENE_WIDTH = 1200;
     public static final int SCENE_HEIGHT = 650;
-    public GUIdata dataTracker = new GUIdata();
+    private GUIdata dataTracker = new GUIdata();
     private ErrorDisplay myError;
     private ColorPalette myColorPalette;
     private TurtlePalette myTurtlePalette;
@@ -231,16 +231,6 @@ public class GUIDisplay implements VisualUpdateAPI {
             ref.executeCurrentCommand(commandToExecute, myLanguage.getLanguageString());
         } catch(exceptions.InvalidInputException e) {
             myError.setText(e.getReason());
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
         addToCommandHistory(commandToExecute);
     }
