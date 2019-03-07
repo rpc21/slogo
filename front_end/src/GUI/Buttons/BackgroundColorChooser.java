@@ -2,7 +2,6 @@ package GUI.Buttons;
 
 import GUI.GUI.GUIComponent;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.util.function.Consumer;

@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -98,22 +99,9 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
         this.myPen = displayView.myPen;
     }
 
-    public void addMove(Move turtleMove){
+    private void addMove(Move turtleMove){
         myMoveHistory.add(turtleMove);
     }
-//
-//    public void addAllMoves(List<Move> turtleMoves){
-//        myMoveHistory.addAll(turtleMoves);
-//    }
-//
-//    public void clearMoves(){
-//        myMoveHistory.clear();
-//    }
-//
-//    public void makeMove(Move move){
-//        updatePen(move);
-//        drawPath(move);
-//    }
 
     private void updatePosition(Move move) {
         setTranslateX(move.getDisplacement().getX());
@@ -131,24 +119,10 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
             myContext.stroke();
         }
         myContext.closePath();
-//        updateTab();
     }
 
-//    public void drawPath(){
-//        for (Move move : myMoveHistory){
-//            makeMove(move);
-//        }
-//    }
-
-//    private void updatePen(Move move) {
-//        myPen.setDown(move.isPenDown());
-//        myPen.setMyColor(move.getPenColor());
-//        myPen.setMyStyle(move.getPathStyle());
-//        myPen.setMyWidth(move.getPenWidth());
-//    }
-
     public List<String> getPossibleImages() {
-        return possibleImages;
+        return Collections.unmodifiableList(possibleImages);
     }
 
     public Pen getMyPen() {
@@ -181,7 +155,6 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
 
     public void goHome() {
         moveTo(new Point2D(0,0));
-//        setRotate(0);
     }
 
     public void turn(double degrees) {
