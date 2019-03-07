@@ -37,6 +37,7 @@ public class Turtle {
         try {
 
             Class<?>[] typeOfParams = new Class<?>[myParams.length];
+
             for (int i = 0; i < myParams.length; i++)
                 typeOfParams[i] = myParams[i].getClass();
             Method m = getClass().getDeclaredMethod(actionName,typeOfParams);
