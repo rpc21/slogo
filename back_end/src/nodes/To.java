@@ -1,18 +1,24 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
+import parser.UserCreated;
 import turtle.Bale;
 
 import java.util.List;
 
 
 public class To extends CommandNode {
+    private UserCreated myUserCreatedItems;
     public To(String commandName) {
         super(commandName);
     }
+    public To(String a, UserCreated user) {
+        super(a);
+        myUserCreatedItems = user;
+    }
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
-        return Math.sin(super.getChildren().get(0).evaluate(myVisCommands, myTurtles));
+        return 1.0;
     }
     /**
      * Adds an addend to this nodes.SumNode's list of Children as main.Parser reads them in
@@ -29,4 +35,7 @@ public class To extends CommandNode {
     public boolean needsName(){
         return true;
     }
+
+    @Override
+    public boolean needsUserCreated(){ return true;}
 }

@@ -1,9 +1,6 @@
 package GUI.GUI;
 
-import exceptions.InvalidCommandException;
-import exceptions.InvalidListException;
-import exceptions.InvalidVariableException;
-import exceptions.NothingToRunException;
+import exceptions.*;
 import parser.external.CommandController;
 
 import java.lang.reflect.InvocationTargetException;
@@ -13,7 +10,7 @@ public class GUIController {
     private GUIDisplay myDisplay;
     GUIExecute myExecuteFunction = new GUIExecute() {
         @Override
-        public void executeCurrentCommand(String c, String language) throws InvalidCommandException, InvalidVariableException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, InvalidListException, NothingToRunException {
+        public void executeCurrentCommand(String c, String language) throws InvalidInputException {
             execute(c, language);
         }
     };
@@ -23,7 +20,7 @@ public class GUIController {
         myDisplay.setUpRunButton(myExecuteFunction);
     }
 
-    public void execute(String command, String language) throws InvalidCommandException, InvalidVariableException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, InvalidListException, NothingToRunException {
+    public void execute(String command, String language) throws InvalidInputException {
 
         double answer = myController.execute(command, language);
 
