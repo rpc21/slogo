@@ -155,7 +155,7 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
     }
 
     public void clearScreen() {
-        myBackgroundCanvas.setColor(Color.WHITE);
+        //myBackgroundCanvas.setColor(Color.WHITE);
         myDrawingCanvas.clearCanvas();
         for (DisplayView turtle: myTurtles){
             getChildren().remove(turtle);

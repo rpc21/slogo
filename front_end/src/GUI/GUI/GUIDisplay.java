@@ -36,44 +36,28 @@ public class GUIDisplay implements VisualUpdateAPI {
     public static final String HELP = "Help";
     public static final String RUN = "Run";
     public static final String CLEAR_SCREEN = "ClearScreen";
-    //    public static final String DEFAULT_LANGUAGE = "English";
     private Stage myStage;
     private Scene myScene;
-//    private String myTitle = "SLogo";
     private GridPane myRoot;
     private CommandLine myTextBox;
     private String commandToExecute;
-//    private LanguageChooser myLanguageChooser;
-//    private ImageChooser<String> myTurtleIconChooser;
     private Button myRunButton;
     private ClearButton myClearButton;
     private Button myHelpButton;
     private ResourceBundle myResources;
     private Language myLanguage;
-//    private String myLanguage;
     private Toolbar myToolbar;
     private StackedCanvasPane myStackedCanvasPane;
+
     private PaletteTabExplorer myPaletteTabExplorer;
-//    private static final String LANGUAGE_LOCATION = "languages/";
-//    private final String VARIABLES = "Variables";
-//    private final String METHODS = "Methods";
-//    private final String COMMANDS = "CommandHistory";
     private TabExplorer myTabExplorer;
-//    private SLogoTab myVariables;
-//    private SLogoTab myCommands;
-//    private SLogoTab myMethods;
     private GridPane myCurrentGUIGrid;
-//    private Consumer<Language> myLanguageConsumer;
-//    private Consumer<String> myLanguageConsumer;
     public static final int SCENE_WIDTH = 1200;
     public static final int SCENE_HEIGHT = 650;
     public GUIdata dataTracker = new GUIdata();
     private ErrorDisplay myError;
-//    private ColorPalette myColorPalette;
-//    private TurtlePalette myTurtlePalette;
-//    private Palette<PaletteElement<Rectangle>, Rectangle> myColorPalette;
-//    private Palette<PaletteElement<DisplayView>, DisplayView> myTurtlePalette;
-//    private ContextMenu myContextMenu;
+    private ColorPalette myColorPalette;
+    private TurtlePalette myTurtlePalette;
     private List<CommandExecutable> commandExecutableComponents;
     private List<LanguageChangeable> languageChangeableComponents;
     private TurtleViewTabExplorer myTurtleViewTabExplorer;
@@ -85,7 +69,6 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
-//        myResources = ResourceBundle.getBundle(myLanguage);
         myStage = stage;
         commandExecutableComponents = new ArrayList<>();
         languageChangeableComponents = new ArrayList<>();
@@ -191,7 +174,6 @@ public class GUIDisplay implements VisualUpdateAPI {
         for (LanguageChangeable component : languageChangeableComponents){
             component.setLanguage(language);
         }
-//        myResources = ResourceBundle.getBundle(myLanguage);
         myRunButton.setText(myLanguage.getTranslatedWord(RUN));
         myClearButton.setText(myLanguage.getTranslatedWord(CLEAR));
         myHelpButton.setText(myLanguage.getTranslatedWord(HELP));
@@ -291,7 +273,6 @@ public class GUIDisplay implements VisualUpdateAPI {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(myLanguage.getTranslatedWord("Help"));
         alert.setHeaderText(myLanguage.getTranslatedWord("HelpHeader"));
-       // alert.setContentText(myResources.getString("HelpInfo"));
         ScrollPane pane = new ScrollPane();
         pane.setContent(new Label(myLanguage.getTranslatedWord("HelpInfo")));
         alert.getDialogPane().setExpandableContent(pane);
@@ -366,10 +347,6 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     @Override
     public void clearScreen() {
-//        myStackedCanvasPane = new StackedCanvasPane();
-//        myStackedCanvasPane.setLanguage(myLanguage);
-//        myStackedCanvasPane.giveAbilityToRunCommands((x) -> runCommand(guiExecute, x));
-//        myStackedCanvasPane.grantTabAccess(myTurtleViewTabExplorer.getTabAccess());
         myStackedCanvasPane.clearScreen();
         myTabExplorer.clearCommandHistory();
     }
