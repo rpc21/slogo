@@ -1,6 +1,7 @@
 package nodes;
 
 import apis.ImmutableVisualCommand;
+import exceptions.InvalidInputException;
 import turtle.Bale;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public abstract class TurtleCommand extends CommandNode{
         myTurtleCommands.addAll(commandNames);
     }
     
-    protected List<ImmutableVisualCommand> invokeTurtles(Object[] myParameters, Bale myTurtles){
+    protected List<ImmutableVisualCommand> invokeTurtles(Object[] myParameters, Bale myTurtles) throws InvalidInputException {
         return myTurtles.act(myTurtleCommands,myParameters);
     }
 
