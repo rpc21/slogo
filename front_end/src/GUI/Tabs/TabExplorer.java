@@ -44,9 +44,6 @@ public class TabExplorer extends TabPane implements GUIComponent, CommandExecuta
         myVariables = makeVariablesTab(myDataTracker, myTextBox);
         myMethods = makeTab(METHODS, myDataTracker, myTextBox);
         myCommands = makeTab(COMMANDS, myDataTracker, myTextBox);
-
-        myVariables.addContents(":var1");
-        myVariables.addContents(":var2");
         myCommands.addContents("sample commmand");
         myMethods.addContents("sample method");
         getTabs().addAll(myVariables, myMethods, myCommands);
