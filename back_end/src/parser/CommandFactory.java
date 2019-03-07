@@ -15,22 +15,15 @@ public class CommandFactory {
         return new ConstantNode(d);
     }
 
-    public CommandNode makeCommand(String c) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException, ClassNotFoundException {
-        Class myCommandClass = Class.forName("nodes." + c);
-        Constructor myConstructor = myCommandClass.getConstructor(String.class);
-        CommandNode myCommandNode = (CommandNode) myConstructor.newInstance(c);
-        return myCommandNode;
-    }
-
-    // todo: ask anna if we can change this
-    public CommandNode makeCommand(String c, AddVariable av) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        Class myCommandClass = Class.forName("nodes." + c);
-        Constructor myConstructor = myCommandClass.getConstructor(String.class, AddVariable.class);
-        return (CommandNode) myConstructor.newInstance(c, av);
-    }
-
-    public CommandNode makeCommand(String c, GetVariableValue gv) {
-        return null;
+    public CommandNode makeCommand(String c, UserCreated userCreated) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException, ClassNotFoundException {
+        Class commandClass = Class.forName("nodes." + c);
+        Constructor constructor = commandClass.getConstructor(String.class);
+        CommandNode commandNode = (CommandNode) constructor.newInstance(c);
+        if(commandNode.needsUserCreated()) {
+            constructor = commandClass.getConstructor(String.class, AddVariable.class);
+            commandNode = (CommandNode) constructor.newInstance(c, userCreated);
+        }
+        return commandNode;
     }
 
     public CommandNode makeNameNode(String s) {

@@ -37,10 +37,9 @@ public class Parser {
         String currentCommandKey = myValidator.getCommandKey(currentValue);
         int expectedNumberOfParameters = myValidator.getExpectedNumberOfParameters(currentCommandKey);
         // todo: check for too few parameters
-        CommandNode currentNode = myCommandFactory.makeCommand(currentCommandKey);
+        CommandNode currentNode = myCommandFactory.makeCommand(currentCommandKey, myUserCreated);
         updateMyCurrentCommand();
         if(currentNode.needsName()) { // this means the current node is looking for a variable
-            // todo: move this to command factory:  currentNode = myCommandFactory.makeCommand(currentCommandKey, myUserCreated.getMyAddVarFunction());
             addVariableChild(currentNode, commandSplit[1]);
         }
         for(int i = getStartIndex(currentNode); i <= expectedNumberOfParameters; i++) {
@@ -69,7 +68,7 @@ public class Parser {
         } else if (myValidator.isListStart(child)) {
             currentNode.addChild(makeListTree());
         } else if (myValidator.isVariable(child)){
-            currentNode.addChild(myCommandFactory.makeCommand("Variable"));
+            currentNode.addChild(myCommandFactory.makeCommand("Variable", myUserCreated));
         } else {
             currentNode.addChild(makeNodeTree());
         }
@@ -80,7 +79,7 @@ public class Parser {
         if(myValidator.hasListEnd(myCurrentCommand)) {
             throw new InvalidListException();
         }
-        CommandNode parent = myCommandFactory.makeCommand("ListNode");
+        CommandNode parent = myCommandFactory.makeCommand("ListNode", myUserCreated);
         updateMyCurrentCommand();
         String[] splitCommand = myCurrentCommand.trim().split("\\s+");
         String child = splitCommand[0];
