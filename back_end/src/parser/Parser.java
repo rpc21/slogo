@@ -1,12 +1,9 @@
 package parser;
 
-import exceptions.InvalidCommandException;
 import exceptions.InvalidInputException;
 import exceptions.InvalidListException;
-import exceptions.InvalidVariableException;
 import nodes.CommandNode;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +12,9 @@ public class Parser {
     private String myCurrentCommand;
     private UserCreated myUserCreated;
     private Validator myValidator;
+
+    private static final String LIST_NODE_NAME = "ListNode";
+    private static final String VARIABLE_NODE_NAME = "Variable";
 
     public Parser(UserCreated userCreated) {
         myUserCreated = userCreated;
@@ -69,7 +69,7 @@ public class Parser {
         } else if (myValidator.isListStart(child)) {
             currentNode.addChild(makeListTree());
         } else if (myValidator.isVariable(child)){
-            currentNode.addChild(myCommandFactory.makeCommand("Variable", myUserCreated));
+            currentNode.addChild(myCommandFactory.makeCommand(VARIABLE_NODE_NAME, myUserCreated));
         } else {
             currentNode.addChild(makeNodeTree());
         }
@@ -80,7 +80,7 @@ public class Parser {
         if(myValidator.hasListEnd(myCurrentCommand)) {
             throw new InvalidListException();
         }
-        CommandNode parent = myCommandFactory.makeCommand("ListNode", myUserCreated);
+        CommandNode parent = myCommandFactory.makeCommand(LIST_NODE_NAME, myUserCreated);
         updateMyCurrentCommand();
         String[] splitCommand = myCurrentCommand.trim().split("\\s+");
         String child = splitCommand[0];
