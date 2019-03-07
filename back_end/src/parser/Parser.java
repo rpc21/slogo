@@ -55,35 +55,27 @@ public class Parser {
 
     private void addChild(CommandNode currentNode, String child) throws InvalidCommandException, InvalidVariableException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, InvalidListException {
         if (myValidator.isDouble(child)) {
-            System.out.println("Double Child: " + child);
             currentNode.addChild(myCommandFactory.makeCommand(Double.parseDouble(child)));
         } else if (myValidator.isListStart(child)) {
-            System.out.println("List Child: " + child);
-            currentNode.addChild(makeListTree(child));
-            System.out.println("ADDED CHILDREN");
+            currentNode.addChild(makeListTree());
         } else if (myValidator.isVariable(child)){
             currentNode.addChild(myCommandFactory.makeCommand("Variable"));
         } else {
-            System.out.println("Node Child: " +  child);
             currentNode.addChild(makeNodeTree());
         }
-        System.out.println("updating command");
         updateMyCurrentCommand();
     }
 
-    private CommandNode makeListTree(String child) throws InvalidListException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvalidVariableException, InvalidCommandException {
+    private CommandNode makeListTree() throws InvalidListException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvalidVariableException, InvalidCommandException {
         if(myValidator.hasListEnd(myCurrentCommand)) {
             throw new InvalidListException();
         }
         CommandNode parent = myCommandFactory.makeCommand("ListNode");
-        System.out.println("update command in makeListTree");
         updateMyCurrentCommand();
         String[] splitCommand = myCurrentCommand.trim().split("\\s+");
-        child = splitCommand[0];
+        String child = splitCommand[0];
         int index = 0;
         while(!myValidator.isListEnd(child)) {
-            System.out.println(child.length());
-            System.out.println("in while loop: " + child);
             addChild(parent, child);
             index++;
             child = splitCommand[index];
