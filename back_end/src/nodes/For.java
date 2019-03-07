@@ -2,6 +2,7 @@ package nodes;
 
 import apis.AddVariable;
 import apis.ImmutableVisualCommand;
+import parser.UserCreated;
 import turtle.Bale;
 
 import java.util.List;
@@ -12,21 +13,21 @@ public class For extends CommandNode{
     private static final int END = 2;
     private static final int INCREMENT = 3;
     private static final int LISTNODE = 4;
-    private AddVariable myAddVarFunction;
+    private UserCreated myUserCreatedItems;
 
     public For(String a){
         super(a);
     }
-    public For(String a, AddVariable add) {
+    public For(String a, UserCreated user) {
         super(a);
-        myAddVarFunction = add;
+        myUserCreatedItems = user;
     }
 
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
         String name = super.getChildren().get(ITERATOR).getName();
         double start = super.getChildren().get(START).evaluate(myVisCommands,myTurtles);
-        myAddVarFunction.addNewVariable(name,start);
+        myUserCreatedItems.addVariable(name,start);
 
 
         double end = super.getChildren().get(END).evaluate(myVisCommands,myTurtles);
@@ -41,10 +42,12 @@ public class For extends CommandNode{
         while (start < end) {
             ret = super.getChildren().get(LISTNODE).evaluate(myVisCommands,myTurtles);
             start += increment;
-            myAddVarFunction.addNewVariable(name,start);
+            myUserCreatedItems.addVariable(name,start);
         }
         return ret;
     }
     @Override
-    public boolean needsToAddVariable(){ return true;}
+    public boolean needsName(){return true;}
+    @Override
+    public boolean needsUserCreated(){ return true;}
 }

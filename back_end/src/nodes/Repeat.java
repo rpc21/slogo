@@ -2,20 +2,21 @@ package nodes;
 
 import apis.AddVariable;
 import apis.ImmutableVisualCommand;
+import parser.UserCreated;
 import turtle.Bale;
 
 import java.util.List;
 
 public class Repeat extends CommandNode{
 
-    private AddVariable myAddVarFunction;
+    private UserCreated myUserCreatedItems;
     private static final String repeatVariable  = "repcount";
     public Repeat(String a) {
         super(a);
     }
-    public Repeat(String a, AddVariable add) {
+    public Repeat(String a, UserCreated user) {
         super(a);
-        myAddVarFunction = add;
+       myUserCreatedItems = user;
     }
 
     @Override
@@ -23,14 +24,14 @@ public class Repeat extends CommandNode{
         double ret = 0;
         double iter = 1;
 
-        myAddVarFunction.addNewVariable(repeatVariable,iter);
+        myUserCreatedItems.addVariable(repeatVariable,iter);
         int numIterations = (int)super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
         CommandNode myListNode = super.getChildren().get(1);
 
         for (int i = 0; i < numIterations; i++){
             ret = myListNode.evaluate(myVisCommands,myTurtles);
             iter += 1;
-            myAddVarFunction.addNewVariable(repeatVariable,iter ++);
+            myUserCreatedItems.addVariable(repeatVariable,iter);
         }
         return ret;
     }
@@ -41,5 +42,5 @@ public class Repeat extends CommandNode{
     }
 
     @Override
-    public boolean needsToAddVariable(){ return true;}
+    public boolean needsUserCreated(){ return true;}
 }
