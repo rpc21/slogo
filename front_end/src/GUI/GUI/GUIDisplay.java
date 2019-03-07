@@ -54,7 +54,7 @@ public class GUIDisplay implements VisualUpdateAPI {
     private GridPane myCurrentGUIGrid;
     public static final int SCENE_WIDTH = 1200;
     public static final int SCENE_HEIGHT = 650;
-    private GUIdata dataTracker = new GUIdata();
+    private GUIdata dataTracker;
     private ErrorDisplay myError;
     private ColorPalette myColorPalette;
     private TurtlePalette myTurtlePalette;
@@ -66,13 +66,13 @@ public class GUIDisplay implements VisualUpdateAPI {
     private List<String> myListOfCommands;
     private UndoButton myUndoButton;
 
-
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
         myStage = stage;
         commandExecutableComponents = new ArrayList<>();
         languageChangeableComponents = new ArrayList<>();
         myListOfCommands = new ArrayList<>();
+        dataTracker = new GUIdata();
         myRoot = createGridPane();
         myRoot.setGridLinesVisible(false);
         myScene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.LIGHTGRAY);
@@ -105,7 +105,6 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     private void createRightSidePane(GridPane grid) {
         createTabExplorers(grid);
-//        createPalettes(grid);
     }
 
     private void createTabExplorers(GridPane grid) {
@@ -231,8 +230,6 @@ public class GUIDisplay implements VisualUpdateAPI {
             ref.executeCurrentCommand(commandToExecute, myLanguage.getLanguageString());
         } catch(exceptions.InvalidInputException e) {
             myError.setText(e.getReason());
-        } catch (Exception e) {
-            myError.setText("Please Enter a Valid SLogo Command");
         }
         addToCommandHistory(commandToExecute);
     }
@@ -278,9 +275,7 @@ public class GUIDisplay implements VisualUpdateAPI {
     }
 
     @Override
-    public void setActiveTurtles(List<Integer> activeTurtleIDs) {
-
-    }
+    public void setActiveTurtles(List<Integer> activeTurtleIDs) { }
 
     @Override
     public void addVariable(String name, Double val) {

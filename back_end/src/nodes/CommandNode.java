@@ -41,7 +41,7 @@ public abstract class CommandNode {
         return false;
     }
 
-    public boolean needsToAddVariable(){ return false;}
+    public boolean needsUserCreated(){ return false;}
     public boolean isMethodDeclaration() {return false;}
     protected String getName(){
         return myName;

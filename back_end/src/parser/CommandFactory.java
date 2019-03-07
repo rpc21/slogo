@@ -1,14 +1,13 @@
 package parser;
 
 import apis.AddVariable;
-import apis.GetVariableValue;
+import exceptions.InvalidCommandException;
+import exceptions.InvalidInputException;
 import nodes.CommandNode;
 import nodes.ConstantNode;
-import nodes.MakeVariable;
 import nodes.Name;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 public class CommandFactory {
 
@@ -16,23 +15,20 @@ public class CommandFactory {
         return new ConstantNode(d);
     }
 
-    public CommandNode makeCommand(String c) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException, ClassNotFoundException {
-        Class myCommandClass = Class.forName("nodes." + c);
-        Constructor myConstructor = myCommandClass.getConstructor(String.class);
-        CommandNode myCommandNode = (CommandNode) myConstructor.newInstance(c);
-        return myCommandNode;
-    }
-
-    // todo: ask anna if we can change this
-    public CommandNode makeCommand(String c, AddVariable av) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        Class myCommandClass = Class.forName("nodes." + c);
-        Constructor myConstructor = myCommandClass.getConstructor(String.class, AddVariable.class);
-        CommandNode myCommandNode = (CommandNode) myConstructor.newInstance(c, av);
-        return myCommandNode;
-    }
-
-    public CommandNode makeCommand(String c, GetVariableValue gv) {
-        return null;
+    public CommandNode makeCommand(String c, UserCreated userCreated) throws InvalidInputException {
+        CommandNode commandNode = null;
+        try {
+            Class commandClass = Class.forName("nodes." + c);
+            Constructor constructor = commandClass.getConstructor(String.class);
+            commandNode = (CommandNode) constructor.newInstance(c);
+            if (commandNode.needsUserCreated()) {
+                constructor = commandClass.getConstructor(String.class, AddVariable.class);
+                commandNode = (CommandNode) constructor.newInstance(c, userCreated);
+            }
+            return commandNode;
+        } catch (Exception e) {
+            throw new InvalidCommandException(c);
+        }
     }
 
     public CommandNode makeNameNode(String s) {

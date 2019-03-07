@@ -1,6 +1,7 @@
 package parser;
 
 import exceptions.InvalidCommandException;
+import exceptions.InvalidInputException;
 import exceptions.InvalidVariableException;
 
 import java.util.Collections;
@@ -63,7 +64,7 @@ public class Validator {
         return String.join(" ", lines).trim();
     }
 
-    public String getCommandKey(String input) throws InvalidCommandException {
+    public String getCommandKey(String input) throws InvalidInputException {
         for(var key : myCommandSyntax.keySet()) {
             if(match(myCommandSyntax, input, key)) {
                 return key;
@@ -82,7 +83,7 @@ public class Validator {
         }
     }
 
-    public void validateVariableName(String variable) throws InvalidVariableException {
+    public void validateVariableName(String variable) throws InvalidInputException {
         if(!match(myGeneralSyntax, variable, VARIABLE_KEY)) {
             throw new InvalidVariableException(variable);
         }

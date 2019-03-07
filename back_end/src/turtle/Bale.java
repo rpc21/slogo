@@ -1,6 +1,7 @@
 package turtle;
 
 import apis.ImmutableVisualCommand;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,9 +25,19 @@ public class Bale extends ArrayList<Turtle> {
         return activeTurtles;
     }
 
-    public void makeTurtlesUpTo(int maxID){
-        for (int k = size(); k < maxID; k++) {
-            this.add(new Turtle(k));
+    public void makeTurtles(List<Integer> myIDs){
+        int maxID = -1;
+        for (Integer id: myIDs) {
+            if (id > maxID)
+                maxID = id;
+        }
+        makeTurtlesUpTo(maxID);
+
+    }
+
+    private void makeTurtlesUpTo(int maxID){
+        for (int k = size() - 1; k < maxID; k++) {
+            this.add(new Turtle(k + 1));
         }
     }
 
