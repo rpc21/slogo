@@ -1,13 +1,9 @@
 package GUI.Turtle;
 
-import GUI.Commands.IntegerCommandInputDialog;
 import GUI.Commands.Language;
 import GUI.Commands.LanguageChangeable;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Consumer;
 
 public class TurtleContextMenu extends SubContextMenu implements LanguageChangeable {

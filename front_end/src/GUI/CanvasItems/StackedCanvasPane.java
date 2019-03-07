@@ -175,18 +175,21 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
     public void setTurtleShape(int id, String content) {
         DisplayView turtleToRemove = myTurtles.get(id);
         System.out.println(content);
-        DisplayView turtle;
-        try {
-            var clazz = Class.forName(content);
-            turtle = (DisplayView) clazz.getDeclaredConstructor(DisplayView.class).newInstance(turtleToRemove);
-        }
-        catch (Exception e) {
-            turtle = new BasicTurtleView();
-        }
+        DisplayView turtle = getDisplayView(content, turtleToRemove);
         this.getChildren().remove(turtleToRemove);
         this.getChildren().add(turtle);
         myTurtles.remove(id);
         myTurtles.add(id, turtle);
+    }
+
+    private DisplayView getDisplayView(String content, DisplayView turtleToRemove) {
+        try {
+            var clazz = Class.forName(content);
+            return (DisplayView) clazz.getDeclaredConstructor(DisplayView.class).newInstance(turtleToRemove);
+        }
+        catch (Exception e) {
+            return new BasicTurtleView();
+        }
     }
 
 

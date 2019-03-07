@@ -98,7 +98,7 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
         this.myPen = displayView.myPen;
     }
 
-    public void addMove(Move turtleMove){
+    private void addMove(Move turtleMove){
         myMoveHistory.add(turtleMove);
     }
 //
