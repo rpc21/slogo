@@ -26,8 +26,9 @@ public class Or extends BooleanNode{
      */
     @Override
     public void addChild(CommandNode c) {
-        if (super.getChildren().size() == 2)
+        if (super.getChildren().size() == 2) {
             throw new IllegalArgumentException();
+        }
         super.addChild(c);
     }
 }

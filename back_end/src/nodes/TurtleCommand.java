@@ -22,8 +22,7 @@ public abstract class TurtleCommand extends CommandNode{
     }
     
     protected List<ImmutableVisualCommand> invokeTurtles(Object[] myParameters, Bale myTurtles){
-        List<ImmutableVisualCommand> moveVisCommands = myTurtles.act(myTurtleCommands,myParameters);
-        return moveVisCommands;
+        return myTurtles.act(myTurtleCommands,myParameters);
     }
 
 }

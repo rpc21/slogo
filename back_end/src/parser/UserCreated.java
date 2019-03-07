@@ -42,4 +42,12 @@ public class UserCreated {
     public double getVariableValue(String key) {
         return myVariables.get(key);
     }
+
+    public void saveState() {
+
+    }
+
+    public void loadState(String fileLocation) {
+
+    }
 }

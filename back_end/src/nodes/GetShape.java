@@ -19,4 +19,8 @@ public class GetShape extends CommandNode{
             return myTurtles.get(0).getShape();
         }
     }
+    @Override
+    public void addChild(CommandNode c){
+        throw new IllegalArgumentException();
+    }
 }

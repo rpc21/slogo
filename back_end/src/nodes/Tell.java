@@ -2,7 +2,6 @@ package nodes;
 
 import turtle.Bale;
 import apis.ImmutableVisualCommand;
-import turtle.Turtle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,7 @@ public class Tell extends CommandNode {
     }
 
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles){
-        System.out.println("TELL COMMAND WAS CREATED AND EVALUATED");
+
         CommandNode myListNode = myChildren.get(0);
         List<Integer> myTurtleIDs = new ArrayList<>();
         double ret = 0.0;
@@ -23,8 +22,9 @@ public class Tell extends CommandNode {
             ret = c.evaluate(myVisCommands, myTurtles);
             if ((int)ret > 0) {
                 myTurtleIDs.add((int) ret - 1);
-                if (((int) ret) > maxID)
+                if (((int) ret) > maxID) {
                     maxID = (int) ret;
+                }
             }
         }
 
@@ -32,8 +32,9 @@ public class Tell extends CommandNode {
         myTurtles.makeTurtlesUpTo(maxID);
         myTurtles.setActiveTurtles(myTurtleIDs);
         myVisCommands.add(new VisualActiveTurtles(myTurtleIDs));
-        if (currentTurtleCount != myTurtles.size())
-            myVisCommands.add(new VisualTurtleTell(myTurtles.size()-currentTurtleCount));
+        if (currentTurtleCount != myTurtles.size()) {
+            myVisCommands.add(new VisualTurtleTell(myTurtles.size() - currentTurtleCount));
+        }
         return ret;
     }
 

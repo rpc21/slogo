@@ -54,31 +54,31 @@ public class Parser {
     }
 
     private void addChild(CommandNode currentNode, String child) throws InvalidCommandException, InvalidVariableException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, InvalidListException {
-        System.out.println("Child: " +  child);
-        if(myValidator.isDouble(child)) {
+        if (myValidator.isDouble(child)) {
             currentNode.addChild(myCommandFactory.makeCommand(Double.parseDouble(child)));
-        } else if(myValidator.isListStart(child)) {
-            currentNode.addChild(makeListTree(child));
-            System.out.println("ADDED CHILDREN");
+        } else if (myValidator.isListStart(child)) {
+            currentNode.addChild(makeListTree());
+        } else if (myValidator.isVariable(child)){
+            currentNode.addChild(myCommandFactory.makeCommand("Variable"));
         } else {
             currentNode.addChild(makeNodeTree());
         }
         updateMyCurrentCommand();
     }
 
-    private CommandNode makeListTree(String child) throws InvalidListException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvalidVariableException, InvalidCommandException {
+    private CommandNode makeListTree() throws InvalidListException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvalidVariableException, InvalidCommandException {
         if(myValidator.hasListEnd(myCurrentCommand)) {
             throw new InvalidListException();
         }
         CommandNode parent = myCommandFactory.makeCommand("ListNode");
         updateMyCurrentCommand();
-        String[] splitCommand = myCurrentCommand.split("\\s");
-        child = splitCommand[0];
+        String[] splitCommand = myCurrentCommand.trim().split("\\s+");
+        String child = splitCommand[0];
+        int index = 0;
         while(!myValidator.isListEnd(child)) {
-            System.out.println("in while loop: " + child);
             addChild(parent, child);
-            splitCommand = myCurrentCommand.split("\\s");
-            child = splitCommand[0];
+            index++;
+            child = splitCommand[index];
         }
         return parent;
     }

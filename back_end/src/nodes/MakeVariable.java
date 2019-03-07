@@ -14,7 +14,6 @@ public class MakeVariable extends CommandNode{
     public MakeVariable(String a, AddVariable add){
         super(a);
         myAddVarFunction = add;
-        myAddVarFunction.addNewVariable("Hello", new Double(4));
     }
 
     @Override
@@ -36,5 +35,8 @@ public class MakeVariable extends CommandNode{
     public boolean needsName(){
         return true;
     }
+
+    @Override
+    public boolean needsToAddVariable(){ return true;}
 
 }

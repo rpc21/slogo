@@ -108,4 +108,8 @@ public class Validator {
     public boolean hasListEnd(String content) {
         return content.indexOf(mySyntaxProperties.getString(LIST_END_KEY)) != -1;
     }
+
+    public boolean isVariable(String child) {
+        return true;
+    }
 }
