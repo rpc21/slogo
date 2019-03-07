@@ -17,7 +17,7 @@ public class TurtlePaletteElement extends GridPane implements Comparator<TurtleP
         myIndex = index;
         myTurtleType = turtleType;
         try {
-            var clazz = Class.forName("GUI."+turtleType);
+            var clazz = Class.forName("GUI.Turtle."+turtleType);
             myTurtle = (DisplayView) clazz.getDeclaredConstructor().newInstance();
         }
         catch (Exception e){
@@ -31,7 +31,7 @@ public class TurtlePaletteElement extends GridPane implements Comparator<TurtleP
         return myIndex;
     }
 
-    public DisplayView getMyTurtle(){
+    public DisplayView getMyDisplay(){
         return myTurtle;
     }
 

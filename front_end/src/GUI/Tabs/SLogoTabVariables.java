@@ -22,19 +22,27 @@ public class SLogoTabVariables extends SLogoTab {
         contents.setWrapText(true);
         contents.setOnMouseClicked(event -> {
             //System.out.println("variablestab");
-            TextInputDialog dialog = new TextInputDialog();
-            dialog.setTitle("Variable Editor");
-            dialog.setHeaderText(contents.getText().substring(1));
-            dialog.setContentText("Enter new value:");
-            Optional<String> result = dialog.showAndWait();
-            result.ifPresent(value -> {
-               // String s = contents.getText() + " " + value;
-                String[] s = contents.getText().split(" ");
-                String str = "make " + s[0] + " " +value;
-                System.out.println(str);
-                guiData.setMyCommandToRun(str);
-            });
+            displayDialogMenu(contents);
         });
         myVBoxOfStrings.getChildren().add(0, contents);
+    }
+
+    private void displayDialogMenu(Label contents) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Variable Editor");
+        dialog.setHeaderText(contents.getText().substring(1));
+        dialog.setContentText("Enter new value:");
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(value -> {
+           // String s = contents.getText() + " " + value;
+            runCommand(contents, value);
+        });
+    }
+
+    private void runCommand(Label contents, String value) {
+        String[] s = contents.getText().split(" ");
+        String str = "make " + s[0] + " " +value;
+        System.out.println(str);
+        guiData.setMyCommandToRun(str);
     }
 }
