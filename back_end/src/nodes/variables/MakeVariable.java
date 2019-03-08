@@ -24,6 +24,7 @@ public class MakeVariable extends CommandNode {
 
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
+        myVarName = super.getChildren().get(0).getName();
         double varValue = super.getChildren().get(1).evaluate(myVisCommands, myTurtles);
         myUserCreatedItems.addVariable(myVarName,varValue);
         myVisCommands.add(new VisualAddVariable(myVarName,varValue));
