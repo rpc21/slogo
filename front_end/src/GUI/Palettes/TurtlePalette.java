@@ -1,5 +1,6 @@
 package GUI.Palettes;
 
+import GUI.Buttons.TurtleIconChooser;
 import GUI.Turtle.DisplayView;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
@@ -11,21 +12,27 @@ import java.util.function.Function;
 public class TurtlePalette<T extends Node> extends ScrollPane {
 
     VBox myVBox;
+    ResourceBundle myResources;
     Map<Integer, TurtlePaletteElement> myPaletteElements;
 
     public TurtlePalette(){
         myVBox = new VBox();
         myPaletteElements = new TreeMap<>();
+        myResources = ResourceBundle.getBundle(TurtleIconChooser.SHAPES_BUNDLE);
         myVBox.getChildren().addAll(myPaletteElements.values());
         setContent(myVBox);
         populateStartingElements();
     }
 
     private void populateStartingElements() {
-        this.addPaletteElement(new TurtlePaletteElement(1, "BasicTurtleView"));
-        this.addPaletteElement(new TurtlePaletteElement(2, "AdvancedTurtleView"));
-        this.addPaletteElement(new TurtlePaletteElement(4, "BasicTurtleView"));
-        this.addPaletteElement(new TurtlePaletteElement(3, "AdvancedTurtleView"));
+        List<String> keys = Collections.list(myResources.getKeys());
+        for (int i = 0; i < keys.size(); i++){
+            addPaletteElement(new TurtlePaletteElement(i+1, myResources.getString(keys.get(i)).replaceAll(" ","")));
+        }
+//        this.addPaletteElement(new TurtlePaletteElement(1, "BasicTurtleView"));
+//        this.addPaletteElement(new TurtlePaletteElement(2, "AdvancedTurtleView"));
+//        this.addPaletteElement(new TurtlePaletteElement(4, "BasicTurtleView"));
+//        this.addPaletteElement(new TurtlePaletteElement(3, "AdvancedTurtleView"));
     }
 
     public void addPaletteElement(TurtlePaletteElement element){

@@ -11,7 +11,7 @@ import java.util.function.Function;
 
 public class Toolbar extends HBox implements LanguageChangeable, CommandExecutable {
 
-    private static final String TURTLE_ICON = "TurtleIcon";
+//    private static final String TURTLE_ICON = "TurtleIcon";
     private static final String SET_BACKGROUND = "SetBackground";
     private static final String SET_PEN_COLOR = "SetPenColor";
 //    private ImageChooser<String> myImageChooser;
