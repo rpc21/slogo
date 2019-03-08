@@ -282,6 +282,11 @@ public class GUIDisplay implements VisualUpdateAPI {
     }
 
     @Override
+    public void addMethod(String name, List<String> myVars) {
+        
+    }
+
+    @Override
     public void turtleMove(int id, double x, double y) {
         myStackedCanvasPane.turtleMove(id, x, y);
     }
