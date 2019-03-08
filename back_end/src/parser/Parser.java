@@ -44,7 +44,8 @@ public class Parser {
             addVariableChild(currentNode, commandSplit[1]);
         }
         for(int i = getStartIndex(currentNode); i <= expectedNumberOfParameters; i++) {
-            addChild(currentNode, commandSplit[i]);
+            commandSplit = myCurrentCommand.split("\\s+");
+            addChild(currentNode, commandSplit[0]);
         }
         return currentNode;
     }
@@ -64,13 +65,20 @@ public class Parser {
     }
 
     private void addChild(CommandNode currentNode, String child) throws InvalidInputException {
+        System.out.println("ADD CHILD: " + child);
         if (myValidator.isDouble(child)) {
+            System.out.println("double " + child);
             currentNode.addChild(myCommandFactory.makeCommand(Double.parseDouble(child)));
         } else if (myValidator.isListStart(child)) {
+            System.out.println("list start: " + child);
             currentNode.addChild(makeListTree());
+            System.out.println("FINISHED LIST");
+            System.out.println("CURRENT: " + myCurrentCommand);
         } else if (myValidator.isVariable(child)){
+            System.out.println("variable " +  child);
             currentNode.addChild(myCommandFactory.makeCommand(VARIABLE_NODE_NAME, myUserCreated));
         } else {
+            System.out.println("command " + child);
             currentNode.addChild(makeNodeTree());
         }
         updateMyCurrentCommand();
@@ -86,6 +94,7 @@ public class Parser {
         String child = splitCommand[0];
         int index = 0;
         while(!myValidator.isListEnd(child)) {
+            System.out.println("child " + child);
             addChild(parent, child);
             index++;
             child = splitCommand[index];
