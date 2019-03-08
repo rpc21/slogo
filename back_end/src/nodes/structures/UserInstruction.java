@@ -23,8 +23,10 @@ public class UserInstruction extends CommandNode {
         String myUserMethodName = super.getChildren().get(0).getName();
         CommandNode listOfVariableValues = super.getChildren().get(1);
         List<Double> myVariableValues = new ArrayList<>();
-        for (CommandNode c: listOfVariableValues.getChildren())
-            myVariableValues.add(c.evaluate(myVisCommands,myTurtles));
+        for (CommandNode c: listOfVariableValues.getChildren()) {
+            System.out.println("Evaluating: " + c);
+            myVariableValues.add(c.evaluate(myVisCommands, myTurtles));
+        }
 
         myUserCreatedItems.setUpLocalVariables(myUserMethodName,myVariableValues);
         CommandNode listOfCommands = super.getChildren().get(2);

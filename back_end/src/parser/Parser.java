@@ -62,11 +62,8 @@ public class Parser {
         }
         if(currentNode.isMethodDeclaration()) { // special case where we want the children to be a bit different
             addNameChild(currentNode,  commandSplit[1]);
-            System.out.println("Current: " + myCurrentCommand);
-            currentNode.addChild(makeListTree());
-            System.out.println("Current: " + myCurrentCommand);
+            currentNode.addChild(makeNameListTree());
             updateMyCurrentCommand();
-            System.out.println("Current: " + myCurrentCommand);
             currentNode.addChild(myCommandFactory.makeNameNode(myCurrentCommand.substring(myCurrentCommand.indexOf("[") + 1, myCurrentCommand.indexOf("]"))));
             myCurrentCommand = "";
             return currentNode;
@@ -81,6 +78,22 @@ public class Parser {
         return currentNode;
     }
 
+    private CommandNode makeNameListTree() throws InvalidInputException {
+        if(myValidator.hasListEnd(myCurrentCommand)) {
+            throw new InvalidListException();
+        }
+        CommandNode parent = myCommandFactory.makeCommand(LIST_NODE_NAME, myUserCreated);
+        updateMyCurrentCommand();
+        String[] splitCommand = myCurrentCommand.trim().split("\\s+");
+        String child = splitCommand[0];
+        while(!myValidator.isListEnd(child)) {
+            addNameChild(parent, child);
+            splitCommand = myCurrentCommand.trim().split("\\s+");
+            child = splitCommand[0];
+        }
+        return parent;
+    }
+
     private CommandNode makeListNode(List<CommandNode> commands) throws InvalidInputException {
         CommandNode head = myCommandFactory.makeCommand(LIST_NODE_NAME, myUserCreated);
         for(CommandNode command : commands) {
@@ -89,8 +102,8 @@ public class Parser {
         return head;
     }
 
-    private void addNameChild(CommandNode currentNode, String s) throws InvalidInputException {
-        myValidator.validateVariableName(s);
+    private void addNameChild(CommandNode currentNode, String s) {
+        // todo: figure out how to validate name for variable (but not method)
         currentNode.addChild(myCommandFactory.makeNameNode(s));
         updateMyCurrentCommand();
     }
