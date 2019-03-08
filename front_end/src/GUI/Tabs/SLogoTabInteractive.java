@@ -7,13 +7,13 @@ import javafx.scene.control.TextInputDialog;
 
 import java.util.Optional;
 
-public class SLogoTabVariables extends SLogoTab {
+public class SLogoTabInteractive extends SLogoTab {
 
-    public SLogoTabVariables() {
+    public SLogoTabInteractive() {
         super();
     }
 
-    public SLogoTabVariables(String tabTitle, GUIdata data) {
+    public SLogoTabInteractive(String tabTitle, GUIdata data) {
         super(tabTitle, data);
     }
 
@@ -29,15 +29,15 @@ public class SLogoTabVariables extends SLogoTab {
         myVBoxOfStrings.getChildren().add(0, contents);
     }
 
-    private void displayDialogMenu(Label contents) {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Variable Editor");
-        dialog.setHeaderText(contents.getText().substring(1));
-        dialog.setContentText("Enter new value:");
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(value -> {
-            runCommand(contents, value);
-        });
+    public void displayDialogMenu(Label contents) {
+                //        TextInputDialog dialog = new TextInputDialog();
+//        dialog.setTitle("Variable Editor");
+//        dialog.setHeaderText(contents.getText().substring(1));
+//        dialog.setContentText("Enter new value:");
+//        Optional<String> result = dialog.showAndWait();
+//        result.ifPresent(value -> {
+//            runCommand(contents, value);
+//        });
     }
 
     private void isItAlreadyThere(String stringToAdd) {
@@ -52,7 +52,7 @@ public class SLogoTabVariables extends SLogoTab {
         myVBoxOfStrings.getChildren().remove(labelToRemove);
     }
 
-    private void runCommand(Label contents, String value) {
+    protected void runCommand(Label contents, String value) {
         String[] s = contents.getText().split(" ");
         String str = "make " + s[0] + " " +value;
         System.out.println(str);
