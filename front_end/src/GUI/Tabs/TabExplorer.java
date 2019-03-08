@@ -4,7 +4,6 @@ import GUI.Commands.CommandExecutable;
 import GUI.Commands.CommandLine;
 import GUI.Commands.Language;
 import GUI.Commands.LanguageChangeable;
-import GUI.GUI.GUIComponent;
 import GUI.GUI.GUIDisplay;
 import GUI.GUI.GUIdata;
 import javafx.scene.control.TabPane;
@@ -13,7 +12,7 @@ import javafx.scene.control.TextArea;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class TabExplorer extends TabPane implements GUIComponent, CommandExecutable, LanguageChangeable {
+public class TabExplorer extends TabPane implements CommandExecutable, LanguageChangeable {
 
     private static final String VARIABLES = "Variables";
     private static final String METHODS = "Methods";

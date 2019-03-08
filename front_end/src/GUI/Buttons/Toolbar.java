@@ -3,19 +3,13 @@ package GUI.Buttons;
 import GUI.Commands.CommandExecutable;
 import GUI.Commands.Language;
 import GUI.Commands.LanguageChangeable;
-import GUI.GUI.GUIComponent;
-import GUI.Turtle.BasicTurtleView;
-import GUI.Turtle.DisplayView;
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-
-import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class Toolbar extends HBox implements GUIComponent, LanguageChangeable, CommandExecutable {
+public class Toolbar extends HBox implements LanguageChangeable, CommandExecutable {
 
     private static final String TURTLE_ICON = "TurtleIcon";
     private static final String SET_BACKGROUND = "SetBackground";
@@ -46,12 +40,12 @@ public class Toolbar extends HBox implements GUIComponent, LanguageChangeable, C
         getChildren().addAll(myBackgroundColorChooser, myPenColorChooser, myTurtleIconChooser, myLanguageChooser);
     }
 
-    private ImageChooser<String> createImageChooser(Consumer<String> iconAccess) {
-        ImageChooser<String> imageChooser = new ImageChooser<>(iconAccess);
-//        imageChooser.getItems().addAll(new AdvancedTurtleView().getPossibleImages());
-        imageChooser.getSelectionModel().selectFirst();
-        return imageChooser;
-    }
+//    private ImageChooser<String> createImageChooser(Consumer<String> iconAccess) {
+//        ImageChooser<String> imageChooser = new ImageChooser<>(iconAccess);
+////        imageChooser.getItems().addAll(new AdvancedTurtleView().getPossibleImages());
+//        imageChooser.getSelectionModel().selectFirst();
+//        return imageChooser;
+//    }
 
 //    private TurtleIconChooser createTurtleIconChooser(Consumer<String> commandAccess){
 //
@@ -71,6 +65,7 @@ public class Toolbar extends HBox implements GUIComponent, LanguageChangeable, C
         myPenColorChooser.setLanguage(newLanguage);
         myBackgroundColorChooser.setLanguage(newLanguage);
         myTurtleIconChooser.setLanguage(newLanguage);
+        myLanguageChooser.setLanguage(newLanguage);
 //        myImageChooser.setPromptText(myLanguage.getTranslatedWord(TURTLE_ICON));
     }
 

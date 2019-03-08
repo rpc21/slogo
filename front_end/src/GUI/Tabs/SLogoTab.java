@@ -1,13 +1,12 @@
 package GUI.Tabs;
 
-import GUI.GUI.GUIComponent;
 import GUI.GUI.GUIdata;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 
-public class SLogoTab extends Tab implements GUIComponent {
+public class SLogoTab extends Tab {
 
     protected GUIdata guiData;
     VBox myVBoxOfStrings;
