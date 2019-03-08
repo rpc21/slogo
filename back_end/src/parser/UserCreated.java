@@ -33,6 +33,14 @@ public class UserCreated {
         }
     }
 
+    public boolean containsCommand(String key) {
+        return myCommands.containsKey(key);
+    }
+
+    public boolean containsVariable(String variable) {
+        return myVariables.containsKey(variable);
+    }
+
     public void addUserCommand(String commandName, List<String> varNames, String commandContents){
         UserCommand myCommand = new UserCommand(varNames,commandContents);
         for (String var: varNames)
@@ -41,8 +49,14 @@ public class UserCreated {
     }
 
     public void setUpLocalVariables(String methodName, List<Double> myVariableValues) {
+        System.out.println(methodName);
+        System.out.println(myCommands.get(methodName));
         List<String> variableNames = myCommands.get(methodName).getMyVariableNames();
         for (int i = 0; i < variableNames.size(); i++)
             myVariables.put(variableNames.get(i),myVariableValues.get(i));
+    }
+
+    public int getExpectedNumberOfParameters(String currentCommandKey) {
+        return myCommands.get(currentCommandKey).getMyVariableNames().size();
     }
 }

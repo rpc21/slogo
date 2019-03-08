@@ -283,7 +283,7 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     @Override
     public void addMethod(String name, List<String> myVars) {
-        
+
     }
 
     @Override

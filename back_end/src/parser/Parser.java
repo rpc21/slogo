@@ -4,6 +4,7 @@ import exceptions.InvalidInputException;
 import exceptions.InvalidListException;
 import exceptions.TooFewInputsException;
 import nodes.CommandNode;
+import nodes.structures.UserInstruction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +37,23 @@ public class Parser {
     private CommandNode makeNodeTree() throws InvalidInputException { // todo: check for invalid number of inputs?
         String[] commandSplit = myCurrentCommand.trim().split("\\s+");
         String currentValue = commandSplit[0];
-        String currentCommandKey = myValidator.getCommandKey(currentValue);
-        int expectedNumberOfParameters = myValidator.getExpectedNumberOfParameters(currentCommandKey);
-        // todo: check for too few parameters
-        CommandNode currentNode = myCommandFactory.makeCommand(currentCommandKey, myUserCreated);
-        updateMyCurrentCommand();
+        String currentCommandKey;
+        CommandNode currentNode;
+        int expectedNumberOfParameters;
+        try {
+            currentCommandKey = myValidator.getCommandKey(currentValue);
+            currentNode = myCommandFactory.makeCommand(currentCommandKey, myUserCreated);
+            expectedNumberOfParameters = myValidator.getExpectedNumberOfParameters(currentCommandKey);
+            updateMyCurrentCommand();
+        } catch (InvalidInputException e) {
+            if(myUserCreated.containsCommand(currentValue)) {
+                currentCommandKey = currentValue;
+                currentNode = myCommandFactory.makeCommand("UserInstruction", myUserCreated);
+                expectedNumberOfParameters = myUserCreated.getExpectedNumberOfParameters(currentCommandKey);
+            } else {
+                throw e;
+            }
+        }
         if(currentNode.needsName()) { // this means the current node is looking for a variable
             addVariableChild(currentNode, commandSplit[1]);
         }
