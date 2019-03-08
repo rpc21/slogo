@@ -31,12 +31,12 @@ public class Palette<R extends Node> extends ScrollPane {
     }
 
     public int addPaletteElement(R elementComponent) {
-        int index;
-        if (myPaletteElements.isEmpty()) {
-            index = 1;
-        } else {
-            index = Collections.max(myPaletteElements.keySet()) + 1;
-        }
+        int index = myPaletteElements.isEmpty() ? 1 : Collections.max(myPaletteElements.keySet()) + 1;
+//        if (myPaletteElements.isEmpty()) {
+//            index = 1;
+//        } else {
+//            index = Collections.max(myPaletteElements.keySet()) + 1;
+//        }
         PaletteElement<R> elementToAdd = new PaletteElement<>(index, elementComponent);
         addPaletteElement(elementToAdd);
         return index;
