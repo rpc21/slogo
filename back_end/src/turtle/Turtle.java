@@ -195,6 +195,86 @@ public class Turtle implements TurtleInterface{
         }
     }
 
+    private List<ImmutableVisualCommand> setTowards(Double newX, Double newY) {
+        double deltaX = newX - myXCoor;
+        double deltaY = newY - myYCoor;
+        double degrees = Math.atan2( newY - myYCoor,  newX - myXCoor) * 180.0 /Math.PI;
+
+
+        System.out.println("DEGREE TURN PRETRANSFORMATION: " + degrees);
+
+        if (deltaX >= 0 & deltaY >= 0)
+            degrees = 90 - degrees;
+        else if ( deltaX > 0 & deltaY < 0)
+            degrees = 90 + Math.abs(degrees);
+        else if (deltaX < 0 & deltaY < 0)
+            degrees = 90 + Math.abs(degrees);
+        else
+            degrees = 270 + 180 - degrees;
+//        if (newY < myYCoor){
+//            degrees = 180 + degrees;
+//        }
+//        double calcHeading = 0;
+//        if (myHeading > 180)
+//            calcHeading = 450 - myHeading;
+//        else if (myHeading < 90)
+//            calcHeading = 90 - myHeading;
+//        else
+//            calcHeading = 270 + 180 - myHeading;
+//
+//        double incorrectForm = calcHeading + degrees;
+//
+//        double finalHeading = 0.0;
+//        if (incorrectForm < 90)
+//            finalHeading = 90 - incorrectForm;
+//        else if (incorrectForm < 180)
+//            finalHeading = 270 + (180 - incorrectForm);
+//        else if (incorrectForm < 270)
+//            finalHeading = 270 + (180 - incorrectForm);
+//        else
+//            finalHeading = 360 - incorrectForm + 90;
+////        if (deltaX > 0){
+////            //do nothing
+////        }
+////        else if (deltaY >= 0 & deltaX < 0){
+////            degrees = 450 - degrees;
+////        }
+////        else if (deltaY < 0 & deltaX < 0){
+////            degrees = Math.abs(-90 + degrees);
+////        }
+////        else if (deltaY > 0 & deltaX == 0)
+////            degrees = 180;
+////        else if (deltaY < 0 & deltaX == 0)
+////            degrees = -180;
+////        else
+////            degrees = 0;
+//        double currentATanHeading = 0;
+//        if (myHeading <= 90 )
+//            currentATanHeading = 90 - myHeading;
+//        else if (myHeading <= 180)
+//            currentATanHeading = -90.0 + Math.abs(180 - myHeading);
+//        else if (myHeading <= 270)
+//            currentATanHeading = 270 - myHeading;
+//        else
+//            currentATanHeading = -1.0 * (myHeading - 270);
+
+
+//        if (Math.signum(deltaX) > 0 & Math.signum(deltaY) > 0)
+//            degrees = 90 - degrees;
+//        else if (Math.signum(deltaX) > 0 & Math.signum(deltaY) < 0) {
+//            degrees = Math.abs(degrees) + 90;
+//        }
+//        else if (Math.signum(deltaX) < 0 & Math.signum(deltaY) < 0)
+//            degrees = Math.abs(-90 + degrees);
+//        else
+//            degrees = -1.0 * (180 - degrees);
+        double turned = degrees - myHeading;
+        System.out.println("DEGREE TURN POST: " + turned);
+        System.out.println("CURRENT HEADING: " + myHeading);
+        myHeading = myHeading + turned;
+        return Arrays.asList(new VisualTurtleTurn(myID,  turned));
+    }
+
     private void checkHeading(){
         if (myHeading > FULL_CIRCLE) {
             myHeading = myHeading % FULL_CIRCLE;

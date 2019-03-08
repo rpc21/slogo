@@ -11,13 +11,14 @@ import java.util.List;
 public class Repeat extends CommandNode {
 
     private UserCreated myUserCreatedItems;
-    private static final String repeatVariable  = "repcount";
+    private static final String repeatVariable  = ":repcount";
     public Repeat(String a) {
         super(a);
     }
     public Repeat(String a, UserCreated user) {
         super(a);
        myUserCreatedItems = user;
+       user.addVariable(repeatVariable,1.0);
     }
 
     @Override
@@ -25,7 +26,6 @@ public class Repeat extends CommandNode {
         double ret = 0;
         double iter = 1;
 
-        myUserCreatedItems.addVariable(repeatVariable,iter);
         int numIterations = (int)super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
         CommandNode myListNode = super.getChildren().get(1);
 
