@@ -19,6 +19,10 @@ public class MakeUserInstruction extends CommandNode {
     }
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
+        String commandName = super.getChildren().get(0).getName();
+        CommandNode variableNames = super.getChildren().get(1);
+        CommandNode commands = super.getChildren().get(2);
+//        myUserCreatedItems.addUserCommand(commandName, List, )
         return 1.0;
     }
     /**

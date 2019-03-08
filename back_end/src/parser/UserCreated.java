@@ -4,6 +4,7 @@ import exceptions.InvalidInputException;
 import exceptions.InvalidVariableException;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UserCreated {
@@ -30,5 +31,10 @@ public class UserCreated {
         catch (Exception e){
             throw new InvalidVariableException(key);
         }
+    }
+
+    public void addUserCommand(String commandName, List<String> varNames, String commandContents){
+        UserCommand myCommand = new UserCommand(varNames,commandContents);
+        myCommands.put(commandName,myCommand);
     }
 }

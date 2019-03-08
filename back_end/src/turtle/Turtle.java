@@ -27,10 +27,10 @@ public class Turtle implements TurtleInterface{
     private static final double YBOUNDARY = 225;
     private static final double FULL_CIRCLE = 360;
     public Turtle(int id){
-        myXCoor = myYCoor = myHeading = myPenColor = myShape =  0;
+        myXCoor = myYCoor = myHeading = myPenColor = 0;
         myPenSize = 2;
         myID = id;
-        myVisibility = myPenState = 1;
+        myVisibility = myPenState = myShape = 1;
         if (id == 0)
             isActive = true;
         else
@@ -38,7 +38,7 @@ public class Turtle implements TurtleInterface{
 
     }
 
-    public List<ImmutableVisualCommand> turtleAction(String actionName,  Object[] myParams) throws InvalidInputException {
+    List<ImmutableVisualCommand> turtleAction(String actionName, Object[] myParams) throws InvalidInputException {
         try {
 
             Class<?>[] typeOfParams = new Class<?>[myParams.length];
@@ -65,14 +65,14 @@ public class Turtle implements TurtleInterface{
     public double getPenState(){
         return myPenState;
     }
-    public boolean isActive(){ return isActive;}
+    boolean isActive(){ return isActive;}
 
     private List<ImmutableVisualCommand> setPenSize(Double pixels){
         myPenSize = pixels;
         return Arrays.asList(new VisualPenSize(myID,pixels));
     }
 
-    public void setActive(boolean a ){isActive = a;}
+    void setActive(boolean a){isActive = a;}
 
 
     private List<ImmutableVisualCommand> move(Double pixels) {
@@ -136,8 +136,8 @@ public class Turtle implements TurtleInterface{
 
     }
 
-    public void setXCoor(double x){ myXCoor = x; }
-    public void setYCoor(double y){
+    private void setXCoor(double x){ myXCoor = x; }
+    private void setYCoor(double y){
         myYCoor = y;
     }
 
