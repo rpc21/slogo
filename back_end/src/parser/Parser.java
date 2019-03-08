@@ -2,6 +2,7 @@ package parser;
 
 import exceptions.InvalidInputException;
 import exceptions.InvalidListException;
+import exceptions.TooFewInputsException;
 import nodes.CommandNode;
 
 import java.util.ArrayList;
@@ -45,6 +46,9 @@ public class Parser {
         }
         for(int i = getStartIndex(currentNode); i <= expectedNumberOfParameters; i++) {
             commandSplit = myCurrentCommand.split("\\s+");
+            if(commandSplit[0].length()  == 0) {
+                throw new TooFewInputsException();
+            }
             addChild(currentNode, commandSplit[0]);
         }
         return currentNode;
