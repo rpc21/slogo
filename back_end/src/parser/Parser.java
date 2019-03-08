@@ -39,7 +39,9 @@ public class Parser {
         int expectedNumberOfParameters = myValidator.getExpectedNumberOfParameters(currentCommandKey);
         // todo: check for too few parameters
         CommandNode currentNode = myCommandFactory.makeCommand(currentCommandKey, myUserCreated);
+        System.out.println("vvvvvvvvv Updating myCurrentVariable from  makeNodeTree: vvvvvvvvv");
         updateMyCurrentCommand();
+        System.out.println("^^^^^^^^^ from makeNodeTree ^^^^^^^");
         if(currentNode.needsName()) { // this means the current node is looking for a variable
             addVariableChild(currentNode, commandSplit[1]);
         }
@@ -60,28 +62,31 @@ public class Parser {
 
     private void addVariableChild(CommandNode currentNode, String child) throws InvalidInputException {
         myValidator.validateVariableName(child);
-        currentNode.addChild(myCommandFactory.makeNameNode(child)); //
+        currentNode.addChild(myCommandFactory.makeNameNode(child));
         updateMyCurrentCommand();
     }
 
     private void addChild(CommandNode currentNode, String child) throws InvalidInputException {
-        System.out.println("ADD CHILD: " + child);
+        System.out.println("CHILD: " + child);
         if (myValidator.isDouble(child)) {
-            System.out.println("double " + child);
+            System.out.println("double: " + child);
             currentNode.addChild(myCommandFactory.makeCommand(Double.parseDouble(child)));
         } else if (myValidator.isListStart(child)) {
-            System.out.println("list start: " + child);
+            System.out.println("list: " + child);
             currentNode.addChild(makeListTree());
-            System.out.println("FINISHED LIST");
-            System.out.println("CURRENT: " + myCurrentCommand);
+            System.out.println("DONE WITH LIST. CURRENT: " + myCurrentCommand);
         } else if (myValidator.isVariable(child)){
-            System.out.println("variable " +  child);
+            System.out.println("var: " + child);
             currentNode.addChild(myCommandFactory.makeCommand(VARIABLE_NODE_NAME, myUserCreated));
         } else {
-            System.out.println("command " + child);
+            System.out.println("command: " + child);
             currentNode.addChild(makeNodeTree());
+            return;
         }
+        System.out.println("vvvvvvvvv Updating myCurrentVariable from  addChild: vvvvvvvvv");
         updateMyCurrentCommand();
+        System.out.println("^^^^^^^^^ from addChild ^^^^^^^");
+
     }
 
     private CommandNode makeListTree() throws InvalidInputException {
@@ -92,12 +97,12 @@ public class Parser {
         updateMyCurrentCommand();
         String[] splitCommand = myCurrentCommand.trim().split("\\s+");
         String child = splitCommand[0];
-        int index = 0;
         while(!myValidator.isListEnd(child)) {
-            System.out.println("child " + child);
+            System.out.println("LOOKING AT: " + child);
             addChild(parent, child);
-            index++;
-            child = splitCommand[index];
+            System.out.println("CURRENT IN LOOP: " + myCurrentCommand);
+            splitCommand = myCurrentCommand.trim().split("\\s+");
+            child = splitCommand[0];
         }
         return parent;
     }
@@ -109,6 +114,7 @@ public class Parser {
             myCurrentCommand += split[i] + " ";
         }
         myCurrentCommand = myCurrentCommand.trim();
+        System.out.println("my current command: " + myCurrentCommand);
     }
 
     public void updateLanguage(String newLanguage) {

@@ -5,6 +5,7 @@ import nodes.CommandNode;
 import parser.UserCreated;
 import turtle.Bale;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,9 +21,12 @@ public class MakeUserInstruction extends CommandNode {
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
         String commandName = super.getChildren().get(0).getName();
-        CommandNode variableNames = super.getChildren().get(1);
-        CommandNode commands = super.getChildren().get(2);
-//        myUserCreatedItems.addUserCommand(commandName, List, )
+        CommandNode variableNamesList = super.getChildren().get(1);
+        List<String> varNames = new ArrayList<>();
+        for (CommandNode c: variableNamesList.getChildren())
+            varNames.add(c.getName());
+        String commands = super.getChildren().get(2).getName();
+        myUserCreatedItems.addUserCommand(commandName, varNames, commands);
         return 1.0;
     }
     /**

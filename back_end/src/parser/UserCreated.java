@@ -35,6 +35,14 @@ public class UserCreated {
 
     public void addUserCommand(String commandName, List<String> varNames, String commandContents){
         UserCommand myCommand = new UserCommand(varNames,commandContents);
+        for (String var: varNames)
+            myVariables.put(var,0.0);
         myCommands.put(commandName,myCommand);
+    }
+
+    public void setUpLocalVariables(String methodName, List<Double> myVariableValues) {
+        List<String> variableNames = myCommands.get(methodName).getMyVariableNames();
+        for (int i = 0; i < variableNames.size(); i++)
+            myVariables.put(variableNames.get(i),myVariableValues.get(i));
     }
 }
