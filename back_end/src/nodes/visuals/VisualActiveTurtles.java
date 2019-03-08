@@ -6,7 +6,7 @@ import apis.VisualUpdateAPI;
 import java.util.List;
 
 public class VisualActiveTurtles implements ImmutableVisualCommand {
-    List<Integer> myActiveIDs;
+    private List<Integer> myActiveIDs;
     public VisualActiveTurtles(List<Integer> ids){
         myActiveIDs = ids;
     }
