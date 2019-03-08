@@ -72,7 +72,8 @@ public class PaletteTabExplorer extends TabExplorer {
         }
 //        myColorPalette.addPaletteElement(new PaletteElement<>(FIRST_INDEX, new Rectangle(COLOR_PALETTE_WIDTH, COLOR_PALETTE_HEIGHT, Color.BLUE)));
 //        myColorPalette.addPaletteElement(new PaletteElement<>(FOURTH_INDEX, new Rectangle(COLOR_PALETTE_WIDTH, COLOR_PALETTE_HEIGHT, Color.ORANGE)));
-//        myColorPalette.addPaletteElement(new PaletteElement<>(SECOND_INDEX, new Rectangle(COLOR_PALETTE_WIDTH, COLOR_PALETTE_HEIGHT, Color.GREEN)));
+//        myColorPalette.addPaletteElement(new tavPaletteElement<>(SECOND_INDEX, new Rectangle(COLOR_PALETTE_WIDTH,
+//        COLOR_PALETTE_HEIGHT, Color.GREEN)));
 //        myColorPalette.addPaletteElement(new PaletteElement<>(THIRD_INDEX, new Rectangle(COLOR_PALETTE_WIDTH, COLOR_PALETTE_HEIGHT, Color.PINK)));
     }
 
