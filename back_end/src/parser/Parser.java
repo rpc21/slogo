@@ -58,7 +58,7 @@ public class Parser {
             }
         }
         if(currentNode.needsName()) { // this means the current node is looking for a variable
-            addVariableChild(currentNode, commandSplit[1]);
+            addNameChild(currentNode, commandSplit[1]);
         }
         if(currentNode.isMethodDeclaration()) { // special case where we want the children to be a bit different
             addNameChild(currentNode,  commandSplit[1]);
@@ -89,7 +89,8 @@ public class Parser {
         return head;
     }
 
-    private void addNameChild(CommandNode currentNode, String s) {
+    private void addNameChild(CommandNode currentNode, String s) throws InvalidInputException {
+        myValidator.validateVariableName(s);
         currentNode.addChild(myCommandFactory.makeNameNode(s));
         updateMyCurrentCommand();
     }
@@ -104,7 +105,7 @@ public class Parser {
 
     private void addVariableChild(CommandNode currentNode, String child) throws InvalidInputException {
         myValidator.validateVariableName(child);
-        addNameChild(currentNode, child);
+        currentNode.addChild(myCommandFactory.makeVariableNode(child, myUserCreated));
     }
 
     private void addChild(CommandNode currentNode, String child) throws InvalidInputException {
@@ -113,7 +114,8 @@ public class Parser {
         } else if (myValidator.isListStart(child)) {
             currentNode.addChild(makeListTree());
         } else if (myValidator.isVariable(child)) {
-            currentNode.addChild(myCommandFactory.makeNameNode(child));
+            System.out.println("We're tyring here...");
+            addVariableChild(currentNode, child);
         } else {
             currentNode.addChild(makeNodeTree());
             return;

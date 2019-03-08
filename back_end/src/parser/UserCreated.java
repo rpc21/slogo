@@ -17,7 +17,7 @@ public class UserCreated {
     }
 
     public void addVariable(String variableName, double variableValue) {
-        System.out.println(variableName);
+        System.out.println(variableName + ": " + variableValue);
         myVariables.put(variableName, variableValue);
     }
 

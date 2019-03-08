@@ -17,13 +17,17 @@ public class Variable extends CommandNode {
     public Variable(String variableName){
         super(variableName);
         myVarName = variableName;
+        System.out.println("MADE VARIABLE");
         myValue = NOT_ASSIGNED;
     }
     public Variable(String variableName, UserCreated myUserCreated) throws InvalidInputException {
         super(variableName);
+        System.out.println("MADE VARIABLE");
         myVarName = variableName;
+
         try {
             myValue = myUserCreated.getValue(myVarName);
+            System.out.println("RUNNING: " + myValue);
         }
         catch(Exception e) {
             throw new InvalidVariableException(variableName);
