@@ -30,7 +30,7 @@ public class TurtleViewTabExplorer extends TabExplorer {
         myTurtleProperties.addContents(String.format("Heading: %.2f degrees", x.getRotate()));
         myTurtleProperties.addContents(String.format("Y Coordinate: %.2f", -1 * x.getTranslateY() + EPSILON));
         myTurtleProperties.addContents(String.format("X Coordinate: %.2f", x.getTranslateX()));
-        myTurtleProperties.addContents(String.format("Showing turtle properties for turtle %d", x.getTurtleId()));
+        myTurtleProperties.addContents(String.format("Showing turtle properties for turtle %d", x.getTurtleId()+1));
     }
 
     private void updatePenPropertiesTab(DisplayView x) {
