@@ -12,13 +12,7 @@ public class GetShape extends CommandNode {
     }
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
-        int activeID = myTurtles.getActiveID();
-        try {
-            return myTurtles.get(activeID).getShape();
-        }
-        catch(Exception e){
-            return myTurtles.get(0).getShape();
-        }
+        return myTurtles.getShape();
     }
     @Override
     public void addChild(CommandNode c){

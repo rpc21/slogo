@@ -42,9 +42,11 @@ public class For extends CommandNode {
         double ret = 0;
         while (start < end) {
             for (CommandNode loopCommand: innerCommands.getChildren()) {
+                System.out.println(loopCommand);
                 ret = loopCommand.evaluate(myVisCommands, myTurtles);
             }
             start += increment;
+
             myUserCreatedItems.addVariable(name,start);
         }
         return ret;

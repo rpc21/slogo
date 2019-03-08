@@ -12,6 +12,6 @@ public class IsShowing extends CommandNode {
     }
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
-        return myTurtles.get(myTurtles.getActiveID()).getVisibility();
+        return myTurtles.getVisibility();
     }
 }
