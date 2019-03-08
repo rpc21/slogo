@@ -8,6 +8,7 @@ import nodes.variables.ConstantNode;
 import nodes.structures.Name;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 
 public class CommandFactory {
@@ -28,12 +29,11 @@ public class CommandFactory {
             Constructor constructor = commandClass.getConstructor(String.class);
             CommandNode commandNode = (CommandNode) constructor.newInstance(c);
             if (commandNode.needsUserCreated()) {
-                constructor = commandClass.getConstructor(String.class, AddVariable.class);
+                constructor = commandClass.getConstructor(String.class, UserCreated.class);
                 commandNode = (CommandNode) constructor.newInstance(c, userCreated);
             }
             return commandNode;
-        } catch (Exception e) {
-            System.out.println("halp");
+        }  catch (Exception e) {
             throw new InvalidCommandException(c);
         }
     }
