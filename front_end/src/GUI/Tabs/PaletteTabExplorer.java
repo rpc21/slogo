@@ -1,7 +1,9 @@
 package GUI.Tabs;
 
+import GUI.Buttons.TurtleIconChooser;
 import GUI.Palettes.Palette;
 import GUI.Palettes.PaletteElement;
+import GUI.Palettes.TurtlePaletteElement;
 import GUI.Turtle.DisplayView;
 import GUI.Turtle.BasicTurtleView;
 import GUI.Turtle.AdvancedTurtleView;
@@ -11,7 +13,9 @@ import javafx.scene.control.Tab;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class PaletteTabExplorer extends TabExplorer {
 
@@ -23,11 +27,13 @@ public class PaletteTabExplorer extends TabExplorer {
     private static final int FOURTH_INDEX = 4;
     public static final int COLOR_PALETTE_WIDTH = 250;
     public static final int COLOR_PALETTE_HEIGHT = 50;
+    private ResourceBundle myResources;
 //    public static final List<DisplayView> TURTLE_SHAPES = List.of(new BasicTurtleView(), new AdvancedTurtleView(),
 //            new CuteTurtleView(), new GitLabView());
 //    public static final List<Color> PALETTE_COLORS = List.of()
 
     public PaletteTabExplorer(){
+        myResources = ResourceBundle.getBundle(TurtleIconChooser.SHAPES_BUNDLE);
         createColorPalette();
         createTurtlePalette();
         Tab turtleTab = new Tab("Turtle Palette", myTurtlePalette);
@@ -37,10 +43,25 @@ public class PaletteTabExplorer extends TabExplorer {
 
     private void createTurtlePalette(){
         myTurtlePalette = new Palette<>();
-        myTurtlePalette.addPaletteElement(new PaletteElement<>(FIRST_INDEX, new BasicTurtleView()));
-        myTurtlePalette.addPaletteElement(new PaletteElement<>(FOURTH_INDEX, new GitLabView()));
-        myTurtlePalette.addPaletteElement(new PaletteElement<>(THIRD_INDEX, new CuteTurtleView()));
-        myTurtlePalette.addPaletteElement(new PaletteElement<>(SECOND_INDEX, new AdvancedTurtleView()));
+        List<String> keys = Collections.list(myResources.getKeys());
+        for (int i = 0; i < keys.size(); i++){
+            myTurtlePalette.addPaletteElement(generateDisplayView(myResources.getString(keys.get(i))));
+        }
+//        myTurtlePalette.addPaletteElement(new PaletteElement<>(FIRST_INDEX, new BasicTurtleView()));
+//        myTurtlePalette.addPaletteElement(new PaletteElement<>(FOURTH_INDEX, new GitLabView()));
+//        myTurtlePalette.addPaletteElement(new PaletteElement<>(THIRD_INDEX, new CuteTurtleView()));
+//        myTurtlePalette.addPaletteElement(new PaletteElement<>(SECOND_INDEX, new AdvancedTurtleView()));
+    }
+
+    private DisplayView generateDisplayView(String name) {
+        try {
+//            System.out.println(name);
+            var clazz = Class.forName("GUI.Turtle." + name.replaceAll(" ", ""));
+            return (DisplayView) clazz.getDeclaredConstructor().newInstance();
+        }
+        catch (Exception e) {
+            return new BasicTurtleView();
+        }
     }
 
     private void createColorPalette() {
