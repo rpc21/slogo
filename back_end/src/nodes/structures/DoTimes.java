@@ -26,20 +26,23 @@ public class DoTimes extends CommandNode {
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
     //initialize specific variable name and update with each iteration
         double ret = 0;
-        String varName = super.getChildren().get(0).getName();
+        CommandNode myVariable = super.getChildren().get(0);
+        CommandNode myCommands = super.getChildren().get(1);
+
+        String varName = myVariable.getChildren().get(0).getName();
+        int numIterations = (int)myVariable.getChildren().get(1).evaluate(myVisCommands, myTurtles);
         myUserCreatedItems.addVariable(varName,1.0);
 
-        int numIterations = (int)super.getChildren().get(1).evaluate(myVisCommands, myTurtles);
-        for (int iter = NUM_ITERATIONS; iter < numIterations; iter++){
-            for (int currChild = FIRST_COMMAND; currChild < super.getChildren().size(); currChild++)
+
+        for (int iter = 0; iter < numIterations; iter++){
+            for (int currChild = 0; currChild < myCommands.getChildren().size(); currChild++)
                 ret = super.getChildren().get(currChild).evaluate(myVisCommands, myTurtles);
-            myUserCreatedItems.addVariable(varName,NUM_ITERATIONS + 2.0);
+            myUserCreatedItems.addVariable(varName,iter + 2.0);
         }
         return ret;
     }
 
-    @Override
-    public boolean needsName(){return true;}
+
     @Override
     public void addChild(CommandNode c) {
         super.addChild(c);

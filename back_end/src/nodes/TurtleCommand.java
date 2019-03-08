@@ -18,12 +18,16 @@ public abstract class TurtleCommand extends CommandNode{
     protected void setMyTurtleCommands(String commandName){
         myTurtleCommands.add(commandName);
     }
+
     protected void setMyTurtleCommands(List<String> commandNames){
         myTurtleCommands.addAll(commandNames);
     }
-    
+
+
     protected List<ImmutableVisualCommand> invokeTurtles(Object[] myParameters, Bale myTurtles) throws InvalidInputException {
-        return myTurtles.act(myTurtleCommands,myParameters);
+        List<ImmutableVisualCommand> myVisualCommands =  myTurtles.act(myTurtleCommands,myParameters);
+        myTurtleCommands.clear();
+        return myVisualCommands;
     }
 
 }

@@ -5,20 +5,28 @@ import nodes.CommandNode;
 import parser.UserCreated;
 import turtle.Bale;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class To extends CommandNode {
+public class MakeUserInstruction extends CommandNode {
     private UserCreated myUserCreatedItems;
-    public To(String commandName) {
+    public MakeUserInstruction(String commandName) {
         super(commandName);
     }
-    public To(String a, UserCreated user) {
+    public MakeUserInstruction(String a, UserCreated user) {
         super(a);
         myUserCreatedItems = user;
     }
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
+        String commandName = super.getChildren().get(0).getName();
+        CommandNode variableNamesList = super.getChildren().get(1);
+        List<String> varNames = new ArrayList<>();
+        for (CommandNode c: variableNamesList.getChildren())
+            varNames.add(c.getName());
+        String commands = super.getChildren().get(2).getName();
+        myUserCreatedItems.addUserCommand(commandName, varNames, commands);
         return 1.0;
     }
     /**
@@ -27,13 +35,14 @@ public class To extends CommandNode {
      */
     @Override
     public void addChild(CommandNode c){
-        if (super.getChildren().size() == 1) {
+        if (super.getChildren().size() == 3) {
             throw new IllegalArgumentException();
         }
         super.addChild(c);
     }
+
     @Override
-    public boolean needsName(){
+    public boolean isMethodDeclaration() {
         return true;
     }
 

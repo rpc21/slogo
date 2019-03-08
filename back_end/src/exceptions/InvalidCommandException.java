@@ -5,6 +5,6 @@ public class InvalidCommandException extends InvalidInputException {
 
     public InvalidCommandException(String command) {
         super();
-        setReason(COMMAND_KEY + command);
+        setReason(myErrorMessages.get(COMMAND_KEY) + command);
     }
 }

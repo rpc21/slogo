@@ -2,6 +2,7 @@ package parser;
 
 import exceptions.InvalidInputException;
 import exceptions.InvalidListException;
+import exceptions.TooFewInputsException;
 import nodes.CommandNode;
 
 import java.util.ArrayList;
@@ -43,14 +44,26 @@ public class Parser {
         if(currentNode.needsName()) { // this means the current node is looking for a variable
             addVariableChild(currentNode, commandSplit[1]);
         }
+        if(currentNode.isMethodDeclaration()) {
+            addNameChild(currentNode,  commandSplit[1]);
+        }
         for(int i = getStartIndex(currentNode); i <= expectedNumberOfParameters; i++) {
-            addChild(currentNode, commandSplit[i]);
+            commandSplit = myCurrentCommand.split("\\s+");
+            if(commandSplit[0].length()  == 0) {
+                throw new TooFewInputsException();
+            }
+            addChild(currentNode, commandSplit[0]);
         }
         return currentNode;
     }
 
+    private void addNameChild(CommandNode currentNode, String s) {
+        currentNode.addChild(myCommandFactory.makeNameNode(s));
+        updateMyCurrentCommand();
+    }
+
     private int getStartIndex(CommandNode currentNode) {
-        if(currentNode.needsName()) {
+        if(currentNode.needsName() || currentNode.isMethodDeclaration()) {
             return 2;
         } else {
             return 1;
@@ -59,8 +72,7 @@ public class Parser {
 
     private void addVariableChild(CommandNode currentNode, String child) throws InvalidInputException {
         myValidator.validateVariableName(child);
-        currentNode.addChild(myCommandFactory.makeNameNode(child)); //
-        updateMyCurrentCommand();
+        addNameChild(currentNode, child);
     }
 
     private void addChild(CommandNode currentNode, String child) throws InvalidInputException {
@@ -68,10 +80,11 @@ public class Parser {
             currentNode.addChild(myCommandFactory.makeCommand(Double.parseDouble(child)));
         } else if (myValidator.isListStart(child)) {
             currentNode.addChild(makeListTree());
-        } else if (myValidator.isVariable(child)){
+        } else if (myValidator.isVariable(child)) {
             currentNode.addChild(myCommandFactory.makeCommand(VARIABLE_NODE_NAME, myUserCreated));
         } else {
             currentNode.addChild(makeNodeTree());
+            return;
         }
         updateMyCurrentCommand();
     }
@@ -84,11 +97,10 @@ public class Parser {
         updateMyCurrentCommand();
         String[] splitCommand = myCurrentCommand.trim().split("\\s+");
         String child = splitCommand[0];
-        int index = 0;
         while(!myValidator.isListEnd(child)) {
             addChild(parent, child);
-            index++;
-            child = splitCommand[index];
+            splitCommand = myCurrentCommand.trim().split("\\s+");
+            child = splitCommand[0];
         }
         return parent;
     }
@@ -100,6 +112,7 @@ public class Parser {
             myCurrentCommand += split[i] + " ";
         }
         myCurrentCommand = myCurrentCommand.trim();
+
     }
 
     public void updateLanguage(String newLanguage) {

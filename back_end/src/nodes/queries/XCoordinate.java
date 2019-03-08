@@ -12,6 +12,6 @@ public class XCoordinate extends CommandNode {
     }
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
-        return myTurtles.get(myTurtles.getActiveID()).getXCoor();
+        return myTurtles.getXCoor();
     }
 }

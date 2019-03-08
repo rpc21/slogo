@@ -48,5 +48,8 @@ public abstract class CommandNode {
         return myName;
     }
 
-
+    @Override
+    public String toString() {
+        return myName;
+    }
 }

@@ -1,6 +1,5 @@
 package parser;
 
-import apis.AddVariable;
 import exceptions.InvalidCommandException;
 import exceptions.InvalidInputException;
 import nodes.CommandNode;
@@ -28,7 +27,7 @@ public class CommandFactory {
             Constructor constructor = commandClass.getConstructor(String.class);
             CommandNode commandNode = (CommandNode) constructor.newInstance(c);
             if (commandNode.needsUserCreated()) {
-                constructor = commandClass.getConstructor(String.class, AddVariable.class);
+                constructor = commandClass.getConstructor(String.class, UserCreated.class);
                 commandNode = (CommandNode) constructor.newInstance(c, userCreated);
             }
             return commandNode;
