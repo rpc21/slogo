@@ -17,6 +17,7 @@ public class UserCreated {
     }
 
     public void addVariable(String variableName, double variableValue) {
+        System.out.println(variableName);
         myVariables.put(variableName, variableValue);
     }
 
@@ -52,8 +53,10 @@ public class UserCreated {
         System.out.println(methodName);
         System.out.println(myCommands.get(methodName));
         List<String> variableNames = myCommands.get(methodName).getMyVariableNames();
-        for (int i = 0; i < variableNames.size(); i++)
-            myVariables.put(variableNames.get(i),myVariableValues.get(i));
+        for (int i = 0; i < variableNames.size(); i++){
+            System.out.println("name: " + variableNames.get(i) + " value: " + myVariableValues.get(i));
+            myVariables.put(variableNames.get(i), myVariableValues.get(i));
+        }
     }
 
     public int getExpectedNumberOfParameters(String currentCommandKey) {

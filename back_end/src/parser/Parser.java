@@ -61,9 +61,13 @@ public class Parser {
         }
         if(currentNode.isMethodDeclaration()) { // special case where we want the children to be a bit different
             addNameChild(currentNode,  commandSplit[1]);
+            System.out.println("Current: " + myCurrentCommand);
             currentNode.addChild(makeListTree());
+            System.out.println("Current: " + myCurrentCommand);
             updateMyCurrentCommand();
+            System.out.println("Current: " + myCurrentCommand);
             currentNode.addChild(myCommandFactory.makeNameNode(myCurrentCommand.substring(myCurrentCommand.indexOf("[") + 1, myCurrentCommand.indexOf("]"))));
+            myCurrentCommand = "";
             return currentNode;
         }
         for(int i = getStartIndex(currentNode); i <= expectedNumberOfParameters; i++) {
@@ -108,7 +112,7 @@ public class Parser {
         } else if (myValidator.isListStart(child)) {
             currentNode.addChild(makeListTree());
         } else if (myValidator.isVariable(child)) {
-            currentNode.addChild(myCommandFactory.makeCommand(VARIABLE_NODE_NAME, myUserCreated));
+            currentNode.addChild(myCommandFactory.makeVariableNode(child, myUserCreated));
         } else {
             currentNode.addChild(makeNodeTree());
             return;

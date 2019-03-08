@@ -5,6 +5,8 @@ import exceptions.InvalidInputException;
 import nodes.CommandNode;
 import nodes.variables.ConstantNode;
 import nodes.structures.Name;
+import nodes.variables.MakeVariable;
+import nodes.variables.Variable;
 
 import java.lang.reflect.Constructor;
 import java.util.ResourceBundle;
@@ -38,5 +40,9 @@ public class CommandFactory {
 
     public CommandNode makeNameNode(String s) {
         return new Name(s);
+    }
+
+    public CommandNode makeVariableNode(String s, UserCreated uc) throws InvalidInputException {
+        return new Variable(s, uc);
     }
 }
