@@ -24,7 +24,13 @@ public class TabVariables extends SLogoTabInteractive {
         dialog.setContentText("Enter new value:");
         Optional<String> result = dialog.showAndWait();
         result.ifPresent(value -> {
-            super.runCommand(contents, value);
+            super.runCommand(convertResultToRunnableString(contents, value));
         });
+    }
+
+    private String convertResultToRunnableString(Label label, String value){
+        String[] nameAndValue = label.getText().split(" ");
+        String stringToRun = "make " + nameAndValue[0] + " " +value;
+        return stringToRun;
     }
 }

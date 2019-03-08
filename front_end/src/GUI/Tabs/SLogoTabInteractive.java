@@ -52,10 +52,7 @@ public class SLogoTabInteractive extends SLogoTab {
         myVBoxOfStrings.getChildren().remove(labelToRemove);
     }
 
-    protected void runCommand(Label contents, String value) {
-        String[] s = contents.getText().split(" ");
-        String str = "make " + s[0] + " " +value;
-        System.out.println(str);
-        guiData.setMyCommandToRun(str);
+    protected void runCommand(String command) {
+        guiData.setMyCommandToRun(command);
     }
 }
