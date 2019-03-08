@@ -19,7 +19,6 @@ public class Variable extends CommandNode {
         super(variableName);
         myVarName = variableName;
         myValue = NOT_ASSIGNED;
-        System.out.println(NOT_ASSIGNED_ERROR);
     }
     public Variable(String variableName, UserCreated myUserCreated) throws InvalidInputException {
         super(variableName);

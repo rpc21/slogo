@@ -38,8 +38,8 @@ public class DoTimes extends CommandNode {
         return ret;
     }
 
-    @Override
-    public boolean needsName(){return true;}
+//    @Override
+//    public boolean needsName(){return true;}
     @Override
     public void addChild(CommandNode c) {
         super.addChild(c);
