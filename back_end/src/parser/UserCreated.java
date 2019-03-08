@@ -49,6 +49,8 @@ public class UserCreated {
     }
 
     public void setUpLocalVariables(String methodName, List<Double> myVariableValues) {
+        System.out.println(methodName);
+        System.out.println(myCommands.get(methodName));
         List<String> variableNames = myCommands.get(methodName).getMyVariableNames();
         for (int i = 0; i < variableNames.size(); i++)
             myVariables.put(variableNames.get(i),myVariableValues.get(i));

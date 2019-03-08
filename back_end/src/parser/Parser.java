@@ -44,6 +44,7 @@ public class Parser {
             currentCommandKey = myValidator.getCommandKey(currentValue);
             currentNode = myCommandFactory.makeCommand(currentCommandKey, myUserCreated);
             expectedNumberOfParameters = myValidator.getExpectedNumberOfParameters(currentCommandKey);
+            updateMyCurrentCommand();
         } catch (InvalidInputException e) {
             if(myUserCreated.containsCommand(currentValue)) {
                 currentCommandKey = currentValue;
@@ -53,7 +54,6 @@ public class Parser {
                 throw e;
             }
         }
-        updateMyCurrentCommand();
         if(currentNode.needsName()) { // this means the current node is looking for a variable
             addVariableChild(currentNode, commandSplit[1]);
         }
