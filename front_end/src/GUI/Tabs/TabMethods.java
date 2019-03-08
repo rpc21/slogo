@@ -13,23 +13,12 @@ public class TabMethods extends SLogoTabInteractive {
         super();
     }
 
-    public TabMethods(String tabTitle, GUIdata data) {
-        super(tabTitle, data);
+    public TabMethods(String tabTitle, GUIdata data, String title, String content) {
+        super(tabTitle, data, title, content);
     }
 
     @Override
-    public void displayDialogMenu(Label contents) {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Enter Method Parameters");
-        dialog.setHeaderText(contents.getText());
-        dialog.setContentText("Parameters Separated by Commas:");
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(value -> {
-            super.runCommand(convertResultToRunnableString(contents, value));
-        });
-    }
-
-    private String convertResultToRunnableString(Label label, String value){
+    protected String convertResultToRunnableString(Label label, String value){
         String[] nameAndContents = label.getText().split(" ");
         String stringToRun = nameAndContents[0].substring(0,nameAndContents[0].length()-1) + " [ " + commaSeparatedToSpaces(value) + " ]";
         return stringToRun;

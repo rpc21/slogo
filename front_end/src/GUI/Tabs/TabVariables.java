@@ -1,9 +1,11 @@
 package GUI.Tabs;
 
 import GUI.GUI.GUIdata;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 
+import java.security.DigestInputStream;
 import java.util.Optional;
 
 public class TabVariables extends SLogoTabInteractive {
@@ -12,23 +14,12 @@ public class TabVariables extends SLogoTabInteractive {
         super();
     }
 
-    public TabVariables(String tabTitle, GUIdata data) {
-        super(tabTitle, data);
+    public TabVariables(String tabTitle, GUIdata data, String title, String content) {
+        super(tabTitle, data, title, content);
     }
 
     @Override
-    public void displayDialogMenu(Label contents) {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Variable Editor");
-        dialog.setHeaderText(contents.getText().substring(1));
-        dialog.setContentText("Enter new value:");
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(value -> {
-            super.runCommand(convertResultToRunnableString(contents, value));
-        });
-    }
-
-    private String convertResultToRunnableString(Label label, String value){
+    protected String convertResultToRunnableString(Label label, String value){
         String[] nameAndValue = label.getText().split(" ");
         String stringToRun = "make " + nameAndValue[0] + " " +value;
         return stringToRun;
