@@ -13,6 +13,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.security.spec.ECField;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
 public class TabExplorer extends TabPane implements CommandExecutable, LanguageChangeable {
@@ -29,6 +30,7 @@ public class TabExplorer extends TabPane implements CommandExecutable, LanguageC
     private GUIdata myDataTracker;
     private CommandLine myTextBox;
     private Language myLanguage;
+    private ResourceBundle myFilePaths;
 
 
     public TabExplorer(){
@@ -41,13 +43,14 @@ public class TabExplorer extends TabPane implements CommandExecutable, LanguageC
         myLanguage = language;
         myDataTracker = dataTracker;
         myTextBox = textBox;
+        myFilePaths = ResourceBundle.getBundle("FilePaths");
         initializeTabs();
         setPrefSize(GUIDisplay.SCENE_WIDTH * QUARTER, GUIDisplay.SCENE_HEIGHT * HALF);
     }
 
     private void initializeTabs() {
         myVariables = makeInteractiveTab(VARIABLES, myDataTracker);
-        myMethods = makeMethodsTab(METHODS, myDataTracker);
+        myMethods = makeInteractiveTab(METHODS, myDataTracker);
         myCommands = makeTab(COMMANDS, myDataTracker, myTextBox);
         getTabs().addAll(myVariables, myMethods, myCommands);
     }
@@ -81,26 +84,10 @@ public class TabExplorer extends TabPane implements CommandExecutable, LanguageC
         myMethods.setText(myLanguage.getTranslatedWord(METHODS));
     }
 
-    private SLogoTab makeVariablesTab(String tabType, GUIdata dataTracker) {
-        SLogoTabInteractive tab = new TabVariables(myLanguage.getTranslatedWord(tabType), dataTracker);
-        tab.getContent().setOnMouseClicked(event -> {
-            runCommand(dataTracker.getMyCommandToRun());
-        });
-        return tab;
-    }
-
-    private SLogoTab makeMethodsTab(String tabType, GUIdata dataTracker) {
-        SLogoTabInteractive tab = new TabMethods(myLanguage.getTranslatedWord(tabType), dataTracker);
-        tab.getContent().setOnMouseClicked(event -> {
-            runCommand(dataTracker.getMyCommandToRun());
-        });
-        return tab;
-    }
-
     private SLogoTab makeInteractiveTab(String tabType, GUIdata dataTracker) {
         SLogoTab tab;
         try {
-            Class tabClass = Class.forName("GUI.Tabs.TabVariables");
+            Class tabClass = Class.forName(myFilePaths.getString(tabType));
             Constructor constructor = tabClass.getConstructor(String.class, GUIdata.class);
             tab = (SLogoTabInteractive) constructor.newInstance(myLanguage.getTranslatedWord(tabType), dataTracker);
         } catch (Exception e) {
