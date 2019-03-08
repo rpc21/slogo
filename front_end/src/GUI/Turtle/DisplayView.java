@@ -43,7 +43,7 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
     private Language myLanguage;
     private int myTurtleId;
 //    private int myIndex;
-
+    private boolean isActive;
     public DisplayView(){
         this(new Image(TURTLE_IMAGE));
     }
@@ -55,6 +55,7 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
 //        myIndex = 0;
         myPen = new Pen(true, Color.BLACK, PenStyle.DASHED, 2.0);
         myMoveHistory = new ArrayList<>();
+        isActive = true;
         this.managedProperty().bind(this.visibleProperty());
         setRotate(0);
     }
@@ -180,7 +181,7 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
         myTabAccess = tabAccess;
         setOnMouseClicked(e -> {
             updateTab();
-            //makeBig();
+            toggleActivity();
         });
     }
 
@@ -196,10 +197,20 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
 
     public void setActive(){
         makeBig();
+        isActive = true;
     }
 
     public void setInActive(){
         makeSmall();
+        isActive = false;
+    }
+
+    private void toggleActivity(){
+        if (isActive){
+            setInActive();
+        } else {
+            setActive();
+        }
     }
 
     @Override
