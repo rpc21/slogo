@@ -33,6 +33,7 @@ public class CommandFactory {
             }
             return commandNode;
         } catch (Exception e) {
+            System.out.println("halp");
             throw new InvalidCommandException(c);
         }
     }
