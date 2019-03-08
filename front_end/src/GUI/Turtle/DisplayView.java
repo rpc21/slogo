@@ -178,7 +178,28 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
 
     public void giveTabAccess(Consumer<DisplayView> tabAccess){
         myTabAccess = tabAccess;
-        setOnMouseClicked(e -> updateTab());
+        setOnMouseClicked(e -> {
+            updateTab();
+            //makeBig();
+        });
+    }
+
+    private void makeBig(){
+        this.setFitWidth(IMAGE_WIDTH*1.8);
+        this.setFitHeight(IMAGE_HEIGHT*1.8);
+    }
+
+    private void makeSmall(){
+        this.setFitWidth(IMAGE_WIDTH);
+        this.setFitHeight(IMAGE_HEIGHT);
+    }
+
+    public void setActive(){
+        makeBig();
+    }
+
+    public void setInActive(){
+        makeSmall();
     }
 
     @Override
