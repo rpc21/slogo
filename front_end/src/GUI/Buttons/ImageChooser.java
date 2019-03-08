@@ -13,6 +13,9 @@ public class ImageChooser<T> extends ComboBox<T> implements GUIComponent {
 
     public ImageChooser(Consumer<T> iconConsumer){
         super();
-        setOnAction(event -> iconConsumer.accept(getValue()));
+        setOnAction(event -> {
+            System.out.println("Value passed to consumer: " + getValue());
+            iconConsumer.accept(getValue());
+        });
     }
 }

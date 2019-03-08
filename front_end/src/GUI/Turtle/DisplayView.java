@@ -21,13 +21,17 @@ import java.util.function.Consumer;
 
 public abstract class DisplayView extends ImageView implements CommandExecutable, LanguageChangeable {
 
-    public static final String BASIC_TURTLE_NAME = "Basic Turtle Image";
-    public static final String ADVANCED_TURTLE_NAME = "Advanced Turtle Image";
-    private List<String> possibleImages = List.of(BASIC_TURTLE_NAME, ADVANCED_TURTLE_NAME);
+    private static final String BASIC_TURTLE_NAME = "Basic Turtle View";
+    private static final String ADVANCED_TURTLE_NAME = "Advanced Turtle View";
+    private static final String CUTE_TURTLE_NAME = "Cute Turtle View";
+    private static final String GITLAB_TURTLE_VIEW = "GitLab View";
+    public static final List<String> POSSIBLE_IMAGES = List.of(BASIC_TURTLE_NAME, ADVANCED_TURTLE_NAME,
+            CUTE_TURTLE_NAME,
+            GITLAB_TURTLE_VIEW);
 
-    public static final String TURTLE_IMAGE = "file:/resources_images/turtle1.jpg";
-    public static final int IMAGE_HEIGHT = 25;
-    public static final int IMAGE_WIDTH = 20;
+    private static final String TURTLE_IMAGE = "file:/resources_images/turtle1.jpg";
+    private static final int IMAGE_HEIGHT = 25;
+    private static final int IMAGE_WIDTH = 20;
 
     private Canvas myCanvas;
     private Pen myPen;
@@ -122,7 +126,7 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
     }
 
     public List<String> getPossibleImages() {
-        return Collections.unmodifiableList(possibleImages);
+        return Collections.unmodifiableList(POSSIBLE_IMAGES);
     }
 
     public Pen getMyPen() {

@@ -10,32 +10,21 @@ import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
 
-public class LanguageChooser extends MenuButton implements GUIComponent {
+public class LanguageChooser extends PaletteChooser{
 
     private static final String LANGUAGES_FILE = "Languages";
-    public static final String LANGUAGE = "Language";
 
-    private ResourceBundle myLanguagesBundle;
-    private Consumer<Language> myConsumer;
-    private Language myLanguage;
-
-    LanguageChooser(Consumer<Language> consumer){
-        myConsumer = consumer;
-        myLanguage = Language.ENGLISH;
-        myLanguagesBundle = ResourceBundle.getBundle(LANGUAGES_FILE);
-        buildLanguageChooser();
+    public LanguageChooser(Consumer<Language> consumer){
+        super(consumer);
     }
 
-    private void buildLanguageChooser(){
-        this.setText(myLanguage.getTranslatedWord(LANGUAGE));
-        for (String key : Collections.list(myLanguagesBundle.getKeys())){
-            MenuItem menuItem = new MenuItem(myLanguagesBundle.getString(key));
-            menuItem.setOnAction(e -> {
-                setText(myLanguagesBundle.getString(key));
-                myConsumer.accept(Language.valueOf(key.toUpperCase()));
-            });
-            this.getItems().add(menuItem);
-        }
+    @Override
+    protected void createBundle() {
+        myBundle = ResourceBundle.getBundle(LANGUAGES_FILE);
     }
 
+    @Override
+    protected Language processKeyForConsumption(String key) {
+        return Language.valueOf(key.toUpperCase());
+    }
 }
