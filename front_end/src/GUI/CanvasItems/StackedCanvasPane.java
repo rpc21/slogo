@@ -5,7 +5,6 @@ import GUI.Commands.Language;
 import GUI.Commands.LanguageChangeable;
 import GUI.Turtle.BasicTurtleView;
 import GUI.Turtle.DisplayView;
-import GUI.Turtle.DisplayViewFactory;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -80,9 +79,8 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
 
     public Consumer<String> getIconAccess(){
         return (x) -> {
-            this.getChildren().remove(myCurrentDisplayView);
-            myCurrentDisplayView = new DisplayViewFactory().generateDislplayView(x, myCurrentDisplayView);
-            this.getChildren().add(myCurrentDisplayView);
+            System.out.println("**************" + x);
+            setTurtleShape(0, "GUI.Turtle." + x.replaceAll(" ", ""));
         };
     }
 

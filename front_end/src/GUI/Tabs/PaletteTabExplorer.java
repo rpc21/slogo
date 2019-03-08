@@ -13,14 +13,14 @@ import javafx.scene.shape.Rectangle;
 
 public class PaletteTabExplorer extends TabExplorer {
 
-    private Palette<PaletteElement<Rectangle>, Rectangle> myColorPalette;
-    private Palette<PaletteElement<DisplayView>, DisplayView> myTurtlePalette;
+    private Palette<Rectangle> myColorPalette;
+    private Palette<DisplayView> myTurtlePalette;
     private static final int FIRST_INDEX = 1;
     private static final int SECOND_INDEX = 2;
     private static final int THIRD_INDEX = 3;
     private static final int FOURTH_INDEX = 4;
-    private static final int COLOR_PALETTE_WIDTH = 20;
-    private static final int COLOR_PALETTE_HEIGHT = 25;
+    public static final int COLOR_PALETTE_WIDTH = 250;
+    public static final int COLOR_PALETTE_HEIGHT = 50;
 
     public PaletteTabExplorer(){
         createColorPalette();
@@ -46,11 +46,11 @@ public class PaletteTabExplorer extends TabExplorer {
         myColorPalette.addPaletteElement(new PaletteElement<>(THIRD_INDEX, new Rectangle(COLOR_PALETTE_WIDTH, COLOR_PALETTE_HEIGHT, Color.PINK)));
     }
 
-    public Palette<PaletteElement<Rectangle>, Rectangle> getMyColorPalette() {
+    public Palette<Rectangle> getMyColorPalette() {
         return myColorPalette;
     }
 
-    public Palette<PaletteElement<DisplayView>, DisplayView> getMyTurtlePalette() {
+    public Palette<DisplayView> getMyTurtlePalette() {
         return myTurtlePalette;
     }
 }
