@@ -59,4 +59,8 @@ public class UserCreated {
     public int getExpectedNumberOfParameters(String currentCommandKey) {
         return myCommands.get(currentCommandKey).getMyVariableNames().size();
     }
+
+    public String getCommand(String currentValue) {
+        return myCommands.get(currentValue).getMyMethodContents();
+    }
 }

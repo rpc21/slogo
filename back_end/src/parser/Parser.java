@@ -4,7 +4,6 @@ import exceptions.InvalidInputException;
 import exceptions.InvalidListException;
 import exceptions.TooFewInputsException;
 import nodes.CommandNode;
-import nodes.structures.UserInstruction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,9 +46,11 @@ public class Parser {
             updateMyCurrentCommand();
         } catch (InvalidInputException e) {
             if(myUserCreated.containsCommand(currentValue)) {
-                currentCommandKey = currentValue;
                 currentNode = myCommandFactory.makeCommand("UserInstruction", myUserCreated);
-                expectedNumberOfParameters = myUserCreated.getExpectedNumberOfParameters(currentCommandKey);
+                addNameChild(currentNode, currentValue);
+                currentNode.addChild(makeListTree());
+                currentNode.addChild(makeListNode(parse(myUserCreated.getCommand(currentValue))));
+                return currentNode;
             } else {
                 throw e;
             }
@@ -68,6 +69,14 @@ public class Parser {
             addChild(currentNode, commandSplit[0]);
         }
         return currentNode;
+    }
+
+    private CommandNode makeListNode(List<CommandNode> commands) throws InvalidInputException {
+        CommandNode head = myCommandFactory.makeCommand(LIST_NODE_NAME, myUserCreated);
+        for(CommandNode command : commands) {
+            head.addChild(command);
+        }
+        return head;
     }
 
     private void addNameChild(CommandNode currentNode, String s) {
