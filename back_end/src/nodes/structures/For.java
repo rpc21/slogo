@@ -26,12 +26,13 @@ public class For extends CommandNode {
 
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
-        String name = super.getChildren().get(ITERATOR).getName();
-        double start = super.getChildren().get(START).evaluate(myVisCommands,myTurtles);
+        CommandNode initalizeList = super.getChildren().get(0);
+        CommandNode innerCommands = super.getChildren().get(1);
+        String name = initalizeList.getChildren().get(ITERATOR).getName();
+        double start = initalizeList.getChildren().get(START).evaluate(myVisCommands,myTurtles);
+        double end = initalizeList.getChildren().get(END).evaluate(myVisCommands,myTurtles);
+        double increment = initalizeList.getChildren().get(INCREMENT).evaluate(myVisCommands,myTurtles);
         myUserCreatedItems.addVariable(name,start);
-
-        double end = super.getChildren().get(END).evaluate(myVisCommands,myTurtles);
-        double increment = super.getChildren().get(INCREMENT).evaluate(myVisCommands,myTurtles);
 
         //need to verify that these values will not cause an infinite loop
         if ( (start < end && increment <= 0) ||  (start > end && increment >= 0)) {
@@ -40,14 +41,14 @@ public class For extends CommandNode {
 
         double ret = 0;
         while (start < end) {
-            ret = super.getChildren().get(LISTNODE).evaluate(myVisCommands,myTurtles);
+            for (CommandNode loopCommand: innerCommands.getChildren()) {
+                ret = loopCommand.evaluate(myVisCommands, myTurtles);
+            }
             start += increment;
             myUserCreatedItems.addVariable(name,start);
         }
         return ret;
     }
-    @Override
-    public boolean needsName(){return true;}
     @Override
     public boolean needsUserCreated(){ return true;}
 }
