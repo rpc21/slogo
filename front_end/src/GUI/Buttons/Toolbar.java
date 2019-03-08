@@ -68,6 +68,9 @@ public class Toolbar extends HBox implements GUIComponent, LanguageChangeable, C
     @Override
     public void setLanguage(Language newLanguage) {
         myLanguage = newLanguage;
+        myPenColorChooser.setLanguage(newLanguage);
+        myBackgroundColorChooser.setLanguage(newLanguage);
+        myTurtleIconChooser.setLanguage(newLanguage);
 //        myImageChooser.setPromptText(myLanguage.getTranslatedWord(TURTLE_ICON));
     }
 

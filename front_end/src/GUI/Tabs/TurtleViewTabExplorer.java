@@ -36,8 +36,8 @@ public class TurtleViewTabExplorer extends TabExplorer {
     private void updatePenPropertiesTab(DisplayView x) {
         myPenProperties.clearContents();
         Color color = (Color) x.getMyPen().getMyColor();
-        myPenProperties.addContents(String.format("Pen Color: [%d, %d, %d]", (int) color.getRed(),
-                (int) color.getGreen(), (int) color.getBlue()));
+        myPenProperties.addContents(String.format("Pen Color: [%d, %d, %d]", (int) (255 * color.getRed()),
+                (int) (255 * color.getGreen()), (int) (255 * color.getBlue())));
         myPenProperties.addContents(String.format("Pen Size: %.2f", x.getMyPen().getMyWidth()));
         myPenProperties.addContents(String.format("Pen Down: %b", x.getMyPen().isDown()));
     }
