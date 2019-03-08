@@ -6,6 +6,7 @@ import parser.UserCreated;
 import turtle.Bale;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -28,6 +29,7 @@ public class MakeUserInstruction extends CommandNode {
         String commands = super.getChildren().get(2).getName();
         myUserCreatedItems.addUserCommand(commandName, varNames, commands);
         return 1.0;
+
     }
     /**
      * Adds an addend to this nodes.SumNode's list of Children as main.Parser reads them in

@@ -90,7 +90,7 @@ public class Validator {
     }
 
     public int getExpectedNumberOfParameters(String currentCommandKey) {
-        return Integer.parseInt(myParameterProperties.getString(currentCommandKey));
+        return Integer.parseInt(myParameterProperties.getString(currentCommandKey).trim());
     }
 
     public void updateLanguage(String newLanguage) {
