@@ -1,4 +1,4 @@
-package GUI.GUI;
-
-public interface GUIComponent {
-}
+//package GUI.GUI;
+//
+//public interface GUIComponent {
+//}

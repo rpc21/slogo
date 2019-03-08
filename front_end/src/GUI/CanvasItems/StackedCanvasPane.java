@@ -22,10 +22,7 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
 
     private TurtleCanvas myBackgroundCanvas;
     private TurtleCanvas myDrawingCanvas;
-    private DisplayView myCurrentDisplayView;
     private List<DisplayView> myTurtles;
-    public Function<Integer, Color> colorPaletteLookup;
-    private Function<Integer, String> turtlePaletteLookup;
     private Consumer<String> myCommandAccess;
     private Language myLanguage;
     private Consumer<DisplayView> myTabAccess;
@@ -69,13 +66,13 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
         return myBackgroundCanvas.getBackgroundColorAccess();
     }
 
-    public Consumer<Paint> getPenPropertiesAccess(){
-        return (x) -> {
-            for (DisplayView turtle : myTurtles) {
-                turtle.getMyPen().setMyColor(x);
-            }
-        };
-    }
+//    public Consumer<Paint> getPenPropertiesAccess(){
+//        return (x) -> {
+//            for (DisplayView turtle : myTurtles) {
+//                turtle.getMyPen().setMyColor(x);
+//            }
+//        };
+//    }
 
 //    public Consumer<String> getIconAccess(){
 //        return (x) -> {
@@ -97,10 +94,10 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
 //        myCurrentDisplayView.drawPath();
 //    }
 
-    public void resizeCanvases(double v, double v1) {
-        myBackgroundCanvas.resize(v, v1);
-        myDrawingCanvas.resize(v, v1);
-    }
+//    public void resizeCanvases(double v, double v1) {
+//        myBackgroundCanvas.resize(v, v1);
+//        myDrawingCanvas.resize(v, v1);
+//    }
 
     public void turtleMove(int id, double x, double y){
         myTurtles.get(id).turtleMove(x,y);

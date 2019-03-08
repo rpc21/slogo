@@ -1,20 +1,16 @@
 package GUI.Buttons;
 
 import GUI.Commands.CommandExecutable;
-import GUI.Commands.Language;
-import GUI.Commands.LanguageChangeable;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
-public class TurtleIconChooser extends PaletteChooser implements CommandExecutable{
+public class TurtleIconChooser extends PaletteChooser implements CommandExecutable {
 
 
     public static final String SHAPES_BUNDLE = "Shapes";
     private static final String SET_SHAPE = "SetShape";
-
 
     public TurtleIconChooser(Consumer<String> consumer){
         super(consumer);

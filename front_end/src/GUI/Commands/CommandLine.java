@@ -1,9 +1,8 @@
 package GUI.Commands;
 
-import GUI.GUI.GUIComponent;
 import javafx.scene.control.TextArea;
 
-public class CommandLine extends TextArea implements GUIComponent {
+public class CommandLine extends TextArea {
 
     private static final int ROWS = 4;
     private static final int COLUMNS = 10;

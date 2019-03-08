@@ -1,6 +1,5 @@
 package GUI.Buttons;
 
-import GUI.Commands.CommandExecutable;
 import GUI.Commands.Language;
 import GUI.Commands.LanguageChangeable;
 import javafx.scene.control.MenuButton;

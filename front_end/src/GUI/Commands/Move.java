@@ -25,21 +25,21 @@ public class Move {
         this(pen.getMyColor(), pen.isDown(), pen.getMyStyle(), pen.getMyWidth(), displacement);
     }
 
-    public Move(Pen pen, double[] displacement){
-        this(pen, new Point2D(displacement[0], displacement[1]));
-    }
+//    public Move(Pen pen, double[] displacement){
+//        this(pen, new Point2D(displacement[0], displacement[1]));
+//    }
 
     public Paint getPenColor() {
         return penColor;
     }
 
-    public boolean isPenDown() {
-        return penDown;
-    }
-
-    public PenStyle getPathStyle() {
-        return pathStyle;
-    }
+//    public boolean isPenDown() {
+//        return penDown;
+//    }
+//
+//    public PenStyle getPathStyle() {
+//        return pathStyle;
+//    }
 
     public double getPenWidth() {
         return penWidth;
