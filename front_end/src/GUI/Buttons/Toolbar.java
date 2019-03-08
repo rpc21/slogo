@@ -1,5 +1,6 @@
 package GUI.Buttons;
 
+import GUI.Commands.CommandExecutable;
 import GUI.Commands.Language;
 import GUI.Commands.LanguageChangeable;
 import GUI.GUI.GUIComponent;
@@ -10,15 +11,21 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
+import java.util.ResourceBundle;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
-public class Toolbar extends HBox implements GUIComponent, LanguageChangeable {
+public class Toolbar extends HBox implements GUIComponent, LanguageChangeable, CommandExecutable {
 
     private static final String TURTLE_ICON = "TurtleIcon";
-    private ImageChooser<String> myImageChooser;
+    private static final String SET_BACKGROUND = "SetBackground";
+    private static final String SET_PEN_COLOR = "SetPenColor";
+//    private ImageChooser<String> myImageChooser;
+    private TurtleIconChooser myTurtleIconChooser;
     private ColorChooser myPenColorChooser;
     private ColorChooser myBackgroundColorChooser;
     private LanguageChooser myLanguageChooser;
+    private Consumer<String> myCommandAccess;
     private Language myLanguage;
 
     public Toolbar(){
@@ -28,24 +35,27 @@ public class Toolbar extends HBox implements GUIComponent, LanguageChangeable {
         setSpacing(10);
     }
 
-    public Toolbar(Consumer<Paint> backgroundColorAccess, Consumer<Paint> penColorAccess, Consumer<String> iconAccess
-            , Consumer<Language> languageAccess, Consumer<Rectangle> colorPaletteAccess){
+    public Toolbar(Consumer<Language> languageAccess, Function<Rectangle, Integer> colorPaletteAccess){
         this();
       //  myLanguageChooser = createLanguageChooser();
-        myBackgroundColorChooser = new ColorChooser(colorPaletteAccess, backgroundColorAccess);
-        myPenColorChooser = new ColorChooser(colorPaletteAccess, penColorAccess);
-        myImageChooser = createImageChooser(iconAccess);
+        myBackgroundColorChooser = new ColorChooser(colorPaletteAccess, SET_BACKGROUND);
+        myPenColorChooser = new ColorChooser(colorPaletteAccess, SET_PEN_COLOR);
+//        myImageChooser = createImageChooser(iconAccess);
+        myTurtleIconChooser = new TurtleIconChooser(myCommandAccess);
         myLanguageChooser = new LanguageChooser(languageAccess);
-        getChildren().addAll(myBackgroundColorChooser, myPenColorChooser, myImageChooser, myLanguageChooser);
+        getChildren().addAll(myBackgroundColorChooser, myPenColorChooser, myTurtleIconChooser, myLanguageChooser);
     }
 
     private ImageChooser<String> createImageChooser(Consumer<String> iconAccess) {
         ImageChooser<String> imageChooser = new ImageChooser<>(iconAccess);
-        imageChooser.getItems().addAll(DisplayView.POSSIBLE_IMAGES);
 //        imageChooser.getItems().addAll(new AdvancedTurtleView().getPossibleImages());
         imageChooser.getSelectionModel().selectFirst();
         return imageChooser;
     }
+
+//    private TurtleIconChooser createTurtleIconChooser(Consumer<String> commandAccess){
+//
+//    }
 
 //    public ImageChooser<String> getMyImageChooser(){
 //        return myImageChooser;
@@ -58,7 +68,20 @@ public class Toolbar extends HBox implements GUIComponent, LanguageChangeable {
     @Override
     public void setLanguage(Language newLanguage) {
         myLanguage = newLanguage;
-        myImageChooser.setPromptText(myLanguage.getTranslatedWord(TURTLE_ICON));
+//        myImageChooser.setPromptText(myLanguage.getTranslatedWord(TURTLE_ICON));
+    }
+
+    @Override
+    public void giveAbilityToRunCommands(Consumer<String> commandAccess) {
+        myCommandAccess = commandAccess;
+        myTurtleIconChooser.giveAbilityToRunCommands(commandAccess);
+        myBackgroundColorChooser.giveAbilityToRunCommands(commandAccess);
+        myPenColorChooser.giveAbilityToRunCommands(commandAccess);
+    }
+
+    @Override
+    public void runCommand(String command) {
+        myCommandAccess.accept(command);
     }
 
 //    private LanguageChooser createLanguageChooser() {

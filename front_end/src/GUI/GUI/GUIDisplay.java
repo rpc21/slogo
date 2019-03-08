@@ -161,10 +161,9 @@ public class GUIDisplay implements VisualUpdateAPI {
     }
 
     private void setToolbar(GridPane grid) {
-        myToolbar = new Toolbar(myStackedCanvasPane.getBackgroundColorAccess(),
-                myStackedCanvasPane.getPenPropertiesAccess(), myStackedCanvasPane.getIconAccess(),
-                this::updateLanguage, myPaletteTabExplorer.getMyColorPalette().getPaletteAccess());
+        myToolbar = new Toolbar(this::updateLanguage, myPaletteTabExplorer.getMyColorPalette().getPaletteAccess());
         languageChangeableComponents.add(myToolbar);
+        commandExecutableComponents.add(myToolbar);
         grid.add(myToolbar, 1, 0, 1, 1);
     }
 

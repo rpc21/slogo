@@ -11,6 +11,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.util.List;
+
 public class PaletteTabExplorer extends TabExplorer {
 
     private Palette<Rectangle> myColorPalette;
@@ -21,6 +23,9 @@ public class PaletteTabExplorer extends TabExplorer {
     private static final int FOURTH_INDEX = 4;
     public static final int COLOR_PALETTE_WIDTH = 250;
     public static final int COLOR_PALETTE_HEIGHT = 50;
+//    public static final List<DisplayView> TURTLE_SHAPES = List.of(new BasicTurtleView(), new AdvancedTurtleView(),
+//            new CuteTurtleView(), new GitLabView());
+//    public static final List<Color> PALETTE_COLORS = List.of()
 
     public PaletteTabExplorer(){
         createColorPalette();

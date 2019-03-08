@@ -77,12 +77,12 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
         };
     }
 
-    public Consumer<String> getIconAccess(){
-        return (x) -> {
-            System.out.println("**************" + x);
-            setTurtleShape(0, "GUI.Turtle." + x.replaceAll(" ", ""));
-        };
-    }
+//    public Consumer<String> getIconAccess(){
+//        return (x) -> {
+//            System.out.println("**************" + x);
+//            setTurtleShape(0, "GUI.Turtle." + x.replaceAll(" ", ""));
+//        };
+//    }
 
 //    public void addMove(Move move){
 //        myCurrentDisplayView.addMove(move);

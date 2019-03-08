@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class Palette<R extends Node> extends ScrollPane {
 
@@ -44,7 +45,7 @@ public class Palette<R extends Node> extends ScrollPane {
         return myPaletteElements.get(index).getMyDisplay();
     }
 
-    public Consumer<R> getPaletteAccess(){
+    public Function<R, Integer> getPaletteAccess(){
         return x -> addPaletteElement(x);
     }
 
