@@ -111,6 +111,6 @@ public class Validator {
     }
 
     public boolean isVariable(String child) {
-        return true;
+        return match(myGeneralSyntax, child,  VARIABLE_KEY);
     }
 }

@@ -1,6 +1,5 @@
 package parser;
 
-import apis.AddVariable;
 import exceptions.InvalidCommandException;
 import exceptions.InvalidInputException;
 import nodes.CommandNode;
@@ -8,7 +7,6 @@ import nodes.variables.ConstantNode;
 import nodes.structures.Name;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 
 public class CommandFactory {
@@ -33,7 +31,7 @@ public class CommandFactory {
                 commandNode = (CommandNode) constructor.newInstance(c, userCreated);
             }
             return commandNode;
-        }  catch (Exception e) {
+        } catch (Exception e) {
             throw new InvalidCommandException(c);
         }
     }
