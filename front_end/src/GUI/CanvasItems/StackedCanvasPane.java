@@ -26,6 +26,7 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
     private Consumer<String> myCommandAccess;
     private Language myLanguage;
     private Consumer<DisplayView> myTabAccess;
+    private List<DisplayView> myListOfTurtles;
 //    private boolean penDown;
 
     public StackedCanvasPane(){
@@ -33,6 +34,7 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
         myTurtles = new ArrayList<>();
         myBackgroundCanvas = createBackgroundCanvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
         myDrawingCanvas = new TurtleCanvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
+        myListOfTurtles = new ArrayList<>();
 //        myCurrentDisplayView = new BasicTurtleView(myDrawingCanvas);
 //        makeTurtle();
 //        myCurrentDisplayView = myTurtles.get(0);
@@ -54,11 +56,16 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
 
     public void makeTurtle(){
         DisplayView newTurtle = new BasicTurtleView(myDrawingCanvas);
+        myListOfTurtles.add(newTurtle);
         newTurtle.setLanguage(myLanguage);
         newTurtle.giveAbilityToRunCommands(myCommandAccess);
         getChildren().add(newTurtle);
         newTurtle.setTurtleId(myTurtles.size());
         newTurtle.giveTabAccess(myTabAccess);
+        for (DisplayView turtle : myListOfTurtles){
+            turtle.setInActive();
+        }
+        newTurtle.setActive();
         myTurtles.add(newTurtle);
     }
 
