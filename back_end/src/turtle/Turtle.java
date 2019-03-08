@@ -59,7 +59,9 @@ public class Turtle implements TurtleInterface{
     public double getYCoor() { return myYCoor; }
     public double getHeading(){ return myHeading; }
     public int getPenColor(){ return myPenColor;}
-    public int getShape(){ return myShape; }
+    public int getShape(){
+        System.out.println(myShape);
+        return myShape; }
     public int getID(){return myID;}
     public int getVisibility(){ return myVisibility; }
     public double getPenState(){
