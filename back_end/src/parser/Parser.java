@@ -49,6 +49,7 @@ public class Parser {
                 currentNode = myCommandFactory.makeCommand("UserInstruction", myUserCreated);
                 addNameChild(currentNode, currentValue);
                 currentNode.addChild(makeListTree());
+                System.out.println(myUserCreated.getCommand(currentValue));
                 currentNode.addChild(makeListNode(parse(myUserCreated.getCommand(currentValue))));
                 return currentNode;
             } else {
@@ -58,8 +59,12 @@ public class Parser {
         if(currentNode.needsName()) { // this means the current node is looking for a variable
             addVariableChild(currentNode, commandSplit[1]);
         }
-        if(currentNode.isMethodDeclaration()) {
+        if(currentNode.isMethodDeclaration()) { // special case where we want the children to be a bit different
             addNameChild(currentNode,  commandSplit[1]);
+            currentNode.addChild(makeListTree());
+            updateMyCurrentCommand();
+            currentNode.addChild(myCommandFactory.makeNameNode(myCurrentCommand.substring(myCurrentCommand.indexOf("[") + 1, myCurrentCommand.indexOf("]"))));
+            return currentNode;
         }
         for(int i = getStartIndex(currentNode); i <= expectedNumberOfParameters; i++) {
             commandSplit = myCurrentCommand.split("\\s+");
