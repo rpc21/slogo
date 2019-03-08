@@ -35,13 +35,14 @@ public class MakeUserInstruction extends CommandNode {
      */
     @Override
     public void addChild(CommandNode c){
-        if (super.getChildren().size() == 1) {
+        if (super.getChildren().size() == 3) {
             throw new IllegalArgumentException();
         }
         super.addChild(c);
     }
+
     @Override
-    public boolean needsName(){
+    public boolean isMethodDeclaration() {
         return true;
     }
 
