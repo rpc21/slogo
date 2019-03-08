@@ -3,7 +3,6 @@ package GUI.Buttons;
 import GUI.Commands.CommandExecutable;
 import GUI.Commands.Language;
 import GUI.Commands.LanguageChangeable;
-import GUI.GUI.GUIComponent;
 import GUI.Tabs.PaletteTabExplorer;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.paint.Paint;
@@ -12,7 +11,7 @@ import javafx.scene.shape.Rectangle;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class ColorChooser extends ColorPicker implements GUIComponent, LanguageChangeable, CommandExecutable {
+public class ColorChooser extends ColorPicker implements LanguageChangeable, CommandExecutable {
 
     private Language myLanguage;
     private String myCommandTemplate;

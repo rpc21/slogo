@@ -2,6 +2,8 @@ package nodes.structures;
 
 import apis.ImmutableVisualCommand;
 import nodes.CommandNode;
+import nodes.visuals.VisualAddMethod;
+import nodes.visuals.VisualCommand;
 import parser.UserCreated;
 import turtle.Bale;
 
@@ -24,10 +26,15 @@ public class MakeUserInstruction extends CommandNode {
         String commandName = super.getChildren().get(0).getName();
         CommandNode variableNamesList = super.getChildren().get(1);
         List<String> varNames = new ArrayList<>();
-        for (CommandNode c: variableNamesList.getChildren())
+
+        for (CommandNode c: variableNamesList.getChildren()) {
             varNames.add(c.getName());
+
+        }
         String commands = super.getChildren().get(2).getName();
         myUserCreatedItems.addUserCommand(commandName, varNames, commands);
+
+        myVisCommands.add(new VisualAddMethod(commandName,varNames));
         return 1.0;
 
     }

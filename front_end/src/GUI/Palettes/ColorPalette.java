@@ -33,9 +33,9 @@ public class ColorPalette<T extends Node> extends ScrollPane {
         myVBox.getChildren().addAll(myPaletteElements.values());
     }
 
-    public void removePaletteElement(ColorPaletteElement element){
-        myPaletteElements.remove(element.getMyIndex());
-    }
+//    public void removePaletteElement(ColorPaletteElement element){
+//        myPaletteElements.remove(element.getMyIndex());
+//    }
 
     public Color getContent(int index) {
         return myPaletteElements.get(index).getMyColor();

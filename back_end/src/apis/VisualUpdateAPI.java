@@ -6,6 +6,7 @@ public interface VisualUpdateAPI {
     void addTurtles(int numTurtles);
     void setActiveTurtles(List<Integer> activeTurtleIDs);
     void addVariable(String name, Double val);
+    void addMethod(String name, List<String> myVars);
     void turtleMove(int id, double x, double y);
     void turtleTurn(int id,double degrees);
 //    void turnRight(double degrees);
