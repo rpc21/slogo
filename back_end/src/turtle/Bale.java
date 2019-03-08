@@ -11,7 +11,7 @@ import java.util.List;
   * in ListNode. Bale is biological jargon for a group of turtles :)
  */
 
-public class Bale extends ArrayList<Turtle> {
+public class Bale extends ArrayList<Turtle> implements TurtleInterface{
     private int myActiveID;
     public Bale(){
         myActiveID = 0;
@@ -80,4 +80,43 @@ public class Bale extends ArrayList<Turtle> {
     }
 
 
+    @Override
+    public int getPenColor() {
+        return this.get(myActiveID).getPenColor();
+    }
+
+    @Override
+    public int getShape() {
+        return this.get(myActiveID).getShape();
+    }
+
+    @Override
+    public double getHeading() {
+        return this.get(myActiveID).getHeading();
+    }
+
+    @Override
+    public int getID() {
+        return getActiveID();
+    }
+
+    @Override
+    public double getPenState() {
+        return this.get(myActiveID).getPenState();
+    }
+
+    @Override
+    public int getVisibility() {
+        return this.get(myActiveID).getVisibility();
+    }
+
+    @Override
+    public double getXCoor() {
+        return this.get(myActiveID).getXCoor();
+    }
+
+    @Override
+    public double getYCoor() {
+        return this.get(myActiveID).getYCoor();
+    }
 }

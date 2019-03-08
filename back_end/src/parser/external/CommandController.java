@@ -6,10 +6,7 @@ import nodes.CommandNode;
 import parser.Parser;
 import parser.UserCreated;
 import turtle.Bale;
-import turtle.ImmutableTurtleState;
 import turtle.Turtle;
-
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,9 +38,7 @@ public class CommandController {
     public List<ImmutableVisualCommand> getMyVisualCommands(){
         return myVisualCommands;
     }
-    public void updateTurtle(ImmutableTurtleState currentState) {
 
-    }
 
     public void updateLanguage(String newLanguage) {
         myParser.updateLanguage(newLanguage);

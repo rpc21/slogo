@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Turtle {
+public class Turtle implements TurtleInterface{
 
     private double myXCoor;
     private double myYCoor;
@@ -22,6 +22,7 @@ public class Turtle {
     private int myShape;
     private int myID;
     private boolean isActive;
+
     private static final double XBOUNDARY = 400;
     private static final double YBOUNDARY = 225;
     private static final double FULL_CIRCLE = 360;

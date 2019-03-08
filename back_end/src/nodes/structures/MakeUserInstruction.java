@@ -8,12 +8,12 @@ import turtle.Bale;
 import java.util.List;
 
 
-public class To extends CommandNode {
+public class MakeUserInstruction extends CommandNode {
     private UserCreated myUserCreatedItems;
-    public To(String commandName) {
+    public MakeUserInstruction(String commandName) {
         super(commandName);
     }
-    public To(String a, UserCreated user) {
+    public MakeUserInstruction(String a, UserCreated user) {
         super(a);
         myUserCreatedItems = user;
     }
