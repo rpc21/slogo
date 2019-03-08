@@ -94,10 +94,10 @@ public class GUIDisplay implements VisualUpdateAPI {
         setGridProperties(grid);
         setTitle(grid);
         createCanvas(grid);
-        setToolbar(grid);
         makeCommandLine(grid);
         initializeButtons(grid);
         createRightSidePane(grid);
+        setToolbar(grid);
         grid.setPrefSize(SCENE_WIDTH, SCENE_HEIGHT);
         myCurrentGUIGrid = grid;
         return grid;
@@ -161,10 +161,9 @@ public class GUIDisplay implements VisualUpdateAPI {
     }
 
     private void setToolbar(GridPane grid) {
-        myToolbar = new Toolbar(myStackedCanvasPane.getBackgroundColorAccess(),
-                myStackedCanvasPane.getPenPropertiesAccess(), myStackedCanvasPane.getIconAccess(),
-                this::updateLanguage);
+        myToolbar = new Toolbar(this::updateLanguage, myPaletteTabExplorer.getMyColorPalette().getPaletteAccess());
         languageChangeableComponents.add(myToolbar);
+        commandExecutableComponents.add(myToolbar);
         grid.add(myToolbar, 1, 0, 1, 1);
     }
 
@@ -362,7 +361,7 @@ public class GUIDisplay implements VisualUpdateAPI {
 
     @Override
     public void setPalette(int index, int r, int b, int g) {
-        myPaletteTabExplorer.getMyColorPalette().addPaletteElement(new PaletteElement<>(index, new Rectangle(50, 50,
+        myPaletteTabExplorer.getMyColorPalette().addPaletteElement(new PaletteElement<>(index, new Rectangle(250, 50,
                 Color.rgb(r, g, b))));
     }
 }
