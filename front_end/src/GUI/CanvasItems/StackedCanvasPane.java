@@ -63,7 +63,6 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
     public void makeTurtle(){
         IDcounter++;
         DisplayView newTurtle = new BasicTurtleView(myDrawingCanvas);
-        newTurtle.passListOfTurtles(myActiveTurtles);
         myListOfTurtles.put(IDcounter, newTurtle);
         newTurtle.setLanguage(myLanguage);
         newTurtle.giveAbilityToRunCommands(myCommandAccess);
