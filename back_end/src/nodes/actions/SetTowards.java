@@ -4,7 +4,7 @@ import apis.ImmutableVisualCommand;
 import exceptions.InvalidInputException;
 import nodes.CommandNode;
 import nodes.TurtleCommand;
-import nodes.visuals.VisualTurtleTurn;
+
 import turtle.Bale;
 
 import java.util.List;
@@ -14,9 +14,7 @@ public class SetTowards extends TurtleCommand {
         super(name);
     }
     private static final String methodName = "setTowards";
-    /**
-     * TODO - Use immutable turtle state to get current coordinates to determine degrees turned
-     */
+
 
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {

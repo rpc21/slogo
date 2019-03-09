@@ -12,15 +12,15 @@ public class ClearScreen extends CommandNode {
     public ClearScreen(String name){
         super(name);
     }
-    /**
-     * TODO - Use immutable turtle state to get current coordinates to return distance moved to go home
-     */
+
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
+        double currXCoor = myTurtles.getXCoor();
+        double currYCoor = myTurtles.getYCoor();
         myTurtles.clear();
         myTurtles.add(new Turtle(0));
         myVisCommands.add(new VisualClearScreen());
-        return 0;
+        return Math.sqrt(Math.pow(currXCoor,2) + Math.pow(currYCoor,2));
     }
     @Override
     public void addChild(CommandNode c){

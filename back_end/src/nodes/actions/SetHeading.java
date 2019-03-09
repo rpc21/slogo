@@ -14,7 +14,7 @@ public class SetHeading extends TurtleCommand {
     }
     private static final String methodName = "setHeading";
 
-    //TODO figure out how to return most recent heading from turtle...perhaps this is a design flaw
+
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
         double degrees = super.getChildren().get(0).evaluate(myVisCommands, myTurtles);

@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public class Tangent extends CommandNode {
-    private static final int NO_INPUT = 0;
+
     public Tangent(String commandName) {
         super(commandName);
     }

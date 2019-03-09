@@ -3,7 +3,6 @@ package nodes.conditionals;
 import apis.ImmutableVisualCommand;
 import exceptions.InvalidInputException;
 import nodes.CommandNode;
-import nodes.conditionals.BooleanNode;
 import turtle.Bale;
 
 import java.util.List;
@@ -22,11 +21,7 @@ public class Or extends BooleanNode {
         return ZERO;
     }
 
-    /**
-     * Adds an addend to this nodes.SumNode's list of Children as main.Parser reads them in
-     *
-     * @TODO Read in possible Argument issues from a resources file to ensure parameter specifications are satisfied
-     */
+
     @Override
     public void addChild(CommandNode c) {
         if (super.getChildren().size() == 2) {
