@@ -13,15 +13,17 @@ import java.util.function.Function;
 
 public class Palette<R extends Node> extends ScrollPane {
 
+    private static final int SPACING = 5;
+    public static final int EIGHT = 8;
     VBox myVBox;
     Map<Integer, PaletteElement<R>> myPaletteElements;
 
     public Palette() {
-        myVBox = new VBox(5);
+        myVBox = new VBox(SPACING);
         myPaletteElements = new TreeMap<>();
         myVBox.getChildren().addAll(myPaletteElements.values());
         setContent(myVBox);
-        setPrefWidth(GUIDisplay.SCENE_WIDTH * 1.0 / 8);
+        setPrefWidth(GUIDisplay.SCENE_WIDTH * 1.0 / EIGHT);
     }
 
     public void addPaletteElement(PaletteElement<R> element) {
@@ -31,12 +33,12 @@ public class Palette<R extends Node> extends ScrollPane {
     }
 
     public int addPaletteElement(R elementComponent) {
-        int index;
-        if (myPaletteElements.isEmpty()) {
-            index = 1;
-        } else {
-            index = Collections.max(myPaletteElements.keySet()) + 1;
-        }
+        int index = myPaletteElements.isEmpty() ? 1 : Collections.max(myPaletteElements.keySet()) + 1;
+//        if (myPaletteElements.isEmpty()) {
+//            index = 1;
+//        } else {
+//            index = Collections.max(myPaletteElements.keySet()) + 1;
+//        }
         PaletteElement<R> elementToAdd = new PaletteElement<>(index, elementComponent);
         addPaletteElement(elementToAdd);
         return index;

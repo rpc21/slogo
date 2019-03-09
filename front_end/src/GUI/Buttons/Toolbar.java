@@ -11,10 +11,11 @@ import java.util.function.Function;
 
 public class Toolbar extends HBox implements LanguageChangeable, CommandExecutable {
 
-//    private static final String TURTLE_ICON = "TurtleIcon";
+    //    private static final String TURTLE_ICON = "TurtleIcon";
     private static final String SET_BACKGROUND = "SetBackground";
     private static final String SET_PEN_COLOR = "SetPenColor";
-//    private ImageChooser<String> myImageChooser;
+    public static final int SPACING = 10;
+    //    private ImageChooser<String> myImageChooser;
     private TurtleIconChooser myTurtleIconChooser;
     private ColorChooser myPenColorChooser;
     private ColorChooser myBackgroundColorChooser;
@@ -25,8 +26,8 @@ public class Toolbar extends HBox implements LanguageChangeable, CommandExecutab
     public Toolbar(){
         super();
         myLanguage = Language.ENGLISH;
-        setPadding(new Insets(10, 10, 10, 10));
-        setSpacing(10);
+        setPadding(new Insets(SPACING, SPACING, SPACING, SPACING));
+        setSpacing(SPACING);
     }
 
     public Toolbar(Consumer<Language> languageAccess, Function<Rectangle, Integer> colorPaletteAccess){

@@ -3,7 +3,6 @@ package GUI.GUI;
 import exceptions.*;
 import parser.external.CommandController;
 
-import java.lang.reflect.InvocationTargetException;
 
 public class GUIController {
     private CommandController myController = new CommandController();
