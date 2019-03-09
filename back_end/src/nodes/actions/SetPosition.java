@@ -13,9 +13,7 @@ public class SetPosition extends TurtleCommand {
     public SetPosition(String name){
         super(name);
     }
-    /**
-     * TODO - Use immutable turtle state to get current coordinates to determine degrees turned
-     */
+
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
         double newXCoor = super.getChildren().get(0).evaluate(myVisCommands, myTurtles);

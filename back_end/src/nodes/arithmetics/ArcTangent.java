@@ -9,7 +9,6 @@ import java.util.List;
 
 
 public class ArcTangent extends CommandNode {
-    private static final int NO_INPUT = 0;
     public ArcTangent(String commandName) {
         super(commandName);
     }

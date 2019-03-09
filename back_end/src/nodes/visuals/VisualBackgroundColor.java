@@ -3,7 +3,7 @@ package nodes.visuals;
 import apis.VisualUpdateAPI;
 
 public class VisualBackgroundColor extends VisualCommand {
-    int myIndex;
+    private int myIndex;
     public VisualBackgroundColor(int index){
         myIndex = index;
     }

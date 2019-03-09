@@ -11,7 +11,6 @@ public class VisualTurtleTell extends VisualCommand {
 
     @Override
     public void execute(VisualUpdateAPI myCanvas) {
-        System.out.println(numTurtles);
         myCanvas.addTurtles(numTurtles);
     }
 }

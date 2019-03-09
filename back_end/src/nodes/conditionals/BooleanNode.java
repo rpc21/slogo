@@ -11,15 +11,15 @@ import java.util.List;
 
 public abstract class BooleanNode extends CommandNode {
 
-    public BooleanNode(String name){
+    BooleanNode(String name){
         super(name);
     }
 
 
-    protected double getFirstExpression(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
+    double getFirstExpression(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
         return super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
     }
-    protected double getSecondExpression(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
+    double getSecondExpression(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
         return super.getChildren().get(1).evaluate(myVisCommands, myTurtles);
     }
 
