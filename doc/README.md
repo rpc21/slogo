@@ -29,6 +29,15 @@ Names: Ryan Culhane, Anna Darwish, Louis Jensen, Megan Phibbons
 
 Main class: SLogoMain is in front_end/src/main
 
+### Frontend Files
+
+* Turtle Image files
+    * basic_turtle1.jpg
+    * gitlab-turtle.png
+    * images.png
+    * turtle.jpg
+* Language properties files - displays visual text in different languages
+    
 
 ### Backend Files
 
@@ -54,6 +63,8 @@ Main class: SLogoMain is in front_end/src/main
 
 * A user can not use a method before first defining it (this entails running their desired method before running it)
 * When toggling turtles, one can not set multiple to be active at once (setting one to be active makes the remaining turtles inactive)
+* fd set :x + :x 10 - In the situation that we have a command such as the following, each active turtle will move the same distance, as the x value
+ will be evaluated and then all of the active turtles will perform the forward movement
 
 ### Known Bugs:
 
@@ -70,4 +81,11 @@ Main class: SLogoMain is in front_end/src/main
   design choice, but in the end, it forced us to follow better design practices. For example, we could not have any 
   circular dependencies, and separating into modules made it much easier to ensure that we did not do this. Additionally, I 
   felt like the parser was a difficult problem to solve, but I appreciated  having parsing starter code. 
+* Ryan: I was a bit apprehensive to be on visualization for this project, as I was back-end on Cell Society. It was really helpful 
+  to learn about lambdas and consumers during these past couple weeks to refactor visualization code into separate areas, 
+  because it was quite difficult to avoid circular dependencies. In the end, I really enjoyed seeing all of it come together!
+* Louis: This project was very interesting for me. I worked on the front end which was enjoyable because on Cell Society I worked on 
+  configuration and backend so I had never focused so much on UI before. After getting a little experience with both, I think that I 
+  like working on back end better. However, I’m glad I tried front end to get some experience and learn how to work with JavaFX. I also 
+  found consumers and reflection to be very interesting and helpful in our project.
 
