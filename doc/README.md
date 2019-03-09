@@ -61,6 +61,13 @@ Main class: SLogoMain is in front_end/src/main
 
 ### Impressions
 
-* Anna: This project was significantly more difficult from both a code design and functionality perspective. However, I felt that the lectures and study of design patterns significantly helped in understanding how to tackle the problem.
-* Megan: This project was enjoyable, but the design was very challenging. For example, implementing modules was a very difficult design choice, but in the end, it forced us to follow better design practices. For example, we could not have any circular dependencies, and separating into modules made it much easier to ensure that we did not do this. Additionally, I felt like the parser was a difficult problem to solve, but I appreciated  having parsing starter code. 
+* Anna: This project was significantly more difficult from both a code design and functionality perspective. However, I felt 
+* that the lectures and study of design patterns significantly helped in understanding how to tackle the problem. I was definitely very 
+* frustrated at the beginning because I wrote very little code and spent a lot more time drawing out and discussing designs. 
+* It felt like I was being unproductive, but in retrospect, I'm really glad we all worked hard to develop a flexible design rather 
+* than worry about implementing all of the funtionalities in the sprints.
+* Megan: This project was enjoyable, but the design was very challenging. For example, implementing modules was a very difficult 
+* design choice, but in the end, it forced us to follow better design practices. For example, we could not have any 
+* circular dependencies, and separating into modules made it much easier to ensure that we did not do this. Additionally, I 
+* felt like the parser was a difficult problem to solve, but I appreciated  having parsing starter code. 
 
