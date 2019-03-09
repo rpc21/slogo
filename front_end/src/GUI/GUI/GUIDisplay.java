@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GUIDisplay implements VisualUpdateAPI {
+public class GUIDisplay {
 
     public static final Language DEFAULT_LANGUAGE = Language.ENGLISH;
     public static final String CLEAR_SCREEN = "ClearScreen";
@@ -56,6 +56,7 @@ public class GUIDisplay implements VisualUpdateAPI {
     private NewWindowButton myNewWindowButton;
     private List<String> myListOfCommands;
     private UndoButton myUndoButton;
+    private Delegator myDelegator;
 
     private List<LanguageChangeable> languageChangeableComponents;
     private List<CommandExecutable> commandExecutableComponents;
@@ -66,14 +67,21 @@ public class GUIDisplay implements VisualUpdateAPI {
         myListOfCommands = new ArrayList<>();
         dataTracker = new GUIdata();
         myRoot = createGridPane();
+        myDelegator = new Delegator(myStackedCanvasPane, myTabExplorer, myPaletteTabExplorer);
         myRoot.setGridLinesVisible(false);
         myScene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.LIGHTGRAY);
         myStage.setScene(myScene);
     }
 
+//    public void executeVisualCommands(List<ImmutableVisualCommand> myCommands){
+//        for (ImmutableVisualCommand c: myCommands) {
+//            c.execute(this);
+//        }
+//    }
+
     public void executeVisualCommands(List<ImmutableVisualCommand> myCommands){
         for (ImmutableVisualCommand c: myCommands) {
-            c.execute(this);
+            c.execute(myDelegator);
         }
     }
 
@@ -233,106 +241,106 @@ public class GUIDisplay implements VisualUpdateAPI {
         }
         myListOfCommands = copyOfCommandHistory;
     }
-
-    @Override
-    public void addTurtles(int numTurtles) {
-        myStackedCanvasPane.addTurtles(numTurtles);
-    }
-
-    @Override
-    public void setActiveTurtles(List<Integer> activeTurtleIDs) { }
-
-    @Override
-    public void addVariable(String name, Double val) {
-        myTabExplorer.addVariable(name, val);
-    }
-
-    @Override
-    public void addMethod(String name, List<String> myVars) {
-        myTabExplorer.addUserDefinedCommand(name, myVars);
-    }
-
-    @Override
-    public void turtleMove(int id, double x, double y) {
-        myStackedCanvasPane.turtleMove(id, x, y);
-    }
-
-    @Override
-    public void turtleTurn(int id, double degrees) {
-        myStackedCanvasPane.turtleTurn(id, degrees);
-    }
-
-    @Override
-    public void setPenUp(int id) {
-        myStackedCanvasPane.setPenUp(id);
-    }
-
-    @Override
-    public void setPenDown(int id) {
-        myStackedCanvasPane.setPenDown(id);
-    }
-
-    @Override
-    public void showTurtle(int id) {
-        myStackedCanvasPane.showTurtle(id);
-    }
-
-    @Override
-    public void hideTurtle(int id) {
-        myStackedCanvasPane.hideTurtle(id);
-    }
-
-    @Override
-    public void setOrientation(int id, double degrees) {
-        myStackedCanvasPane.setOrientation(id, degrees);
-    }
-
-    @Override
-    public void setTowards(int id, double degrees) {
-        myStackedCanvasPane.setTowards(id, degrees);
-    }
-
-    @Override
-    public void setLocation(int id, double x, double y) {
-        myStackedCanvasPane.setLocation(id, x, y);
-    }
-
-    @Override
-    public void goHome(int id) {
-        myStackedCanvasPane.goHome(id);
-    }
-
-    @Override
-    public void clearScreen() {
-        myStackedCanvasPane.clearScreen();
-        myTabExplorer.clearCommandHistory();
-    }
-
-    @Override
-    public void setBackgroundColor(int index) {
-        myStackedCanvasPane.getBackgroundColorAccess().accept(myPaletteTabExplorer.getMyColorPalette().getContent(index).getFill());
-    }
-
-    @Override
-    public void setPenColor(int id, int index) {
-        myStackedCanvasPane.setPenColor(id, myPaletteTabExplorer.getMyColorPalette().getContent(index).getFill());
-    }
-
-    @Override
-    public void setPenSize(int id, double pixels) {
-        myStackedCanvasPane.setPenSize(id, pixels);
-    }
-
-    @Override
-    public void setShape(int id, int index) {
-        myStackedCanvasPane.setTurtleShape(id,
-                myPaletteTabExplorer.getMyTurtlePalette().getContent(index).getClass().getName());
-    }
-
-    @Override
-    public void setPalette(int index, int r, int b, int g) {
-        myPaletteTabExplorer.getMyColorPalette().addPaletteElement(new PaletteElement<>(index,
-                new Rectangle(PaletteTabExplorer.COLOR_PALETTE_WIDTH, PaletteTabExplorer.COLOR_PALETTE_HEIGHT,
-                Color.rgb(r, g, b))));
-    }
+//
+//    @Override
+//    public void addTurtles(int numTurtles) {
+//        myStackedCanvasPane.addTurtles(numTurtles);
+//    }
+//
+//    @Override
+//    public void setActiveTurtles(List<Integer> activeTurtleIDs) { }
+//
+//    @Override
+//    public void addVariable(String name, Double val) {
+//        myTabExplorer.addVariable(name, val);
+//    }
+//
+//    @Override
+//    public void addMethod(String name, List<String> myVars) {
+//        myTabExplorer.addUserDefinedCommand(name, myVars);
+//    }
+//
+//    @Override
+//    public void turtleMove(int id, double x, double y) {
+//        myStackedCanvasPane.turtleMove(id, x, y);
+//    }
+//
+//    @Override
+//    public void turtleTurn(int id, double degrees) {
+//        myStackedCanvasPane.turtleTurn(id, degrees);
+//    }
+//
+//    @Override
+//    public void setPenUp(int id) {
+//        myStackedCanvasPane.setPenUp(id);
+//    }
+//
+//    @Override
+//    public void setPenDown(int id) {
+//        myStackedCanvasPane.setPenDown(id);
+//    }
+//
+//    @Override
+//    public void showTurtle(int id) {
+//        myStackedCanvasPane.showTurtle(id);
+//    }
+//
+//    @Override
+//    public void hideTurtle(int id) {
+//        myStackedCanvasPane.hideTurtle(id);
+//    }
+//
+//    @Override
+//    public void setOrientation(int id, double degrees) {
+//        myStackedCanvasPane.setOrientation(id, degrees);
+//    }
+//
+//    @Override
+//    public void setTowards(int id, double degrees) {
+//        myStackedCanvasPane.setTowards(id, degrees);
+//    }
+//
+//    @Override
+//    public void setLocation(int id, double x, double y) {
+//        myStackedCanvasPane.setLocation(id, x, y);
+//    }
+//
+//    @Override
+//    public void goHome(int id) {
+//        myStackedCanvasPane.goHome(id);
+//    }
+//
+//    @Override
+//    public void clearScreen() {
+//        myStackedCanvasPane.clearScreen();
+//        myTabExplorer.clearCommandHistory();
+//    }
+//
+//    @Override
+//    public void setBackgroundColor(int index) {
+//        myStackedCanvasPane.getBackgroundColorAccess().accept(myPaletteTabExplorer.getMyColorPalette().getContent(index).getFill());
+//    }
+//
+//    @Override
+//    public void setPenColor(int id, int index) {
+//        myStackedCanvasPane.setPenColor(id, myPaletteTabExplorer.getMyColorPalette().getContent(index).getFill());
+//    }
+//
+//    @Override
+//    public void setPenSize(int id, double pixels) {
+//        myStackedCanvasPane.setPenSize(id, pixels);
+//    }
+//
+//    @Override
+//    public void setShape(int id, int index) {
+//        myStackedCanvasPane.setTurtleShape(id,
+//                myPaletteTabExplorer.getMyTurtlePalette().getContent(index).getClass().getName());
+//    }
+//
+//    @Override
+//    public void setPalette(int index, int r, int b, int g) {
+//        myPaletteTabExplorer.getMyColorPalette().addPaletteElement(new PaletteElement<>(index,
+//                new Rectangle(PaletteTabExplorer.COLOR_PALETTE_WIDTH, PaletteTabExplorer.COLOR_PALETTE_HEIGHT,
+//                Color.rgb(r, g, b))));
+//    }
 }
