@@ -29,6 +29,15 @@ Names: Ryan Culhane, Anna Darwish, Louis Jensen, Megan Phibbons
 
 Main class: SLogoMain is in front_end/src/main
 
+### Frontend Files
+
+* Turtle Image files
+    * basic_turtle1.jpg
+    * gitlab-turtle.png
+    * images.png
+    * turtle.jpg
+* Language properties files - displays visual text in different languages
+    
 
 ### Backend Files
 
