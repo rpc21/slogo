@@ -70,4 +70,7 @@ Main class: SLogoMain is in front_end/src/main
   design choice, but in the end, it forced us to follow better design practices. For example, we could not have any 
   circular dependencies, and separating into modules made it much easier to ensure that we did not do this. Additionally, I 
   felt like the parser was a difficult problem to solve, but I appreciated  having parsing starter code. 
+* Ryan: I was a bit apprehensive to be on visualization for this project, as I was back-end on Cell Society. It was really helpful 
+  to learn about lambdas and consumers during these past couple weeks to refactor visualization code into separate areas, 
+  because it was quite difficult to avoid circular dependencies. In the end, I really enjoyed seeing all of it come together!
 
