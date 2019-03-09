@@ -13,7 +13,6 @@ public class For extends CommandNode {
     private static final int START = 1;
     private static final int END = 2;
     private static final int INCREMENT = 3;
-    private static final int LISTNODE = 4;
     private UserCreated myUserCreatedItems;
 
     public For(String a){

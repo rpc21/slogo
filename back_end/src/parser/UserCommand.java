@@ -5,7 +5,6 @@ import java.util.Map;
 
 public class UserCommand {
     String myMethodContents;
-    Map<String, Integer> myVariables;
     List<String> myVariableNames;
 
     public UserCommand(List<String> inputVariables, String methodContents) {

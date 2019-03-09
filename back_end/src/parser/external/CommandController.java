@@ -27,7 +27,6 @@ public class CommandController {
 
     public double execute(String command, String language) throws InvalidInputException {
         updateLanguage(language);
-        CommandNode myNode;
         double ret = 0;
         myVisualCommands.clear();
         for (CommandNode a : myParser.parse(command)) {
