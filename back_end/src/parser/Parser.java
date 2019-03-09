@@ -17,6 +17,9 @@ public class Parser {
     private static final String LIST_NODE_NAME = "ListNode";
     private static final String USER_INSTRUCTION_KEY = "UserInstruction";
 
+    private static final String LIST_START = "[";
+    private static final String LIST_END = "]";
+
     public Parser(UserCreated userCreated) {
         myUserCreated = userCreated;
         myCommandFactory = new CommandFactory();
@@ -33,7 +36,7 @@ public class Parser {
         return topLevelCommands;
     }
 
-    private CommandNode makeNodeTree() throws InvalidInputException { // todo: check for invalid number of inputs?
+    private CommandNode makeNodeTree() throws InvalidInputException {
         String[] commandSplit = splitCommand(myCurrentCommand);
         String currentValue = commandSplit[0];
         if(myUserCreated.containsCommand(currentValue)) {
@@ -49,21 +52,25 @@ public class Parser {
         if(currentNode.isMethodDeclaration()) { // special case where we want the children to be a bit different
             return makeMethodDeclaration(currentNode, commandSplit[1]);
         }
+        addChildren(currentNode, expectedNumberOfParameters);
+        return currentNode;
+    }
+
+    private void addChildren(CommandNode currentNode,  int expectedNumberOfParameters) throws InvalidInputException {
         for(int i = getStartIndex(currentNode); i <= expectedNumberOfParameters; i++) {
-            commandSplit = splitCommand(myCurrentCommand);
+            String[] commandSplit = splitCommand(myCurrentCommand);
             if(commandSplit[0].length()  == 0) {
                 throw new TooFewInputsException();
             }
             addChild(currentNode, commandSplit[0]);
         }
-        return currentNode;
     }
 
     private CommandNode makeMethodDeclaration(CommandNode currentNode, String commandName) throws InvalidInputException {
         addNameChild(currentNode, commandName);
         currentNode.addChild(makeNameListTree());
         updateMyCurrentCommand();
-        currentNode.addChild(myCommandFactory.makeNameNode(myCurrentCommand.substring(myCurrentCommand.indexOf("[") + 1, myCurrentCommand.indexOf("]"))));
+        currentNode.addChild(myCommandFactory.makeNameNode(myCurrentCommand.substring(myCurrentCommand.indexOf(LIST_START) + 1, myCurrentCommand.indexOf(LIST_END))));
         myCurrentCommand = "";
         return currentNode;
     }
@@ -101,7 +108,6 @@ public class Parser {
     }
 
     private void addNameChild(CommandNode currentNode, String s) {
-        // todo: figure out how to validate name for variable (but not method)
         currentNode.addChild(myCommandFactory.makeNameNode(s));
         updateMyCurrentCommand();
     }
