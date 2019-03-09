@@ -27,6 +27,7 @@ public class TurtleViewTabExplorer extends TabExplorer {
 
     private void updateTurtleProperties(DisplayView x) {
         myTurtleProperties.clearContents();
+        myTurtleProperties.addContents("Active? " + x.isItActive());
         myTurtleProperties.addContents(String.format("Heading: %.2f degrees", x.getRotate()));
         myTurtleProperties.addContents(String.format("Y Coordinate: %.2f", -1 * x.getTranslateY() + EPSILON));
         myTurtleProperties.addContents(String.format("X Coordinate: %.2f", x.getTranslateX()));

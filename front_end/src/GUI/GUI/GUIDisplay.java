@@ -289,7 +289,7 @@ public class GUIDisplay implements VisualUpdateAPI {
     }
 
     @Override
-    public void setActiveTurtles(List<Integer> activeTurtleIDs) { }
+    public void setActiveTurtles(List<Integer> activeTurtleIDs) { myStackedCanvasPane.setActiveTurtles(activeTurtleIDs);}
 
     @Override
     public void addVariable(String name, Double val) {

@@ -11,12 +11,11 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 
 public abstract class DisplayView extends ImageView implements CommandExecutable, LanguageChangeable {
@@ -42,6 +41,7 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
     private DisplayViewContextMenu myDisplayViewContextMenu;
     private Language myLanguage;
     private int myTurtleId;
+    private Set<Integer> myListOfActiveTurtles;
 //    private int myIndex;
     private boolean isActive;
     public DisplayView(){
@@ -64,6 +64,13 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
         this();
         myCanvas = canvas;
         myContext = myCanvas.getGraphicsContext2D();
+    }
+
+    public void passListOfTurtles(List<Integer> listOfTurtles){
+       // myListOfTurtles = listOfTurtles;
+        myListOfActiveTurtles = new TreeSet<Integer>();
+        myListOfActiveTurtles.clear();
+        myListOfActiveTurtles.addAll(listOfTurtles);
     }
 
     public DisplayView(DisplayView displayView, Canvas canvas){
@@ -181,35 +188,45 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
         myTabAccess = tabAccess;
         setOnMouseClicked(e -> {
             updateTab();
-            toggleActivity();
+            if (e.getButton().equals(MouseButton.PRIMARY)){
+                doCorrectTell();
+                System.out.println(myTurtleId + " this is my turtle ID of click");
+            }
         });
     }
 
-    private void makeBig(){
+    private void doCorrectTell(){
+        Integer IDtoTell = myTurtleId + 1;
+        runCommand("tell [ " + IDtoTell.toString()+ " ]");
+    }
+
+    public void makeBig(){
         this.setFitWidth(IMAGE_WIDTH*1.8);
         this.setFitHeight(IMAGE_HEIGHT*1.8);
     }
 
-    private void makeSmall(){
+    public void makeSmall(){
         this.setFitWidth(IMAGE_WIDTH);
         this.setFitHeight(IMAGE_HEIGHT);
     }
 
     public void setActive(){
-        makeBig();
         isActive = true;
     }
 
     public void setInActive(){
-        makeSmall();
         isActive = false;
     }
 
-    private void toggleActivity(){
+    public boolean isItActive(){
+        return isActive;
+    }
+
+    public void showSize(){
         if (isActive){
-            setInActive();
+            makeBig();
         } else {
-            setActive();
+            makeSmall();
         }
     }
 
