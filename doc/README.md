@@ -82,4 +82,8 @@ Main class: SLogoMain is in front_end/src/main
 * Ryan: I was a bit apprehensive to be on visualization for this project, as I was back-end on Cell Society. It was really helpful 
   to learn about lambdas and consumers during these past couple weeks to refactor visualization code into separate areas, 
   because it was quite difficult to avoid circular dependencies. In the end, I really enjoyed seeing all of it come together!
+* Louis: This project was very interesting for me. I worked on the front end which was enjoyable because on Cell Society I worked on 
+  configuration and backend so I had never focused so much on UI before. After getting a little experience with both, I think that I 
+  like working on back end better. However, I’m glad I tried front end to get some experience and learn how to work with JavaFX. I also 
+  found consumers and reflection to be very interesting and helpful in our project.
 
