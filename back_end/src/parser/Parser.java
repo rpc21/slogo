@@ -15,7 +15,7 @@ public class Parser {
     private Validator myValidator;
 
     private static final String LIST_NODE_NAME = "ListNode";
-    private static final String VARIABLE_NODE_NAME = "Variable";
+    private static final String USER_INSTRUCTION_KEY = "UserInstruction";
 
     public Parser(UserCreated userCreated) {
         myUserCreated = userCreated;
@@ -34,7 +34,7 @@ public class Parser {
     }
 
     private CommandNode makeNodeTree() throws InvalidInputException { // todo: check for invalid number of inputs?
-        String[] commandSplit = myCurrentCommand.trim().split("\\s+");
+        String[] commandSplit = splitCommand(myCurrentCommand);
         String currentValue = commandSplit[0];
         String currentCommandKey;
         CommandNode currentNode;
@@ -46,8 +46,7 @@ public class Parser {
             updateMyCurrentCommand();
         } catch (InvalidInputException e) {
             if(myUserCreated.containsCommand(currentValue)) {
-                System.out.println("RUNNING USER COMMAND");
-                currentNode = myCommandFactory.makeCommand("UserInstruction", myUserCreated);
+                currentNode = myCommandFactory.makeCommand(USER_INSTRUCTION_KEY, myUserCreated);
                 addNameChild(currentNode, currentValue);
                 currentNode.addChild(makeListTree());
                 System.out.println(myUserCreated.getCommand(currentValue));
@@ -69,7 +68,7 @@ public class Parser {
             return currentNode;
         }
         for(int i = getStartIndex(currentNode); i <= expectedNumberOfParameters; i++) {
-            commandSplit = myCurrentCommand.split("\\s+");
+            commandSplit = splitCommand(myCurrentCommand);
             if(commandSplit[0].length()  == 0) {
                 throw new TooFewInputsException();
             }
@@ -78,17 +77,21 @@ public class Parser {
         return currentNode;
     }
 
+    private String[] splitCommand(String s) {
+        return s.trim().split("\\s+");
+    }
+
     private CommandNode makeNameListTree() throws InvalidInputException {
         if(myValidator.hasListEnd(myCurrentCommand)) {
             throw new InvalidListException();
         }
         CommandNode parent = myCommandFactory.makeCommand(LIST_NODE_NAME, myUserCreated);
         updateMyCurrentCommand();
-        String[] splitCommand = myCurrentCommand.trim().split("\\s+");
+        String[] splitCommand = splitCommand(myCurrentCommand);
         String child = splitCommand[0];
         while(!myValidator.isListEnd(child)) {
             addNameChild(parent, child);
-            splitCommand = myCurrentCommand.trim().split("\\s+");
+            splitCommand = splitCommand(myCurrentCommand);
             child = splitCommand[0];
         }
         return parent;
@@ -127,7 +130,6 @@ public class Parser {
         } else if (myValidator.isListStart(child)) {
             currentNode.addChild(makeListTree());
         } else if (myValidator.isVariable(child)) {
-            System.out.println("We're tyring here...");
             addVariableChild(currentNode, child);
         } else {
             currentNode.addChild(makeNodeTree());
@@ -142,18 +144,18 @@ public class Parser {
         }
         CommandNode parent = myCommandFactory.makeCommand(LIST_NODE_NAME, myUserCreated);
         updateMyCurrentCommand();
-        String[] splitCommand = myCurrentCommand.trim().split("\\s+");
+        String[] splitCommand = splitCommand(myCurrentCommand);
         String child = splitCommand[0];
         while(!myValidator.isListEnd(child)) {
             addChild(parent, child);
-            splitCommand = myCurrentCommand.trim().split("\\s+");
+            splitCommand = splitCommand(myCurrentCommand);
             child = splitCommand[0];
         }
         return parent;
     }
 
     private void updateMyCurrentCommand() {
-        String[] split = myCurrentCommand.split(" ");
+        String[] split = splitCommand(myCurrentCommand);
         myCurrentCommand = "";
         for(int i = 1; i < split.length; i++) {
             myCurrentCommand += split[i] + " ";
