@@ -36,36 +36,18 @@ public class Parser {
     private CommandNode makeNodeTree() throws InvalidInputException { // todo: check for invalid number of inputs?
         String[] commandSplit = splitCommand(myCurrentCommand);
         String currentValue = commandSplit[0];
-        String currentCommandKey;
-        CommandNode currentNode;
-        int expectedNumberOfParameters;
-        try {
-            currentCommandKey = myValidator.getCommandKey(currentValue);
-            currentNode = myCommandFactory.makeCommand(currentCommandKey, myUserCreated);
-            expectedNumberOfParameters = myValidator.getExpectedNumberOfParameters(currentCommandKey);
-            updateMyCurrentCommand();
-        } catch (InvalidInputException e) {
-            if(myUserCreated.containsCommand(currentValue)) {
-                currentNode = myCommandFactory.makeCommand(USER_INSTRUCTION_KEY, myUserCreated);
-                addNameChild(currentNode, currentValue);
-                currentNode.addChild(makeListTree());
-                System.out.println(myUserCreated.getCommand(currentValue));
-                currentNode.addChild(makeListNode(parse(myUserCreated.getCommand(currentValue))));
-                return currentNode;
-            } else {
-                throw e;
-            }
+        if(myUserCreated.containsCommand(currentValue)) {
+            return makeUserCreatedNode(currentValue);
         }
+        String currentCommandKey = myValidator.getCommandKey(currentValue);
+        CommandNode currentNode = myCommandFactory.makeCommand(currentCommandKey, myUserCreated);
+        int expectedNumberOfParameters = myValidator.getExpectedNumberOfParameters(currentCommandKey);
+        updateMyCurrentCommand();
         if(currentNode.needsName()) { // this means the current node is looking for a variable
             addNameChild(currentNode, commandSplit[1]);
         }
         if(currentNode.isMethodDeclaration()) { // special case where we want the children to be a bit different
-            addNameChild(currentNode,  commandSplit[1]);
-            currentNode.addChild(makeNameListTree());
-            updateMyCurrentCommand();
-            currentNode.addChild(myCommandFactory.makeNameNode(myCurrentCommand.substring(myCurrentCommand.indexOf("[") + 1, myCurrentCommand.indexOf("]"))));
-            myCurrentCommand = "";
-            return currentNode;
+            return makeMethodDeclaration(currentNode, commandSplit[1]);
         }
         for(int i = getStartIndex(currentNode); i <= expectedNumberOfParameters; i++) {
             commandSplit = splitCommand(myCurrentCommand);
@@ -74,6 +56,23 @@ public class Parser {
             }
             addChild(currentNode, commandSplit[0]);
         }
+        return currentNode;
+    }
+
+    private CommandNode makeMethodDeclaration(CommandNode currentNode, String commandName) throws InvalidInputException {
+        addNameChild(currentNode, commandName);
+        currentNode.addChild(makeNameListTree());
+        updateMyCurrentCommand();
+        currentNode.addChild(myCommandFactory.makeNameNode(myCurrentCommand.substring(myCurrentCommand.indexOf("[") + 1, myCurrentCommand.indexOf("]"))));
+        myCurrentCommand = "";
+        return currentNode;
+    }
+
+    private CommandNode makeUserCreatedNode(String currentValue) throws InvalidInputException {
+        CommandNode currentNode = myCommandFactory.makeCommand(USER_INSTRUCTION_KEY, myUserCreated);
+        addNameChild(currentNode, currentValue);
+        currentNode.addChild(makeListTree());
+        currentNode.addChild(makeListNode(parse(myUserCreated.getCommand(currentValue))));
         return currentNode;
     }
 
