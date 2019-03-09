@@ -20,13 +20,13 @@ import java.util.function.Consumer;
 
 public abstract class DisplayView extends ImageView implements CommandExecutable, LanguageChangeable {
 
-    private static final String BASIC_TURTLE_NAME = "Basic Turtle View";
-    private static final String ADVANCED_TURTLE_NAME = "Advanced Turtle View";
-    private static final String CUTE_TURTLE_NAME = "Cute Turtle View";
-    private static final String GITLAB_TURTLE_VIEW = "GitLab View";
-    public static final List<String> POSSIBLE_IMAGES = List.of(BASIC_TURTLE_NAME, ADVANCED_TURTLE_NAME,
-            CUTE_TURTLE_NAME,
-            GITLAB_TURTLE_VIEW);
+//    private static final String BASIC_TURTLE_NAME = "Basic Turtle View";
+//    private static final String ADVANCED_TURTLE_NAME = "Advanced Turtle View";
+//    private static final String CUTE_TURTLE_NAME = "Cute Turtle View";
+//    private static final String GITLAB_TURTLE_VIEW = "GitLab View";
+//    public static final List<String> POSSIBLE_IMAGES = List.of(BASIC_TURTLE_NAME, ADVANCED_TURTLE_NAME,
+//            CUTE_TURTLE_NAME,
+//            GITLAB_TURTLE_VIEW);
 
     private static final String TURTLE_IMAGE = "file:/resources_images/turtle1.jpg";
     private static final int IMAGE_HEIGHT = 25;
@@ -43,6 +43,7 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
     private int myTurtleId;
     private Set<Integer> myListOfActiveTurtles;
 //    private int myIndex;
+
     private boolean isActive;
     public DisplayView(){
         this(new Image(TURTLE_IMAGE));
@@ -52,7 +53,6 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
         super(image);
         setFitHeight(IMAGE_HEIGHT);
         setFitWidth(IMAGE_WIDTH);
-//        myIndex = 0;
         myPen = new Pen(true, Color.BLACK, PenStyle.DASHED, 2.0);
         myMoveHistory = new ArrayList<>();
         isActive = true;
@@ -133,9 +133,9 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
         myContext.closePath();
     }
 
-    public List<String> getPossibleImages() {
-        return Collections.unmodifiableList(POSSIBLE_IMAGES);
-    }
+//    public List<String> getPossibleImages() {
+//        return Collections.unmodifiableList(POSSIBLE_IMAGES);
+//    }
 
     public Pen getMyPen() {
         return myPen;

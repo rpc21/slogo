@@ -8,6 +8,7 @@ public class TurtleViewTabExplorer extends TabExplorer {
 
     public static final String PEN_PROPERTIES = "Pen Properties";
     public static final String TURTLE_PROPERTIES = "Turtle Properties";
+    public static final int RGB_MAX = 255;
     private SLogoTab myPenProperties;
     private SLogoTab myTurtleProperties;
     private final double EPSILON = 0.001;
@@ -37,8 +38,8 @@ public class TurtleViewTabExplorer extends TabExplorer {
     private void updatePenPropertiesTab(DisplayView x) {
         myPenProperties.clearContents();
         Color color = (Color) x.getMyPen().getMyColor();
-        myPenProperties.addContents(String.format("Pen Color: [%d, %d, %d]", (int) (255 * color.getRed()),
-                (int) (255 * color.getGreen()), (int) (255 * color.getBlue())));
+        myPenProperties.addContents(String.format("Pen Color: [%d, %d, %d]", (int) (RGB_MAX * color.getRed()),
+                (int) (RGB_MAX * color.getGreen()), (int) (RGB_MAX * color.getBlue())));
         myPenProperties.addContents(String.format("Pen Size: %.2f", x.getMyPen().getMyWidth()));
         myPenProperties.addContents(String.format("Pen Down: %b", x.getMyPen().isDown()));
     }
