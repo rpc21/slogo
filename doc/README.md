@@ -63,6 +63,8 @@ Main class: SLogoMain is in front_end/src/main
 
 * A user can not use a method before first defining it (this entails running their desired method before running it)
 * When toggling turtles, one can not set multiple to be active at once (setting one to be active makes the remaining turtles inactive)
+* fd set :x + :x 10 - In the situation that we have a command such as the following, each active turtle will move the same distance, as the x value
+ will be evaluated and then all of the active turtles will perform the forward movement
 
 ### Known Bugs:
 
