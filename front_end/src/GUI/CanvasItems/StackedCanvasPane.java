@@ -11,7 +11,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -26,7 +28,9 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
     private Consumer<String> myCommandAccess;
     private Language myLanguage;
     private Consumer<DisplayView> myTabAccess;
-    private List<DisplayView> myListOfTurtles;
+    private Map<Integer, DisplayView> myListOfTurtles;
+    private List<Integer> myActiveTurtles;
+    private int IDcounter;
 //    private boolean penDown;
 
     public StackedCanvasPane(){
@@ -34,7 +38,9 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
         myTurtles = new ArrayList<>();
         myBackgroundCanvas = createBackgroundCanvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
         myDrawingCanvas = new TurtleCanvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
-        myListOfTurtles = new ArrayList<>();
+        myListOfTurtles = new HashMap<>();
+        myActiveTurtles = new ArrayList<>();
+        IDcounter = 0;
 //        myCurrentDisplayView = new BasicTurtleView(myDrawingCanvas);
 //        makeTurtle();
 //        myCurrentDisplayView = myTurtles.get(0);
@@ -55,18 +61,41 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
     }
 
     public void makeTurtle(){
+        IDcounter++;
         DisplayView newTurtle = new BasicTurtleView(myDrawingCanvas);
-        myListOfTurtles.add(newTurtle);
+        myListOfTurtles.put(IDcounter, newTurtle);
         newTurtle.setLanguage(myLanguage);
         newTurtle.giveAbilityToRunCommands(myCommandAccess);
         getChildren().add(newTurtle);
         newTurtle.setTurtleId(myTurtles.size());
         newTurtle.giveTabAccess(myTabAccess);
-        for (DisplayView turtle : myListOfTurtles){
-            turtle.setInActive();
+        for (int key : myListOfTurtles.keySet()){
+            myListOfTurtles.get(key).setInActive();
         }
         newTurtle.setActive();
+        newTurtle.showSize();
         myTurtles.add(newTurtle);
+    }
+
+    public void addTurtles(int numTurtles) {
+        for (int i = 0; i < numTurtles; i++){
+            makeTurtle();
+        }
+
+    }
+
+    public void setActiveTurtles(List<Integer> activeTurtleIDs) {
+        myActiveTurtles = activeTurtleIDs;
+        System.out.println(myActiveTurtles + " these are the active turtles");
+        for (int key : myListOfTurtles.keySet()){
+            myListOfTurtles.get(key).setInActive();
+        }
+        for (Integer turtleID : activeTurtleIDs){
+            myListOfTurtles.get(turtleID+1).setActive();
+        }
+        for (int key : myListOfTurtles.keySet()){
+            myListOfTurtles.get(key).showSize();
+        }
     }
 
     public Consumer<Paint> getBackgroundColorAccess(){
@@ -231,9 +260,4 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
         }
     }
 
-    public void addTurtles(int numTurtles) {
-        for (int i = 0; i < numTurtles; i++){
-            makeTurtle();
-        }
-    }
 }

@@ -2,7 +2,7 @@ package nodes.conditionals;
 import apis.ImmutableVisualCommand;
 import exceptions.InvalidInputException;
 import nodes.CommandNode;
-import nodes.conditionals.BooleanNode;
+
 import turtle.Bale;
 
 import java.util.List;

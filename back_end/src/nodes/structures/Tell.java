@@ -32,10 +32,11 @@ public class Tell extends CommandNode {
         myTurtles.makeTurtles(myTurtleIDs);
         myTurtles.setActiveTurtles(myTurtleIDs);
 
-        myVisCommands.add(new VisualActiveTurtles(myTurtleIDs));
+
         if (currentTurtleCount != myTurtles.size()) {
             myVisCommands.add(new VisualTurtleTell(myTurtles.size() - currentTurtleCount));
         }
+        myVisCommands.add(new VisualActiveTurtles(myTurtleIDs));
         return ret;
     }
 

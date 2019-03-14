@@ -26,11 +26,15 @@ public class Turtle implements TurtleInterface{
     private static final double XBOUNDARY = 400;
     private static final double YBOUNDARY = 225;
     private static final double FULL_CIRCLE = 360;
+    private static final double QUARTER_CIRCLE = 90;
+    private static final double HALF_CIRCLE = 180;
+    private static final double THREE_QUARTER_CIRCLE = 270;
+
     public Turtle(int id){
-        myXCoor = myYCoor = myHeading = myPenColor = 0;
+        myXCoor = myYCoor = myHeading = 0;
         myPenSize = 2;
         myID = id;
-        myVisibility = myPenState = myShape = 1;
+        myVisibility = myPenState = myShape = myPenColor = 1;
         if (id == 0)
             isActive = true;
         else
@@ -59,9 +63,7 @@ public class Turtle implements TurtleInterface{
     public double getYCoor() { return myYCoor; }
     public double getHeading(){ return myHeading; }
     public int getPenColor(){ return myPenColor;}
-    public int getShape(){
-        System.out.println(myShape);
-        return myShape; }
+    public int getShape(){ return myShape; }
     public int getID(){return myID;}
     public int getVisibility(){ return myVisibility; }
     public double getPenState(){
@@ -193,6 +195,26 @@ public class Turtle implements TurtleInterface{
         else {
             return Arrays.asList(new VisualPenDown(myID));
         }
+    }
+
+    private List<ImmutableVisualCommand> setTowards(Double newX, Double newY) {
+        double deltaX = newX - myXCoor;
+        double deltaY = newY - myYCoor;
+        double degrees = Math.atan2( newY - myYCoor,  newX - myXCoor) * HALF_CIRCLE /Math.PI;
+
+
+        if (deltaX >= 0 & deltaY >= 0)
+            degrees = QUARTER_CIRCLE - degrees;
+        else if ( deltaX > 0 & deltaY < 0)
+            degrees = QUARTER_CIRCLE + Math.abs(degrees);
+        else if (deltaX < 0 & deltaY < 0)
+            degrees = QUARTER_CIRCLE + Math.abs(degrees);
+        else
+            degrees = THREE_QUARTER_CIRCLE + HALF_CIRCLE - degrees;
+
+        double turned = degrees - myHeading;
+        myHeading = myHeading + turned;
+        return Arrays.asList(new VisualTurtleTurn(myID,  turned));
     }
 
     private void checkHeading(){

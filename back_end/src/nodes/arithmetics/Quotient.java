@@ -27,7 +27,7 @@ public class Quotient extends CommandNode {
     }
 
     private boolean validDenominator(double d){
-        return d == 0.0;
+        return d != 0.0;
     }
 
 

@@ -21,10 +21,6 @@ public class UserCreated {
         myVariables.put(variableName, variableValue);
     }
 
-    public double getVariableValue(String key) {
-        return myVariables.get(key);
-    }
-
     public double getValue(String key) throws InvalidInputException {
         try {
             return myVariables.get(key);
@@ -36,10 +32,6 @@ public class UserCreated {
 
     public boolean containsCommand(String key) {
         return myCommands.containsKey(key);
-    }
-
-    public boolean containsVariable(String variable) {
-        return myVariables.containsKey(variable);
     }
 
     public void addUserCommand(String commandName, List<String> varNames, String commandContents){
@@ -57,10 +49,6 @@ public class UserCreated {
             System.out.println("name: " + variableNames.get(i) + " value: " + myVariableValues.get(i));
             myVariables.put(variableNames.get(i), myVariableValues.get(i));
         }
-    }
-
-    public int getExpectedNumberOfParameters(String currentCommandKey) {
-        return myCommands.get(currentCommandKey).getMyVariableNames().size();
     }
 
     public String getCommand(String currentValue) {

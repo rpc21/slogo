@@ -7,11 +7,9 @@ import turtle.Bale;
 import java.util.List;
 
 public class Name extends CommandNode {
-    private String myName;
     private static final int NO_EXECUTE_RESULT = 0;
     public Name(String n){
         super(n);
-        myName = n;
     }
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles){

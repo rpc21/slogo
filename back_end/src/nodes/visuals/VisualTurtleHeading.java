@@ -1,6 +1,5 @@
 package nodes.visuals;
 import apis.VisualUpdateAPI;
-import nodes.visuals.VisualCommand;
 
 public class VisualTurtleHeading extends VisualCommand {
     private int myID;

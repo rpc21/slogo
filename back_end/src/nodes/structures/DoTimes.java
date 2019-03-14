@@ -9,8 +9,7 @@ import turtle.Bale;
 import java.util.List;
 
 public class DoTimes extends CommandNode {
-    private static final int NUM_ITERATIONS = 0;
-    private static final int FIRST_COMMAND = 1;
+
     private UserCreated myUserCreatedItems;
     public DoTimes(String a) {
         super(a);
@@ -19,9 +18,7 @@ public class DoTimes extends CommandNode {
         super(a);
         myUserCreatedItems = user;
     }
-    /**
-     * TODO - Initalize specific variable name and update with each iteration
-     */
+
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
     //initialize specific variable name and update with each iteration
