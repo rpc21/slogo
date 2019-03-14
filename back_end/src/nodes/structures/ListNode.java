@@ -1,10 +1,12 @@
 package nodes.structures;
-
 import apis.ImmutableVisualCommand;
 import exceptions.InvalidInputException;
 import nodes.CommandNode;
 import turtle.Bale;
-
+/**
+ * @author Anna Darwish
+ * @version 3/13/2019
+ */
 public class ListNode extends CommandNode {
     public ListNode(String a){
         super(a);
@@ -16,13 +18,5 @@ public class ListNode extends CommandNode {
             ret = c.evaluate(myVisCommands, myTurtles);
         }
        return ret;
-    }
-
-    /*
-      * ListNode can have an unlimited number of children
-     */
-    @Override
-    public void addChild(CommandNode c){
-        super.addChild(c);
     }
 }

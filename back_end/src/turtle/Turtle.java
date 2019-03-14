@@ -1,3 +1,7 @@
+/*
+ * @author Anna Darwish
+ * @version 3/13/2019
+ */
 package turtle;
 
 import apis.ImmutableVisualCommand;
@@ -10,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Turtle implements TurtleInterface{
+public class Turtle implements ITurtle {
 
     private double myXCoor;
     private double myYCoor;

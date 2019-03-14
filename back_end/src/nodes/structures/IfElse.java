@@ -3,8 +3,11 @@ import apis.ImmutableVisualCommand;
 import exceptions.InvalidInputException;
 import nodes.CommandNode;
 import turtle.Bale;
-
 import java.util.List;
+/**
+ * @author Anna Darwish
+ * @version 3/13/2019
+ */
 
 public class IfElse extends CommandNode {
     private static final int IF_STATEMENT= 0;
@@ -26,11 +29,4 @@ public class IfElse extends CommandNode {
         }
     }
 
-    @Override
-    public void addChild(CommandNode c) {
-        if (super.getChildren().size() == 3) {
-            throw new IllegalArgumentException();
-        }
-        super.addChild(c);
-    }
 }

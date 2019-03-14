@@ -1,6 +1,10 @@
+/*
+ * @author Anna Darwish
+ * @version 3/13/2019
+ */
 package turtle;
 
-public interface TurtleInterface {
+public interface ITurtle {
 
     int getPenColor();
     int getShape();

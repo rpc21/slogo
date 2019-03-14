@@ -1,13 +1,14 @@
 package nodes.structures;
-
 import apis.ImmutableVisualCommand;
 import exceptions.InvalidInputException;
 import nodes.CommandNode;
 import parser.UserCreated;
 import turtle.Bale;
-
 import java.util.List;
-
+/**
+ * @author Anna Darwish
+ * @version 3/13/2019
+ */
 public class For extends CommandNode {
     private static final int ITERATOR = 0;
     private static final int START = 1;
@@ -27,7 +28,7 @@ public class For extends CommandNode {
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
         CommandNode initalizeList = super.getChildren().get(0);
         CommandNode innerCommands = super.getChildren().get(1);
-        String name = initalizeList.getChildren().get(ITERATOR).getName();
+        String name = initalizeList.getChildren().get(ITERATOR).toString();
         double start = initalizeList.getChildren().get(START).evaluate(myVisCommands,myTurtles);
         double end = initalizeList.getChildren().get(END).evaluate(myVisCommands,myTurtles);
         double increment = initalizeList.getChildren().get(INCREMENT).evaluate(myVisCommands,myTurtles);

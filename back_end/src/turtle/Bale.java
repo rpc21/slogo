@@ -1,3 +1,7 @@
+/*
+ * @author Anna Darwish
+ * @version 3/13/2019
+ */
 package turtle;
 
 import apis.ImmutableVisualCommand;
@@ -11,7 +15,7 @@ import java.util.List;
   * in ListNode. Bale is biological jargon for a group of turtles :)
  */
 
-public class Bale extends ArrayList<Turtle> implements TurtleInterface{
+public class Bale extends ArrayList<Turtle> implements ITurtle {
     private int myActiveID;
     public Bale(){
         myActiveID = 0;
@@ -24,6 +28,24 @@ public class Bale extends ArrayList<Turtle> implements TurtleInterface{
             }
         }
         return activeTurtles;
+    }
+
+    public List<Integer> getAllIDs(){
+        List<Integer> myActiveTurtleIDs = new ArrayList<>();
+        for (Turtle t: this) {
+            myActiveTurtleIDs.add(t.getID());
+        }
+        return myActiveTurtleIDs;
+    }
+
+    public List<Integer> getActiveTurtleIDs(){
+        List<Integer> myActiveTurtleIDs = new ArrayList<>();
+        for (Turtle t: getActiveTurtles()) {
+            if (t.isActive()) {
+                myActiveTurtleIDs.add(t.getID());
+            }
+        }
+        return myActiveTurtleIDs;
     }
 
     public void makeTurtles(List<Integer> myIDs){
@@ -49,6 +71,15 @@ public class Bale extends ArrayList<Turtle> implements TurtleInterface{
             }
             else {
                 t.setActive(false);
+            }
+    }
+    public void setActiveTurtles(int myTurtleID){
+        for (Turtle t: this)
+            if (! (t.getID() == myTurtleID)) {
+                t.setActive(false);
+            }
+            else {
+                t.setActive(true);
             }
     }
     public void setMyActiveID(int id){

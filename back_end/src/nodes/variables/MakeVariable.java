@@ -1,3 +1,7 @@
+/*
+ * @author Anna Darwish
+ * @version 3/13/2019
+ */
 package nodes.variables;
 
 import apis.ImmutableVisualCommand;
@@ -24,19 +28,13 @@ public class MakeVariable extends CommandNode {
 
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
-        myVarName = super.getChildren().get(0).getName();
+        myVarName = super.getChildren().get(0).toString();
         double varValue = super.getChildren().get(1).evaluate(myVisCommands, myTurtles);
         myUserCreatedItems.addVariable(myVarName,varValue);
         myVisCommands.add(new VisualAddVariable(myVarName,varValue));
         return varValue;
     }
 
-    @Override
-    public void addChild(CommandNode c){
-        if (super.getChildren().size() == 2)
-            throw new IllegalArgumentException();
-        super.addChild(c);
-    }
     @Override
     public boolean needsName(){
         return true;

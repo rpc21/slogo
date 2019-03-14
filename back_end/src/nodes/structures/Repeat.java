@@ -1,12 +1,14 @@
 package nodes.structures;
-
 import apis.ImmutableVisualCommand;
 import exceptions.InvalidInputException;
 import nodes.CommandNode;
 import parser.UserCreated;
 import turtle.Bale;
-
 import java.util.List;
+/**
+ * @author Anna Darwish
+ * @version 3/13/2019
+ */
 
 public class Repeat extends CommandNode {
 
@@ -35,11 +37,6 @@ public class Repeat extends CommandNode {
             myUserCreatedItems.addVariable(repeatVariable,iter);
         }
         return ret;
-    }
-
-    @Override
-    public void addChild(CommandNode c) {
-        super.addChild(c);
     }
 
     @Override

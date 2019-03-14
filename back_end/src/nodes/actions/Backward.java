@@ -6,12 +6,21 @@ import nodes.TurtleCommand;
 import turtle.Bale;
 import nodes.CommandNode;
 import java.util.List;
-
+/**
+ * @author Anna Darwish
+ * @version 3/13/2019
+ */
 public class Backward extends TurtleCommand {
+    private static final String methodName = "move";
     public Backward(String name){
         super(name);
     }
-    private static final String methodName = "move";
+
+    /**
+     * Evaluates child node to get the number of pixels associated with backward movement, and sets associated
+     * method name for myTurtles to handle as "move" before invoking turtles to add associated visual commands
+     * @return pixels moved
+     */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
         double pixels = super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
@@ -19,11 +28,5 @@ public class Backward extends TurtleCommand {
         myVisCommands.addAll(super.invokeTurtles(new Object[]{-1.0* pixels},myTurtles));
         return pixels;
     }
-    @Override
-    public void addChild(CommandNode c){
-        if (super.getChildren().size() == 1) {
-            throw new IllegalArgumentException();
-        }
-        super.addChild(c);
-    }
+
 }

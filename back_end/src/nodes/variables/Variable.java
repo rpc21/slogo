@@ -1,3 +1,7 @@
+/*
+ * @author Anna Darwish
+ * @version 3/13/2019
+ */
 package nodes.variables;
 
 import apis.ImmutableVisualCommand;

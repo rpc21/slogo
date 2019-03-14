@@ -1,14 +1,14 @@
 package nodes.structures;
-
 import apis.ImmutableVisualCommand;
 import exceptions.InvalidInputException;
 import nodes.CommandNode;
-import nodes.visuals.VisualActiveTurtles;
 import turtle.Bale;
-import turtle.Turtle;
-
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * @author Anna Darwish
+ * @version 3/13/2019
+ */
 
 public class AskWith extends CommandNode {
     public AskWith(String a){
@@ -17,27 +17,25 @@ public class AskWith extends CommandNode {
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
         CommandNode conditional = super.getChildren().get(0);
+        List<Integer> myOldActiveTurtles = myTurtles.getActiveTurtleIDs();
         List<Integer> myTurtleIDs = new ArrayList<>();
-        for (Turtle t: myTurtles) {
-            myTurtles.setMyActiveID(t.getID());
+
+        for (Integer id: myTurtles.getAllIDs()) {
+            myTurtles.setActiveTurtles(id);
+            myTurtles.setMyActiveID(id);
             if (conditional.evaluate(myVisCommands,myTurtles) != 0.0 ) {
-                myTurtleIDs.add(t.getID());
+                myTurtleIDs.add(id);
             }
         }
+
         myTurtles.setActiveTurtles(myTurtleIDs);
-        myVisCommands.add(new VisualActiveTurtles(myTurtleIDs));
         double ret = 0;
-        for (int command = 1; command < super.getChildren().size(); command++) {
-            ret = super.getChildren().get(command).evaluate(myVisCommands, myTurtles);
-        }
+        CommandNode innerCommands = super.getChildren().get(1);
+        for (CommandNode command: innerCommands.getChildren())
+            ret = command.evaluate(myVisCommands,myTurtles);
+
+        myTurtles.setActiveTurtles(myOldActiveTurtles);
         return ret;
-    }
-    /*
-     * Ask can have an unlimited number of children
-     */
-    @Override
-    public void addChild(CommandNode c){
-        super.addChild(c);
     }
 
 }

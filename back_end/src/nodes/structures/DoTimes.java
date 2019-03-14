@@ -1,13 +1,14 @@
 package nodes.structures;
-
 import apis.ImmutableVisualCommand;
 import exceptions.InvalidInputException;
 import nodes.CommandNode;
 import parser.UserCreated;
 import turtle.Bale;
-
 import java.util.List;
-
+/**
+ * @author Anna Darwish
+ * @version 3/13/2019
+ */
 public class DoTimes extends CommandNode {
 
     private UserCreated myUserCreatedItems;
@@ -26,7 +27,7 @@ public class DoTimes extends CommandNode {
         CommandNode myVariable = super.getChildren().get(0);
         CommandNode myCommands = super.getChildren().get(1);
 
-        String varName = myVariable.getChildren().get(0).getName();
+        String varName = myVariable.getChildren().get(0).toString();
         int numIterations = (int)myVariable.getChildren().get(1).evaluate(myVisCommands, myTurtles);
         myUserCreatedItems.addVariable(varName,1.0);
 
@@ -37,12 +38,6 @@ public class DoTimes extends CommandNode {
             myUserCreatedItems.addVariable(varName,iter + 2.0);
         }
         return ret;
-    }
-
-
-    @Override
-    public void addChild(CommandNode c) {
-        super.addChild(c);
     }
 
     @Override

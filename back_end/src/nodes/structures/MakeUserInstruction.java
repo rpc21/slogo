@@ -1,16 +1,15 @@
 package nodes.structures;
-
 import apis.ImmutableVisualCommand;
 import nodes.CommandNode;
 import nodes.visuals.VisualAddMethod;
-import nodes.visuals.VisualCommand;
 import parser.UserCreated;
 import turtle.Bale;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
+/**
+ * @author Anna Darwish
+ * @version 3/13/2019
+ */
 
 public class MakeUserInstruction extends CommandNode {
     private UserCreated myUserCreatedItems;
@@ -23,31 +22,20 @@ public class MakeUserInstruction extends CommandNode {
     }
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
-        String commandName = super.getChildren().get(0).getName();
+        String commandName = super.getChildren().get(0).toString();
         CommandNode variableNamesList = super.getChildren().get(1);
         List<String> varNames = new ArrayList<>();
 
         for (CommandNode c: variableNamesList.getChildren()) {
-            varNames.add(c.getName());
+            varNames.add(c.toString());
 
         }
-        String commands = super.getChildren().get(2).getName();
+        String commands = super.getChildren().get(2).toString();
         myUserCreatedItems.addUserCommand(commandName, varNames, commands);
 
         myVisCommands.add(new VisualAddMethod(commandName,varNames));
         return 1.0;
 
-    }
-    /**
-     * Adds an addend to this nodes.SumNode's list of Children as main.Parser reads them in
-     * @TODO Read in possible Argument issues from a resources file to ensure parameter specifications are satisfied
-     */
-    @Override
-    public void addChild(CommandNode c){
-        if (super.getChildren().size() == 3) {
-            throw new IllegalArgumentException();
-        }
-        super.addChild(c);
     }
 
     @Override
