@@ -30,7 +30,6 @@ public class AskWith extends CommandNode {
 
         for (Integer id: myTurtles.getAllIDs()) {
             myTurtles.setActiveTurtles(id);
-            myTurtles.setMyActiveID(id);
             if (conditional.evaluate(myVisCommands,myTurtles) != 0.0 ) {
                 myTurtleIDs.add(id);
             }

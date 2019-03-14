@@ -16,6 +16,6 @@ public class ID extends CommandNode {
      */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
-        return myTurtles.getActiveID();
+        return myTurtles.getID();
     }
 }

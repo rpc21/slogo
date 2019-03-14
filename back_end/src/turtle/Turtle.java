@@ -1,19 +1,30 @@
-/*
- * @author Anna Darwish
- * @version 3/13/2019
- */
 package turtle;
 
 import apis.ImmutableVisualCommand;
 import exceptions.InvalidCommandException;
 import exceptions.InvalidInputException;
-import nodes.visuals.*;
-
+import nodes.visuals.VisualPenDown;
+import nodes.visuals.VisualPenUp;
+import nodes.visuals.VisualTurtlePosition;
+import nodes.visuals.VisualTurtleTurn;
+import nodes.visuals.VisualHomeTurtle;
+import nodes.visuals.VisualPenColor;
+import nodes.visuals.VisualPenSize;
+import nodes.visuals.VisualTurtleHeading;
+import nodes.visuals.VisualTurtleShape;
+import nodes.visuals.VisualHideTurtle;
+import nodes.visuals.VisualShowTurtle;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+/**
+ * @author Anna Darwish
+ * @version 3/13/2019
+ * This class has a list of public getters in order to implement a common Interface with Bale (ITurtle).  This class uses
+ * reflection to determine which method to invoke to update the current state of the turtle and return the appropriate visual
+ * commands, which is why they are all private and mistakenly labelled as "unused"
+ */
 public class Turtle implements ITurtle {
 
     private double myXCoor;
@@ -39,50 +50,73 @@ public class Turtle implements ITurtle {
         myPenSize = 2;
         myID = id;
         myVisibility = myPenState = myShape = myPenColor = 1;
-        if (id == 0)
+        if (id == 0) {
             isActive = true;
-        else
-            isActive = false;
-
+        }
     }
+    /**
+     * Returns x-coordinate associated with this Turtle
+     */
+    public double getXCoor(){ return myXCoor; }
+    /**
+     * Returns y-coordinate associated with this Turtle
+     */
+    public double getYCoor() { return myYCoor; }
+    /**
+     * Returns heading associated with this Turtle
+     */
+    public double getHeading(){ return myHeading; }
+    /**
+     * Returns pen color associated with this Turtle
+     */
+    public int getPenColor(){ return myPenColor;}
+    /**
+     * Returns shape associated with this Turtle
+     */
+    public int getShape(){ return myShape; }
+    /**
+     * Returns ID associated with this Turtle
+     */
+    public int getID(){return myID;}
+    /**
+     * Returns visibility state associated with this Turtle
+     */
+    public int getVisibility(){ return myVisibility; }
+    /**
+     * Returns pen state associated with this Turtle
+     */
+    public double getPenState(){ return myPenState; }
 
+    /**
+     * Uses reflection to invoke the appropriate method associated with the first parameter and determine the methods
+     * signature from the list of object parameters.
+     * @param actionName is the name of the method to be invoked
+     * @param myParams is the set of parameters associated with this method
+     * @return list of immutable visual commands associated with a particular state update
+     * @throws InvalidInputException if the method signature does not exist in this class, or the method does not
+     *         return a list of ImmutableVisualCommands
+     */
     List<ImmutableVisualCommand> turtleAction(String actionName, Object[] myParams) throws InvalidInputException {
         try {
 
             Class<?>[] typeOfParams = new Class<?>[myParams.length];
-
             for (int i = 0; i < myParams.length; i++)
                 typeOfParams[i] = myParams[i].getClass();
             Method m = getClass().getDeclaredMethod(actionName,typeOfParams);
             Object ret = m.invoke(this, myParams);
-            List<ImmutableVisualCommand> v = (List<ImmutableVisualCommand>)ret;
-            return v;
+            return (List<ImmutableVisualCommand>)ret;
         }
         catch (Exception e){
             throw new InvalidCommandException(actionName);
         }
     }
 
-    public double getXCoor(){ return myXCoor; }
-    public double getYCoor() { return myYCoor; }
-    public double getHeading(){ return myHeading; }
-    public int getPenColor(){ return myPenColor;}
-    public int getShape(){ return myShape; }
-    public int getID(){return myID;}
-    public int getVisibility(){ return myVisibility; }
-    public double getPenState(){
-        return myPenState;
-    }
-    boolean isActive(){ return isActive;}
-
-    private List<ImmutableVisualCommand> setPenSize(Double pixels){
-        myPenSize = pixels;
-        return Arrays.asList(new VisualPenSize(myID,pixels));
-    }
-
     void setActive(boolean a){isActive = a;}
-
-
+    boolean getIsActive(){return isActive;}
+    /**
+     * Either performs usual movement given current heading of the turtle, or if the turtle moves out of bounds,
+     * calculates appropriate x and y coordinate on opposite side of the canvas for display purposes
+     */
     private List<ImmutableVisualCommand> move(Double pixels) {
         double orientation = Math.toRadians(myHeading);
         double deltaX = pixels * Math.sin(orientation);
@@ -101,7 +135,12 @@ public class Turtle implements ITurtle {
         return ((Math.abs(myXCoor + deltaX) < XBOUNDARY) &&
                 (Math.abs(myYCoor + deltaY) < YBOUNDARY));
     }
-
+    /**
+     * In order to display moving out of bounds properly, the turtle is moved to the edge of the canvas under the current
+     * conditions of its pen, then to the opposite side of the canvas with its pen up (as to not draw a misleading
+     * line across the entire canvas). Then the pen is restored to its original state before moving the turtle
+     * the remaining distance it has to move
+     */
     private List<ImmutableVisualCommand> turtleOffBounds(double deltaX,double deltaY){
         List<ImmutableVisualCommand> myOffBoundsVisuals = new ArrayList<>();
 
@@ -145,10 +184,7 @@ public class Turtle implements ITurtle {
     }
 
     private void setXCoor(double x){ myXCoor = x; }
-    private void setYCoor(double y){
-        myYCoor = y;
-    }
-
+    private void setYCoor(double y){ myYCoor = y; }
 
     private List<ImmutableVisualCommand> goHome(){
         setHeading(0.0);
@@ -165,6 +201,11 @@ public class Turtle implements ITurtle {
     private List<ImmutableVisualCommand> setPenColor(Double index){
         myPenColor = (int)(double)index;
         return Arrays.asList(new VisualPenColor(myID,(int)(double)index));
+    }
+
+    private List<ImmutableVisualCommand> setPenSize(Double pixels){
+        myPenSize = pixels;
+        return Arrays.asList(new VisualPenSize(myID,pixels));
     }
 
     private List<ImmutableVisualCommand> setPosition(Double x, Double y){
@@ -200,7 +241,12 @@ public class Turtle implements ITurtle {
             return Arrays.asList(new VisualPenDown(myID));
         }
     }
-
+    /**
+     * The degrees needed to turn are calculated using the Math class's arc-tangent function, which assumes a unit circle
+     * offset and positive counter-clockwise motion. Our display assumes that 0 degrees is straight up with a positive
+     * clockwise motion, which is why the degrees returned by Math's arc-tangent function must be converted to our
+     * coordinate system depending upon the quadrant it is located in
+     */
     private List<ImmutableVisualCommand> setTowards(Double newX, Double newY) {
         double deltaX = newX - myXCoor;
         double deltaY = newY - myYCoor;

@@ -11,6 +11,8 @@ import java.util.List;
  */
 public class SetPosition extends TurtleCommand {
     private static final String methodName  = "setPosition";
+    private static final String turtleStateMethodXCoor = "getXCoor";
+    private static final String turtleStateMethodYCoor = "getYCoor";
     public SetPosition(String name){
         super(name);
     }
@@ -24,13 +26,15 @@ public class SetPosition extends TurtleCommand {
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
         double newXCoor = super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
         double newYCoor = super.getChildren().get(1).evaluate(myVisCommands, myTurtles);
-        double oldXCoor = myTurtles.getLastActiveTurtle().getXCoor();
-        double oldYCoor = myTurtles.getLastActiveTurtle().getYCoor();
+        double oldXCoor = myTurtles.getLastActiveState(turtleStateMethodXCoor);
+        double oldYCoor = myTurtles.getLastActiveState(turtleStateMethodYCoor);
 
         super.setMyTurtleCommands(methodName);
         myVisCommands.addAll(super.invokeTurtles(new Object[]{newXCoor,newYCoor}, myTurtles));
 
-        return Math.pow(Math.abs(oldXCoor - newXCoor),2)  +
-                Math.pow(Math.abs(oldYCoor - newYCoor),2);
+        return Math.sqrt(Math.pow(Math.abs(oldXCoor - newXCoor),2)  +
+                Math.pow(Math.abs(oldYCoor - newYCoor),2));
+
+
     }
 }

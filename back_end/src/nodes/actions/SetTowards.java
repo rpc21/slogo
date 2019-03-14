@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class SetTowards extends TurtleCommand {
     private static final String methodName = "setTowards";
+    private static final String turtleStateMethodName = "getHeading";
     public SetTowards(String name){
         super(name);
     }
@@ -21,10 +22,10 @@ public class SetTowards extends TurtleCommand {
      */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
-        double towardsX=  super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
+        double towardsX =  super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
         double towardsY =  super.getChildren().get(1).evaluate(myVisCommands, myTurtles);
-        double currHeading = myTurtles.getLastActiveTurtle().getHeading();
         super.setMyTurtleCommands(methodName);
+        double currHeading = myTurtles.getLastActiveState(turtleStateMethodName);
         myVisCommands.addAll(super.invokeTurtles(new Object[]{towardsX,towardsY},myTurtles));
 
         double newHeading = myTurtles.getHeading();
