@@ -14,6 +14,14 @@ public class AskWith extends CommandNode {
     public AskWith(String a){
         super(a);
     }
+    /**
+     * This CommandNode has two children - a conditional and a list of commands for the turtles that fulfill the first
+     * conditional to complete. This method first has to check each turtle separately to assess whether or not they should
+     * participate in the list of commands and then set those turtles as active in order for the proper visual commands to be
+     * constructed. This method then evaluates those commands and sets the original list of active turtles to be active
+     * again
+     * @return result of final command evaluated
+     */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
         CommandNode conditional = super.getChildren().get(0);
@@ -29,10 +37,9 @@ public class AskWith extends CommandNode {
         }
 
         myTurtles.setActiveTurtles(myTurtleIDs);
-        double ret = 0;
+
         CommandNode innerCommands = super.getChildren().get(1);
-        for (CommandNode command: innerCommands.getChildren())
-            ret = command.evaluate(myVisCommands,myTurtles);
+        double ret = innerCommands.evaluate(myVisCommands,myTurtles);
 
         myTurtles.setActiveTurtles(myOldActiveTurtles);
         return ret;

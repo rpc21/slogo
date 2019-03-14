@@ -1,18 +1,15 @@
-/*
- * @author Anna Darwish
- * @version 3/13/2019
- */
 package nodes.variables;
-
 import apis.ImmutableVisualCommand;
-import exceptions.InvalidInputException;
 import exceptions.InvalidVariableException;
 import nodes.CommandNode;
 import parser.UserCreated;
 import turtle.Bale;
 
 import java.util.List;
-
+/**
+ * @author Anna Darwish
+ * @version 3/13/2019
+ */
 public class Variable extends CommandNode {
     private String myVarName;
     private double myValue;
@@ -23,11 +20,15 @@ public class Variable extends CommandNode {
         myVarName = variableName;
         myValue = NOT_ASSIGNED;
     }
-    public Variable(String variableName, UserCreated userCreated) throws InvalidInputException {
+    public Variable(String variableName, UserCreated userCreated) {
         super(variableName);
         myVarName = variableName;
         myUserCreated =  userCreated;
     }
+    /**
+     * This is a variable node that is meant to get the current value associated with the variable name. This value
+     * could not be parsed for as the value of variables may change throughout the process of evaluating a a command tree
+     */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidVariableException {
         try {

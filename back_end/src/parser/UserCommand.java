@@ -1,11 +1,10 @@
 package parser;
 
 import java.util.List;
-import java.util.Map;
 
 public class UserCommand {
-    String myMethodContents;
-    List<String> myVariableNames;
+    private String myMethodContents;
+    private List<String> myVariableNames;
 
     public UserCommand(List<String> inputVariables, String methodContents) {
         myVariableNames = inputVariables;

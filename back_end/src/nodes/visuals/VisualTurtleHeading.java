@@ -1,6 +1,9 @@
 package nodes.visuals;
 import apis.VisualUpdateAPI;
-
+/**
+ * @author Anna Darwish
+ * @version 3/13/2019
+ */
 public class VisualTurtleHeading extends VisualCommand {
     private int myID;
     private double myDegrees;
@@ -8,6 +11,10 @@ public class VisualTurtleHeading extends VisualCommand {
         myID = id;
         myDegrees = degrees;
     }
+    /**
+     * Invokes front end to set the heading of turtle myID to myDegrees
+     * @see VisualUpdateAPI
+     */
     @Override
     public void execute(VisualUpdateAPI myCanvas) {
         myCanvas.setOrientation(myID,myDegrees);

@@ -17,7 +17,13 @@ public class If extends CommandNode {
     public If(String a) {
         super(a);
     }
-
+    /**
+     * This CommandNode has two children - one is a conditional, and the second is a list of commands that are invoked
+     * to execute if the conditional evaluates to true
+     * @return the result of the last command run if the conditional evaluates to true, or 0 if the conditional is false
+     *          or there are no commands to be run
+     * @see ListNode
+     */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
         double conditional = super.getChildren().get(IF_STATEMENT).evaluate(myVisCommands, myTurtles);

@@ -1,7 +1,3 @@
-/*
- * @author Anna Darwish
- * @version 3/13/2019
- */
 package nodes;
 import apis.ImmutableVisualCommand;
 import exceptions.InvalidInputException;
@@ -12,7 +8,10 @@ import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
+/**
+ * @author Anna Darwish
+ * @version 3/13/2019
+ */
 public abstract class CommandNode {
     private List<CommandNode> myChildren = new ArrayList<>();
     private String myName;
@@ -20,7 +19,8 @@ public abstract class CommandNode {
     private ResourceBundle myResources;
     private int maxChildren;
     /**
-     * String word used to instantiate this node in CommandFactory
+     * Reads in maximum number of children this CommandNode can have from the resources file, if not available, sets
+     * number of permitted children to 0 for error checking purposes
      */
     public CommandNode(String name){
         myName = name;
@@ -35,8 +35,7 @@ public abstract class CommandNode {
     private int getMaxChildren(){
         DecimalFormat df = new DecimalFormat();
         Number num = df.parse(myResources.getString(myName), new ParsePosition(0));
-        int ans = num.intValue();
-        return ans;
+        return num.intValue();
     }
     /**
      * evaluates this node's value based upon its particular implementation

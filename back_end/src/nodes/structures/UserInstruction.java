@@ -20,6 +20,12 @@ public class UserInstruction extends CommandNode {
         super(n);
         myUserCreatedItems = user;
     }
+    /**
+     * This CommandNode has three children - the method name associated with this user instruction, the list of values for
+     * its parameters, and a list of commands to be executed. This method initializes each of the variable values
+     * associated with this method and then evaluates the the list of accompanying commands
+     * @return result of last command evaluated
+     */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
         String myUserMethodName = super.getChildren().get(0).toString();
@@ -28,16 +34,18 @@ public class UserInstruction extends CommandNode {
         for (CommandNode c: listOfVariableValues.getChildren()) {
             myVariableValues.add(c.evaluate(myVisCommands, myTurtles));
         }
-
         myUserCreatedItems.setUpLocalVariables(myUserMethodName,myVariableValues);
         CommandNode listOfCommands = super.getChildren().get(2);
-        double ret = 0.0;
-        for (CommandNode c : listOfCommands.getChildren())
-            ret = c.evaluate(myVisCommands,myTurtles);
-        return ret;
+        return listOfCommands.evaluate(myVisCommands,myTurtles);
     }
+    /**
+     * This CommandNode is a method unique to the user definition
+     */
     @Override
     public boolean isMethodDeclaration(){return true;}
+    /**
+     * This CommandNode needs access to the UserCreated class in order to initialize the variables local to this method
+     */
     @Override
     public boolean needsUserCreated(){
         return true;

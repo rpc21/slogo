@@ -17,6 +17,9 @@ public class ConstantNode extends CommandNode {
         super("" + val);
         myValue = val;
     }
+    /**
+     * This is simply a constant that will usually be featured as an argument or child of another CommandNode
+     */
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles){
         return myValue;
     }
