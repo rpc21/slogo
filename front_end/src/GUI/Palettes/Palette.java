@@ -8,7 +8,6 @@ import javafx.scene.layout.VBox;
 import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class Palette<R extends Node> extends ScrollPane {

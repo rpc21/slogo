@@ -9,7 +9,6 @@ import GUI.Tabs.TabExplorer;
 import GUI.Tabs.TurtleViewTabExplorer;
 import apis.ImmutableVisualCommand;
 
-import apis.VisualUpdateAPI;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
