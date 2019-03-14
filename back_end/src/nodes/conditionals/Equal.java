@@ -13,7 +13,9 @@ public class Equal extends BooleanNode {
     public Equal(String a) {
         super(a);
     }
-
+    /**
+     * @return whether or not first and second child are equal in value
+     */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
         if (super.getFirstExpression(myVisCommands, myTurtles) ==

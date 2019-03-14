@@ -11,6 +11,9 @@ public class IsShowing extends CommandNode {
     public IsShowing(String n){
         super(n);
     }
+    /**
+     * @return active turtle's visibility state
+     */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
         return myTurtles.getVisibility();

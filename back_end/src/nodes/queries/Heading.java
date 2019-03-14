@@ -11,6 +11,9 @@ public class Heading extends CommandNode {
     public Heading(String n){
         super(n);
     }
+    /**
+     * @return active turtle's heading in degrees
+     */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
         return myTurtles.getHeading();

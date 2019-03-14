@@ -13,7 +13,9 @@ public class NotEqual extends BooleanNode {
     public NotEqual(String a) {
         super(a);
     }
-
+    /**
+     * @return whether or not first and second child are different in value
+     */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
         if (super.getFirstExpression(myVisCommands, myTurtles) !=

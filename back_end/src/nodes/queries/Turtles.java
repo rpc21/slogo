@@ -12,6 +12,9 @@ public class Turtles extends CommandNode {
     public Turtles(String n){
         super(n);
     }
+    /**
+     * @return number of turtles currently on the canvas
+     */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
         return myTurtles.size();

@@ -13,7 +13,9 @@ public class Or extends BooleanNode {
     public Or(String a) {
         super(a);
     }
-
+    /**
+     * @return whether or not first or second children evaluate to be non-zero
+     */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
         if (super.getFirstExpression(myVisCommands, myTurtles) != ZERO ||  super.getSecondExpression(myVisCommands, myTurtles) != ZERO)

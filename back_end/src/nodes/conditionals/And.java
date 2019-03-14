@@ -13,7 +13,9 @@ public class And extends BooleanNode {
     public And(String a) {
         super(a);
     }
-
+    /**
+     * @return whether or not the first and second children evaluate to be non-zero
+     */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
         if (super.getFirstExpression(myVisCommands, myTurtles) != ZERO &

@@ -13,7 +13,9 @@ public class GreaterThan extends BooleanNode {
     public GreaterThan(String a) {
         super(a);
     }
-
+    /**
+     * @return whether or not first child's value is greater than that of second child
+     */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
         if (super.getFirstExpression(myVisCommands, myTurtles) >

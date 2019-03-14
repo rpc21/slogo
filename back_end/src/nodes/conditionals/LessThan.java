@@ -13,7 +13,9 @@ public class LessThan extends BooleanNode {
     public LessThan(String a) {
         super(a);
     }
-
+    /**
+     * @return whether or not first child's value is less than that of second child
+     */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
         if (super.getFirstExpression(myVisCommands, myTurtles) <

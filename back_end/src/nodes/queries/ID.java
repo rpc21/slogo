@@ -11,6 +11,9 @@ public class ID extends CommandNode {
     public ID(String n){
         super(n);
     }
+    /**
+     * @return active turtle's ID
+     */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
         return myTurtles.getActiveID();
