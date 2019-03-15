@@ -14,6 +14,7 @@ import nodes.visuals.VisualTurtleHeading;
 import nodes.visuals.VisualTurtleShape;
 import nodes.visuals.VisualHideTurtle;
 import nodes.visuals.VisualShowTurtle;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;

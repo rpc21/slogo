@@ -107,12 +107,12 @@ public class Bale extends ArrayList<Turtle> implements ITurtle {
      */
     public List<ImmutableVisualCommand> act(List<String> myTurtleMethods,  Object[] actualParams) throws InvalidInputException {
         List<ImmutableVisualCommand> myVisCommands = new ArrayList<>();
-        for (Turtle t: this.getActiveTurtles()) {
+        List<Turtle> iterateTurtle = this.getActiveTurtles();
+        for (Turtle t: iterateTurtle) {
             myActiveID = t.getID();
             for (String m: myTurtleMethods) {
                 myVisCommands.addAll(t.turtleAction(m, actualParams));
             }
-
         }
         return myVisCommands;
     }
