@@ -29,6 +29,12 @@ public class ClearButton extends Button implements CommandExecutable, LanguageCh
         });
     }
 
+    /**
+     * Gives the class the ability to run commands by passing a consumer that takes a String and passes
+     * the command to the parser to be run through the backend and have its effects displayed on the front end as
+     * well as stored in the backend
+     * @param commandAccess a consumer that feeds the command to the parser to run the command through the backend.
+     */
     @Override
     public void giveAbilityToRunCommands(Consumer<String> commandAccess) {
         myCommandAccess = commandAccess;
