@@ -5,7 +5,7 @@ import apis.VisualUpdateAPI;
  * @version 3/13/2019
  */
 public class VisualHideTurtle extends VisualCommand {
-    private int myID;
+    private final int myID;
     public VisualHideTurtle(int id){
         myID = id;
     }

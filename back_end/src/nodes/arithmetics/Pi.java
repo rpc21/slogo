@@ -1,6 +1,5 @@
 package nodes.arithmetics;
 import apis.ImmutableVisualCommand;
-import exceptions.InvalidInputException;
 import nodes.CommandNode;
 import turtle.Bale;
 import java.util.List;

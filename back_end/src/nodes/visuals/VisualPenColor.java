@@ -5,8 +5,8 @@ import apis.VisualUpdateAPI;
  * @version 3/13/2019
  */
 public class VisualPenColor extends VisualCommand {
-    private int myID;
-    private int myIndex;
+    private final int myID;
+    private final int myIndex;
     public VisualPenColor(int id, int index){
         myID = id;
         myIndex = index;

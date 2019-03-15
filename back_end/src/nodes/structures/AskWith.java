@@ -25,7 +25,7 @@ public class AskWith extends CommandNode {
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
         CommandNode conditional = super.getChildren().get(0);
-        List<Integer> myOldActiveTurtles = myTurtles.getActiveTurtleIDs();
+        List<Integer> myOldActiveTurtles = List.copyOf(myTurtles.getActiveTurtleIDs());
         List<Integer> myTurtleIDs = new ArrayList<>();
 
         for (Integer id: myTurtles.getAllIDs()) {

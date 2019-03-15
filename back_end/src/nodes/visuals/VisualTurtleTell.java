@@ -5,7 +5,7 @@ import apis.VisualUpdateAPI;
  * @version 3/13/2019
  */
 public class VisualTurtleTell extends VisualCommand {
-    private int numTurtles;
+    private final int numTurtles;
     public VisualTurtleTell(int turtles){
         numTurtles = turtles;
     }

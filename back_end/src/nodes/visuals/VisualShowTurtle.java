@@ -2,7 +2,7 @@ package nodes.visuals;
 import apis.VisualUpdateAPI;
 
 public class VisualShowTurtle extends VisualCommand {
-    private int myID;
+    private final int myID;
     public VisualShowTurtle(int id){
         myID = id;
     }

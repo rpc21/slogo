@@ -4,7 +4,6 @@ import apis.ImmutableVisualCommand;
 import exceptions.InvalidInputException;
 import nodes.TurtleCommand;
 import turtle.Bale;
-import nodes.CommandNode;
 import java.util.List;
 /**
  * @author Anna Darwish
@@ -24,9 +23,7 @@ public class Backward extends TurtleCommand {
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
         double pixels = super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
-        super.setMyTurtleCommands(methodName);
-        myVisCommands.addAll(super.invokeTurtles(new Object[]{-1.0* pixels},myTurtles));
-        return pixels;
+        return -1.0 * super.invokeTurtles(-1.0 * pixels,methodName,myVisCommands,myTurtles);
     }
 
 }

@@ -22,8 +22,6 @@ public class Forward extends TurtleCommand {
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
         double pixels = super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
-        super.setMyTurtleCommands(methodName);
-        myVisCommands.addAll(super.invokeTurtles(new Object[]{pixels},myTurtles));
-        return pixels;
+        return super.invokeTurtles(pixels,methodName,myVisCommands,myTurtles);
     }
 }

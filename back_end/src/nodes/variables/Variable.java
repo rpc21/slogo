@@ -11,7 +11,7 @@ import java.util.List;
  * @version 3/13/2019
  */
 public class Variable extends CommandNode {
-    private String myVarName;
+    private final String myVarName;
     private double myValue;
     private static final double NOT_ASSIGNED = 0;
     private UserCreated myUserCreated;

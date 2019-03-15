@@ -5,7 +5,7 @@ import apis.VisualUpdateAPI;
  * @version 3/13/2019
  */
 public class VisualBackgroundColor extends VisualCommand {
-    private int myIndex;
+    private final int myIndex;
     public VisualBackgroundColor(int index){
         myIndex = index;
     }

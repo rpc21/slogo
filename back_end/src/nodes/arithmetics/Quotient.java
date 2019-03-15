@@ -5,8 +5,6 @@ import nodes.CommandNode;
 import turtle.Bale;
 import java.util.List;
 
-import static java.lang.Double.NaN;
-
 /**
  * @author Anna Darwish
  * @version 3/13/2019
@@ -33,6 +31,6 @@ public class Quotient extends CommandNode {
     }
 
     private boolean validDenominator(double d){
-        return d != 0.0 && d != NaN;
+        return d != 0.0 && Double.isNaN(d);
     }
 }

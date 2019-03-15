@@ -38,4 +38,10 @@ public abstract class TurtleCommand extends CommandNode{
         return myVisualCommands;
     }
 
+    protected double invokeTurtles(double param, String commandName, List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
+        setMyTurtleCommands(commandName);
+        myVisCommands.addAll(invokeTurtles(new Object[]{param},myTurtles));
+        return param;
+    }
+
 }

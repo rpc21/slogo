@@ -21,10 +21,8 @@ public class SetShape extends TurtleCommand {
      */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
-        double index = super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
-        super.setMyTurtleCommands(methodName);
-        myVisCommands.addAll(super.invokeTurtles(new Object[]{index},myTurtles));
-        return index;
+        double pixels = super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
+        return super.invokeTurtles(pixels,methodName,myVisCommands,myTurtles);
     }
 
 }

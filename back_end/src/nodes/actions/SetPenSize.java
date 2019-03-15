@@ -15,16 +15,14 @@ public class SetPenSize extends TurtleCommand {
         super(n);
     }
     /**
-     * Evaluates child node to get pixels of new pen size before invoking Turtles to use "setPenSizer" to invoke
+     * Evaluates child node to get pixels of new pen size before invoking Turtles to use "setPenSize" to invoke
      * appropriate turtles to accommodate this change and add associated visual commands
      * @return size of new pen
      */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
         double pixels = super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
-        super.setMyTurtleCommands(methodName);
-        myVisCommands.addAll(super.invokeTurtles(new Object[]{pixels},myTurtles));
-        return pixels;
+        return super.invokeTurtles(pixels,methodName,myVisCommands,myTurtles);
     }
 
 }

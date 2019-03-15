@@ -5,8 +5,8 @@ import apis.VisualUpdateAPI;
  * @version 3/13/2019
  */
 public class VisualTurtleHeading extends VisualCommand {
-    private int myID;
-    private double myDegrees;
+    private final int myID;
+    private final double myDegrees;
     public VisualTurtleHeading(int id, double degrees){
         myID = id;
         myDegrees = degrees;

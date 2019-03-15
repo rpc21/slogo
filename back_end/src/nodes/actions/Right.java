@@ -22,9 +22,7 @@ public class Right extends TurtleCommand {
      */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
-        double degrees = super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
-        super.setMyTurtleCommands(methodName);
-        myVisCommands.addAll(super.invokeTurtles(new Object[]{1.0*degrees},myTurtles));
-        return degrees;
+        double pixels = super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
+        return super.invokeTurtles(pixels,methodName,myVisCommands,myTurtles);
     }
 }

@@ -4,7 +4,6 @@ import exceptions.InvalidInputException;
 import nodes.CommandNode;
 import turtle.Bale;
 import java.util.List;
-import static java.lang.Double.NaN;
 
 /**
  * @author Anna Darwish
@@ -22,7 +21,7 @@ public class NaturalLog extends CommandNode {
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
         double argument = super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
-        if (argument <= 0 || argument == NaN)
+        if (argument <= 0 || Double.isNaN(argument))
             throw new IllegalArgumentException();
         return Math.log(super.getChildren().get(0).evaluate(myVisCommands, myTurtles));
     }

@@ -14,10 +14,10 @@ import java.util.ResourceBundle;
  */
 public abstract class CommandNode {
     private List<CommandNode> myChildren = new ArrayList<>();
-    private String myName;
+    private final String myName;
     private static final String COMMAND_ARGUMENTS =  "commands/Arguments";
-    private ResourceBundle myResources;
-    private int maxChildren;
+    private final ResourceBundle myResources;
+    private final int maxChildren;
     /**
      * Reads in maximum number of children this CommandNode can have from the resources file, if not available, sets
      * number of permitted children to 0 for error checking purposes

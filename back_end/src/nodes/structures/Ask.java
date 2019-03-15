@@ -25,7 +25,7 @@ public class Ask extends CommandNode {
         CommandNode myTurtleList = super.getChildren().get(0);
         CommandNode myCommandList = super.getChildren().get(1);
 
-        List<Integer> myOldActiveTurtles = myTurtles.getActiveTurtleIDs();
+        List<Integer> myOldActiveTurtles = List.copyOf(myTurtles.getActiveTurtleIDs()); //active turtle IDs will change
         List<Integer> myTurtleIDs = new ArrayList<>();
 
 
@@ -36,6 +36,7 @@ public class Ask extends CommandNode {
         }
 
         myTurtles.setActiveTurtles(myTurtleIDs);
+
         double ret = myCommandList.evaluate(myVisCommands,myTurtles);
         myTurtles.setActiveTurtles(myOldActiveTurtles);
 

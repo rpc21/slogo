@@ -5,9 +5,9 @@ import apis.VisualUpdateAPI;
  * @version 3/13/2019
  */
 public class VisualTurtlePosition extends VisualCommand {
-    private int myID;
-    private double myX;
-    private double myY;
+    private final int myID;
+    private final double myX;
+    private final double myY;
     public VisualTurtlePosition(int id, double x, double y){
         myID = id;
         myX= x;

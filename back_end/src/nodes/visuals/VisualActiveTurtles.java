@@ -7,7 +7,7 @@ import java.util.List;
  * @version 3/13/2019
  */
 public class VisualActiveTurtles implements ImmutableVisualCommand {
-    private List<Integer> myActiveIDs;
+    private final List<Integer> myActiveIDs;
     public VisualActiveTurtles(List<Integer> ids){
         myActiveIDs = ids;
     }

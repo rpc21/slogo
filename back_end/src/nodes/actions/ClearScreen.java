@@ -1,12 +1,10 @@
 
 package nodes.actions;
 import apis.ImmutableVisualCommand;
-import exceptions.InvalidInputException;
 import nodes.CommandNode;
 import nodes.visuals.VisualClearScreen;
 import turtle.Bale;
 import turtle.Turtle;
-
 import java.util.List;
 /**
  * @author Anna Darwish

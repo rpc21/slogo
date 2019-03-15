@@ -5,7 +5,7 @@ import apis.VisualUpdateAPI;
  * @version 3/13/2019
  */
 public class VisualPenUp extends VisualCommand {
-    private int myID;
+    private final int myID;
     public VisualPenUp(int id){
         myID = id;
     }

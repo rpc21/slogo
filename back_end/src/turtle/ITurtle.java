@@ -9,7 +9,7 @@ package turtle;
  * @see Bale
  * @see Turtle
  */
-public interface ITurtle {
+interface ITurtle {
     /**
      * @return id of turtle of concern
      */

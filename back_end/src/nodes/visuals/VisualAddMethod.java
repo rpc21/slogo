@@ -8,8 +8,8 @@ import java.util.List;
  * @version 3/13/2019
  */
 public class VisualAddMethod implements ImmutableVisualCommand {
-    private String myMethodName;
-    private List<String> myVariableNames;
+    private final String myMethodName;
+    private final List<String> myVariableNames;
     public VisualAddMethod(String methodName, List<String> varNames){
         myMethodName = methodName;
         myVariableNames = varNames;

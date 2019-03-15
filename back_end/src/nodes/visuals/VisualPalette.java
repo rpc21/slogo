@@ -5,10 +5,10 @@ import apis.VisualUpdateAPI;
  * @version 3/13/2019
  */
 public class VisualPalette extends VisualCommand{
-    private int myIndex;
-    private int myRed;
-    private int myGreen;
-    private int myBlue;
+    private final int myIndex;
+    private final int myRed;
+    private final int myGreen;
+    private final int myBlue;
 
     public VisualPalette(int index, int r, int g, int b){
         myIndex = index;
