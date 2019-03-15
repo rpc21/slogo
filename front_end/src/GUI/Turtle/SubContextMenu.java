@@ -53,6 +53,10 @@ public abstract class SubContextMenu extends Menu implements LanguageChangeable 
         input.ifPresent(argument -> myCommandAccess.accept(myLanguage.getTranslatedWord(text) + " " + argument));
     }
 
+    /**
+     * Change the language dependent features of the class to accommodate the new language
+     * @param newLanguage new language that the program is being changed to
+     */
     @Override
     public void setLanguage(Language newLanguage) {
         myLanguage = newLanguage;

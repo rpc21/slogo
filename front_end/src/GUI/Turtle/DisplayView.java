@@ -245,6 +245,10 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
         myCommandAccess.accept(command);
     }
 
+    /**
+     * Change the language dependent features of the class to accommodate the new language
+     * @param language new language that the program is being changed to
+     */
     @Override
     public void setLanguage(Language language){
         myLanguage = language;

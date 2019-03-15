@@ -38,6 +38,10 @@ public abstract class PaletteChooser<T> extends MenuButton implements LanguageCh
 
     protected abstract T processKeyForConsumption(String key);
 
+    /**
+     * Change the language dependent features of the class to accommodate the new language
+     * @param newLanguage new language that the program is being changed to
+     */
     @Override
     public void setLanguage(Language newLanguage){
         myLanguage = newLanguage;
