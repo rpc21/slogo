@@ -16,5 +16,10 @@ public interface CommandExecutable {
      * @param commandAccess a consumer that feeds the command to the parser to run the command through the backend.
      */
     void giveAbilityToRunCommands(Consumer<String> commandAccess);
+
+    /**
+     * Method that calls the accept method on the consumer that was passed in the giveAbilityToRunCommands method
+     * @param command the command to be run
+     */
     void runCommand(String command);
 }

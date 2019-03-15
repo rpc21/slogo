@@ -236,6 +236,10 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
         }
     }
 
+    /**
+     * Method that calls the accept method on the consumer that was passed in the giveAbilityToRunCommands method
+     * @param command the command to be run
+     */
     @Override
     public void runCommand(String command) {
         myCommandAccess.accept(command);

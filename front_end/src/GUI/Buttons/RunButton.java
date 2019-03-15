@@ -36,6 +36,10 @@ public class RunButton extends Button implements CommandExecutable, LanguageChan
         myCommandAccess = commandAccess;
     }
 
+    /**
+     * Method that calls the accept method on the consumer that was passed in the giveAbilityToRunCommands method
+     * @param command the command to be run
+     */
     @Override
     public void runCommand(String command) {
         myCommandAccess.accept(command);
