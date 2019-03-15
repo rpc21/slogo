@@ -192,6 +192,7 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
             getChildren().remove(turtle);
         }
         myTurtles.clear();
+        IDcounter = 0;
         makeTurtle();
     }
 

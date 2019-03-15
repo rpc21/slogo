@@ -9,8 +9,6 @@ public interface VisualUpdateAPI {
     void addMethod(String name, List<String> myVars);
     void turtleMove(int id, double x, double y);
     void turtleTurn(int id,double degrees);
-//    void turnRight(double degrees);
-//    void turnLeft(double degrees);
     void setPenUp(int id);
     void setPenDown(int id);
     void showTurtle(int id);
