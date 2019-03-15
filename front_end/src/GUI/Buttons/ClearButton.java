@@ -15,7 +15,11 @@ public class ClearButton extends Button implements CommandExecutable, LanguageCh
     private Consumer<String> myCommandAccess;
     private Language myLanguage;
 
-    //TODO: Get the commandLine dependency out of this class
+    /**
+     * Constructor for the clear button.  The ClearButton needs access to the commandline because it needs to be able
+     * to clear the text in the commandline
+     * @param commandLine access to the text area to be cleared when the clear button is pressed
+     */
     public ClearButton(TextArea commandLine){
         this.setText(CLEAR_BUTTON_NAME);
         myLanguage = Language.ENGLISH;
