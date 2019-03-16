@@ -18,6 +18,9 @@ public class HelpButton extends Button implements LanguageChangeable {
     private static final String HELP_BUTTON_NAME = "Help";
     private Language myLanguage;
 
+    /**
+     * HelpButton constructor, sets language to default language of English and sets text of the button
+     */
     public HelpButton(){
         myLanguage = Language.ENGLISH;
         this.setText(myLanguage.getTranslatedWord(HELP_BUTTON_NAME));

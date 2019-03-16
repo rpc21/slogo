@@ -12,6 +12,11 @@ public class LanguageChooser extends PaletteChooser{
 
     private static final String LANGUAGES_FILE = "Languages";
 
+    /**
+     * Constructor for LanguageChooser
+     * @param consumer consumer that takes the new language and will set all LanguageChangeable components to the new
+     *                language
+     */
     public LanguageChooser(Consumer<Language> consumer){
         super(consumer);
     }

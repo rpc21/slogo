@@ -26,13 +26,24 @@ public class Toolbar extends HBox implements LanguageChangeable, CommandExecutab
     private Consumer<String> myCommandAccess;
     private Language myLanguage;
 
-    public Toolbar(){
+    /**
+     * Private constructor for the Toolbar
+     */
+    private Toolbar(){
         super();
         myLanguage = Language.ENGLISH;
         setPadding(new Insets(SPACING, SPACING, SPACING, SPACING));
         setSpacing(SPACING);
     }
 
+    /**
+     * Constructor for the Toolbar that calls constructors for the four components of the toolbar and adds them to
+     * the children of the Toolbar
+     * @param languageAccess consumer that takes in a Language and changes the language of all LanguageChangeable
+     *                       components of the gui - passed to the LanguageChooser constructor
+     * @param colorPaletteAccess a function that can add a PaletteElement to the colorPalette and returns the index
+     *                           of where it was added - passed to the ColorChooser constructors
+     */
     public Toolbar(Consumer<Language> languageAccess, Function<Rectangle, Integer> colorPaletteAccess){
         this();
         myBackgroundColorChooser = new ColorChooser(colorPaletteAccess, SET_BACKGROUND);

@@ -16,6 +16,10 @@ public class TurtleIconChooser extends PaletteChooser implements CommandExecutab
     public static final String SHAPES_BUNDLE = "Shapes";
     private static final String SET_SHAPE = "SetShape";
 
+    /**
+     * TurtleIconChooser constructor
+     * @param consumer a consumer that accepts a string of the class name of the DisplayView to create
+     */
     public TurtleIconChooser(Consumer<String> consumer){
         super(consumer);
     }

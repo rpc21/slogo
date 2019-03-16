@@ -21,6 +21,10 @@ public class RunButton extends Button implements CommandExecutable, LanguageChan
     private CommandLine myTextBox;
     private Consumer<String> myCommandAccess;
 
+    /**
+     * Constructor for the RunButton, establishes the preferences for the RunButton
+     * @param textBox gives RunButton access to its corresponding command line
+     */
     public RunButton(CommandLine textBox) {
         super();
         myLanguage = Language.ENGLISH;

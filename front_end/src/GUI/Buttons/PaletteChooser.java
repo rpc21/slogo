@@ -22,6 +22,10 @@ public abstract class PaletteChooser<T> extends MenuButton implements LanguageCh
     protected Consumer<T> myConsumer;
     protected Language myLanguage;
 
+    /**
+     * PaletteChooser constructor calls createBundle (a method that needs to be implemented by the subclass)
+     * @param consumer the consumer that can accept the option that is chosen from the menu
+     */
     public PaletteChooser(Consumer<T> consumer){
         myConsumer = consumer;
         myLanguage = Language.ENGLISH;
@@ -29,6 +33,11 @@ public abstract class PaletteChooser<T> extends MenuButton implements LanguageCh
         buildChooser();
     }
 
+    /**
+     * Each PaletteChooser has a resource bundle corresponding to the properties file from which the options are read
+     * in. Subclasses must implement the createBundle() method to establish which properties file that chooser uses
+     * for its menu options
+     */
     protected abstract void createBundle();
 
     private void buildChooser(){
@@ -43,6 +52,12 @@ public abstract class PaletteChooser<T> extends MenuButton implements LanguageCh
         setText(getItems().get(0).getText());
     }
 
+    /**
+     * Takes the key from the properties file and converts it to the appropriate type for consumption either using
+     * String Concatenation or reflection (valueOf in the case of enums).
+     * @param key key from the properties file that needs to be converted into something to be consumed by the consumer
+     * @return an object of the appropriate type for consumption by the consumer
+     */
     protected abstract T processKeyForConsumption(String key);
 
     /**

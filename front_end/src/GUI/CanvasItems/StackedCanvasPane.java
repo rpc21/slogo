@@ -26,8 +26,8 @@ import java.util.function.Consumer;
  */
 public class StackedCanvasPane extends StackPane implements CommandExecutable, LanguageChangeable {
 
-    public static final double DEFAULT_CANVAS_WIDTH = 800;
-    public static final double DEFAULT_CANVAS_HEIGHT = 450;
+    private static final double DEFAULT_CANVAS_WIDTH = 800;
+    private static final double DEFAULT_CANVAS_HEIGHT = 450;
 
     private TurtleCanvas myBackgroundCanvas;
     private TurtleCanvas myDrawingCanvas;
@@ -38,28 +38,27 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
     private Map<Integer, DisplayView> myListOfTurtles;
     private List<Integer> myActiveTurtles;
     private int IDcounter;
-//    private boolean penDown;
 
+    /**
+     * Constructor for StackedCanvasPane creates the background canvas, the drawing canvas, initializes the list of
+     * turtles and list of active turtles and makes one turtle centered in the middle of the canvas
+     */
     public StackedCanvasPane(){
         super();
         myTurtles = new ArrayList<>();
-        myBackgroundCanvas = createBackgroundCanvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
+        myBackgroundCanvas = createBackgroundCanvas();
         myDrawingCanvas = new TurtleCanvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
         myListOfTurtles = new HashMap<>();
         myActiveTurtles = new ArrayList<>();
         IDcounter = 0;
-//        myCurrentDisplayView = new BasicTurtleView(myDrawingCanvas);
-//        makeTurtle();
-//        myCurrentDisplayView = myTurtles.get(0);
-//        penDown = true;
         getChildren().addAll(myBackgroundCanvas, myDrawingCanvas);
         makeTurtle();
         this.setLayoutX(DEFAULT_CANVAS_WIDTH);
         this.setLayoutY(DEFAULT_CANVAS_HEIGHT);
     }
 
-    private TurtleCanvas createBackgroundCanvas(double width, double height) {
-        TurtleCanvas canvas = new TurtleCanvas(width, height);
+    private TurtleCanvas createBackgroundCanvas() {
+        TurtleCanvas canvas = new TurtleCanvas(StackedCanvasPane.DEFAULT_CANVAS_WIDTH, StackedCanvasPane.DEFAULT_CANVAS_HEIGHT);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Color.WHITE);
         gc.rect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -67,15 +66,12 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
         return canvas;
     }
 
-    public void makeTurtle(){
+    private void makeTurtle(){
         IDcounter++;
         DisplayView newTurtle = new BasicTurtleView(myDrawingCanvas);
         myListOfTurtles.put(IDcounter, newTurtle);
-        newTurtle.setLanguage(myLanguage);
-        newTurtle.giveAbilityToRunCommands(myCommandAccess);
+        configureNewTurtle(newTurtle);
         getChildren().add(newTurtle);
-        newTurtle.setTurtleId(myTurtles.size());
-        newTurtle.giveTabAccess(myTabAccess);
         for (int key : myListOfTurtles.keySet()){
             myListOfTurtles.get(key).setInActive();
         }
@@ -84,11 +80,21 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
         myTurtles.add(newTurtle);
     }
 
+    private void configureNewTurtle(DisplayView newTurtle) {
+        newTurtle.setLanguage(myLanguage);
+        newTurtle.giveAbilityToRunCommands(myCommandAccess);
+        newTurtle.setTurtleId(myTurtles.size());
+        newTurtle.giveTabAccess(myTabAccess);
+    }
+
+    /**
+     * Creates numTurtles new turtles and places them in the center of the canvas
+     * @param numTurtles number of new turtles to create
+     */
     public void addTurtles(int numTurtles) {
         for (int i = 0; i < numTurtles; i++){
             makeTurtle();
         }
-
     }
 
     public void setActiveTurtles(List<Integer> activeTurtleIDs) {
@@ -105,93 +111,105 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
         }
     }
 
+    /**
+     * Returns a consumer that allows you to change color of background canvas
+     * @return a consumer that takes in a Paint and changes the background canvas color to be that paint color
+     */
     public Consumer<Paint> getBackgroundColorAccess(){
         return myBackgroundCanvas.getBackgroundColorAccess();
     }
 
-//    public Consumer<Paint> getPenPropertiesAccess(){
-//        return (x) -> {
-//            for (DisplayView turtle : myTurtles) {
-//                turtle.getMyPen().setMyColor(x);
-//            }
-//        };
-//    }
-
-//    public Consumer<String> getIconAccess(){
-//        return (x) -> {
-//            System.out.println("**************" + x);
-//            setTurtleShape(0, "GUI.Turtle." + x.replaceAll(" ", ""));
-//        };
-//    }
-
-//    public void addMove(Move move){
-//        myCurrentDisplayView.addMove(move);
-//        myCurrentDisplayView.drawPath();
-//    }
-
-//    public void addAllMoves(List<Move> moves){
-//        myCurrentDisplayView.addAllMoves(moves);
-//    }
-//
-//    public void batchUpdateCanvas(){
-//        myCurrentDisplayView.drawPath();
-//    }
-
-//    public void resizeCanvases(double v, double v1) {
-//        myBackgroundCanvas.resize(v, v1);
-//        myDrawingCanvas.resize(v, v1);
-//    }
-
+    /**
+     * Delegates to the display view with id id to move to position x, y
+     * @param id turtle to be moved
+     * @param x x move
+     * @param y y move
+     */
     public void turtleMove(int id, double x, double y){
         myTurtles.get(id).turtleMove(x,y);
     }
 
-    public void turtleTurn(int id, double degrees){
+    /**
+     * Delegate to the DisplayView with id id to turn by degrees degrees
+     * @param id turtle to be moved
+     * @param degrees number of degrees to turn
+     */
+    public void turtleTurn(int id, double degrees) {
         myTurtles.get(id).turn(degrees);
     }
 
-//    @Override
-//    public void turnRight(double degrees) {
-//        myCurrentDisplayView.turn(degrees);
-//    }
-//
-//    @Override
-//    public void turnLeft(double degrees) {
-//        myCurrentDisplayView.turn(-degrees);
-//    }
-
+    /**
+     * Makes turtle with id raise its pen
+     * @param id turtle to raise its pen
+     */
     public void setPenUp(int id){
         myTurtles.get(id).setPenDown(false);
     }
 
+    /**
+     * Have the turtle with turtle id id set its pen down
+     * @param id turtle id of the turtle to put its pen down
+     */
     public void setPenDown(int id){
         myTurtles.get(id).setPenDown(true);
     }
 
+    /**
+     * Make the turtle with turtle id id appear on the screen
+     * @param id turtle id of the turtle to be shown
+     */
     public void showTurtle(int id) {
         myTurtles.get(id).setVisible(true);
     }
 
+    /**
+     * Make the turtle with turtle id id be hidden from the screen
+     * @param id turtle id of the turtle to be hidden
+     */
     public void hideTurtle(int id) {
         myTurtles.get(id).setVisible(false);
     }
 
+    /**
+     * Make the turtle with turtle id id face the direction specified by degrees
+     * @param id turtle id of the turtle whose orientation is to be set
+     * @param degrees orientation that the turtle should have
+     */
     public void setOrientation(int id, double degrees) {
         myTurtles.get(id).setRotate(degrees);
     }
 
+    /**
+     *
+     * @param id
+     * @param degrees
+     */
     public void setTowards(int id, double degrees) {
         myTurtles.get(id).towards(degrees);
     }
 
+    /**
+     * Change the location of the turtle with id id to position x, y on the canvas
+     * @param id turtle id of the turtle to be moved
+     * @param x resulting x position of the turtle
+     * @param y resulting y position of the turtle
+     */
     public void setLocation(int id, double x, double y) {
         myTurtles.get(id).setLocation(x, y);
     }
 
+    /**
+     *
+     * @param id
+     */
     public void goHome(int id) {
         myTurtles.get(id).goHome();
     }
 
+    /**
+     * Reset the canvas to white, erase all lines that are drawn, move all the turtles back to the center and have
+     * them face due north
+     */
     public void clearScreen() {
         myBackgroundCanvas.setColor(Color.WHITE);
         myDrawingCanvas.clearCanvas();
@@ -202,14 +220,29 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
         makeTurtle();
     }
 
+    /**
+     * Set the pen color of turtle with id id to color color
+     * @param id id of turtle to change pen color
+     * @param color color to change pen to
+     */
     public void setPenColor(int id, Paint color) {
         myTurtles.get(id).setPenColor(color);
     }
 
+    /**
+     * Change the pen size of the turtle with id to be pixels in size
+     * @param id id of the turtle whose pen is to be changed
+     * @param pixels new width of the pen
+     */
     public void setPenSize(int id, double pixels) {
         myTurtles.get(id).setPenWidth(pixels);
     }
 
+    /**
+     * Change the icon of turtle with turtle id id to be the icon corresponding to index in the icon palette
+     * @param id id of the turtle whose icon is to be changed
+     * @param content class name of the DisplayView to change to
+     */
     public void setTurtleShape(int id, String content) {
         DisplayView turtleToRemove = myTurtles.get(id);
         System.out.println(content);
@@ -265,6 +298,11 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
         }
     }
 
+    /**
+     * Give DisplayView ability to update the tab to view its current properties
+     * @param tabAccess consumer that accepts a DisplayView and extracts and displays relevant information about the
+     *                  DisplayView
+     */
     public void grantTabAccess(Consumer<DisplayView> tabAccess){
         myTabAccess = tabAccess;
         for (DisplayView turtle : myTurtles){
