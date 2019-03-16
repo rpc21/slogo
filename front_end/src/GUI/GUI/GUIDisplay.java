@@ -36,6 +36,7 @@ public class GUIDisplay {
     private static final int SPACING = 10;
     private static final String UNDO = "Undo";
     private static final String NEW_WINDOW = "+";
+    public static final String NOTHING_TO_UNDO = "Nothing to undo";
     private Stage myStage;
     private Scene myScene;
     private GridPane myRoot;
@@ -64,6 +65,10 @@ public class GUIDisplay {
     private List<LanguageChangeable> languageChangeableComponents;
     private List<CommandExecutable> commandExecutableComponents;
 
+    /**
+     * Constructor for GUIDisplay - creates all the gui component objects
+     * @param stage stage on which display should be displayed
+     */
     public GUIDisplay(Stage stage){
         myLanguage = DEFAULT_LANGUAGE;
         myStage = stage;
@@ -76,18 +81,15 @@ public class GUIDisplay {
         myStage.setScene(myScene);
     }
 
-//    public void executeVisualCommands(List<ImmutableVisualCommand> myCommands){
-//        for (ImmutableVisualCommand c: myCommands) {
-//            c.execute(this);
-//        }
-//    }
-
     void executeVisualCommands(List<ImmutableVisualCommand> myCommands){
         for (ImmutableVisualCommand c: myCommands) {
             c.execute(myDelegator);
         }
     }
 
+    /**
+     * Displays the GUI
+     */
     public void display(){
         myStage.show();
     }
@@ -240,7 +242,7 @@ public class GUIDisplay {
                 runCommand(myGUIExecute, command);
             }
         } catch (Exception e) {
-            myError.setText("Nothing to undo");
+            myError.setText(NOTHING_TO_UNDO);
         }
         myListOfCommands = copyOfCommandHistory;
     }

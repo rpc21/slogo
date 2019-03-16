@@ -34,10 +34,10 @@ public interface VisualUpdateAPI {
     void addMethod(String name, List<String> myVars);
 
     /**
-     *
-     * @param id
-     * @param x
-     * @param y
+     * Makes the turtle with id id move by x, y
+     * @param id turtle to move
+     * @param x x move
+     * @param y y move
      */
     void turtleMove(int id, double x, double y);
 
@@ -47,8 +47,6 @@ public interface VisualUpdateAPI {
      * @param degrees number of degrees the turtle should change
      */
     void turtleTurn(int id,double degrees);
-//    void turnRight(double degrees);
-//    void turnLeft(double degrees);
 
     /**
      * Have the turtle with turtle id id raise its pen
@@ -82,9 +80,9 @@ public interface VisualUpdateAPI {
     void setOrientation(int id, double degrees);
 
     /**
-     *
-     * @param id
-     * @param degrees
+     * Sets the turtle to turn by degrees degrees
+     * @param id id of the turtle to change
+     * @param degrees degrees to turn by
      */
     void setTowards(int id, double degrees);//turn turtle to face this point
 
@@ -97,8 +95,8 @@ public interface VisualUpdateAPI {
     void setLocation(int id, double x, double y);//move turtle to these coordinates
 
     /**
-     *
-     * @param id
+     * Tells turtle id to go home
+     * @param id id of turtle to go home
      */
     void goHome(int id);
 
@@ -143,6 +141,5 @@ public interface VisualUpdateAPI {
      * @param g green content (0-255) of the color to add
      */
     void setPalette(int index, int r, int b, int g);
-
 
 }
