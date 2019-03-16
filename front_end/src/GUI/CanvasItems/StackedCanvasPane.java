@@ -15,8 +15,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
+/**
+ * Organizational class that contains all elements related to the canvas.  There is a background canvas that can have
+ * its color changed when the user wants to change the color of the background of the canvas.  Stacked on top of the
+ * background canvas is a blank canvas that the turtles actually draw on.  Stacked on top of the canvases is a list
+ * of DisplayViews (turtles) that can be moved around the screen drawing lines and can be hidden or shown.  The
+ * StackedCanvasPane handles making the turtles and changing the background color and changing the screen and will
+ * delegate turtle moves to the specific DisplayViews in its list of DisplayViews.
+ */
 public class StackedCanvasPane extends StackPane implements CommandExecutable, LanguageChangeable {
 
     public static final double DEFAULT_CANVAS_WIDTH = 800;

@@ -6,6 +6,10 @@ import javafx.scene.paint.Paint;
 
 import java.util.function.Consumer;
 
+/**
+ * Canvases to be used in SLogo.  These canvases are resizable and their background color can be accessed and the
+ * canvases can be cleared.  Isolates important functionality of the canvases into a wrapper class.
+ */
 public class TurtleCanvas extends Canvas {
 
     public TurtleCanvas(double v1, double v2){

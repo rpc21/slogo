@@ -9,9 +9,13 @@ import javafx.scene.control.Button;
 
 import java.util.function.Consumer;
 
+/**
+ * Class the implements the functionality of the run button.  This class is able to access the commandline and
+ * retrieve the text from the commandline when clicked and send the command to the parser.
+ */
 public class RunButton extends Button implements CommandExecutable, LanguageChangeable {
 
-    public static final String RUN = "Run";
+    private static final String RUN = "Run";
 
     private Language myLanguage;
     private CommandLine myTextBox;

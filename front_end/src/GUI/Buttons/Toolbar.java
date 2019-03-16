@@ -9,13 +9,16 @@ import javafx.scene.shape.Rectangle;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+/**
+ * The Toolbar class contains the the LanguageChooser, the ColorChoosers for the background color and pen color and
+ * the turtle icon chooser. Class is used to manage the various choosers in bulk and isolate the functionality of
+ * these user buttons to one larger class.
+ */
 public class Toolbar extends HBox implements LanguageChangeable, CommandExecutable {
 
-    //    private static final String TURTLE_ICON = "TurtleIcon";
     private static final String SET_BACKGROUND = "SetBackground";
     private static final String SET_PEN_COLOR = "SetPenColor";
-    public static final int SPACING = 10;
-    //    private ImageChooser<String> myImageChooser;
+    private static final int SPACING = 10;
     private TurtleIconChooser myTurtleIconChooser;
     private ColorChooser myPenColorChooser;
     private ColorChooser myBackgroundColorChooser;
@@ -32,33 +35,12 @@ public class Toolbar extends HBox implements LanguageChangeable, CommandExecutab
 
     public Toolbar(Consumer<Language> languageAccess, Function<Rectangle, Integer> colorPaletteAccess){
         this();
-      //  myLanguageChooser = createLanguageChooser();
         myBackgroundColorChooser = new ColorChooser(colorPaletteAccess, SET_BACKGROUND);
         myPenColorChooser = new ColorChooser(colorPaletteAccess, SET_PEN_COLOR);
-//        myImageChooser = createImageChooser(iconAccess);
         myTurtleIconChooser = new TurtleIconChooser(myCommandAccess);
         myLanguageChooser = new LanguageChooser(languageAccess);
         getChildren().addAll(myBackgroundColorChooser, myPenColorChooser, myTurtleIconChooser, myLanguageChooser);
     }
-
-//    private ImageChooser<String> createImageChooser(Consumer<String> iconAccess) {
-//        ImageChooser<String> imageChooser = new ImageChooser<>(iconAccess);
-////        imageChooser.getItems().addAll(new AdvancedTurtleView().getPossibleImages());
-//        imageChooser.getSelectionModel().selectFirst();
-//        return imageChooser;
-//    }
-
-//    private TurtleIconChooser createTurtleIconChooser(Consumer<String> commandAccess){
-//
-//    }
-
-//    public ImageChooser<String> getMyImageChooser(){
-//        return myImageChooser;
-//    }
-//
-//    public LanguageChooser getMyLanguageChooser(){
-//        return myLanguageChooser;
-//    }
 
     /**
      * Change the language dependent features of the class to accommodate the new language
@@ -71,7 +53,6 @@ public class Toolbar extends HBox implements LanguageChangeable, CommandExecutab
         myBackgroundColorChooser.setLanguage(newLanguage);
         myTurtleIconChooser.setLanguage(newLanguage);
         myLanguageChooser.setLanguage(newLanguage);
-//        myImageChooser.setPromptText(myLanguage.getTranslatedWord(TURTLE_ICON));
     }
 
     /**
@@ -96,14 +77,6 @@ public class Toolbar extends HBox implements LanguageChangeable, CommandExecutab
     public void runCommand(String command) {
         myCommandAccess.accept(command);
     }
-
-//    private LanguageChooser createLanguageChooser() {
-//        LanguageChooser languageChooser = new LanguageChooser<>();
-//        languageChooser.getItems().addAll("English", "German", "French");
-////        languageChooser.getSelectionModel().selectFirst();
-//        return languageChooser;
-//    }
-
 
 }
 

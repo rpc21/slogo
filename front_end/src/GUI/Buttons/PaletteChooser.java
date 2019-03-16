@@ -9,6 +9,13 @@ import java.util.Collections;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
+/**
+ * Abstract super class for the different choosers in the toolbar. Creates a menu of items from the properties file
+ * specified by the createBundle() method that needs to be implemented by the subclass.  Sets actions for when the
+ * menu items are clicked based on the consumer and how keys are processed for consumption based on the
+ * processKeyForConsumption method that needs to be implemented by the subclass.
+ * @param <T> the type that can be consumed by the consumer
+ */
 public abstract class PaletteChooser<T> extends MenuButton implements LanguageChangeable {
 
     protected ResourceBundle myBundle;

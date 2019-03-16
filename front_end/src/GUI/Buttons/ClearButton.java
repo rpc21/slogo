@@ -8,6 +8,9 @@ import javafx.scene.control.TextArea;
 
 import java.util.function.Consumer;
 
+/**
+ * Class that implements the functionality of the clear button.
+ */
 public class ClearButton extends Button implements CommandExecutable, LanguageChangeable {
 
     private static final String CLEAR_BUTTON_NAME = "Clear";

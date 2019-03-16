@@ -6,8 +6,12 @@ import java.util.Collections;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
+/**
+ * Subclass of the PaletteChooser abstract class that takes in Strings for the consumer and the Shapes properties
+ * file to define the different possible turtle icons.  Allows the user to change the shape of the turtles from a
+ * drop down menu.
+ */
 public class TurtleIconChooser extends PaletteChooser implements CommandExecutable {
-
 
     public static final String SHAPES_BUNDLE = "Shapes";
     private static final String SET_SHAPE = "SetShape";
