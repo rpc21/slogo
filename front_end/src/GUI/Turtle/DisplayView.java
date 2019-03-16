@@ -40,6 +40,9 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
     private Set<Integer> myListOfActiveTurtles;
     private boolean isActive;
 
+    /**
+     * Default DisplayView constructor
+     */
     public DisplayView(){
         this(new Image(TURTLE_IMAGE));
     }

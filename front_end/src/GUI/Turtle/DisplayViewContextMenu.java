@@ -15,6 +15,11 @@ public class DisplayViewContextMenu extends ContextMenu implements LanguageChang
     private TurtleContextMenu myTurtleContextMenu;
     private PenContextMenu myPenContextMenu;
 
+    /**
+     * DisplayViewContextMenu constructor
+     * @param language language of the program
+     * @param commandAccess ability to run commands
+     */
     public DisplayViewContextMenu(Language language, Consumer<String> commandAccess){
         myTurtleContextMenu = new TurtleContextMenu(language,commandAccess);
         myPenContextMenu = new PenContextMenu(language, commandAccess);

@@ -16,12 +16,19 @@ public class TurtleViewTabExplorer extends TabExplorer {
     private SLogoTab myTurtleProperties;
     private final double EPSILON = 0.001;
 
+    /**
+     * TurtleViewTabExplorer constructor
+     */
     public TurtleViewTabExplorer(){
         myPenProperties = new SLogoTab(PEN_PROPERTIES);
         myTurtleProperties = new SLogoTab(TURTLE_PROPERTIES);
         getTabs().addAll(myPenProperties, myTurtleProperties);
     }
 
+    /**
+     * Returns consumer that allows a DisplayView to be able to update the information being displayed in the tabs
+     * @return tab access
+     */
     public Consumer<DisplayView> getTabAccess(){
         return x -> {
             updatePenPropertiesTab(x);

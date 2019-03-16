@@ -27,6 +27,9 @@ public class PaletteTabExplorer extends TabExplorer {
     private ResourceBundle myShapeResources;
     private ResourceBundle myColorResources;
 
+    /**
+     * PaletteTabExplorer Constructor
+     */
     public PaletteTabExplorer(){
         myShapeResources = ResourceBundle.getBundle(TurtleIconChooser.SHAPES_BUNDLE);
         myColorResources = ResourceBundle.getBundle(PALETTE_COLORS);
@@ -64,10 +67,18 @@ public class PaletteTabExplorer extends TabExplorer {
         }
     }
 
+    /**
+     * Getter for color palette
+     * @return myColorPalette
+     */
     public Palette<Rectangle> getMyColorPalette() {
         return myColorPalette;
     }
 
+    /**
+     * Getter for turtle palette
+     * @return myTurtlePalette
+     */
     public Palette<DisplayView> getMyTurtlePalette() {
         return myTurtlePalette;
     }

@@ -19,6 +19,11 @@ public class PenContextMenu extends SubContextMenu implements LanguageChangeable
     private static final String SET_PEN_COLOR = "SetPenColor";
     private static final String SET_PEN_WIDTH = "SetPenSize";
 
+    /**
+     * PenContextMenu constructor
+     * @param language language for the context menu
+     * @param commandAccess ability to run commands
+     */
     public PenContextMenu(Language language, Consumer<String> commandAccess) {
         super(language, commandAccess);
         setText(PEN_CONTEXT_MENU);

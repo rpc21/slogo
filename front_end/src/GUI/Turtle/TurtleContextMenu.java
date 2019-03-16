@@ -18,6 +18,11 @@ public class TurtleContextMenu extends SubContextMenu implements LanguageChangea
     private static final String RIGHT = "Right";
     private static final String LEFT = "Left";
 
+    /**
+     * TurtleContextMenu constructor
+     * @param language language of the program
+     * @param commandAccess ability to run commands
+     */
     public TurtleContextMenu(Language language, Consumer<String> commandAccess) {
         super(language, commandAccess);
         setText(TURTLE_CONTEXT_NAME);

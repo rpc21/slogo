@@ -25,6 +25,11 @@ public abstract class SubContextMenu extends Menu implements LanguageChangeable 
     protected List<String> noInputContextSpecificCommands;
     protected List<String> allContextSpecificCommands;
 
+    /**
+     * SubContextMenu constructor
+     * @param language language of the program
+     * @param commandAccess ability to run commands
+     */
     public SubContextMenu(Language language, Consumer<String> commandAccess) {
         setText(TURTLE_CONTEXT_NAME);
         myLanguage = language;
@@ -36,6 +41,12 @@ public abstract class SubContextMenu extends Menu implements LanguageChangeable 
         initializeMenuItems();
     }
 
+    /**
+     * Forces the subclass to define a list of commands that can be run from the menu.  Subclasses should put these
+     * commands in the order they should appear in the menu into the allContextSpecificCommands List.  Subclasses
+     * should also populate the contextSpecificCommandsWithInput list with the commands that can be run but need inut
+     * and the noInputContextSpecificCommands list with commands that do not need any inputs to be run
+     */
     protected abstract void defineContextSpecificCommands();
 
     private void initializeMenuItems() {
