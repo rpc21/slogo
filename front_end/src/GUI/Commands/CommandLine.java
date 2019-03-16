@@ -12,6 +12,9 @@ public class CommandLine extends TextArea {
     private static final int ROWS = 4;
     private static final int COLUMNS = 10;
 
+    /**
+     * Constructor for CommandLine that sets the preferences for the command line
+     */
     public CommandLine(){
         super();
         setPrefRowCount(ROWS);

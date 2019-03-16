@@ -8,9 +8,15 @@ import javafx.scene.control.TextInputDialog;
  */
 public class IntegerCommandInputDialog extends TextInputDialog {
 
+    private static final String TITLE = "Argument Input Dialog";
+    private static final String CONTENT_TEXT = "Please enter the argument for your command:";
+
+    /**
+     * Constructor for the IntegerCommandInputDialog
+     */
     public IntegerCommandInputDialog(){
-        setTitle("Argument Input Dialog");
-        setContentText("Please enter the argument for your command:");
+        setTitle(TITLE);
+        setContentText(CONTENT_TEXT);
     }
 
 }

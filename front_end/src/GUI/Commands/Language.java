@@ -28,10 +28,19 @@ public enum Language {
         myResourceBundle = ResourceBundle.getBundle(language);
     }
 
+    /**
+     * Returns a string of the word translated into the current language
+     * @param key word to be translated
+     * @return word translated into the current language
+     */
     public String getTranslatedWord(String key){
         return myResourceBundle.getString(key);
     }
 
+    /**
+     * Return string representation of language
+     * @return string representation of language
+     */
     public String getLanguageString(){
         return languageString;
     }
