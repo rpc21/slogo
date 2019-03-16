@@ -18,17 +18,6 @@ public class HelpButton extends Button implements LanguageChangeable {
     private static final String HELP_BUTTON_NAME = "Help";
     private Language myLanguage;
 
-    //TODO: I think we can make this button know its own name and just setText(HELP_NAME), don't need resources, and
-    // can just have setOnAction create the alert that is stored in this class
-//    public HelpButton(String text, ResourceBundle resources, Consumer<Void> consumer){
-//        myLanguage = Language.ENGLISH;
-//        this.setText(myLanguage.getTranslatedWord(HELP_BUTTON_NAME));
-//        this.setOnAction(event ->{
-//            Alert help = showHelpMenu();
-//            help.show();
-//        });
-//    }
-
     public HelpButton(){
         myLanguage = Language.ENGLISH;
         this.setText(myLanguage.getTranslatedWord(HELP_BUTTON_NAME));

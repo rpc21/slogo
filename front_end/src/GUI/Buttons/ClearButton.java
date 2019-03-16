@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 public class ClearButton extends Button implements CommandExecutable, LanguageChangeable {
 
     private static final String CLEAR_BUTTON_NAME = "Clear";
-    public static final String CLEAR_SCREEN = "ClearScreen";
+    private static final String CLEAR_SCREEN = "ClearScreen";
     private Consumer<String> myCommandAccess;
     private Language myLanguage;
 
@@ -62,8 +62,4 @@ public class ClearButton extends Button implements CommandExecutable, LanguageCh
         setText(newLanguage.getTranslatedWord(CLEAR_BUTTON_NAME));
     }
 
-    //TODO: If never used, remove
-    public String getMyName(){
-        return CLEAR_BUTTON_NAME;
-    }
 }
