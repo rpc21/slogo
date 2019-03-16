@@ -2,6 +2,10 @@ package GUI.Pen;
 
 import javafx.scene.paint.Paint;
 
+/**
+ * The Pen class is a container for all the information about a pen at a given point in time. Each DisplayView
+ * contains a pen with properties that can be queried and updated.
+ */
 public class Pen {
 
     private boolean down;
@@ -41,10 +45,6 @@ public class Pen {
 
     public PenStyle getMyStyle() {
         return myStyle;
-    }
-
-    public void setMyStyle(PenStyle myStyle) {
-        this.myStyle = myStyle;
     }
 
     public double getMyWidth() {

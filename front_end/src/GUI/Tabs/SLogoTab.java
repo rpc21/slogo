@@ -6,6 +6,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 
+/**
+ * Tabs to be used in the SLogo project.  Makes the tabs scrollable and so that contents get added to the top
+ */
 public class SLogoTab extends Tab {
 
     protected GUIdata guiData;

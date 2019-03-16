@@ -3,6 +3,9 @@ package GUI.Turtle;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 
+/**
+ * Subclass of the DisplayView that uses the gitlab icon as the icon
+ */
 public class GitLabView extends DisplayView {
 
     private static final String GITLAB_TURTLE_PNG = "gitlab-turtle.png";

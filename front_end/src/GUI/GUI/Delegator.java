@@ -10,6 +10,13 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.List;
 
+/**
+ * The Delegator class implements the VisualUpdateAPI and uses a delegator design pattern to distribute the
+ * functionality of the visual commands to the classes that can update the appropriate parts of the screen.  Hence,
+ * the Delegator class has access to the the StackedCanvasPane, TabExplorer, and PaletteTabExplorer where the visual
+ * updates occur.  Visual updates happen in a tree kind of manner of delegation and the Delegator class can be seen
+ * as the root of this delegation tree
+ */
 public class Delegator implements VisualUpdateAPI {
 
     private StackedCanvasPane myStackedCanvasPane;
@@ -31,7 +38,6 @@ public class Delegator implements VisualUpdateAPI {
 
     @Override
     public void setActiveTurtles(List<Integer> activeTurtleIDs) { myStackedCanvasPane.setActiveTurtles(activeTurtleIDs);}
-
 
     @Override
     public void addVariable(String name, Double val) {

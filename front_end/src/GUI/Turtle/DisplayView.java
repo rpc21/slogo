@@ -18,15 +18,11 @@ import javafx.scene.paint.Paint;
 import java.util.*;
 import java.util.function.Consumer;
 
+/**
+ * Abstract Super Class for front-end turtles.  The turtles are able to move around the canvas, draw on the canvas,
+ * and have a pen that they use for drawing.
+ */
 public abstract class DisplayView extends ImageView implements CommandExecutable, LanguageChangeable {
-
-//    private static final String BASIC_TURTLE_NAME = "Basic Turtle View";
-//    private static final String ADVANCED_TURTLE_NAME = "Advanced Turtle View";
-//    private static final String CUTE_TURTLE_NAME = "Cute Turtle View";
-//    private static final String GITLAB_TURTLE_VIEW = "GitLab View";
-//    public static final List<String> POSSIBLE_IMAGES = List.of(BASIC_TURTLE_NAME, ADVANCED_TURTLE_NAME,
-//            CUTE_TURTLE_NAME,
-//            GITLAB_TURTLE_VIEW);
 
     private static final String TURTLE_IMAGE = "file:/resources_images/turtle1.jpg";
     private static final int IMAGE_HEIGHT = 25;
@@ -35,16 +31,15 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
     private Canvas myCanvas;
     private Pen myPen;
     private GraphicsContext myContext;
-    protected List<Move> myMoveHistory;
+    private List<Move> myMoveHistory;
     private Consumer<String> myCommandAccess;
     private Consumer<DisplayView> myTabAccess;
     private DisplayViewContextMenu myDisplayViewContextMenu;
     private Language myLanguage;
     private int myTurtleId;
     private Set<Integer> myListOfActiveTurtles;
-//    private int myIndex;
-
     private boolean isActive;
+
     public DisplayView(){
         this(new Image(TURTLE_IMAGE));
     }
@@ -133,10 +128,6 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
         myContext.closePath();
     }
 
-//    public List<String> getPossibleImages() {
-//        return Collections.unmodifiableList(POSSIBLE_IMAGES);
-//    }
-
     public Pen getMyPen() {
         return myPen;
     }
@@ -206,12 +197,12 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
         runCommand("tell [ " + IDtoTell.toString()+ " ]");
     }
 
-    public void makeBig(){
+    private void makeBig(){
         this.setFitWidth(IMAGE_WIDTH*1.8);
         this.setFitHeight(IMAGE_HEIGHT*1.8);
     }
 
-    public void makeSmall(){
+    private void makeSmall(){
         this.setFitWidth(IMAGE_WIDTH);
         this.setFitHeight(IMAGE_HEIGHT);
     }

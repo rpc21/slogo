@@ -3,19 +3,16 @@ package GUI.GUI;
 import GUI.Buttons.*;
 import GUI.CanvasItems.StackedCanvasPane;
 import GUI.Commands.*;
-import GUI.Palettes.*;
 import GUI.Tabs.PaletteTabExplorer;
 import GUI.Tabs.TabExplorer;
 import GUI.Tabs.TurtleViewTabExplorer;
 import apis.ImmutableVisualCommand;
 
-import apis.VisualUpdateAPI;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -23,16 +20,22 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The GUIDisplay class sets up the entire GUI by calling the constructors of all the gui components and placing them
+ * in the appropriate locations of the grid pane.  The GUIDisplay class also maintains lists of command executable
+ * components and language changeable components for batch updates to the language and to distribute access to the
+ * parser effectively.
+ */
 public class GUIDisplay {
 
-    public static final Language DEFAULT_LANGUAGE = Language.ENGLISH;
-    public static final String CLEAR_SCREEN = "ClearScreen";
-    public static final String S_LOGO = "SLogo";
-    public static final String ARIAL = "Arial";
-    public static final int SLOGO_FONT_SIZE = 50;
-    public static final int SPACING = 10;
-    public static final String UNDO = "Undo";
-    public static final String NEW_WINDOW = "+";
+    private static final Language DEFAULT_LANGUAGE = Language.ENGLISH;
+    private static final String CLEAR_SCREEN = "ClearScreen";
+    private static final String S_LOGO = "SLogo";
+    private static final String ARIAL = "Arial";
+    private static final int SLOGO_FONT_SIZE = 50;
+    private static final int SPACING = 10;
+    private static final String UNDO = "Undo";
+    private static final String NEW_WINDOW = "+";
     private Stage myStage;
     private Scene myScene;
     private GridPane myRoot;
@@ -79,7 +82,7 @@ public class GUIDisplay {
 //        }
 //    }
 
-    public void executeVisualCommands(List<ImmutableVisualCommand> myCommands){
+    void executeVisualCommands(List<ImmutableVisualCommand> myCommands){
         for (ImmutableVisualCommand c: myCommands) {
             c.execute(myDelegator);
         }
@@ -191,7 +194,7 @@ public class GUIDisplay {
         grid.add(myError, 0, 6);
     }
 
-    public void setUpRunButton(GUIExecute ref){
+    void setUpRunButton(GUIExecute ref){
         myGUIExecute = ref;
         myRunButton =new RunButton(myTextBox);
         groupGUIComponents();

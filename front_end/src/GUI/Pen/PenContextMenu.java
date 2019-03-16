@@ -1,16 +1,16 @@
 package GUI.Pen;
 
-import GUI.Commands.IntegerCommandInputDialog;
 import GUI.Commands.Language;
 import GUI.Commands.LanguageChangeable;
 import GUI.Turtle.SubContextMenu;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Consumer;
 
+/**
+ * The PenContextMenu is a subclass of the SubContextMenu abstract class.  The PenContextMenu allows the user to run
+ * pen-specific commands by just clicking on the turtle and selecting a pen command to run.
+ */
 public class PenContextMenu extends SubContextMenu implements LanguageChangeable {
 
     private static final String PEN_CONTEXT_MENU = "Interactive Pen Commands";

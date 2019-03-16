@@ -3,6 +3,9 @@ package GUI.Turtle;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 
+/**
+ * Subclass of DisplayView that uses the cute turtle image
+ */
 public class CuteTurtleView extends DisplayView {
     private static final String CUTE_TURTLE_IMAGE = "cute-turtle.jpg";
 

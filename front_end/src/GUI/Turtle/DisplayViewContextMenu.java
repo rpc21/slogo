@@ -7,6 +7,9 @@ import javafx.scene.control.ContextMenu;
 
 import java.util.function.Consumer;
 
+/**
+ * Context menu that contains the TurtleContextMenu and PenContextMenus as sub menus
+ */
 public class DisplayViewContextMenu extends ContextMenu implements LanguageChangeable {
 
     private TurtleContextMenu myTurtleContextMenu;

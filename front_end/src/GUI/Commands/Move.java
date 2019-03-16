@@ -5,6 +5,12 @@ import GUI.Pen.PenStyle;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Paint;
 
+/**
+ * The Move class bundles all the information associated with a turtle move such as the pen properties associated
+ * with that move and the displacement vector of the turtle's move.  This class was designed to be flexible to
+ * adapt to extensions involving the pen style as well as well as potentially undo-ing moves.  This functionality
+ * went un-used in the extensions.
+ */
 public class Move {
 
     private Paint penColor;
@@ -25,21 +31,9 @@ public class Move {
         this(pen.getMyColor(), pen.isDown(), pen.getMyStyle(), pen.getMyWidth(), displacement);
     }
 
-//    public Move(Pen pen, double[] displacement){
-//        this(pen, new Point2D(displacement[0], displacement[1]));
-//    }
-
     public Paint getPenColor() {
         return penColor;
     }
-
-//    public boolean isPenDown() {
-//        return penDown;
-//    }
-//
-//    public PenStyle getPathStyle() {
-//        return pathStyle;
-//    }
 
     public double getPenWidth() {
         return penWidth;

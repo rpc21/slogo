@@ -2,6 +2,12 @@ package GUI.Commands;
 
 import java.util.ResourceBundle;
 
+/**
+ * The Language enum provides all the different languages available for the program.  The Language enum will load the
+ * appropriate Resource Bundle (Properties File) for the corresponding language and allows the program to easily get
+ * translated words from just the Language rather than requiring each class to have access to all the different
+ * properties files
+ */
 public enum Language {
 
     CHINESE("Chinese"),
