@@ -1,13 +1,14 @@
 package nodes.structures;
-
 import apis.ImmutableVisualCommand;
 import exceptions.InvalidInputException;
 import nodes.CommandNode;
 import parser.UserCreated;
 import turtle.Bale;
-
 import java.util.List;
-
+/**
+ * @author Anna Darwish
+ * @version 3/13/2019
+ */
 public class DoTimes extends CommandNode {
 
     private UserCreated myUserCreatedItems;
@@ -18,6 +19,12 @@ public class DoTimes extends CommandNode {
         super(a);
         myUserCreatedItems = user;
     }
+    /**
+     * This CommandNode has two children - a list of initializer information and a list of commands to be run. The first
+     * will be a variable that begins at 1 and runs up to and includes the limit. The second will be a list of commands
+     * to be executed that number of times.
+     * @return the result of last evaluated command
+     */
 
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
@@ -26,25 +33,21 @@ public class DoTimes extends CommandNode {
         CommandNode myVariable = super.getChildren().get(0);
         CommandNode myCommands = super.getChildren().get(1);
 
-        String varName = myVariable.getChildren().get(0).getName();
-        int numIterations = (int)myVariable.getChildren().get(1).evaluate(myVisCommands, myTurtles);
+        String varName = myVariable.getChildren().get(0).toString();
+        double numIterations = myVariable.getChildren().get(1).evaluate(myVisCommands, myTurtles);
         myUserCreatedItems.addVariable(varName,1.0);
 
 
-        for (int iter = 0; iter < numIterations; iter++){
-            for (int currChild = 0; currChild < myCommands.getChildren().size(); currChild++)
-                ret = super.getChildren().get(currChild).evaluate(myVisCommands, myTurtles);
+        for (int iter = 0; iter <= numIterations; iter++){
+            ret = myCommands.evaluate(myVisCommands,myTurtles);
             myUserCreatedItems.addVariable(varName,iter + 2.0);
         }
         return ret;
     }
-
-
-    @Override
-    public void addChild(CommandNode c) {
-        super.addChild(c);
-    }
-
+    /**
+     * This CommandNode needs access to the UserCreated class in order to update the user's defined variable at the end
+     * of each iteration over the commands
+     */
     @Override
     public boolean needsUserCreated(){ return true;}
 }

@@ -1,13 +1,14 @@
 package nodes.actions;
-
 import apis.ImmutableVisualCommand;
 import exceptions.InvalidInputException;
 import nodes.CommandNode;
 import nodes.visuals.VisualPalette;
 import turtle.Bale;
-
 import java.util.List;
-
+/**
+ * @author Anna Darwish
+ * @version 3/13/2019
+ */
 public class SetPalette extends CommandNode {
     private static final int INDEX = 0;
     private static final int RED_VAL = 1;
@@ -17,6 +18,12 @@ public class SetPalette extends CommandNode {
     public SetPalette(String n){
         super(n);
     }
+    /**
+     * Evaluates children nodes to get the new r,g, and b values to be associated with a particular palette index
+     * and instantiates a VisualPalette Command to inform visualization to display this change
+     * @return index of color that was changes
+     * @see VisualPalette
+     */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
         int currIndex = (int)super.getChildren().get(INDEX).evaluate(myVisCommands, myTurtles);
@@ -28,12 +35,6 @@ public class SetPalette extends CommandNode {
         }
         myVisCommands.add(new VisualPalette(currIndex,red,green,blue));
         return currIndex;
-    }
-    @Override
-    public void addChild(CommandNode c){
-        if (super.getChildren().size() ==4)
-            throw new IllegalArgumentException();
-        super.addChild(c);
     }
     private boolean checkRGBValue(double val){
         return !(val < 0) && !(val > MAX_VAL);

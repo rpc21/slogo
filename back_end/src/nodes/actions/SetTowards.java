@@ -1,37 +1,34 @@
 package nodes.actions;
-
 import apis.ImmutableVisualCommand;
 import exceptions.InvalidInputException;
-import nodes.CommandNode;
 import nodes.TurtleCommand;
-
 import turtle.Bale;
-
 import java.util.List;
-
+/**
+ * @author Anna Darwish
+ * @version 3/13/2019
+ */
 public class SetTowards extends TurtleCommand {
+    private static final String methodName = "setTowards";
+    private static final String turtleStateMethodName = "getHeading";
     public SetTowards(String name){
         super(name);
     }
-    private static final String methodName = "setTowards";
-
-
+    /**
+     * Evaluates children node to get x-coordinate and y-coordinate appropriate turtles will be facing and
+     * requests current heading of the last turtle that will change.Invokes myTurtles to tell appropriate turtles to
+     * set their heading towards the new (x,y) position using "setTowards", along with the appropriate visual commands
+     * @return distance turned of last turtle involved in change
+     */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
-        double towardsX=  super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
+        double towardsX =  super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
         double towardsY =  super.getChildren().get(1).evaluate(myVisCommands, myTurtles);
-
         super.setMyTurtleCommands(methodName);
+        double currHeading = myTurtles.getLastActiveState(turtleStateMethodName);
         myVisCommands.addAll(super.invokeTurtles(new Object[]{towardsX,towardsY},myTurtles));
 
-        double currHeading = myTurtles.getHeading();
-        return Math.abs(currHeading - myTurtles.getHeading());
-    }
-    @Override
-    public void addChild(CommandNode c){
-        if (super.getChildren().size() == 2) {
-            throw new IllegalArgumentException();
-        }
-        super.addChild(c);
+        double newHeading = myTurtles.getHeading();
+        return Math.abs(currHeading - newHeading);
     }
 }

@@ -5,7 +5,6 @@ import exceptions.InvalidInputException;
 import nodes.CommandNode;
 import nodes.variables.ConstantNode;
 import nodes.structures.Name;
-import nodes.variables.MakeVariable;
 import nodes.variables.Variable;
 
 import java.lang.reflect.Constructor;
