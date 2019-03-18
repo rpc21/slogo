@@ -17,6 +17,6 @@ public class Cosine extends CommandNode {
      */
     @Override
     public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
-        return Math.sin(super.getChildren().get(0).evaluate(myVisCommands, myTurtles));
+        return Math.cos(super.getChildren().get(0).evaluate(myVisCommands, myTurtles));
     }
 }
