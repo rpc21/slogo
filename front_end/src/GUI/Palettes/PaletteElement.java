@@ -9,6 +9,7 @@ import javafx.scene.text.Text;
 import java.util.Comparator;
 
 /**
+ * To be used in code masterpiece
  * PaletteElements extend HBoxes and contain a Text element for the index and a node of type R for the corresponding
  * contents.
  * @param <R> Type of node that is the content of each Palette element e.g. Rectangle, ImageView, etc.
