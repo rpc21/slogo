@@ -10,22 +10,17 @@ import javafx.scene.control.ScrollPane;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
+/**
+ * Class the implements the functionality of the help button by displaying a help page
+ */
 public class HelpButton extends Button implements LanguageChangeable {
 
     private static final String HELP_BUTTON_NAME = "Help";
     private Language myLanguage;
 
-    //TODO: I think we can make this button know its own name and just setText(HELP_NAME), don't need resources, and
-    // can just have setOnAction create the alert that is stored in this class
-//    public HelpButton(String text, ResourceBundle resources, Consumer<Void> consumer){
-//        myLanguage = Language.ENGLISH;
-//        this.setText(myLanguage.getTranslatedWord(HELP_BUTTON_NAME));
-//        this.setOnAction(event ->{
-//            Alert help = showHelpMenu();
-//            help.show();
-//        });
-//    }
-
+    /**
+     * HelpButton constructor, sets language to default language of English and sets text of the button
+     */
     public HelpButton(){
         myLanguage = Language.ENGLISH;
         this.setText(myLanguage.getTranslatedWord(HELP_BUTTON_NAME));
@@ -35,6 +30,10 @@ public class HelpButton extends Button implements LanguageChangeable {
         });
     }
 
+    /**
+     * Change the language dependent features of the class to accommodate the new language
+     * @param newLanguage new language that the program is being changed to
+     */
     @Override
     public void setLanguage(Language newLanguage) {
         myLanguage = newLanguage;
