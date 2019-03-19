@@ -8,10 +8,7 @@ import GUI.GUI.GUIDisplay;
 import GUI.GUI.GUIdata;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
-
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.security.spec.ECField;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
@@ -32,12 +29,9 @@ public class TabExplorer extends TabPane implements CommandExecutable, LanguageC
     private Language myLanguage;
     private ResourceBundle myFilePaths;
     private static final String METHODS_TITLE = "Variables";
-  //  private static final String METHODS_HEADER = "Enter Method Parameters";
     private static final String METHODS_CONTENT = "Parameters Separated by Commas:";
     private static final String VARIABLES_TITLE = "Variable Editor";
-   // private static final String VARIABLES_HEADER = "Methods";
     private static final String VARIABLES_CONTENT = "Enter new value:";
-
 
     public TabExplorer(){
         super();

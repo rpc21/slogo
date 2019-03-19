@@ -1,11 +1,7 @@
 package GUI.Tabs;
 
 import GUI.GUI.GUIdata;
-import javafx.application.Platform;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
-
-import java.util.Optional;
 
 public class TabMethods extends SLogoTabInteractive {
 

@@ -8,7 +8,6 @@ import GUI.Turtle.BasicTurtleView;
 import javafx.scene.control.Tab;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
