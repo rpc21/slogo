@@ -7,7 +7,6 @@ import GUI.Tabs.TabExplorer;
 import apis.VisualUpdateAPI;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
 import java.util.List;
 
 /**
@@ -23,7 +22,12 @@ public class Delegator implements VisualUpdateAPI {
     private TabExplorer myTabExplorer;
     private PaletteTabExplorer myPaletteTabExplorer;
 
-
+    /**
+     * Constructor for Delegator
+     * @param canvasPane current StackedCanvasPane on the screen
+     * @param tabExplorer current TabExplorer user can interact with
+     * @param paletteTabExplorer current PalleteTabExplorer user can interact with
+     */
     public Delegator(StackedCanvasPane canvasPane, TabExplorer tabExplorer, PaletteTabExplorer paletteTabExplorer){
         myStackedCanvasPane = canvasPane;
         myTabExplorer = tabExplorer;
