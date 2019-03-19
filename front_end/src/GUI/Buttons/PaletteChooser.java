@@ -4,7 +4,6 @@ import GUI.Commands.Language;
 import GUI.Commands.LanguageChangeable;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-
 import java.util.Collections;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;

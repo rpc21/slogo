@@ -6,7 +6,6 @@ import GUI.Commands.LanguageChangeable;
 import GUI.Tabs.PaletteTabExplorer;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.shape.Rectangle;
-
 import java.util.function.Consumer;
 import java.util.function.Function;
 

@@ -1,7 +1,6 @@
 package GUI.Buttons;
 
 import GUI.Commands.CommandExecutable;
-
 import java.util.Collections;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;

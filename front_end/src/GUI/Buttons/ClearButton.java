@@ -5,7 +5,6 @@ import GUI.Commands.Language;
 import GUI.Commands.LanguageChangeable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-
 import java.util.function.Consumer;
 
 /**

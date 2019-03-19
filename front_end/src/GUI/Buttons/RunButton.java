@@ -4,9 +4,7 @@ import GUI.Commands.CommandExecutable;
 import GUI.Commands.CommandLine;
 import GUI.Commands.Language;
 import GUI.Commands.LanguageChangeable;
-import GUI.GUI.GUIExecute;
 import javafx.scene.control.Button;
-
 import java.util.function.Consumer;
 
 /**

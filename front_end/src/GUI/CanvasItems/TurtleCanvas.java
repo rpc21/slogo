@@ -2,7 +2,6 @@ package GUI.CanvasItems;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Paint;
-
 import java.util.function.Consumer;
 
 /**
