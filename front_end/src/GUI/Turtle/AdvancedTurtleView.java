@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 
 /**
  * Subclass of DisplayView using the green cool turtle image
+ * Author: Ryan Culhane
  */
 public class AdvancedTurtleView extends DisplayView {
 

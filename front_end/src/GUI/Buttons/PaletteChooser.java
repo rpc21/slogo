@@ -4,7 +4,6 @@ import GUI.Commands.Language;
 import GUI.Commands.LanguageChangeable;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-
 import java.util.Collections;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
@@ -15,6 +14,7 @@ import java.util.function.Consumer;
  * menu items are clicked based on the consumer and how keys are processed for consumption based on the
  * processKeyForConsumption method that needs to be implemented by the subclass.
  * @param <T> the type that can be consumed by the consumer
+ * Author: Ryan Culhane
  */
 public abstract class PaletteChooser<T> extends MenuButton implements LanguageChangeable {
 

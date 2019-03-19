@@ -6,7 +6,6 @@ import GUI.Commands.LanguageChangeable;
 import GUI.Tabs.PaletteTabExplorer;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.shape.Rectangle;
-
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -14,6 +13,7 @@ import java.util.function.Function;
  * Class that creates button that gives the user the ability to change the background color of the canvas or the pen
  * color of all the turtles by adding the color to the palette of available colors and running the command through
  * the back end
+ * Author: Ryan Culhane, Louis Jensen
  */
 public class ColorChooser extends ColorPicker implements LanguageChangeable, CommandExecutable {
 

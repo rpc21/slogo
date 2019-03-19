@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 
 /**
  * Subclass of the DisplayView that uses the gitlab icon as the icon
+ * Author: Ryan Culhane
  */
 public class GitLabView extends DisplayView {
 

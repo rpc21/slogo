@@ -1,19 +1,28 @@
 package GUI.Tabs;
 
 import GUI.GUI.GUIdata;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
 
-import java.security.DigestInputStream;
-import java.util.Optional;
-
+/**
+ * Tab Specific to Variables
+ * Author: Louis Jensen
+ */
 public class TabVariables extends SLogoTabInteractive {
 
+    /**
+     * Default constructor calls super class
+     */
     public TabVariables() {
         super();
     }
 
+    /**
+     * Constructor calls super class
+     * @param tabTitle Title of Tab
+     * @param data Allows info to be passed to Display
+     * @param title Title of editor box
+     * @param content Contents of editor box
+     */
     public TabVariables(String tabTitle, GUIdata data, String title, String content) {
         super(tabTitle, data, title, content);
     }

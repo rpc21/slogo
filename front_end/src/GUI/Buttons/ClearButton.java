@@ -5,11 +5,11 @@ import GUI.Commands.Language;
 import GUI.Commands.LanguageChangeable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-
 import java.util.function.Consumer;
 
 /**
  * Class that implements the functionality of the clear button.
+ * Author: Louis Jensen, Ryan Culhane
  */
 public class ClearButton extends Button implements CommandExecutable, LanguageChangeable {
 

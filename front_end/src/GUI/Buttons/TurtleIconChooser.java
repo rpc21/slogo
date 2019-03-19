@@ -1,7 +1,6 @@
 package GUI.Buttons;
 
 import GUI.Commands.CommandExecutable;
-
 import java.util.Collections;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
@@ -10,6 +9,7 @@ import java.util.function.Consumer;
  * Subclass of the PaletteChooser abstract class that takes in Strings for the consumer and the Shapes properties
  * file to define the different possible turtle icons.  Allows the user to change the shape of the turtles from a
  * drop down menu.
+ * Author: Ryan Culhane, Louis Jensen
  */
 public class TurtleIconChooser extends PaletteChooser implements CommandExecutable {
 

@@ -6,6 +6,7 @@ import javafx.scene.control.TextArea;
  * The CommandLine is a TextArea where the user can enter the commands for the turtles.  This class is a wrapper that
  * establishes the TextArea to have the correct preferences without having to set the preferences in the GUIDisplay
  * class
+ * Author: Louis Jensen
  */
 public class CommandLine extends TextArea {
 

@@ -7,7 +7,6 @@ import GUI.Tabs.TabExplorer;
 import apis.VisualUpdateAPI;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
 import java.util.List;
 
 /**
@@ -16,6 +15,7 @@ import java.util.List;
  * the Delegator class has access to the the StackedCanvasPane, TabExplorer, and PaletteTabExplorer where the visual
  * updates occur.  Visual updates happen in a tree kind of manner of delegation and the Delegator class can be seen
  * as the root of this delegation tree
+ * Author: Ryan Culhane, Louis Jensen
  */
 public class Delegator implements VisualUpdateAPI {
 
@@ -23,7 +23,12 @@ public class Delegator implements VisualUpdateAPI {
     private TabExplorer myTabExplorer;
     private PaletteTabExplorer myPaletteTabExplorer;
 
-
+    /**
+     * Constructor for Delegator
+     * @param canvasPane current StackedCanvasPane on the screen
+     * @param tabExplorer current TabExplorer user can interact with
+     * @param paletteTabExplorer current PalleteTabExplorer user can interact with
+     */
     public Delegator(StackedCanvasPane canvasPane, TabExplorer tabExplorer, PaletteTabExplorer paletteTabExplorer){
         myStackedCanvasPane = canvasPane;
         myTabExplorer = tabExplorer;

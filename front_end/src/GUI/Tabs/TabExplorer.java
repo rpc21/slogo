@@ -8,14 +8,15 @@ import GUI.GUI.GUIDisplay;
 import GUI.GUI.GUIdata;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
-
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.security.spec.ECField;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
+/*
+ * Class that contains tabs with information to display to user
+ * Author: Louis Jensen, Ryan Culhane
+ */
 public class TabExplorer extends TabPane implements CommandExecutable, LanguageChangeable {
 
     private static final String VARIABLES = "Variables";
@@ -32,18 +33,24 @@ public class TabExplorer extends TabPane implements CommandExecutable, LanguageC
     private Language myLanguage;
     private ResourceBundle myFilePaths;
     private static final String METHODS_TITLE = "Variables";
-  //  private static final String METHODS_HEADER = "Enter Method Parameters";
     private static final String METHODS_CONTENT = "Parameters Separated by Commas:";
     private static final String VARIABLES_TITLE = "Variable Editor";
-   // private static final String VARIABLES_HEADER = "Methods";
     private static final String VARIABLES_CONTENT = "Enter new value:";
 
-
+    /*
+     * Default Constructor for TabExplorer calls TabPane constructor
+     */
     public TabExplorer(){
         super();
         setPrefSize(GUIDisplay.SCENE_WIDTH * QUARTER, GUIDisplay.SCENE_HEIGHT * HALF);
     }
 
+    /**
+     * Constructor for TabExplorer calls TabPane constructor and establishes instance variables
+     * @param dataTracker Passes data between TabExplorer and GUIDisplay
+     * @param language Current language for user
+     * @param textBox Box in which user enters commands
+     */
     public TabExplorer(GUIdata dataTracker, Language language, CommandLine textBox){
         super();
         myLanguage = language;
@@ -61,11 +68,20 @@ public class TabExplorer extends TabPane implements CommandExecutable, LanguageC
         getTabs().addAll(myVariables, myMethods, myCommands);
     }
 
+    /**
+     * TabExplorer is always resizeable
+     * @return true
+     */
     @Override
     public boolean isResizable(){
         return true;
     }
 
+    /**
+     * Resizes TabExplorer
+     * @param width new width to set
+     * @param height new height to set
+     */
     @Override
     public void resize(double width, double height){
         super.setWidth(width);
@@ -111,8 +127,6 @@ public class TabExplorer extends TabPane implements CommandExecutable, LanguageC
             Constructor constructor = tabClass.getConstructor(String.class, GUIdata.class, String.class, String.class);
             tab = (SLogoTabInteractive) constructor.newInstance(myLanguage.getTranslatedWord(tabType), dataTracker, title, content);
         } catch (Exception e) {
-            System.out.println("ERROR CAUGHT");
-            e.printStackTrace();
             tab = new SLogoTab();
         }
         tab.getContent().setOnMouseClicked(event -> {
@@ -129,18 +143,35 @@ public class TabExplorer extends TabPane implements CommandExecutable, LanguageC
         return tab;
     }
 
+    /**
+     * Adds a command to the history when user clicks run
+     * @param command Command to add to history
+     */
     public void addToCommandHistory(String command){
         myCommands.addContents(command);
     }
 
+    /**
+     * Clears command history so it is empty
+     */
     public void clearCommandHistory() {
         myCommands.clearContents();
     }
 
+    /**
+     * Adds a variable and value to the variables tab
+     * @param name Name of variable
+     * @param val Value of variable
+     */
     public void addVariable(String name, Double val) {
         myVariables.addContents(name + " " + val);
     }
 
+    /**
+     * Adds a user defined command to the methods tab
+     * @param name Name of user defined command
+     * @param myVars variables necessary to run user defined command
+     */
     public void addUserDefinedCommand(String name, List<String> myVars) {
         myMethods.addContents(name + ": " + String.join(" ", myVars));
     }

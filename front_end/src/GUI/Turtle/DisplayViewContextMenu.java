@@ -4,11 +4,11 @@ import GUI.Commands.Language;
 import GUI.Commands.LanguageChangeable;
 import GUI.Pen.PenContextMenu;
 import javafx.scene.control.ContextMenu;
-
 import java.util.function.Consumer;
 
 /**
  * Context menu that contains the TurtleContextMenu and PenContextMenus as sub menus
+ * Author: Ryan Culhane
  */
 public class DisplayViewContextMenu extends ContextMenu implements LanguageChangeable {
 

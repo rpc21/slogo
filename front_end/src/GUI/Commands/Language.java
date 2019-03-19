@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
  * appropriate Resource Bundle (Properties File) for the corresponding language and allows the program to easily get
  * translated words from just the Language rather than requiring each class to have access to all the different
  * properties files
+ * Author: Ryan Culhane, Louis Jensen
  */
 public enum Language {
 

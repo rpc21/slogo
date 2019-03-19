@@ -13,6 +13,7 @@ import java.util.function.Function;
  * The Toolbar class contains the the LanguageChooser, the ColorChoosers for the background color and pen color and
  * the turtle icon chooser. Class is used to manage the various choosers in bulk and isolate the functionality of
  * these user buttons to one larger class.
+ * Author: Ryan Culhane, Louis Jensen
  */
 public class Toolbar extends HBox implements LanguageChangeable, CommandExecutable {
 

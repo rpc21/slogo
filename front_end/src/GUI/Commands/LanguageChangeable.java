@@ -5,6 +5,7 @@ package GUI.Commands;
  * allows the program to update the language dependent features of that class when the language of the program is
  * changed.  The LanguageChangeable interface also allows language-dependent gui components to be grouped together in
  * a collection so the language can easily be changed across the entire program.
+ * Author: Ryan Culhane
  */
 public interface LanguageChangeable {
 

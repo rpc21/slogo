@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 /**
  * Class that creates a menu of available languages and will change the language of the application and parser when a
  * language is selected
+ * Author: Louis Jensen, Ryan Culhane
  */
 public class LanguageChooser extends PaletteChooser{
 
