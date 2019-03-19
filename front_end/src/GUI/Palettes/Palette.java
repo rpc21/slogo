@@ -4,7 +4,6 @@ import GUI.GUI.GUIDisplay;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
-
 import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
