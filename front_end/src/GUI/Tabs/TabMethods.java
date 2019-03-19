@@ -1,7 +1,7 @@
 package GUI.Tabs;
 
 import GUI.GUI.GUIdata;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
 
 /**
  * Tab Specific to user defined methods
