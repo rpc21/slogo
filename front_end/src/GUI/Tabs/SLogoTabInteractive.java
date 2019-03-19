@@ -36,7 +36,7 @@ public abstract class SLogoTabInteractive extends SLogoTab {
     }
 
     /**
-     *
+     * Adds item to tab display
      * @param newContents String to add to tab display
      */
     @Override

@@ -3,12 +3,25 @@ package GUI.Tabs;
 import GUI.GUI.GUIdata;
 import javafx.scene.control.*;
 
+/**
+ * Tab Specific to user defined methods
+ */
 public class TabMethods extends SLogoTabInteractive {
 
+    /**
+     * Default Constructor calls super class
+     */
     public TabMethods() {
         super();
     }
 
+    /**
+     * Constructor calls super class
+     * @param tabTitle Title of Tab
+     * @param data Allows info to be passed to Display
+     * @param title Title of editor box
+     * @param content Contents of editor box
+     */
     public TabMethods(String tabTitle, GUIdata data, String title, String content) {
         super(tabTitle, data, title, content);
     }
