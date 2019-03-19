@@ -23,6 +23,7 @@ import java.util.List;
  * in the appropriate locations of the grid pane.  The GUIDisplay class also maintains lists of command executable
  * components and language changeable components for batch updates to the language and to distribute access to the
  * parser effectively.
+ * Author: Louis Jensen, Ryan Culhane
  */
 public class GUIDisplay {
 

@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 
 /**
  * Subclass of DisplayView that uses the default turtle image
+ * Author: Ryan Culhane
  */
 public class BasicTurtleView extends DisplayView {
 

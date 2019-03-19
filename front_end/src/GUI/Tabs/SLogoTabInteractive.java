@@ -10,6 +10,7 @@ import java.util.Optional;
 /**
  * Tab that the user can click on to edit variables and methods stored in that tab
  * Abstract because implementation is different depending on if it is variables or methods
+ * Author: Louis Jensen
  */
 public abstract class SLogoTabInteractive extends SLogoTab {
     private String myTitle;

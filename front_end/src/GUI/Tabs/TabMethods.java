@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 
 /**
  * Tab Specific to user defined methods
+ * Author: Louis Jensen
  */
 public class TabMethods extends SLogoTabInteractive {
 

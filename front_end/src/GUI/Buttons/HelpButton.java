@@ -9,6 +9,7 @@ import javafx.scene.control.ScrollPane;
 
 /**
  * Class the implements the functionality of the help button by displaying a help page
+ * Author: Louis Jensen
  */
 public class HelpButton extends Button implements LanguageChangeable {
 

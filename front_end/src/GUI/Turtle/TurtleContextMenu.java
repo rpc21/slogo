@@ -8,6 +8,7 @@ import java.util.function.Consumer;
 /**
  * Subclass of the SubContextMenu abstract class that allows user to graphically run forward, backward, right, and
  * left commands.
+ * Author: Ryan Culhane
  */
 public class TurtleContextMenu extends SubContextMenu implements LanguageChangeable {
 

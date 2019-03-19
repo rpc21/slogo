@@ -4,6 +4,7 @@ import exceptions.*;
 
 /**
  * Interface that indicates a class can execute commands within itself
+ * Author: Ryan Culhane
  */
 @FunctionalInterface
 public interface GUIExecute {

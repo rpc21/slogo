@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 
 /**
  * Tab Specific to Variables
+ * Author: Louis Jensen
  */
 public class TabVariables extends SLogoTabInteractive {
 

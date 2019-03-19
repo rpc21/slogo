@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 /**
  * The PaletteTabExplorer is an extension of the TabExplorer class with one tab containing a tab of the different
  * icon options and another tab containing the different color options
+ * Author: Ryan Culhane
  */
 public class PaletteTabExplorer extends TabExplorer {
 

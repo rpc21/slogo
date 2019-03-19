@@ -9,6 +9,7 @@ import java.util.function.Consumer;
 
 /**
  * Class that implements the functionality of the clear button.
+ * Author: Louis Jensen, Ryan Culhane
  */
 public class ClearButton extends Button implements CommandExecutable, LanguageChangeable {
 

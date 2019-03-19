@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 
 /**
  * Class that displays the turtle and pen properties of the the selected turtle.
+ * Author: Ryan Culhane
  */
 public class TurtleViewTabExplorer extends TabExplorer {
 

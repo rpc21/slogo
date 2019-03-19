@@ -10,6 +10,7 @@ import java.util.function.Consumer;
 /**
  * Class the implements the functionality of the run button.  This class is able to access the commandline and
  * retrieve the text from the commandline when clicked and send the command to the parser.
+ * Author: Ryan Culhane, Louis Jensen
  */
 public class RunButton extends Button implements CommandExecutable, LanguageChangeable {
 

@@ -15,6 +15,7 @@ import java.util.function.Consumer;
 
 /*
  * Class that contains tabs with information to display to user
+ * Author: Louis Jensen, Ryan Culhane
  */
 public class TabExplorer extends TabPane implements CommandExecutable, LanguageChangeable {
 

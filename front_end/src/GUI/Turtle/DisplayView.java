@@ -20,6 +20,7 @@ import java.util.function.Consumer;
 /**
  * Abstract Super Class for front-end turtles.  The turtles are able to move around the canvas, draw on the canvas,
  * and have a pen that they use for drawing.
+ * Authors: Ryan Culhane, Louis Jensen
  */
 public abstract class DisplayView extends ImageView implements CommandExecutable, LanguageChangeable {
 

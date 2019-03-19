@@ -14,6 +14,7 @@ import java.util.function.Function;
  * The class allows elements to be added to the palette by either adding a palette element at a specific index or
  * adding to the next index of the palette.
  * @param <R> R is the type of node that is the same as the type of the PaletteElements in the palette
+ * Author: Ryan Culhane
  */
 public class Palette<R extends Node> extends ScrollPane {
 

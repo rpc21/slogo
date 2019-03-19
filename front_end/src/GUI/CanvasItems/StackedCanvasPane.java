@@ -22,6 +22,7 @@ import java.util.function.Consumer;
  * of DisplayViews (turtles) that can be moved around the screen drawing lines and can be hidden or shown.  The
  * StackedCanvasPane handles making the turtles and changing the background color and changing the screen and will
  * delegate turtle moves to the specific DisplayViews in its list of DisplayViews.
+ * Author: Ryan Culhane, Louis Jensen
  */
 public class StackedCanvasPane extends StackPane implements CommandExecutable, LanguageChangeable {
 

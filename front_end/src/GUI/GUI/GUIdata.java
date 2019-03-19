@@ -2,6 +2,7 @@ package GUI.GUI;
 
 /**
  * Class used to pass data between other classes
+ * Author: Louis Jensen
  */
 public class GUIdata {
     private String myTextToUpdate = "";

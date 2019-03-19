@@ -5,6 +5,7 @@ import parser.external.CommandController;
 
 /**
  * Class that executes commands and displays results
+ * Author: Louis Jensen, Ryan Culhane
  */
 public class GUIController {
 

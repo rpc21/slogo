@@ -14,6 +14,7 @@ import java.util.function.Consumer;
  * menu items are clicked based on the consumer and how keys are processed for consumption based on the
  * processKeyForConsumption method that needs to be implemented by the subclass.
  * @param <T> the type that can be consumed by the consumer
+ * Author: Ryan Culhane
  */
 public abstract class PaletteChooser<T> extends MenuButton implements LanguageChangeable {
 

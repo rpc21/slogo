@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 
 /**
  * Main class to run the application
+ * Authors: Louis Jensen, Ryan Culhane
  */
 public class SLogoMain extends Application {
 

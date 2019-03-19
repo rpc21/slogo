@@ -15,6 +15,7 @@ import java.util.List;
  * the Delegator class has access to the the StackedCanvasPane, TabExplorer, and PaletteTabExplorer where the visual
  * updates occur.  Visual updates happen in a tree kind of manner of delegation and the Delegator class can be seen
  * as the root of this delegation tree
+ * Author: Ryan Culhane, Louis Jensen
  */
 public class Delegator implements VisualUpdateAPI {
 
