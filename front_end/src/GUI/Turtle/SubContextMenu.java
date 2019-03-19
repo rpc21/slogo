@@ -5,7 +5,6 @@ import GUI.Commands.Language;
 import GUI.Commands.LanguageChangeable;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +17,6 @@ import java.util.function.Consumer;
 public abstract class SubContextMenu extends Menu implements LanguageChangeable {
 
     private static final String TURTLE_CONTEXT_NAME = "Interactive Turtle Commands";
-
     private Language myLanguage;
     private Consumer<String> myCommandAccess;
     protected List<String> contextSpecificCommandsWithInput;

@@ -4,7 +4,6 @@ import GUI.Commands.Language;
 import GUI.Commands.LanguageChangeable;
 import GUI.Pen.PenContextMenu;
 import javafx.scene.control.ContextMenu;
-
 import java.util.function.Consumer;
 
 /**

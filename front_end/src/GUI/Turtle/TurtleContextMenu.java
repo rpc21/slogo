@@ -2,7 +2,6 @@ package GUI.Turtle;
 
 import GUI.Commands.Language;
 import GUI.Commands.LanguageChangeable;
-
 import java.util.List;
 import java.util.function.Consumer;
 
