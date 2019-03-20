@@ -1,3 +1,14 @@
+/**
+ * @Author Megan Phibbons
+ * @Date March 2019
+ * @Purpose parse the user's input and create CommandNodes for the controller to execute. Additionally, check the user's
+ *          input and make sure it is all valid so that the code does not crash.
+ * @Dependencies exceptions and nodes
+ * @Uses: Used in the CommandController class, which takes in a string to parse and sends it over to the parser. This
+ *        is the only instance of the parser.
+ */
+
+
 package parser;
 
 import exceptions.InvalidCommandException;
@@ -5,7 +16,6 @@ import exceptions.InvalidInputException;
 import nodes.CommandNode;
 import nodes.variables.ConstantNode;
 import nodes.structures.Name;
-import nodes.variables.MakeVariable;
 import nodes.variables.Variable;
 
 import java.lang.reflect.Constructor;
