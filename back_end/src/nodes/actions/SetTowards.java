@@ -1,68 +1,34 @@
 package nodes.actions;
-
 import apis.ImmutableVisualCommand;
-import nodes.CommandNode;
+import exceptions.InvalidInputException;
+import nodes.TurtleCommand;
 import turtle.Bale;
-
 import java.util.List;
-
-public class SetTowards extends CommandNode {
+/**
+ * @author Anna Darwish
+ * @version 3/13/2019
+ */
+public class SetTowards extends TurtleCommand {
+    private static final String methodName = "setTowards";
+    private static final String turtleStateMethodName = "getHeading";
     public SetTowards(String name){
         super(name);
     }
     /**
-     * TODO - Use immutable turtle state to get current coordinates to determine degrees turned
+     * Evaluates children node to get x-coordinate and y-coordinate appropriate turtles will be facing and
+     * requests current heading of the last turtle that will change.Invokes myTurtles to tell appropriate turtles to
+     * set their heading towards the new (x,y) position using "setTowards", along with the appropriate visual commands
+     * @return distance turned of last turtle involved in change
      */
+    @Override
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
+        double towardsX =  super.getChildren().get(0).evaluate(myVisCommands, myTurtles);
+        double towardsY =  super.getChildren().get(1).evaluate(myVisCommands, myTurtles);
+        super.setMyTurtleCommands(methodName);
+        double currHeading = myTurtles.getLastActiveState(turtleStateMethodName);
+        myVisCommands.addAll(super.invokeTurtles(new Object[]{towardsX,towardsY},myTurtles));
 
-    @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) {
-//        double deltaX = super.getChildren().get(0).evaluate(myVisCommands, myTurtles) - myTurtles.get(0).getXCoor();
-//        double deltaY = super.getChildren().get(1).evaluate(myVisCommands, myTurtles) - myTurtles.get(0).getYCoor();
-//        double angle = Math.atan2( deltaY,deltaX );
-//        System.out.println("DELTAX: " + deltaX);
-//        System.out.println("DELTAY: " + deltaY);
-//        double degrees = Math.toDegrees(angle);
-//        System.out.println("DEGREE TURN PRETRANSFORMATION: " + degrees);
-////        if (deltaX > 0){
-////            //do nothing
-////        }
-////        else if (deltaY >= 0 & deltaX < 0){
-////            degrees = 450 - degrees;
-////        }
-////        else if (deltaY < 0 & deltaX < 0){
-////            degrees = Math.abs(-90 + degrees);
-////        }
-////        else if (deltaY > 0 & deltaX == 0)
-////            degrees = 180;
-////        else if (deltaY < 0 & deltaX == 0)
-////            degrees = -180;
-////        else
-////             degrees = 0;
-//
-//        if (Math.signum(deltaX) > 0 & Math.signum(deltaY) > 0)
-//            degrees = 90 - degrees;
-//        else if (Math.signum(deltaX) > 0 & Math.signum(deltaY) < 0) {
-//            degrees = Math.abs(degrees) + 90;
-//        }
-//        else if (Math.signum(deltaX) < 0 & Math.signum(deltaY) < 0)
-//            degrees = Math.abs(-90 + degrees);
-//        else
-//            degrees = -1.0 * (180 - degrees);
-//        System.out.println("DEGREE TURN POST: " + degrees);
-//        System.out.println("CURRENT HEADING: " + myTurtles.get(0).getHeading());
-//        myVisCommands.add(new VisualTurtleTurn(0,degrees - myTurtles.get(0).getHeading()));
-//        myTurtles.get(0).turn(degrees - myTurtles.get(0).getHeading());
-//        double curr = myTurtles.get(0).getHeading();
-//        if (curr > 180)
-//            curr = 360 - curr;
-//        return Math.abs(curr  - angle);
-        return 0.0;
-    }
-    @Override
-    public void addChild(CommandNode c){
-        if (super.getChildren().size() == 2) {
-            throw new IllegalArgumentException();
-        }
-        super.addChild(c);
+        double newHeading = myTurtles.getHeading();
+        return Math.abs(currHeading - newHeading);
     }
 }

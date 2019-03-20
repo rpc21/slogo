@@ -2,10 +2,14 @@ package GUI.Turtle;
 
 import GUI.Commands.Language;
 import GUI.Commands.LanguageChangeable;
-
 import java.util.List;
 import java.util.function.Consumer;
 
+/**
+ * Subclass of the SubContextMenu abstract class that allows user to graphically run forward, backward, right, and
+ * left commands.
+ * Author: Ryan Culhane
+ */
 public class TurtleContextMenu extends SubContextMenu implements LanguageChangeable {
 
     private static final String TURTLE_CONTEXT_NAME = "Interactive Turtle Commands";
@@ -14,6 +18,11 @@ public class TurtleContextMenu extends SubContextMenu implements LanguageChangea
     private static final String RIGHT = "Right";
     private static final String LEFT = "Left";
 
+    /**
+     * TurtleContextMenu constructor
+     * @param language language of the program
+     * @param commandAccess ability to run commands
+     */
     public TurtleContextMenu(Language language, Consumer<String> commandAccess) {
         super(language, commandAccess);
         setText(TURTLE_CONTEXT_NAME);

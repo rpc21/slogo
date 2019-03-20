@@ -1,38 +1,46 @@
 package nodes.structures;
-
 import apis.ImmutableVisualCommand;
 import exceptions.InvalidInputException;
 import nodes.CommandNode;
-import nodes.visuals.VisualActiveTurtles;
 import turtle.Bale;
-
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author Anna Darwish
+ * @version 3/13/2019
+ */
 public class Ask extends CommandNode {
     public Ask(String a){
         super(a);
     }
-    @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
-        CommandNode myListNode = super.getChildren().get(0);
-        List<Integer> myTurtleIDs = new ArrayList<>();
-        double ret = 0.0;
-        for (CommandNode c: myListNode.getChildren()) {
-            ret = c.evaluate(myVisCommands, myTurtles);
-            if ((int)ret > 0 & (int)ret < myTurtles.size())
-                myTurtleIDs.add((int)ret);
-        }
-        myTurtles.setActiveTurtles(myTurtleIDs);
-        myVisCommands.add(new VisualActiveTurtles(myTurtleIDs));
-        return ret;
-    }
-    /*
-     * Ask can have an unlimited number of children
+    /**
+     * This CommandNode has two children - list of turtles to be set active and a list of commands for those turtles  to complete.
+     * This method first collects the ids of the asked turtles and then sets those turtles as active in order for the
+     * proper visual commands to be constructed. This method then evaluates those commands and sets the original list
+     * of active turtles to be active again
+     * @return result of final command evaluated
      */
     @Override
-    public void addChild(CommandNode c){
-        super.addChild(c);
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
+        CommandNode myTurtleList = super.getChildren().get(0);
+        CommandNode myCommandList = super.getChildren().get(1);
+
+        List<Integer> myOldActiveTurtles = List.copyOf(myTurtles.getActiveTurtleIDs()); //active turtle IDs will change
+        List<Integer> myTurtleIDs = new ArrayList<>();
+
+
+        for (CommandNode turtleInput: myTurtleList.getChildren()) {
+            int turtleID = (int)turtleInput.evaluate(myVisCommands, myTurtles);
+            if (turtleID > 0 & turtleID <= myTurtles.size())
+                myTurtleIDs.add(turtleID - 1);
+        }
+
+        myTurtles.setActiveTurtles(myTurtleIDs);
+
+        double ret = myCommandList.evaluate(myVisCommands,myTurtles);
+        myTurtles.setActiveTurtles(myOldActiveTurtles);
+
+        return ret;
     }
 
 }

@@ -1,31 +1,22 @@
 package nodes.arithmetics;
-
 import apis.ImmutableVisualCommand;
 import exceptions.InvalidInputException;
 import nodes.CommandNode;
 import turtle.Bale;
-
 import java.util.List;
-
-
-
+/**
+ * @author Anna Darwish
+ * @version 3/13/2019
+ */
 public class Cosine extends CommandNode {
     public Cosine(String commandName) {
         super(commandName);
     }
-    @Override
-    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
-        return Math.sin(super.getChildren().get(0).evaluate(myVisCommands, myTurtles));
-    }
     /**
-     * Adds an addend to this nodes.SumNode's list of Children as main.Parser reads them in
-     * @TO-DO Read in possible Argument issues from a resources file to ensure parameter specifications are satisfied
+     * @return Cosine value of child node
      */
     @Override
-    public void addChild(CommandNode c){
-        if (super.getChildren().size() == 1) {
-            throw new IllegalArgumentException();
-        }
-        super.addChild(c);
+    public double evaluate(List<ImmutableVisualCommand> myVisCommands, Bale myTurtles) throws InvalidInputException {
+        return Math.cos(super.getChildren().get(0).evaluate(myVisCommands, myTurtles));
     }
 }

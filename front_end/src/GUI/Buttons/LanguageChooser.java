@@ -4,11 +4,20 @@ import GUI.Commands.Language;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
-
+/**
+ * Class that creates a menu of available languages and will change the language of the application and parser when a
+ * language is selected
+ * Author: Louis Jensen, Ryan Culhane
+ */
 public class LanguageChooser extends PaletteChooser{
 
     private static final String LANGUAGES_FILE = "Languages";
 
+    /**
+     * Constructor for LanguageChooser
+     * @param consumer consumer that takes the new language and will set all LanguageChangeable components to the new
+     *                language
+     */
     public LanguageChooser(Consumer<Language> consumer){
         super(consumer);
     }
