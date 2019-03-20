@@ -8,6 +8,8 @@
 
 package exceptions;
 
+import exceptions.external.InvalidInputException;
+
 public class TooFewInputsException extends InvalidInputException {
     private static final String FEW_KEY = "Few";
 

@@ -8,6 +8,8 @@
 
 package exceptions;
 
+import exceptions.external.InvalidInputException;
+
 public class NothingToRunException extends InvalidInputException {
     private static final String NOTHING_KEY = "Nothing";
 

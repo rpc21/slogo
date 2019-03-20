@@ -7,7 +7,7 @@
  *        front-end when the exception is finally caught and the reason is printed.
  */
 
-package exceptions;
+package exceptions.external;
 
 import java.util.HashMap;
 import java.util.Map;

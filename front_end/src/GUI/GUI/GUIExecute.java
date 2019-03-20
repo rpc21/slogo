@@ -1,6 +1,6 @@
 package GUI.GUI;
 
-import exceptions.*;
+import exceptions.external.InvalidInputException;
 
 /**
  * Interface that indicates a class can execute commands within itself

@@ -10,7 +10,7 @@
 
 package parser;
 
-import exceptions.InvalidInputException;
+import exceptions.external.InvalidInputException;
 import exceptions.InvalidListException;
 import exceptions.TooFewInputsException;
 import nodes.CommandNode;

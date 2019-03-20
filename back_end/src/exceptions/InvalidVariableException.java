@@ -8,6 +8,8 @@
 
 package exceptions;
 
+import exceptions.external.InvalidInputException;
+
 public class InvalidVariableException extends InvalidInputException {
     private static final String VARIABLE_KEY = "Variable";
 

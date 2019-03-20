@@ -1,6 +1,6 @@
 package GUI.GUI;
 
-import exceptions.*;
+import exceptions.external.InvalidInputException;
 import parser.external.CommandController;
 
 /**

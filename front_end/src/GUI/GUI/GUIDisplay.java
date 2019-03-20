@@ -7,6 +7,7 @@ import GUI.Tabs.PaletteTabExplorer;
 import GUI.Tabs.TabExplorer;
 import GUI.Tabs.TurtleViewTabExplorer;
 import apis.ImmutableVisualCommand;
+import exceptions.external.InvalidInputException;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -223,7 +224,7 @@ public class GUIDisplay {
         try {
             ref.executeCurrentCommand(commandToExecute, myLanguage.getLanguageString());
             myError.setText("");
-        } catch(exceptions.InvalidInputException e) {
+        } catch(InvalidInputException e) {
             myError.setText(e.getReason());
         }
         addToCommandHistory(commandToExecute);
