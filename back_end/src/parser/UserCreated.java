@@ -69,8 +69,9 @@ public class UserCreated {
      */
     public void addUserCommand(String commandName, List<String> varNames, String commandContents){
         UserCommand myCommand = new UserCommand(varNames,commandContents);
-        for (String var: varNames)
-            myVariables.put(var,0.0);
+        for (String var: varNames) {
+            myVariables.put(var, 0.0);
+        }
         myCommands.put(commandName,myCommand);
     }
 
