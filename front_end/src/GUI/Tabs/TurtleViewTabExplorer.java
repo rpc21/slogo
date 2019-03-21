@@ -13,16 +13,16 @@ public class TurtleViewTabExplorer extends TabExplorer {
     private static final String PEN_PROPERTIES = "Pen Properties";
     private static final String TURTLE_PROPERTIES = "Turtle Properties";
     private static final int RBG_MAX = 255;
-    private SLogoTab myPenProperties;
-    private SLogoTab myTurtleProperties;
+    private BasicTab myPenProperties;
+    private BasicTab myTurtleProperties;
     private final double EPSILON = 0.001;
 
     /**
      * TurtleViewTabExplorer constructor
      */
     public TurtleViewTabExplorer(){
-        myPenProperties = new SLogoTab(PEN_PROPERTIES);
-        myTurtleProperties = new SLogoTab(TURTLE_PROPERTIES);
+        myPenProperties = new BasicTab(PEN_PROPERTIES);
+        myTurtleProperties = new BasicTab(TURTLE_PROPERTIES);
         getTabs().addAll(myPenProperties, myTurtleProperties);
     }
 
