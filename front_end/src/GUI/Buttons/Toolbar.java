@@ -21,6 +21,8 @@ public class Toolbar extends HBox implements LanguageChangeable, CommandExecutab
     private static final String SET_BACKGROUND = "SetBackground";
     private static final String SET_PEN_COLOR = "SetPenColor";
     private static final int SPACING = 10;
+    public static final Color BACKGROUND_COLOR_DEFAULT = Color.WHITE;
+    public static final Color PEN_COLOR_DEFAULT = Color.BLACK;
     private TurtleIconChooser myTurtleIconChooser;
     private ColorChooser myPenColorChooser;
     private ColorChooser myBackgroundColorChooser;
@@ -49,9 +51,9 @@ public class Toolbar extends HBox implements LanguageChangeable, CommandExecutab
     public Toolbar(Consumer<Language> languageAccess, Function<Rectangle, Integer> colorPaletteAccess){
         this();
         myBackgroundColorChooser = new ColorChooser(colorPaletteAccess, SET_BACKGROUND);
-        myBackgroundColorChooser.setValue(Color.WHITE);
+        myBackgroundColorChooser.setValue(BACKGROUND_COLOR_DEFAULT);
         myPenColorChooser = new ColorChooser(colorPaletteAccess, SET_PEN_COLOR);
-        myPenColorChooser.setValue(Color.BLACK);
+        myPenColorChooser.setValue(PEN_COLOR_DEFAULT);
         myTurtleIconChooser = new TurtleIconChooser(myCommandAccess);
         myLanguageChooser = new LanguageChooser(languageAccess);
         getChildren().addAll(myBackgroundColorChooser, myPenColorChooser, myTurtleIconChooser, myLanguageChooser);
@@ -95,8 +97,8 @@ public class Toolbar extends HBox implements LanguageChangeable, CommandExecutab
 
     public void reset() {
         myTurtleIconChooser.setText(myTurtleIconChooser.getItems().get(0).getText());
-        myBackgroundColorChooser.setValue(Color.WHITE);
-        myPenColorChooser.setValue(Color.BLACK);
+        myBackgroundColorChooser.setValue(BACKGROUND_COLOR_DEFAULT);
+        myPenColorChooser.setValue(PEN_COLOR_DEFAULT);
     }
 }
 
