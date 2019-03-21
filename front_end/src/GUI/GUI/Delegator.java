@@ -183,7 +183,7 @@ public class Delegator implements VisualUpdateAPI {
     public void clearScreen() {
         myStackedCanvasPane.clearScreen();
         myTabExplorer.clearCommandHistory();
-        myToolbar.reset();
+        myToolbar.setToDefaults();
     }
 
     /**
