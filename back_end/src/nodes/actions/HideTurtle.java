@@ -1,6 +1,6 @@
 package nodes.actions;
 import apis.ImmutableVisualCommand;
-import exceptions.InvalidInputException;
+import exceptions.external.InvalidInputException;
 import nodes.TurtleCommand;
 import turtle.Bale;
 import java.util.List;

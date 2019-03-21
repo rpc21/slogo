@@ -5,23 +5,41 @@ import javafx.scene.Node;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
-
 import java.util.Optional;
 
-public class SLogoTabInteractive extends SLogoTab {
+/**
+ * Tab that the user can click on to edit variables and methods stored in that tab
+ * Abstract because implementation is different depending on if it is variables or methods
+ * Author: Louis Jensen
+ */
+public abstract class SLogoTabInteractive extends SLogoTab {
     private String myTitle;
     private String myContents;
 
+    /**
+     * Default constructor calls superclass constructor
+     */
     public SLogoTabInteractive() {
         super();
     }
 
+    /**
+     * Constructor for Interactive Tabs
+     * @param tabTitle Title of Tab
+     * @param data Allows info to be passed to Display
+     * @param title Title of editor box
+     * @param contents Contents of editor box
+     */
     public SLogoTabInteractive(String tabTitle, GUIdata data, String title, String contents) {
         super(tabTitle, data);
         myTitle = title;
         myContents = contents;
     }
 
+    /**
+     * Adds item to tab display
+     * @param newContents String to add to tab display
+     */
     @Override
     public void addContents(String newContents) {
         String[] nameAndValue = newContents.split(" ");
@@ -47,9 +65,7 @@ public class SLogoTabInteractive extends SLogoTab {
     }
 
     protected String convertResultToRunnableString(Label label, String value){
-        String[] nameAndValue = label.getText().split(" ");
-        String stringToRun = "make " + nameAndValue[0] + " " +value;
-        return stringToRun;
+        return null;
     }
 
     private void isItAlreadyThere(String stringToAdd) {

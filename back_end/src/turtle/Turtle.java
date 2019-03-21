@@ -2,7 +2,7 @@ package turtle;
 
 import apis.ImmutableVisualCommand;
 import exceptions.InvalidCommandException;
-import exceptions.InvalidInputException;
+import exceptions.external.InvalidInputException;
 import nodes.visuals.VisualPenDown;
 import nodes.visuals.VisualPenUp;
 import nodes.visuals.VisualTurtlePosition;

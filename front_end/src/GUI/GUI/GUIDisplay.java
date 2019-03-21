@@ -7,7 +7,7 @@ import GUI.Tabs.PaletteTabExplorer;
 import GUI.Tabs.TabExplorer;
 import GUI.Tabs.TurtleViewTabExplorer;
 import apis.ImmutableVisualCommand;
-
+import exceptions.external.InvalidInputException;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -16,7 +16,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +24,7 @@ import java.util.List;
  * in the appropriate locations of the grid pane.  The GUIDisplay class also maintains lists of command executable
  * components and language changeable components for batch updates to the language and to distribute access to the
  * parser effectively.
+ * Author: Louis Jensen, Ryan Culhane
  */
 public class GUIDisplay {
 
@@ -47,7 +47,6 @@ public class GUIDisplay {
     private Language myLanguage;
     private Toolbar myToolbar;
     private StackedCanvasPane myStackedCanvasPane;
-
     private PaletteTabExplorer myPaletteTabExplorer;
     private TabExplorer myTabExplorer;
     private GridPane myCurrentGUIGrid;
@@ -61,7 +60,6 @@ public class GUIDisplay {
     private List<String> myListOfCommands;
     private UndoButton myUndoButton;
     private Delegator myDelegator;
-
     private List<LanguageChangeable> languageChangeableComponents;
     private List<CommandExecutable> commandExecutableComponents;
 
@@ -196,7 +194,11 @@ public class GUIDisplay {
         grid.add(myError, 0, 6);
     }
 
-    void setUpRunButton(GUIExecute ref){
+    /**
+     * Gives this class ability to directly execute commands in backend
+     * @param ref GUIExecute object that allows this class to run commands
+     */
+    public void setUpRunButton(GUIExecute ref){
         myGUIExecute = ref;
         myRunButton =new RunButton(myTextBox);
         groupGUIComponents();
@@ -222,7 +224,7 @@ public class GUIDisplay {
         try {
             ref.executeCurrentCommand(commandToExecute, myLanguage.getLanguageString());
             myError.setText("");
-        } catch(exceptions.InvalidInputException e) {
+        } catch(InvalidInputException e) {
             myError.setText(e.getReason());
         }
         addToCommandHistory(commandToExecute);

@@ -5,6 +5,7 @@ import javafx.scene.paint.Paint;
 /**
  * The Pen class is a container for all the information about a pen at a given point in time. Each DisplayView
  * contains a pen with properties that can be queried and updated.
+ * Author: Ryan Culhane
  */
 public class Pen {
 

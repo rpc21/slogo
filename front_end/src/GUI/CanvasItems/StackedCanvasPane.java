@@ -9,7 +9,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +22,7 @@ import java.util.function.Consumer;
  * of DisplayViews (turtles) that can be moved around the screen drawing lines and can be hidden or shown.  The
  * StackedCanvasPane handles making the turtles and changing the background color and changing the screen and will
  * delegate turtle moves to the specific DisplayViews in its list of DisplayViews.
+ * Author: Ryan Culhane, Louis Jensen
  */
 public class StackedCanvasPane extends StackPane implements CommandExecutable, LanguageChangeable {
 
@@ -97,9 +97,12 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
         }
     }
 
+    /**
+     * Displays the correct activity status for each turtle
+     * @param activeTurtleIDs list of the integer ID's of active turtles
+     */
     public void setActiveTurtles(List<Integer> activeTurtleIDs) {
         myActiveTurtles = activeTurtleIDs;
-        System.out.println(myActiveTurtles + " these are the active turtles");
         for (int key : myListOfTurtles.keySet()){
             myListOfTurtles.get(key).setInActive();
         }
@@ -180,9 +183,9 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
     }
 
     /**
-     *
-     * @param id
-     * @param degrees
+     * Turn the turtle with turtle id id to face a certain point
+     * @param id turtle id of the turtle to be altered
+     * @param degrees degrees to turn the turtle to set towards point
      */
     public void setTowards(int id, double degrees) {
         myTurtles.get(id).towards(degrees);
@@ -199,8 +202,8 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
     }
 
     /**
-     *
-     * @param id
+     * Move turtle of specific id to center of screen
+     * @param id turtle id of turtle to move
      */
     public void goHome(int id) {
         myTurtles.get(id).goHome();

@@ -8,7 +8,6 @@ import GUI.Turtle.BasicTurtleView;
 import javafx.scene.control.Tab;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -16,6 +15,7 @@ import java.util.ResourceBundle;
 /**
  * The PaletteTabExplorer is an extension of the TabExplorer class with one tab containing a tab of the different
  * icon options and another tab containing the different color options
+ * Author: Ryan Culhane
  */
 public class PaletteTabExplorer extends TabExplorer {
 

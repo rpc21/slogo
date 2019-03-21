@@ -10,6 +10,7 @@ import javafx.scene.paint.Paint;
  * with that move and the displacement vector of the turtle's move.  This class was designed to be flexible to
  * adapt to extensions involving the pen style as well as well as potentially undo-ing moves.  This functionality
  * went un-used in the extensions.
+ * Author: Ryan Culhane
  */
 public class Move {
 

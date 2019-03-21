@@ -4,14 +4,13 @@ import GUI.Commands.CommandExecutable;
 import GUI.Commands.CommandLine;
 import GUI.Commands.Language;
 import GUI.Commands.LanguageChangeable;
-import GUI.GUI.GUIExecute;
 import javafx.scene.control.Button;
-
 import java.util.function.Consumer;
 
 /**
  * Class the implements the functionality of the run button.  This class is able to access the commandline and
  * retrieve the text from the commandline when clicked and send the command to the parser.
+ * Author: Ryan Culhane, Louis Jensen
  */
 public class RunButton extends Button implements CommandExecutable, LanguageChangeable {
 

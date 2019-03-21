@@ -14,20 +14,19 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-
 import java.util.*;
 import java.util.function.Consumer;
 
 /**
  * Abstract Super Class for front-end turtles.  The turtles are able to move around the canvas, draw on the canvas,
  * and have a pen that they use for drawing.
+ * Authors: Ryan Culhane, Louis Jensen
  */
 public abstract class DisplayView extends ImageView implements CommandExecutable, LanguageChangeable {
 
     private static final String TURTLE_IMAGE = "file:/resources_images/turtle1.jpg";
     private static final int IMAGE_HEIGHT = 25;
     private static final int IMAGE_WIDTH = 20;
-
     private Canvas myCanvas;
     private Pen myPen;
     private GraphicsContext myContext;
@@ -71,13 +70,6 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
         myCanvas = canvas;
         myContext = myCanvas.getGraphicsContext2D();
     }
-
-//    public void passListOfTurtles(List<Integer> listOfTurtles){
-//       // myListOfTurtles = listOfTurtles;
-//        myListOfActiveTurtles = new TreeSet<Integer>();
-//        myListOfActiveTurtles.clear();
-//        myListOfActiveTurtles.addAll(listOfTurtles);
-//    }
 
     /**
      * DisplayView constructor
@@ -292,6 +284,9 @@ public abstract class DisplayView extends ImageView implements CommandExecutable
         return isActive;
     }
 
+    /**
+     * Update turtle size based on activity status
+     */
     public void showSize(){
         if (isActive){
             makeBig();

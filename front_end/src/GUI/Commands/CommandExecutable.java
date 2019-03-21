@@ -6,6 +6,7 @@ import java.util.function.Consumer;
  * Classes that implement the CommandExecutable interface have the ability to run turtle commands through the parser
  * and have the result show on the front end.  This interface allows us to make sure any changes made by the user
  * using gui components other than the command line have their changes updated in the backend as well
+ * Author: Ryan Culhane
  */
 public interface CommandExecutable {
 

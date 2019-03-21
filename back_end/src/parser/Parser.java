@@ -1,6 +1,16 @@
+/**
+ * @Author Megan Phibbons
+ * @Date March 2019
+ * @Purpose parse the user's input and create CommandNodes for the controller to execute. Additionally, check the user's
+ *          input and make sure it is all valid so that the code does not crash.
+ * @Dependencies exceptions and CommandNode
+ * @Uses: Used in the CommandController class, which takes in a string to parse and sends it over to the parser. This
+ *        is the only instance of the parser.
+ */
+
 package parser;
 
-import exceptions.InvalidInputException;
+import exceptions.external.InvalidInputException;
 import exceptions.InvalidListException;
 import exceptions.TooFewInputsException;
 import nodes.CommandNode;
@@ -20,12 +30,24 @@ public class Parser {
     private static final String LIST_START = "[";
     private static final String LIST_END = "]";
 
+    /**
+     * @purpose the constructor of the Parser. Creates a command factory and a validator for use throughout the parser.
+     * @param userCreated an instance of UserCreated that the command controller passes into the parser so that all
+     *                    classes that need access to UserCreated are accessing the same instance.
+     */
     public Parser(UserCreated userCreated) {
         myUserCreated = userCreated;
         myCommandFactory = new CommandFactory();
         myValidator = new Validator();
     }
 
+    /**
+     * @purpose parse the string input, validate it, and create the hierarchy of commands
+     * @param input the string that the user inputs, complete with comments and multiple lines of code.
+     * @return a list of CommandNode trees that are ready to be executed.
+     * @throws InvalidInputException when the user tries to use a variable or command that doesn't exist or does not
+     *                               have the right amount of parameters.
+     */
     public List<CommandNode> parse(String input) throws InvalidInputException {
         myCurrentCommand = input;
         myCurrentCommand = myValidator.removeComments(input);
@@ -34,6 +56,15 @@ public class Parser {
             topLevelCommands.add(makeNodeTree());
         }
         return topLevelCommands;
+    }
+
+    /**
+     * @purpose when the user tries to update the language in the front end, the parser needs to update its language
+     *          as well so that it can properly process commands.
+     * @param newLanguage the new language in proper format corresponding to the name of its properties file.
+     */
+    public void updateLanguage(String newLanguage) {
+        myValidator.updateLanguage(newLanguage);
     }
 
     private CommandNode makeNodeTree() throws InvalidInputException {
@@ -168,10 +199,6 @@ public class Parser {
         }
         myCurrentCommand = myCurrentCommand.trim();
 
-    }
-
-    public void updateLanguage(String newLanguage) {
-        myValidator.updateLanguage(newLanguage);
     }
 
 }
