@@ -75,7 +75,6 @@ public class Parser {
         }
         String currentCommandKey = myValidator.getCommandKey(currentValue);
         CommandNode currentNode = myCommandFactory.makeCommand(currentCommandKey, myUserCreated);
-        int expectedNumberOfParameters = myValidator.getExpectedNumberOfParameters(currentCommandKey);
         updateMyCurrentCommand();
         if(currentNode.needsName()) { // this means the current node is looking for a variable
             addNameChild(currentNode, commandSplit[1]);
@@ -83,7 +82,7 @@ public class Parser {
         if(currentNode.isMethodDeclaration()) { // special case where we want the children to be a bit different
             return makeMethodDeclaration(currentNode, commandSplit[1]);
         }
-        addChildren(currentNode, expectedNumberOfParameters);
+        addChildren(currentNode, myValidator.getExpectedNumberOfParameters(currentCommandKey));
         return currentNode;
     }
 
@@ -193,11 +192,8 @@ public class Parser {
 
     private void updateMyCurrentCommand() {
         String[] split = splitCommand(myCurrentCommand);
-        myCurrentCommand = "";
-        for(int i = 1; i < split.length; i++) {
-            myCurrentCommand += split[i] + " ";
-        }
-        myCurrentCommand = myCurrentCommand.trim();
+        split[0] = "";
+        myCurrentCommand = String.join(" ", split).trim();
 
     }
 
