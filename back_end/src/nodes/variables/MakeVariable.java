@@ -1,6 +1,6 @@
 package nodes.variables;
 import apis.ImmutableVisualCommand;
-import exceptions.InvalidInputException;
+import exceptions.external.InvalidInputException;
 import nodes.CommandNode;
 import nodes.visuals.VisualAddVariable;
 import parser.UserCreated;

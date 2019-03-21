@@ -8,6 +8,8 @@
 
 package exceptions;
 
+import exceptions.external.InvalidInputException;
+
 public class InvalidListException extends InvalidInputException {
     private static final String LIST_KEY = "List";
 

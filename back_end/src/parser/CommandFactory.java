@@ -9,7 +9,7 @@
 package parser;
 
 import exceptions.InvalidCommandException;
-import exceptions.InvalidInputException;
+import exceptions.external.InvalidInputException;
 import nodes.CommandNode;
 import nodes.variables.ConstantNode;
 import nodes.structures.Name;

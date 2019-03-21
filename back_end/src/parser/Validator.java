@@ -10,7 +10,7 @@
 package parser;
 
 import exceptions.InvalidCommandException;
-import exceptions.InvalidInputException;
+import exceptions.external.InvalidInputException;
 import exceptions.InvalidVariableException;
 
 import java.util.Collections;

@@ -1,6 +1,6 @@
 package nodes.structures;
 import apis.ImmutableVisualCommand;
-import exceptions.InvalidInputException;
+import exceptions.external.InvalidInputException;
 import nodes.CommandNode;
 import nodes.visuals.VisualActiveTurtles;
 import nodes.visuals.VisualTurtleTell;
