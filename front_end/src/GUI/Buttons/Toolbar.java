@@ -5,6 +5,7 @@ import GUI.Commands.Language;
 import GUI.Commands.LanguageChangeable;
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -48,7 +49,9 @@ public class Toolbar extends HBox implements LanguageChangeable, CommandExecutab
     public Toolbar(Consumer<Language> languageAccess, Function<Rectangle, Integer> colorPaletteAccess){
         this();
         myBackgroundColorChooser = new ColorChooser(colorPaletteAccess, SET_BACKGROUND);
+        myBackgroundColorChooser.setValue(Color.WHITE);
         myPenColorChooser = new ColorChooser(colorPaletteAccess, SET_PEN_COLOR);
+        myPenColorChooser.setValue(Color.BLACK);
         myTurtleIconChooser = new TurtleIconChooser(myCommandAccess);
         myLanguageChooser = new LanguageChooser(languageAccess);
         getChildren().addAll(myBackgroundColorChooser, myPenColorChooser, myTurtleIconChooser, myLanguageChooser);
@@ -90,5 +93,10 @@ public class Toolbar extends HBox implements LanguageChangeable, CommandExecutab
         myCommandAccess.accept(command);
     }
 
+    public void reset() {
+        myTurtleIconChooser.setText(myTurtleIconChooser.getItems().get(0).getText());
+        myBackgroundColorChooser.setValue(Color.WHITE);
+        myPenColorChooser.setValue(Color.BLACK);
+    }
 }
 
