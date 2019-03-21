@@ -13,6 +13,7 @@ public class TurtleViewTabExplorer extends TabExplorer {
     private static final String PEN_PROPERTIES = "Pen Properties";
     private static final String TURTLE_PROPERTIES = "Turtle Properties";
     private static final int RBG_MAX = 255;
+    public static final int FULL_ROTATION = 360;
     private BasicTab myPenProperties;
     private BasicTab myTurtleProperties;
     private final double EPSILON = 0.001;
@@ -40,10 +41,17 @@ public class TurtleViewTabExplorer extends TabExplorer {
     private void updateTurtleProperties(DisplayView x) {
         myTurtleProperties.clearContents();
         myTurtleProperties.addContents("Active? " + x.isItActive());
-        myTurtleProperties.addContents(String.format("Heading: %.2f degrees", x.getRotate()));
+        myTurtleProperties.addContents(String.format("Heading: %.2f degrees", formatRotation(x.getRotate())));
         myTurtleProperties.addContents(String.format("Y Coordinate: %.2f", -1 * x.getTranslateY() + EPSILON));
         myTurtleProperties.addContents(String.format("X Coordinate: %.2f", x.getTranslateX()));
         myTurtleProperties.addContents(String.format("Showing turtle properties for turtle %d", x.getTurtleId()+1));
+    }
+
+    private double formatRotation(double rotate) {
+        if (rotate >= 0){
+            return rotate % FULL_ROTATION;
+        }
+        return FULL_ROTATION - (Math.abs(rotate) % FULL_ROTATION);
     }
 
     private void updatePenPropertiesTab(DisplayView x) {
