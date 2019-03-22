@@ -14,7 +14,7 @@ import java.util.Comparator;
  * @param <R> Type of node that is the content of each Palette element e.g. Rectangle, ImageView, etc.
  * Author: Ryan Culhane
  */
-public class PaletteElement<R extends Node> extends HBox implements Comparator<PaletteElement> {
+public class PaletteElement<R extends Node> extends HBox {
 
     private static final int NO_PADDING = 0;
     private static final int MEDIUM_PADDING = 5;
@@ -46,18 +46,6 @@ public class PaletteElement<R extends Node> extends HBox implements Comparator<P
 
     R getMyDisplay(){
         return myContent;
-    }
-
-    /**
-     * Implementation of the compare function to implement Comparator interface so palette elements can be put in a
-     * tree set and be displayed in order
-     * @param o1 first palette element
-     * @param o2 second palette element
-     * @return negative value if o1 smaller, positive if o1 bigger and 0 if the same
-     */
-    @Override
-    public int compare(PaletteElement o1, PaletteElement o2) {
-        return Integer.compare(o1.myIndex, o2.myIndex);
     }
 
 }
