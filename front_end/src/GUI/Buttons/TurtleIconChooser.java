@@ -52,6 +52,6 @@ public class TurtleIconChooser extends PaletteChooser implements CommandExecutab
      */
     @Override
     public void runCommand(String command) {
-        //do nothing, handled in super.buildChooser()
+        //do nothing, handled in super.buildChooser() when consumer accepts the processed key for consumption
     }
 }

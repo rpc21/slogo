@@ -20,6 +20,7 @@ public class Palette<R extends Node> extends ScrollPane {
 
     private static final int SPACING = 5;
     private static final int EIGHT = 8;
+    public static final int PALETTE_INDEX_OFFSET = 1;
     private VBox myVBox;
     private Map<Integer, PaletteElement<R>> myPaletteElements;
     private PaletteElement<R> myDefaultPaletteElement;
@@ -54,7 +55,7 @@ public class Palette<R extends Node> extends ScrollPane {
      * @return the index of the newly created palette element
      */
     public int addPaletteElement(R elementComponent) {
-        int index = myPaletteElements.isEmpty() ? 1 : Collections.max(myPaletteElements.keySet()) + 1;
+        int index = myPaletteElements.isEmpty() ? 1 : Collections.max(myPaletteElements.keySet()) + PALETTE_INDEX_OFFSET;
         PaletteElement<R> elementToAdd = new PaletteElement<>(index, elementComponent);
         addPaletteElement(elementToAdd);
         return index;
@@ -82,7 +83,7 @@ public class Palette<R extends Node> extends ScrollPane {
      * @return access to the addPaletteElement method
      */
     public Function<R, Integer> getPaletteAccess() {
-        return x -> addPaletteElement(x);
+        return this::addPaletteElement;
     }
 
 }
