@@ -62,6 +62,7 @@ public class PaletteTabExplorer extends TabExplorer {
         }
     }
 
+    //TODO: Break up line 70-71 to make it more readable
     private void createColorPalette() {
         myColorPalette = new Palette<>();
         List<String> keys = Collections.list(myColorResources.getKeys());

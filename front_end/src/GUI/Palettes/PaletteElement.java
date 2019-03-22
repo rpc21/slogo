@@ -16,6 +16,9 @@ import java.util.Comparator;
  */
 public class PaletteElement<R extends Node> extends HBox implements Comparator<PaletteElement> {
 
+    public static final int NO_PADDING = 0;
+    public static final int MEDIUM_PADDING = 5;
+    public static final String INDEX_DISPLAY_FORMATTING = ": ";
     private int myIndex;
     private R myContent;
 
@@ -26,10 +29,10 @@ public class PaletteElement<R extends Node> extends HBox implements Comparator<P
      */
     public PaletteElement(int index, R content){
         setAlignment(Pos.CENTER);
-        setPadding(new Insets(0, 5, 0, 5));
+        setPadding(new Insets(NO_PADDING, MEDIUM_PADDING, NO_PADDING, MEDIUM_PADDING));
         myIndex = index;
         myContent = content;
-        getChildren().add(new Text(myIndex + ": "));
+        getChildren().add(new Text(myIndex + INDEX_DISPLAY_FORMATTING));
         getChildren().add(myContent);
     }
 

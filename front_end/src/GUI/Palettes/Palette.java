@@ -19,7 +19,7 @@ import java.util.function.Function;
 public class Palette<R extends Node> extends ScrollPane {
 
     private static final int SPACING = 5;
-    private static final int EIGHT = 8;
+    private static final double WIDTH_SCALAR = 0.125;
     public static final int PALETTE_INDEX_OFFSET = 1;
     private VBox myVBox;
     private Map<Integer, PaletteElement<R>> myPaletteElements;
@@ -33,7 +33,7 @@ public class Palette<R extends Node> extends ScrollPane {
         myPaletteElements = new TreeMap<>();
         myVBox.getChildren().addAll(myPaletteElements.values());
         setContent(myVBox);
-        setPrefWidth(GUIDisplay.SCENE_WIDTH * 1.0 / EIGHT);
+        setPrefWidth(GUIDisplay.SCENE_WIDTH * WIDTH_SCALAR);
     }
 
     /**
