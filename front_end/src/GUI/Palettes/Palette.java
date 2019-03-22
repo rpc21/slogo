@@ -27,11 +27,11 @@ public class Palette<R extends Node> extends ScrollPane {
 
     /**
      * Palette Constructor
+     * TreeMap is used to display palette elements in order of index
      */
     public Palette() {
         myVBox = new VBox(SPACING);
         myPaletteElements = new TreeMap<>();
-        myVBox.getChildren().addAll(myPaletteElements.values());
         setContent(myVBox);
         setPrefWidth(GUIDisplay.SCENE_WIDTH * WIDTH_SCALAR);
     }
@@ -62,7 +62,8 @@ public class Palette<R extends Node> extends ScrollPane {
     }
 
     /**
-     * Returns the content node of the palette element at index index
+     * Returns the content node of the palette element at index index or the default palette element if the index
+     * entered by a user is not assigned to a palette element
      * @param index of the palette element to query
      * @return content at index of the palette
      */

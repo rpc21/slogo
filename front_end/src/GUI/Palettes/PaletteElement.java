@@ -16,9 +16,9 @@ import java.util.Comparator;
  */
 public class PaletteElement<R extends Node> extends HBox implements Comparator<PaletteElement> {
 
-    public static final int NO_PADDING = 0;
-    public static final int MEDIUM_PADDING = 5;
-    public static final String INDEX_DISPLAY_FORMATTING = ": ";
+    private static final int NO_PADDING = 0;
+    private static final int MEDIUM_PADDING = 5;
+    private static final String INDEX_DISPLAY_FORMATTING = ": ";
     private int myIndex;
     private R myContent;
 
@@ -28,12 +28,16 @@ public class PaletteElement<R extends Node> extends HBox implements Comparator<P
      * @param content display content of the palette element
      */
     public PaletteElement(int index, R content){
-        setAlignment(Pos.CENTER);
-        setPadding(new Insets(NO_PADDING, MEDIUM_PADDING, NO_PADDING, MEDIUM_PADDING));
+        setFormatting();
         myIndex = index;
         myContent = content;
         getChildren().add(new Text(myIndex + INDEX_DISPLAY_FORMATTING));
         getChildren().add(myContent);
+    }
+
+    private void setFormatting() {
+        setAlignment(Pos.CENTER);
+        setPadding(new Insets(NO_PADDING, MEDIUM_PADDING, NO_PADDING, MEDIUM_PADDING));
     }
 
     int getMyIndex(){
@@ -46,7 +50,7 @@ public class PaletteElement<R extends Node> extends HBox implements Comparator<P
 
     /**
      * Implementation of the compare function to implement Comparator interface so palette elements can be put in a
-     * tree set
+     * tree set and be displayed in order
      * @param o1 first palette element
      * @param o2 second palette element
      * @return negative value if o1 smaller, positive if o1 bigger and 0 if the same
