@@ -22,6 +22,7 @@ public class Palette<R extends Node> extends ScrollPane {
     private static final int EIGHT = 8;
     private VBox myVBox;
     private Map<Integer, PaletteElement<R>> myPaletteElements;
+    private PaletteElement<R> myDefaultPaletteElement;
 
     /**
      * Palette Constructor
@@ -39,6 +40,9 @@ public class Palette<R extends Node> extends ScrollPane {
      * @param element element to be added
      */
     public void addPaletteElement(PaletteElement<R> element) {
+        if (myPaletteElements.isEmpty()){
+            setMyDefaultPaletteElement(element);
+        }
         myPaletteElements.put(element.getMyIndex(), element);
         myVBox.getChildren().clear();
         myVBox.getChildren().addAll(myPaletteElements.values());
@@ -62,7 +66,15 @@ public class Palette<R extends Node> extends ScrollPane {
      * @return content at index of the palette
      */
     public R getContent(int index) {
-        return myPaletteElements.get(index).getMyDisplay();
+        return myPaletteElements.getOrDefault(index, myDefaultPaletteElement).getMyDisplay();
+    }
+
+    /**
+     * Setter for myDefaultPaletteElement
+     * @param defaultPaletteElement the defaultPaletteElement
+     */
+    private void setMyDefaultPaletteElement(PaletteElement<R> defaultPaletteElement){
+        myDefaultPaletteElement = defaultPaletteElement;
     }
 
     /**

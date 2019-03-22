@@ -21,9 +21,6 @@ public abstract class TurtleCommand extends CommandNode{
         myTurtleCommands.add(commandName);
     }
 
-    protected void setMyTurtleCommands(List<String> commandNames){
-        myTurtleCommands.addAll(commandNames);
-    }
 
     /**
      * This method invokes myTurtles to complete the list of turtle commands currently listed and generate the

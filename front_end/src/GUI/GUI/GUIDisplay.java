@@ -73,7 +73,7 @@ public class GUIDisplay {
         myListOfCommands = new ArrayList<>();
         dataTracker = new GUIdata();
         myRoot = createGridPane();
-        myDelegator = new Delegator(myStackedCanvasPane, myTabExplorer, myPaletteTabExplorer);
+        myDelegator = new Delegator(myStackedCanvasPane, myTabExplorer, myPaletteTabExplorer, myToolbar);
         myRoot.setGridLinesVisible(false);
         myScene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.LIGHTGRAY);
         myStage.setScene(myScene);

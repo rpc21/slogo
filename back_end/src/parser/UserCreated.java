@@ -33,7 +33,6 @@ public class UserCreated {
      * @param variableValue the value for the map, also the value stored in the variable name
      */
     public void addVariable(String variableName, double variableValue) {
-        System.out.println(variableName + ": " + variableValue);
         myVariables.put(variableName, variableValue);
     }
 

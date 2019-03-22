@@ -1,5 +1,6 @@
 package nodes.structures;
 import apis.ImmutableVisualCommand;
+import exceptions.InvalidCommandException;
 import exceptions.external.InvalidInputException;
 import nodes.CommandNode;
 import parser.UserCreated;
@@ -35,10 +36,10 @@ public class For extends CommandNode {
         CommandNode initializeList = super.getChildren().get(0);
         CommandNode innerCommands = super.getChildren().get(1);
 
-        String name = initializeList.getChildren().get(ITERATOR).toString();
-        double start = initializeList.getChildren().get(START).evaluate(myVisCommands,myTurtles);
-        double end = initializeList.getChildren().get(END).evaluate(myVisCommands,myTurtles);
-        double increment = initializeList.getChildren().get(INCREMENT).evaluate(myVisCommands,myTurtles);
+       String name = initializeList.getChildren().get(ITERATOR).toString();
+       double start = initializeList.getChildren().get(START).evaluate(myVisCommands, myTurtles);
+       double end = initializeList.getChildren().get(END).evaluate(myVisCommands, myTurtles);
+       double increment = initializeList.getChildren().get(INCREMENT).evaluate(myVisCommands, myTurtles);
 
         myUserCreatedItems.addVariable(name,start);
         validateForLoop(start,end,increment);

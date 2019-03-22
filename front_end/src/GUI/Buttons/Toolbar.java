@@ -5,6 +5,7 @@ import GUI.Commands.Language;
 import GUI.Commands.LanguageChangeable;
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -20,6 +21,8 @@ public class Toolbar extends HBox implements LanguageChangeable, CommandExecutab
     private static final String SET_BACKGROUND = "SetBackground";
     private static final String SET_PEN_COLOR = "SetPenColor";
     private static final int SPACING = 10;
+    public static final Color BACKGROUND_COLOR_DEFAULT = Color.WHITE;
+    public static final Color PEN_COLOR_DEFAULT = Color.BLACK;
     private TurtleIconChooser myTurtleIconChooser;
     private ColorChooser myPenColorChooser;
     private ColorChooser myBackgroundColorChooser;
@@ -51,6 +54,7 @@ public class Toolbar extends HBox implements LanguageChangeable, CommandExecutab
         myPenColorChooser = new ColorChooser(colorPaletteAccess, SET_PEN_COLOR);
         myTurtleIconChooser = new TurtleIconChooser(myCommandAccess);
         myLanguageChooser = new LanguageChooser(languageAccess);
+        setToDefaults();
         getChildren().addAll(myBackgroundColorChooser, myPenColorChooser, myTurtleIconChooser, myLanguageChooser);
     }
 
@@ -90,5 +94,10 @@ public class Toolbar extends HBox implements LanguageChangeable, CommandExecutab
         myCommandAccess.accept(command);
     }
 
+    public void setToDefaults() {
+        myTurtleIconChooser.setText(myTurtleIconChooser.getItems().get(0).getText());
+        myBackgroundColorChooser.setValue(BACKGROUND_COLOR_DEFAULT);
+        myPenColorChooser.setValue(PEN_COLOR_DEFAULT);
+    }
 }
 

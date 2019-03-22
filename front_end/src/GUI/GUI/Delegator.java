@@ -1,5 +1,6 @@
 package GUI.GUI;
 
+import GUI.Buttons.Toolbar;
 import GUI.CanvasItems.StackedCanvasPane;
 import GUI.Palettes.PaletteElement;
 import GUI.Tabs.PaletteTabExplorer;
@@ -22,6 +23,7 @@ public class Delegator implements VisualUpdateAPI {
     private StackedCanvasPane myStackedCanvasPane;
     private TabExplorer myTabExplorer;
     private PaletteTabExplorer myPaletteTabExplorer;
+    private Toolbar myToolbar;
 
     /**
      * Constructor for Delegator
@@ -29,10 +31,12 @@ public class Delegator implements VisualUpdateAPI {
      * @param tabExplorer current TabExplorer user can interact with
      * @param paletteTabExplorer current PalleteTabExplorer user can interact with
      */
-    public Delegator(StackedCanvasPane canvasPane, TabExplorer tabExplorer, PaletteTabExplorer paletteTabExplorer){
+    public Delegator(StackedCanvasPane canvasPane, TabExplorer tabExplorer, PaletteTabExplorer paletteTabExplorer,
+                     Toolbar toolbar){
         myStackedCanvasPane = canvasPane;
         myTabExplorer = tabExplorer;
         myPaletteTabExplorer = paletteTabExplorer;
+        myToolbar = toolbar;
     }
 
     /**
@@ -179,6 +183,7 @@ public class Delegator implements VisualUpdateAPI {
     public void clearScreen() {
         myStackedCanvasPane.clearScreen();
         myTabExplorer.clearCommandHistory();
+        myToolbar.setToDefaults();
     }
 
     /**

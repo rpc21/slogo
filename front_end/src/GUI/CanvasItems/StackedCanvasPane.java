@@ -222,6 +222,7 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
         myTurtles.clear();
         IDcounter = 0;
         makeTurtle();
+        myTabAccess.accept(myTurtles.get(0));
     }
 
     /**
@@ -260,7 +261,9 @@ public class StackedCanvasPane extends StackPane implements CommandExecutable, L
     private DisplayView getDisplayView(String content, DisplayView turtleToRemove) {
         try {
             var clazz = Class.forName(content);
-            return (DisplayView) clazz.getDeclaredConstructor(DisplayView.class).newInstance(turtleToRemove);
+            DisplayView dummy =(DisplayView) clazz.getDeclaredConstructor(DisplayView.class).newInstance(turtleToRemove);
+            turtleToRemove.setImage(dummy.getImage());
+            return turtleToRemove;
         }
         catch (Exception e) {
             return new BasicTurtleView();
