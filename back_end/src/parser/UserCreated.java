@@ -33,7 +33,6 @@ public class UserCreated {
      * @param variableValue the value for the map, also the value stored in the variable name
      */
     public void addVariable(String variableName, double variableValue) {
-        System.out.println(variableName + ": " + variableValue);
         myVariables.put(variableName, variableValue);
     }
 
@@ -69,8 +68,9 @@ public class UserCreated {
      */
     public void addUserCommand(String commandName, List<String> varNames, String commandContents){
         UserCommand myCommand = new UserCommand(varNames,commandContents);
-        for (String var: varNames)
-            myVariables.put(var,0.0);
+        for (String var: varNames) {
+            myVariables.put(var, 0.0);
+        }
         myCommands.put(commandName,myCommand);
     }
 

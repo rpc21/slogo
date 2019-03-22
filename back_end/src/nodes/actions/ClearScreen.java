@@ -26,6 +26,7 @@ public class ClearScreen extends CommandNode {
         double currYCoor = myTurtles.getYCoor();
         myTurtles.clear();
         myTurtles.add(new Turtle(0));
+        myTurtles.setActiveTurtles(0);
         myVisCommands.add(new VisualClearScreen());
         return Math.sqrt(Math.pow(currXCoor,2) + Math.pow(currYCoor,2));
     }

@@ -31,6 +31,6 @@ public class Quotient extends CommandNode {
     }
 
     private boolean validDenominator(double d){
-        return d != 0.0 && Double.isNaN(d);
+        return d != 0.0 && !Double.isNaN(d);
     }
 }

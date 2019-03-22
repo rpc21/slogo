@@ -10,6 +10,7 @@
 
 package parser;
 
+import java.util.Collections;
 import java.util.List;
 
 public class UserCommand {
@@ -17,7 +18,7 @@ public class UserCommand {
     private List<String> myVariableNames;
 
     public UserCommand(List<String> inputVariables, String methodContents) {
-        myVariableNames = inputVariables;
+        myVariableNames = Collections.unmodifiableList(inputVariables);
         myMethodContents = methodContents;
     }
 
@@ -26,7 +27,7 @@ public class UserCommand {
     }
 
     public List<String> getMyVariableNames(){
-        return myVariableNames;
+        return Collections.unmodifiableList(myVariableNames);
     }
 
 }
