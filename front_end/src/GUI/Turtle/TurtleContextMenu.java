@@ -17,6 +17,7 @@ public class TurtleContextMenu extends SubContextMenu implements LanguageChangea
     private static final String BACKWARD = "Backward";
     private static final String RIGHT = "Right";
     private static final String LEFT = "Left";
+    private static final String SET_SHAPE = "SetShape";
 
     /**
      * TurtleContextMenu constructor
@@ -30,7 +31,7 @@ public class TurtleContextMenu extends SubContextMenu implements LanguageChangea
 
     @Override
     protected void defineContextSpecificCommands() {
-        contextSpecificCommandsWithInput = List.of(FORWARD, BACKWARD, RIGHT, LEFT);
+        contextSpecificCommandsWithInput = List.of(FORWARD, BACKWARD, RIGHT, LEFT, SET_SHAPE);
         allContextSpecificCommands.addAll(contextSpecificCommandsWithInput);
     }
 
